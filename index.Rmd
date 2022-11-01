@@ -1,11 +1,11 @@
 ---
-title: "A Mini Bookdown"
-author: "Your Name"
+title: "The Photographer's Guide to Los Santos"
+author: ""
 site: bookdown::bookdown_site
 documentclass: book
 classoption: openany
 ---
 
-# Create your open textbook
+# Preface {-}
 
 Hello!
