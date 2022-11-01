@@ -14,5 +14,5 @@ classoption: openany
 
 
 ```{r fig.align='center', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html'), fig.link='https://www.howtowinat.photography/'}
-knitr::include_graphics('assets/lossantos.png', dpi = NA)
+knitr::include_graphics('assets/lossantos_small.png', dpi = NA)
 ```
