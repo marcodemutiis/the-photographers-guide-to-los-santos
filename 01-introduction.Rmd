@@ -6,8 +6,12 @@ The Artist's Guide to Los Santos is partly a curatorial project to present impor
 ## Los Santos
 Just like Los Angeles – the city it is modelled upon – is the global centre of film and commercial media production, Los Santos is the epicentre of in-game photography and machinima creation.
 
-## Game art tourism
+## Grand Theft Auto V Tourism
 This guide allows players to explore the game environment following some of the artworks that have been created in it. Mixing a playful tourist guide approach with curatorial writings about the works, the publication is an invitation to rethink the game object as a space for creative, subversive and critical endeavours, as well as to showcase seminal artworks that have had a profound impact on contemporary visual culture.
 
-## Game art education
+## Grand Theft Auto V Art Education
 Finally, The Artist's Guide to Los Santos provides practical tools in the form of a technical manual. While many scattered recources already exists online, the publication aims at bringing together a series of tutorials that can be easily followed and that start from an artistic perspective. From photographic and cinematic tips, to step by step modding lessons, the guide covers the basic knowledge to capture and modify the world of GTA V. The lessons are also accompanied by re-enactment missions, where the reader is tasked to recreate some of the artworks mentioned in the guide.
+
+```{r fig.align='center', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html'), fig.link='https://www.howtowinat.photography/'}
+knitr::include_graphics('assets/lossantos_small.png', dpi = NA)
+```
