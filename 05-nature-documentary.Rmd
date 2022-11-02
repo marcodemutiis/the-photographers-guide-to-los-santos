@@ -159,10 +159,60 @@ You can browse through this list of models to find the one you want to try:  htt
 These models are all PedHashes, basically ID numbers within the PedHash group. Copy the name of the model below the image and add it to PedHash.
 For example if you choose the model Cat, you’ll need to write _PedHash.Cat_.
 
-To change the model of your player character into a cat you write the following function:
+To change the model of your player character into a cat you can write the following function:
 ```cs
 Game.Player.ChangeModel(PedHash.Cat);
 ```
+add it in your .cs file in the onKeyDown event, triggered by the pressing of the 'h' key:
+
+<details>
+  <summary>Example code</summary>
+  ```cs
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+ 
+using GTA;
+using GTA.Math;
+using System.Windows.Forms;
+using System.Drawing;
+using GTA.Native;
+ 
+ 
+namespace moddingTutorial
+{
+    public class moddingTutorial : Script
+    {
+	public moddingTutorial()
+	{
+		this.Tick += onTick;
+		this.KeyUp += onKeyUp;
+		this.KeyDown += onKeyDown;
+	}
+ 
+	private void onTick(object sender, EventArgs e) //this function gets executed continuously 
+	{
+	}
+ 
+	private void onKeyUp(object sender, KeyEventArgs e)//everything inside here is executed only when we release a key
+	{
+	}
+ 
+	private void onKeyDown(object sender, KeyEventArgs e) //everything inside here is executed only when we press a key
+	{
+		if(e.KeyCode == Keys.H)
+		{
+			//change player char into a different model when pressing 'H'
+			Game.Player.ChangeModel(PedHash.Cat); 
+		}
+	}
+    }
+}
+
+  ```
+</details>
 
 #### Tasks
 
