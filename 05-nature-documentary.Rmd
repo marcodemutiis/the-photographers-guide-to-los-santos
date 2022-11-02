@@ -21,6 +21,6 @@ artwork text
 
 #### Preparation and Setup
 
- Install Windows 11
++ Install Windows 11
 
 
