@@ -13,6 +13,8 @@ artwork text
 
 ### Getting There
 
+## Readings
+
 ## Tutorial
 
 ### Modding Introduction 
