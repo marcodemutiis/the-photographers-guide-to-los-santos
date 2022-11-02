@@ -37,6 +37,7 @@ deercam-by-brent-watanabe
 getting-there-4
 virtual-flora
 getting-there-5
+readings-3
 tutorial-3
 modding-introduction
 preparation-and-setup
