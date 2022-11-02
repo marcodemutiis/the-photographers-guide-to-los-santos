@@ -1,1 +1,22 @@
 # Architecture Photography
+
+## from _The Continuous City_, by Gareth Damian Martin 
+
+```{r fig.align='left', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html'), fig.link='https://www.heterotopiaszine.com/'}
+knitr::include_graphics('assets/outskirts_fromTheContinuousCity.png', dpi = NA)
+```
+```{r fig.align='left', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html'), fig.link='https://www.heterotopiaszine.com/'}
+knitr::include_graphics('assets/pathways_fromTheContinuousCity.png', dpi = NA)
+```
+
+artwork text
+
+## Interview with Gareth Damian Martin
+[link](https://www.gamescenes.org/2018/04/interview-gareth-damian-martin-the-aesthetics-of-analogue-game-photography.html)
+
+## Tutorial: photographing the game screen
+
+### analogue game photography
+### screenshotting
+
+## Re-enactment assignment: 
