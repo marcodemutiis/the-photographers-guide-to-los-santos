@@ -44,7 +44,10 @@ change-player-model
 content-replication-assignment-3
 surrealist-photography
 alexey-andrienko-aka-happ-v2
-tutorial-modding
+getting-there-6
+tutorial-4
+modding-peds
 npcs
 spawn-a-new-npc
+give-tasks-to-npcs
 content-replication-assignment-4
