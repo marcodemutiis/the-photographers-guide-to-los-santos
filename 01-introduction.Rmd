@@ -12,9 +12,10 @@ The project also brings together several experiences from teaching in-game photo
 Finally, the project draws inspiration from the works of artists who have explored the 'metaplay' of photographing game words instead of following the game rules and attempt to reach the goal of winning. The Photographer's Guide to Los Santos is indebted to all the artists it features, but was particularly inspired by Gareth Damian Martin's live streamed workshop [_Photography Tour of No Man’s Sky_](https://www.twitch.tv/videos/591840067) (realized for [Now Play This Festival 2020](https://www.somersethouse.org.uk/whats-on/now-play-this-2020)), Total Refusal & Ismaël Joffroy Chandoutis's 2021 in-game lecture performance and guided tour [_Everyday Daylight_](https://vimeo.com/506064357) (realized for the [CCS Paris](https://ccsparis.com/en/events/total-refusal-digital-disarmament-movement-a-la-gaite-lyrique/)), and Alan Butler's epic 2020 live endurance performance [_Witness to a Changing West_](https://www.youtube.com/watch?v=R4Q2G6tOQ_Q) (realized for [Screen Walks](https://screenwalks.com/)) and his 'Content Replication Assignments'. 
 
 
-## Why Los Santos?
-Just like Los Angeles – the city it is modelled upon – is the global centre of film and commercial media production, Los Santos is the epicentre of in-game photography and machinima creation.
+## Grand Theft Auto V Studies
+Los Santos is the Grand Theft Auto V's fictional, parodic version of real-life Los Angeles. Just like Los Angeles is the global centre of film and commercial media production, Los Santos is the epicentre of in-game photography and machinima creation.
 ...
+
 
 ## Grand Theft Auto V Tourism
 This guide allows players to explore the game environment following some of the most interesting artworks that have been created with(in) it. The guide is divided in thematic chapters that follow different artistic practices, taking place in different locations of the game environment, followed by different tutorials and exercises connected with the works and the space analyzed.
