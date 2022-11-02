@@ -489,92 +489,56 @@ To change the model of your player character into a cat you can write the follow
 add it in your .cs file in the onKeyDown event, triggered by the pressing of the `h' key:
 
 Example code
-```cs
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+hello
 
-using GTA;
-using GTA.Math;
-using System.Windows.Forms;
-using System.Drawing;
-using GTA.Native;
+\hypertarget{tasks}{%
+\subsubsection{Tasks}\label{tasks}}
 
-namespace moddingTutorial
-\{
-public class moddingTutorial : Script
-\{
-public moddingTutorial()
-\{
-this.Tick += onTick;
-this.KeyUp += onKeyUp;
-this.KeyDown += onKeyDown;
-\}
+\hypertarget{content-replication-assignment-3}{%
+\section{Content Replication Assignment}\label{content-replication-assignment-3}}
 
-private void onTick(object sender, EventArgs e) //this function gets executed continuously
-\{
-\}
-
-private void onKeyUp(object sender, KeyEventArgs e)//everything inside here is executed only when we release a key
-\{
-\}
-
-private void onKeyDown(object sender, KeyEventArgs e) //everything inside here is executed only when we press a key
-\{
-if(e.KeyCode == Keys.H)
-\{
-//change player char into a different model when pressing `H'
-Game.Player.ChangeModel(PedHash.Cat);
-\}
-\}
-\}
-\}
-
-\begin{verbatim}
-</details>
-
-#### Tasks
-
-## Content Replication Assignment
-
-### Deercam reenactment
+\hypertarget{deercam-reenactment}{%
+\subsection{Deercam reenactment}\label{deercam-reenactment}}
 
 Write a mod script to change your game character into a deer make it autonomously wander around Los Santos.
 
+\hypertarget{surrealist-photography}{%
+\chapter{Surrealist Photography}\label{surrealist-photography}}
 
-
-<!--chapter:end:05-nature-documentary.Rmd-->
-
-# Surrealist Photography
-
-## Alexey Andrienko aka HAPP v2
-
+\hypertarget{alexey-andrienko-aka-happ-v2}{%
+\section{Alexey Andrienko aka HAPP v2}\label{alexey-andrienko-aka-happ-v2}}
 
 artwork text
 
-### Getting There
+\hypertarget{getting-there-6}{%
+\subsection{Getting There}\label{getting-there-6}}
 
-## Readings
+\hypertarget{readings-4}{%
+\section{Readings}\label{readings-4}}
 
-## Tutorial
+\hypertarget{tutorial-4}{%
+\section{Tutorial}\label{tutorial-4}}
 
-### Modding Peds
+\hypertarget{modding-peds}{%
+\subsection{Modding Peds}\label{modding-peds}}
 
-#### NPCs
+\hypertarget{npcs}{%
+\subsubsection{NPCs}\label{npcs}}
 
-#### Spawn a new NPC
+\hypertarget{spawn-a-new-npc}{%
+\subsubsection{Spawn a new NPC}\label{spawn-a-new-npc}}
 
-```cs
-// spawn a new model npc in front of player
-var npc = World.CreatePed(PedHash.Cat, Game.Player.Character.GetOffsetInWorldCoords(new Vector3(0, 5, 0))); 
-\end{verbatim}
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{// spawn a new model npc in front of player}
+\DataTypeTok{var}\NormalTok{ npc = World.}\FunctionTok{CreatePed}\NormalTok{(PedHash.}\FunctionTok{Cat}\NormalTok{, Game.}\FunctionTok{Player}\NormalTok{.}\FunctionTok{Character}\NormalTok{.}\FunctionTok{GetOffsetInWorldCoords}\NormalTok{(}\KeywordTok{new} \FunctionTok{Vector3}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{5}\NormalTok{, }\DecValTok{0}\NormalTok{))); }
+\end{Highlighting}
+\end{Shaded}
 
 \hypertarget{give-tasks-to-npcs}{%
 \subsubsection{Give Tasks to NPCs}\label{give-tasks-to-npcs}}
 
-\hypertarget{content-replication-assignment-3}{%
-\section{Content Replication Assignment}\label{content-replication-assignment-3}}
+\hypertarget{content-replication-assignment-4}{%
+\section{Content Replication Assignment}\label{content-replication-assignment-4}}
 
 \end{document}

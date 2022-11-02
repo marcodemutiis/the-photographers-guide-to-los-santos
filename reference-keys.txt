@@ -44,5 +44,16 @@ preparation-and-setup
 creating-a-mod-file
 ontick-onkeyup-and-onkeydown
 change-player-model
-give-tasks-to-npcs
+tasks
 content-replication-assignment-3
+deercam-reenactment
+surrealist-photography
+alexey-andrienko-aka-happ-v2
+getting-there-6
+readings-4
+tutorial-4
+modding-peds
+npcs
+spawn-a-new-npc
+give-tasks-to-npcs
+content-replication-assignment-4
