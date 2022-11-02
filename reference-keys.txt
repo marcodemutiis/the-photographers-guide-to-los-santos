@@ -1,5 +1,5 @@
 introduction
-los-santos
+why-los-santos
 grand-theft-auto-v-tourism
 grand-theft-auto-v-art-education
 social-documentary
@@ -8,14 +8,14 @@ location
 fear-and-loathing-in-gta-v-by-morten-rockford-ravn
 location-1
 tutorial-in-game-smartphone-camera
-re-enactment-assignment
+content-replication-assignment
 architecture-photography
 from-the-continuous-city-by-gareth-damian-martin
 interview-with-gareth-damian-martin
 tutorial-photographing-the-game-screen
 analogue-game-photography
 screenshotting
-re-enactment-assignment-1
+re-enactment-assignment
 re-enactment-photography
 a-study-on-perspective-by-roc-herms
 little-books-of-los-santos-by-luke-caspar-pearson
@@ -39,4 +39,4 @@ alexey-andrienko-aka-happ-v2
 tutorial-modding
 npcs
 spawn-a-new-npc
-re-enactment-assignment-2
+re-enactment-assignment-1
