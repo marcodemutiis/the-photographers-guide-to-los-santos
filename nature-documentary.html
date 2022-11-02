@@ -322,35 +322,36 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>The main events of Script Hook V Dot Net are onTick, onKeyUp and onKeyDown. Script Hook V Dot Net will invoke your functions whenever an event is called.</p>
 <p>The code within the onTick brackets is executed every interval milliseconds (which is by default 0), meaning that the event will be executed at every frame, for as long as the game is running.</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb3-1"><a href="nature-documentary.html#cb3-1"></a> <span class="kw">private</span> <span class="dt">void</span> <span class="fu">onTick</span>(<span class="dt">object</span> sender, EventArgs e)</span>
-<span id="cb3-2"><a href="nature-documentary.html#cb3-2"></a>      {</span>
-<span id="cb3-3"><a href="nature-documentary.html#cb3-3"></a>      <span class="co">//code here will be executed every frame (or per usef defined interval)</span></span>
-<span id="cb3-4"><a href="nature-documentary.html#cb3-4"></a>      }</span></code></pre></div>
+<span id="cb3-2"><a href="nature-documentary.html#cb3-2"></a> {</span>
+<span id="cb3-3"><a href="nature-documentary.html#cb3-3"></a>        <span class="co">//code here will be executed every frame (or per usef defined interval)</span></span>
+<span id="cb3-4"><a href="nature-documentary.html#cb3-4"></a> }</span></code></pre></div>
 <p>If your function is written inside onKeyDown (withiin the curly brackets following onKeyUp(object sender, KeyEventArgs e){}), your code will be executed every time a key is pressed. If your function is written inside onKeyUp, your code will be executed every time a key is released.</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb4-1"><a href="nature-documentary.html#cb4-1"></a><span class="kw">private</span> <span class="dt">void</span> <span class="fu">onKeyUp</span>(<span class="dt">object</span> sender, KeyEventArgs e)</span>
-<span id="cb4-2"><a href="nature-documentary.html#cb4-2"></a>      {</span>
+<span id="cb4-2"><a href="nature-documentary.html#cb4-2"></a>{</span>
 <span id="cb4-3"><a href="nature-documentary.html#cb4-3"></a>      <span class="co">//code here will be executed whenever a key is released</span></span>
-<span id="cb4-4"><a href="nature-documentary.html#cb4-4"></a>      }</span>
-<span id="cb4-5"><a href="nature-documentary.html#cb4-5"></a><span class="kw">private</span> <span class="dt">void</span> <span class="fu">onKeyDown</span>(<span class="dt">object</span> sender, KeyEventArgs e)</span>
-<span id="cb4-6"><a href="nature-documentary.html#cb4-6"></a>      {</span>
-<span id="cb4-7"><a href="nature-documentary.html#cb4-7"></a>      <span class="co">//code here will be executed whenever a key is pressed</span></span>
-<span id="cb4-8"><a href="nature-documentary.html#cb4-8"></a>      } </span></code></pre></div>
+<span id="cb4-4"><a href="nature-documentary.html#cb4-4"></a>}</span>
+<span id="cb4-5"><a href="nature-documentary.html#cb4-5"></a></span>
+<span id="cb4-6"><a href="nature-documentary.html#cb4-6"></a><span class="kw">private</span> <span class="dt">void</span> <span class="fu">onKeyDown</span>(<span class="dt">object</span> sender, KeyEventArgs e)</span>
+<span id="cb4-7"><a href="nature-documentary.html#cb4-7"></a>{</span>
+<span id="cb4-8"><a href="nature-documentary.html#cb4-8"></a>      <span class="co">//code here will be executed whenever a key is pressed</span></span>
+<span id="cb4-9"><a href="nature-documentary.html#cb4-9"></a>} </span></code></pre></div>
 <p>We can specify which code is executed based on what keys are pressed/released</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb5-1"><a href="nature-documentary.html#cb5-1"></a><span class="kw">private</span> <span class="dt">void</span> <span class="fu">onKeyDown</span>(<span class="dt">object</span> sender, KeyEventArgs e)</span>
-<span id="cb5-2"><a href="nature-documentary.html#cb5-2"></a>      {</span>
-<span id="cb5-3"><a href="nature-documentary.html#cb5-3"></a>        <span class="kw">if</span> (e.<span class="fu">KeyCode</span> == Keys.<span class="fu">H</span>)</span>
-<span id="cb5-4"><a href="nature-documentary.html#cb5-4"></a>        {</span>
-<span id="cb5-5"><a href="nature-documentary.html#cb5-5"></a>               <span class="co">//code here will be executed whenever the key &#39;H&#39; is pressed </span></span>
-<span id="cb5-6"><a href="nature-documentary.html#cb5-6"></a>          }</span>
-<span id="cb5-7"><a href="nature-documentary.html#cb5-7"></a>      } </span></code></pre></div>
+<span id="cb5-2"><a href="nature-documentary.html#cb5-2"></a>{</span>
+<span id="cb5-3"><a href="nature-documentary.html#cb5-3"></a>    <span class="kw">if</span> (e.<span class="fu">KeyCode</span> == Keys.<span class="fu">H</span>)</span>
+<span id="cb5-4"><a href="nature-documentary.html#cb5-4"></a>    {</span>
+<span id="cb5-5"><a href="nature-documentary.html#cb5-5"></a>        <span class="co">//code here will be executed whenever the key &#39;H&#39; is pressed </span></span>
+<span id="cb5-6"><a href="nature-documentary.html#cb5-6"></a>    }</span>
+<span id="cb5-7"><a href="nature-documentary.html#cb5-7"></a>} </span></code></pre></div>
 </div>
 <div id="change-player-model" class="section level4 hasAnchor">
 <h4><span class="header-section-number">5.4.1.4</span> Change Player Model<a href="nature-documentary.html#change-player-model" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>The player character is controlled as Game.Player. Game.Player can perform different functions, including changing the avatar model, and performing tasks.</p>
-<p>Change the 3D model of your character by using the <em>ChangeModel</em> function.
-The <em>ChangeModel</em> function needs a model ID, in order to load the model file of our game character.
+<p>Change the 3D model of your character by using the <code>ChangeModel</code> function.
+The function needs a model ID, in order to load the model file of our game character.
 You can browse through this list of models to find the one you want to try: <a href="https://wiki.gtanet.work/index.php/Peds" class="uri">https://wiki.gtanet.work/index.php/Peds</a></p>
 <p>These models are all PedHashes, basically ID numbers within the PedHash group. Copy the name of the model below the image and add it to PedHash.
-For example if you choose the model Cat, you’ll need to write <em>PedHash.Cat</em>.</p>
+For example if you choose the model Cat, you’ll need to write <code>PedHash.Cat</code>.</p>
 <p>To change the model of your player character into a cat you can write the following function:</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb6-1"><a href="nature-documentary.html#cb6-1"></a>Game.<span class="fu">Player</span>.<span class="fu">ChangeModel</span>(PedHash.<span class="fu">Cat</span>);</span></code></pre></div>
 <p>add it in your .cs file in the onKeyDown event, triggered by the pressing of the ‘h’ key:</p>
