@@ -41,6 +41,12 @@ readings-3
 tutorial-3
 modding-introduction
 preparation-and-setup
+creating-a-mod-file
+ontick-onkeyup-and-onkeydown
+change-player-model
+tasks
+content-replication-assignment-3
+deercam-reenactment
 surrealist-photography
 alexey-andrienko-aka-happ-v2
 getting-there-6
@@ -50,4 +56,4 @@ modding-peds
 npcs
 spawn-a-new-npc
 give-tasks-to-npcs
-content-replication-assignment-3
+content-replication-assignment-4
