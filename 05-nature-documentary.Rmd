@@ -114,34 +114,35 @@ The code within the onTick brackets is executed every interval milliseconds (whi
 
 ```cs
  private void onTick(object sender, EventArgs e)
-	  {
-      //code here will be executed every frame (or per usef defined interval)
-	  }
+ {
+      	//code here will be executed every frame (or per usef defined interval)
+ }
 ```
 
 If your function is written inside onKeyDown (withiin the curly brackets following onKeyUp(object sender, KeyEventArgs e){}), your code will be executed every time a key is pressed. If your function is written inside onKeyUp, your code will be executed every time a key is released.
 
 ```cs
 private void onKeyUp(object sender, KeyEventArgs e)
-	  {
+{
       //code here will be executed whenever a key is released
-	  }
+}
+
 private void onKeyDown(object sender, KeyEventArgs e)
-	  {
+{
       //code here will be executed whenever a key is pressed
-	  } 
+} 
 ```
 
 We can specify which code is executed based on what keys are pressed/released
 
 ```cs
 private void onKeyDown(object sender, KeyEventArgs e)
-	  {
-	  	if (e.KeyCode == Keys.H)
-	  	{
-			   //code here will be executed whenever the key 'H' is pressed 
-		  }
-	  } 
+{
+	if (e.KeyCode == Keys.H)
+	{
+		//code here will be executed whenever the key 'H' is pressed 
+	}
+} 
 ```
 
 
@@ -150,12 +151,12 @@ private void onKeyDown(object sender, KeyEventArgs e)
 
 The player character is controlled as Game.Player. Game.Player can perform different functions, including changing the avatar model, and performing tasks.
 
-Change the 3D model of your character by using the _ChangeModel_ function.
-The _ChangeModel_ function needs a model ID, in order to load the model file of our game character.
+Change the 3D model of your character by using the ```ChangeModel``` function.
+The function needs a model ID, in order to load the model file of our game character.
 You can browse through this list of models to find the one you want to try:  https://wiki.gtanet.work/index.php/Peds  
 
 These models are all PedHashes, basically ID numbers within the PedHash group. Copy the name of the model below the image and add it to PedHash.
-For example if you choose the model Cat, you’ll need to write _PedHash.Cat_.
+For example if you choose the model Cat, you’ll need to write ```PedHash.Cat```.
 
 To change the model of your player character into a cat you can write the following function:
 ```cs
