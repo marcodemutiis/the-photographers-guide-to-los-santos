@@ -26,4 +26,4 @@ var npc = World.CreatePed(PedHash.Cat, Game.Player.Character.GetOffsetInWorldCoo
 
 #### Give Tasks to NPCs
 
-## Content Replication Assignment:
+## Content Replication Assignment
