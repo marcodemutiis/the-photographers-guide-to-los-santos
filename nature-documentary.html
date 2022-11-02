@@ -251,15 +251,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h4><span class="header-section-number">5.4.1.1</span> Preparation and Setup<a href="nature-documentary.html#preparation-and-setup" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <ul>
 <li><p>Install Windows 11</p></li>
-<li><p>Download and install <a href="https://store.steampowered.com/about/">Steam</a> (with a copy of GTA V or to buy the game if you do not have it. GTA V is 100+ GB so it will take a day to download at average/slow internet connections)</p></li>
-<li><p>Download <a href="https://store.steampowered.com/about/">Script Hook V</a>
-Go to the bin folder and copy <code>dinput8.dll</code> and <code>ScriptHookV.dll</code> files into your GTA V directory <code>C:\Program Files (x86)\Steam\steamapps\common\Grand Theft Auto V</code></p></li>
-<li><p>Download <a href="https://store.steampowered.com/about/">Script Hook V dot net</a>
-Copy the <code>ScriptHookVDotNet.asi</code> file, <code>ScriptHookVDotNet2.dll</code> and <code>ScriptHookVDotNet3.dll</code> files into your GTA V directory <code>C:\Program Files (x86)\Steam\steamapps\common\Grand Theft Auto V</code></p></li>
+<li><p>Download and install <a href="https://store.steampowered.com/about/">Steam</a> (with a copy of GTA V or buy the game if you do not have it. GTA V is 100+ GB so it will take a few hours depending on your internet connections)</p></li>
+<li><p>Download <a href="https://store.steampowered.com/about/">Script Hook V</a>, go to the bin folder and copy <code>dinput8.dll</code> and <code>ScriptHookV.dll</code> files into your GTA V directory <code>C:\Program Files (x86)\Steam\steamapps\common\Grand Theft Auto V</code></p></li>
+<li><p>Download <a href="https://store.steampowered.com/about/">Script Hook V dot net</a>, copy the <code>ScriptHookVDotNet.asi</code> file, <code>ScriptHookVDotNet2.dll</code> and <code>ScriptHookVDotNet3.dll</code> files into your GTA V directory <code>C:\Program Files (x86)\Steam\steamapps\common\Grand Theft Auto V</code></p></li>
 <li><p>Create a new folder in GTA V directory and call it “scripts”.</p></li>
-<li><p>Download and install <a href="https://store.steampowered.com/about/">Visual Studio Community</a> (free version of VS)
-Open Visual Studio and check the .NET desktop development package and install it</p></li>
-<li><p>Run GTA V and test if Script Hook V is working by pressing F4. This should to toggle the console view.</p></li>
+<li><p>Download and install <a href="https://store.steampowered.com/about/">Visual Studio Community</a> (free version of VS). Open Visual Studio and check the .NET desktop development package and install it</p></li>
+<li><p>Run GTA V and test if Script Hook V is working by pressing <code>F4</code>. This should toggle the console view.</p></li>
 </ul>
 </div>
 <div id="creating-a-mod-file" class="section level4 hasAnchor">
@@ -314,10 +311,10 @@ Open Visual Studio and check the .NET desktop development package and install it
 <span id="cb2-28"><a href="nature-documentary.html#cb2-28"></a>}</span></code></pre></div>
 <ul>
 <li><p>Save file</p></li>
-<li><p>Go to Documents &gt; Visual Studio &gt; Project &gt; moddingTutorial &gt; moddingTutorial &gt; moddingTutorial.cs</p></li>
+<li><p>Go to Documents &gt; Visual Studio &gt; Project &gt; moddingTutorial &gt; moddingTutorial &gt; <code>moddingTutorial.cs</code></p></li>
 <li><p>Copy the .cs file in the GTA V directory inside the scripts folder</p></li>
 <li><p>Open GTA V, run the game in Story Mode (mods are only allowed in single player mode, not in GTA Online) and press ‘H’ to see if the game turns your avatar into a cat</p></li>
-<li><p>Note: every time you make changes to your .cs file in the scripts folder you can hit F4 to open the console, type Reload() in the console for the program to reload the script and test again the changes.</p></li>
+<li><p>Note: every time you make changes to your .cs file in the scripts folder you can hit <code>F4</code> to open the console, type <code>Reload()</code> in the console for the program to reload the script and test again the changes.</p></li>
 </ul>
 </div>
 <div id="ontick-onkeyup-and-onkeydown" class="section level4 hasAnchor">
@@ -358,8 +355,8 @@ For example if you choose the model Cat, you’ll need to write <em>PedHash.Cat<
 <div class="sourceCode" id="cb6"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb6-1"><a href="nature-documentary.html#cb6-1"></a>Game.<span class="fu">Player</span>.<span class="fu">ChangeModel</span>(PedHash.<span class="fu">Cat</span>);</span></code></pre></div>
 <p>add it in your .cs file in the onKeyDown event, triggered by the pressing of the ‘h’ key:</p>
 <details>
-<summary>Example code</summary>
-hello
+<p><summary>Example code</summary></p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb7-1"><a href="nature-documentary.html#cb7-1"></a>hello</span></code></pre></div>
 </details>
 </div>
 <div id="tasks" class="section level4 hasAnchor">
