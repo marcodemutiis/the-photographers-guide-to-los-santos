@@ -8,7 +8,7 @@ artwork text
 
 artwork text
 
-## Nine swimming pools and a broken glass by Alan Butler
+## _Nine swimming pools and a broken glass_ by Alan Butler
 
 artwork text
 
@@ -31,3 +31,4 @@ artwork text
 ### Scene Director Mode
 
 ## Content Replication Assignment
+
