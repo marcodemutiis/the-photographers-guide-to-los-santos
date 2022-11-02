@@ -167,51 +167,7 @@ add it in your .cs file in the onKeyDown event, triggered by the pressing of the
 
 <details>
   <summary>Example code</summary>
-  ```cs
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
- 
-using GTA;
-using GTA.Math;
-using System.Windows.Forms;
-using System.Drawing;
-using GTA.Native;
- 
- 
-namespace moddingTutorial
-{
-    public class moddingTutorial : Script
-    {
-	public moddingTutorial()
-	{
-		this.Tick += onTick;
-		this.KeyUp += onKeyUp;
-		this.KeyDown += onKeyDown;
-	}
- 
-	private void onTick(object sender, EventArgs e) //this function gets executed continuously 
-	{
-	}
- 
-	private void onKeyUp(object sender, KeyEventArgs e)//everything inside here is executed only when we release a key
-	{
-	}
- 
-	private void onKeyDown(object sender, KeyEventArgs e) //everything inside here is executed only when we press a key
-	{
-		if(e.KeyCode == Keys.H)
-		{
-			//change player char into a different model when pressing 'H'
-			Game.Player.ChangeModel(PedHash.Cat); 
-		}
-	}
-    }
-}
-
-  ```
+hello
 </details>
 
 #### Tasks
