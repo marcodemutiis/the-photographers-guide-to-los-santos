@@ -23,20 +23,18 @@ artwork text
 
 + Install Windows 11
 
-+ Download and install [Steam](https://store.steampowered.com/about/) (with a copy of GTA V or to buy the game if you do not have it. GTA V is 100+ GB so it will take a day to download at average/slow internet connections)
++ Download and install [Steam](https://store.steampowered.com/about/) (with a copy of GTA V or buy the game if you do not have it. GTA V is 100+ GB so it will take a few hours depending on your internet connections)
 
-+ Download [Script Hook V](https://store.steampowered.com/about/)
-Go to the bin folder and copy ```dinput8.dll``` and ```ScriptHookV.dll``` files into your GTA V directory ```C:\Program Files (x86)\Steam\steamapps\common\Grand Theft Auto V```
++ Download [Script Hook V](https://store.steampowered.com/about/), go to the bin folder and copy ```dinput8.dll``` and ```ScriptHookV.dll``` files into your GTA V directory ```C:\Program Files (x86)\Steam\steamapps\common\Grand Theft Auto V```
 
-+ Download [Script Hook V dot net](https://store.steampowered.com/about/)
-Copy the ```ScriptHookVDotNet.asi``` file, ```ScriptHookVDotNet2.dll``` and ```ScriptHookVDotNet3.dll``` files into your GTA V directory ```C:\Program Files (x86)\Steam\steamapps\common\Grand Theft Auto V```
++ Download [Script Hook V dot net](https://store.steampowered.com/about/), copy the ```ScriptHookVDotNet.asi``` file, ```ScriptHookVDotNet2.dll``` and ```ScriptHookVDotNet3.dll``` files into your GTA V directory ```C:\Program Files (x86)\Steam\steamapps\common\Grand Theft Auto V```
 
 + Create a new folder in GTA V directory and call it “scripts”.
 
-+ Download and install [Visual Studio Community](https://store.steampowered.com/about/) (free version of VS)
-Open Visual Studio and check the .NET desktop development package and install it
++ Download and install [Visual Studio Community](https://store.steampowered.com/about/) (free version of VS). Open Visual Studio and check the .NET desktop development package and install it
 
-+ Run GTA V and test if Script Hook V is working by pressing F4. This should to toggle the console view.
++ Run GTA V and test if Script Hook V is working by pressing ```F4```. This should toggle the console view.
+
 
 #### Creating a Mod File
 
@@ -101,13 +99,13 @@ namespace moddingTutorial
 
 + Save file
 
-+ Go to Documents > Visual Studio > Project > moddingTutorial > moddingTutorial > moddingTutorial.cs
++ Go to Documents > Visual Studio > Project > moddingTutorial > moddingTutorial > ```moddingTutorial.cs```
 
 + Copy the .cs file in the GTA V directory inside the scripts folder
 
 + Open GTA V, run the game in Story Mode (mods are only allowed in single player mode, not in GTA Online) and press ‘H’ to see if the game turns your avatar into a cat
 
-+ Note: every time you make changes to your .cs file in the scripts folder you can hit F4 to open the console, type Reload() in the console for the program to reload the script and test again the changes.
++ Note: every time you make changes to your .cs file in the scripts folder you can hit ```F4``` to open the console, type ```Reload()``` in the console for the program to reload the script and test again the changes.
 
 #### onTick, onKeyUp and onKeyDown
 The main events of Script Hook V Dot Net are onTick, onKeyUp and onKeyDown. Script Hook V Dot Net will invoke your functions whenever an event is called.
@@ -167,8 +165,12 @@ add it in your .cs file in the onKeyDown event, triggered by the pressing of the
 
 <details>
   <summary>Example code</summary>
+
+```cs
 hello
+```
 </details>
+
 
 #### Tasks
 
