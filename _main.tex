@@ -478,7 +478,7 @@ You can browse through this list of models to find the one you want to try: \url
 These models are all PedHashes, basically ID numbers within the PedHash group. Copy the name of the model below the image and add it to PedHash.
 For example if you choose the model Cat, you'll need to write \emph{PedHash.Cat}.
 
-To change the model of your player character into a cat you write the following function:
+To change the model of your player character into a cat you can write the following function:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -486,54 +486,95 @@ To change the model of your player character into a cat you write the following 
 \end{Highlighting}
 \end{Shaded}
 
-\hypertarget{tasks}{%
-\subsubsection{Tasks}\label{tasks}}
+add it in your .cs file in the onKeyDown event, triggered by the pressing of the `h' key:
 
-\hypertarget{content-replication-assignment-3}{%
-\section{Content Replication Assignment}\label{content-replication-assignment-3}}
+Example code
+```cs
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-\hypertarget{deercam-reenactment}{%
-\subsection{Deercam reenactment}\label{deercam-reenactment}}
+using GTA;
+using GTA.Math;
+using System.Windows.Forms;
+using System.Drawing;
+using GTA.Native;
+
+namespace moddingTutorial
+\{
+public class moddingTutorial : Script
+\{
+public moddingTutorial()
+\{
+this.Tick += onTick;
+this.KeyUp += onKeyUp;
+this.KeyDown += onKeyDown;
+\}
+
+private void onTick(object sender, EventArgs e) //this function gets executed continuously
+\{
+\}
+
+private void onKeyUp(object sender, KeyEventArgs e)//everything inside here is executed only when we release a key
+\{
+\}
+
+private void onKeyDown(object sender, KeyEventArgs e) //everything inside here is executed only when we press a key
+\{
+if(e.KeyCode == Keys.H)
+\{
+//change player char into a different model when pressing `H'
+Game.Player.ChangeModel(PedHash.Cat);
+\}
+\}
+\}
+\}
+
+\begin{verbatim}
+</details>
+
+#### Tasks
+
+## Content Replication Assignment
+
+### Deercam reenactment
 
 Write a mod script to change your game character into a deer make it autonomously wander around Los Santos.
 
-\hypertarget{surrealist-photography}{%
-\chapter{Surrealist Photography}\label{surrealist-photography}}
 
-\hypertarget{alexey-andrienko-aka-happ-v2}{%
-\section{Alexey Andrienko aka HAPP v2}\label{alexey-andrienko-aka-happ-v2}}
+
+<!--chapter:end:05-nature-documentary.Rmd-->
+
+# Surrealist Photography
+
+## Alexey Andrienko aka HAPP v2
+
 
 artwork text
 
-\hypertarget{getting-there-6}{%
-\subsection{Getting There}\label{getting-there-6}}
+### Getting There
 
-\hypertarget{readings-4}{%
-\section{Readings}\label{readings-4}}
+## Readings
 
-\hypertarget{tutorial-4}{%
-\section{Tutorial}\label{tutorial-4}}
+## Tutorial
 
-\hypertarget{modding-peds}{%
-\subsection{Modding Peds}\label{modding-peds}}
+### Modding Peds
 
-\hypertarget{npcs}{%
-\subsubsection{NPCs}\label{npcs}}
+#### NPCs
 
-\hypertarget{spawn-a-new-npc}{%
-\subsubsection{Spawn a new NPC}\label{spawn-a-new-npc}}
+#### Spawn a new NPC
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\CommentTok{// spawn a new model npc in front of player}
-\DataTypeTok{var}\NormalTok{ npc = World.}\FunctionTok{CreatePed}\NormalTok{(PedHash.}\FunctionTok{Cat}\NormalTok{, Game.}\FunctionTok{Player}\NormalTok{.}\FunctionTok{Character}\NormalTok{.}\FunctionTok{GetOffsetInWorldCoords}\NormalTok{(}\KeywordTok{new} \FunctionTok{Vector3}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{5}\NormalTok{, }\DecValTok{0}\NormalTok{))); }
-\end{Highlighting}
-\end{Shaded}
+```cs
+// spawn a new model npc in front of player
+var npc = World.CreatePed(PedHash.Cat, Game.Player.Character.GetOffsetInWorldCoords(new Vector3(0, 5, 0))); 
+\end{verbatim}
 
 \hypertarget{give-tasks-to-npcs}{%
 \subsubsection{Give Tasks to NPCs}\label{give-tasks-to-npcs}}
 
-\hypertarget{content-replication-assignment-4}{%
-\section{Content Replication Assignment}\label{content-replication-assignment-4}}
+\hypertarget{content-replication-assignment-3}{%
+\section{Content Replication Assignment}\label{content-replication-assignment-3}}
 
 \end{document}

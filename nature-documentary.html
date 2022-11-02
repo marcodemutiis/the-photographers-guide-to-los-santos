@@ -30,7 +30,7 @@
   
   
 <link rel="prev" href="re-enactment-photography.html"/>
-<link rel="next" href="surrealist-photography.html"/>
+
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -190,19 +190,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.4" data-path="nature-documentary.html"><a href="nature-documentary.html#tutorial-3"><i class="fa fa-check"></i><b>5.4</b> Tutorial</a><ul>
 <li class="chapter" data-level="5.4.1" data-path="nature-documentary.html"><a href="nature-documentary.html#modding-introduction"><i class="fa fa-check"></i><b>5.4.1</b> Modding Introduction</a></li>
 </ul></li>
-<li class="chapter" data-level="5.5" data-path="nature-documentary.html"><a href="nature-documentary.html#content-replication-assignment-3"><i class="fa fa-check"></i><b>5.5</b> Content Replication Assignment</a><ul>
-<li class="chapter" data-level="5.5.1" data-path="nature-documentary.html"><a href="nature-documentary.html#deercam-reenactment"><i class="fa fa-check"></i><b>5.5.1</b> Deercam reenactment</a></li>
-</ul></li>
-</ul></li>
-<li class="chapter" data-level="6" data-path="surrealist-photography.html"><a href="surrealist-photography.html"><i class="fa fa-check"></i><b>6</b> Surrealist Photography</a><ul>
-<li class="chapter" data-level="6.1" data-path="surrealist-photography.html"><a href="surrealist-photography.html#alexey-andrienko-aka-happ-v2"><i class="fa fa-check"></i><b>6.1</b> Alexey Andrienko aka HAPP v2</a><ul>
-<li class="chapter" data-level="6.1.1" data-path="surrealist-photography.html"><a href="surrealist-photography.html#getting-there-6"><i class="fa fa-check"></i><b>6.1.1</b> Getting There</a></li>
-</ul></li>
-<li class="chapter" data-level="6.2" data-path="surrealist-photography.html"><a href="surrealist-photography.html#readings-4"><i class="fa fa-check"></i><b>6.2</b> Readings</a></li>
-<li class="chapter" data-level="6.3" data-path="surrealist-photography.html"><a href="surrealist-photography.html#tutorial-4"><i class="fa fa-check"></i><b>6.3</b> Tutorial</a><ul>
-<li class="chapter" data-level="6.3.1" data-path="surrealist-photography.html"><a href="surrealist-photography.html#modding-peds"><i class="fa fa-check"></i><b>6.3.1</b> Modding Peds</a></li>
-</ul></li>
-<li class="chapter" data-level="6.4" data-path="surrealist-photography.html"><a href="surrealist-photography.html#content-replication-assignment-4"><i class="fa fa-check"></i><b>6.4</b> Content Replication Assignment</a></li>
+<li class="chapter" data-level="5.5" data-path="nature-documentary.html"><a href="nature-documentary.html#content-replication-assignment-3"><i class="fa fa-check"></i><b>5.5</b> Content Replication Assignment</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -354,21 +342,93 @@ The <em>ChangeModel</em> function needs a model ID, in order to load the model f
 You can browse through this list of models to find the one you want to try: <a href="https://wiki.gtanet.work/index.php/Peds" class="uri">https://wiki.gtanet.work/index.php/Peds</a></p>
 <p>These models are all PedHashes, basically ID numbers within the PedHash group. Copy the name of the model below the image and add it to PedHash.
 For example if you choose the model Cat, you’ll need to write <em>PedHash.Cat</em>.</p>
-<p>To change the model of your player character into a cat you write the following function:</p>
+<p>To change the model of your player character into a cat you can write the following function:</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb6-1"><a href="nature-documentary.html#cb6-1"></a>Game.<span class="fu">Player</span>.<span class="fu">ChangeModel</span>(PedHash.<span class="fu">Cat</span>);</span></code></pre></div>
+<p>add it in your .cs file in the onKeyDown event, triggered by the pressing of the ‘h’ key:</p>
+<details>
+<p><summary>Example code</summary>
+```cs
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;</p>
+<p>using GTA;
+using GTA.Math;
+using System.Windows.Forms;
+using System.Drawing;
+using GTA.Native;</p>
+<p>namespace moddingTutorial
+{
+public class moddingTutorial : Script
+{
+public moddingTutorial()
+{
+this.Tick += onTick;
+this.KeyUp += onKeyUp;
+this.KeyDown += onKeyDown;
+}</p>
+<p>private void onTick(object sender, EventArgs e) //this function gets executed continuously
+{
+}</p>
+<p>private void onKeyUp(object sender, KeyEventArgs e)//everything inside here is executed only when we release a key
+{
+}</p>
+<p>private void onKeyDown(object sender, KeyEventArgs e) //everything inside here is executed only when we press a key
+{
+if(e.KeyCode == Keys.H)
+{
+//change player char into a different model when pressing ‘H’
+Game.Player.ChangeModel(PedHash.Cat);
+}
+}
+}
+}</p>
+<pre><code>&lt;/details&gt;
+
+#### Tasks
+
+## Content Replication Assignment
+
+### Deercam reenactment
+
+Write a mod script to change your game character into a deer make it autonomously wander around Los Santos.
+
+
+
+&lt;!--chapter:end:05-nature-documentary.Rmd--&gt;
+
+# Surrealist Photography
+
+## Alexey Andrienko aka HAPP v2
+
+&lt;a href=&quot;https://www.heterotopiaszine.com/&quot; target=&quot;_blank&quot;&gt;&lt;img src=&quot;assets/happ_whales.png&quot; style=&quot;display: block; margin: auto auto auto 0;&quot; /&gt;&lt;/a&gt;
+artwork text
+
+### Getting There
+
+## Readings
+
+## Tutorial
+
+### Modding Peds
+
+#### NPCs
+
+#### Spawn a new NPC
+
+```cs
+// spawn a new model npc in front of player
+var npc = World.CreatePed(PedHash.Cat, Game.Player.Character.GetOffsetInWorldCoords(new Vector3(0, 5, 0))); </code></pre>
 </div>
-<div id="tasks" class="section level4 hasAnchor">
-<h4><span class="header-section-number">5.4.1.5</span> Tasks<a href="nature-documentary.html#tasks" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div id="give-tasks-to-npcs" class="section level4 hasAnchor">
+<h4><span class="header-section-number">5.4.1.5</span> Give Tasks to NPCs<a href="nature-documentary.html#give-tasks-to-npcs" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 </div>
 </div>
 </div>
 <div id="content-replication-assignment-3" class="section level2 hasAnchor">
 <h2><span class="header-section-number">5.5</span> Content Replication Assignment<a href="nature-documentary.html#content-replication-assignment-3" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div id="deercam-reenactment" class="section level3 hasAnchor">
-<h3><span class="header-section-number">5.5.1</span> Deercam reenactment<a href="nature-documentary.html#deercam-reenactment" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Write a mod script to change your game character into a deer make it autonomously wander around Los Santos.</p>
 
-</div>
 </div>
 </div>
             </section>
@@ -376,8 +436,8 @@ For example if you choose the model Cat, you’ll need to write <em>PedHash.Cat<
           </div>
         </div>
       </div>
-<a href="re-enactment-photography.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="surrealist-photography.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="re-enactment-photography.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
