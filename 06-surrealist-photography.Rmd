@@ -17,4 +17,4 @@ artwork and text
 var npc = World.CreatePed(PedHash.Cat, Game.Player.Character.GetOffsetInWorldCoords(new Vector3(0, 5, 0))); 
 ```
 
-## Re-enactment assignment
+## Content Replication Assignment:
