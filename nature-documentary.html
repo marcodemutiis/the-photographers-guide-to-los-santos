@@ -356,7 +356,49 @@ For example if you choose the model Cat, you’ll need to write <em>PedHash.Cat<
 <p>add it in your .cs file in the onKeyDown event, triggered by the pressing of the ‘h’ key:</p>
 <details>
 <p><summary>Example code</summary></p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb7-1"><a href="nature-documentary.html#cb7-1"></a>hello</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb7-1"><a href="nature-documentary.html#cb7-1"></a><span class="kw">using</span> System;</span>
+<span id="cb7-2"><a href="nature-documentary.html#cb7-2"></a><span class="kw">using</span> System.<span class="fu">Collections</span>.<span class="fu">Generic</span>;</span>
+<span id="cb7-3"><a href="nature-documentary.html#cb7-3"></a><span class="kw">using</span> System.<span class="fu">Linq</span>;</span>
+<span id="cb7-4"><a href="nature-documentary.html#cb7-4"></a><span class="kw">using</span> System.<span class="fu">Text</span>;</span>
+<span id="cb7-5"><a href="nature-documentary.html#cb7-5"></a><span class="kw">using</span> System.<span class="fu">Threading</span>.<span class="fu">Tasks</span>;</span>
+<span id="cb7-6"><a href="nature-documentary.html#cb7-6"></a> </span>
+<span id="cb7-7"><a href="nature-documentary.html#cb7-7"></a><span class="kw">using</span> GTA;</span>
+<span id="cb7-8"><a href="nature-documentary.html#cb7-8"></a><span class="kw">using</span> GTA.<span class="fu">Math</span>;</span>
+<span id="cb7-9"><a href="nature-documentary.html#cb7-9"></a><span class="kw">using</span> System.<span class="fu">Windows</span>.<span class="fu">Forms</span>;</span>
+<span id="cb7-10"><a href="nature-documentary.html#cb7-10"></a><span class="kw">using</span> System.<span class="fu">Drawing</span>;</span>
+<span id="cb7-11"><a href="nature-documentary.html#cb7-11"></a><span class="kw">using</span> GTA.<span class="fu">Native</span>;</span>
+<span id="cb7-12"><a href="nature-documentary.html#cb7-12"></a> </span>
+<span id="cb7-13"><a href="nature-documentary.html#cb7-13"></a> </span>
+<span id="cb7-14"><a href="nature-documentary.html#cb7-14"></a><span class="kw">namespace</span> moddingTutorial</span>
+<span id="cb7-15"><a href="nature-documentary.html#cb7-15"></a>{</span>
+<span id="cb7-16"><a href="nature-documentary.html#cb7-16"></a>    <span class="kw">public</span> <span class="kw">class</span> moddingTutorial : Script</span>
+<span id="cb7-17"><a href="nature-documentary.html#cb7-17"></a>    {</span>
+<span id="cb7-18"><a href="nature-documentary.html#cb7-18"></a>        <span class="kw">public</span> <span class="fu">moddingTutorial</span>()</span>
+<span id="cb7-19"><a href="nature-documentary.html#cb7-19"></a>        {</span>
+<span id="cb7-20"><a href="nature-documentary.html#cb7-20"></a>            <span class="kw">this</span>.<span class="fu">Tick</span> += onTick;</span>
+<span id="cb7-21"><a href="nature-documentary.html#cb7-21"></a>            <span class="kw">this</span>.<span class="fu">KeyUp</span> += onKeyUp;</span>
+<span id="cb7-22"><a href="nature-documentary.html#cb7-22"></a>            <span class="kw">this</span>.<span class="fu">KeyDown</span> += onKeyDown;</span>
+<span id="cb7-23"><a href="nature-documentary.html#cb7-23"></a>        }</span>
+<span id="cb7-24"><a href="nature-documentary.html#cb7-24"></a> </span>
+<span id="cb7-25"><a href="nature-documentary.html#cb7-25"></a>        <span class="kw">private</span> <span class="dt">void</span> <span class="fu">onTick</span>(<span class="dt">object</span> sender, EventArgs e) <span class="co">//this function gets executed continuously </span></span>
+<span id="cb7-26"><a href="nature-documentary.html#cb7-26"></a>        {</span>
+<span id="cb7-27"><a href="nature-documentary.html#cb7-27"></a>        }</span>
+<span id="cb7-28"><a href="nature-documentary.html#cb7-28"></a> </span>
+<span id="cb7-29"><a href="nature-documentary.html#cb7-29"></a>        <span class="kw">private</span> <span class="dt">void</span> <span class="fu">onKeyUp</span>(<span class="dt">object</span> sender, KeyEventArgs e)<span class="co">//everything inside here is executed only when we release a key</span></span>
+<span id="cb7-30"><a href="nature-documentary.html#cb7-30"></a>        {</span>
+<span id="cb7-31"><a href="nature-documentary.html#cb7-31"></a>        }</span>
+<span id="cb7-32"><a href="nature-documentary.html#cb7-32"></a> </span>
+<span id="cb7-33"><a href="nature-documentary.html#cb7-33"></a>        <span class="kw">private</span> <span class="dt">void</span> <span class="fu">onKeyDown</span>(<span class="dt">object</span> sender, KeyEventArgs e) <span class="co">//everything inside here is executed only when we press a key</span></span>
+<span id="cb7-34"><a href="nature-documentary.html#cb7-34"></a>        {</span>
+<span id="cb7-35"><a href="nature-documentary.html#cb7-35"></a>            <span class="co">//when pressing &#39;H&#39;</span></span>
+<span id="cb7-36"><a href="nature-documentary.html#cb7-36"></a>            <span class="kw">if</span>(e.<span class="fu">KeyCode</span> == Keys.<span class="fu">H</span>)</span>
+<span id="cb7-37"><a href="nature-documentary.html#cb7-37"></a>            {</span>
+<span id="cb7-38"><a href="nature-documentary.html#cb7-38"></a>                <span class="co">//change player char into a different model</span></span>
+<span id="cb7-39"><a href="nature-documentary.html#cb7-39"></a>                Game.<span class="fu">Player</span>.<span class="fu">ChangeModel</span>(PedHash.<span class="fu">Cat</span>); </span>
+<span id="cb7-40"><a href="nature-documentary.html#cb7-40"></a>            }</span>
+<span id="cb7-41"><a href="nature-documentary.html#cb7-41"></a>        }</span>
+<span id="cb7-42"><a href="nature-documentary.html#cb7-42"></a>    }</span>
+<span id="cb7-43"><a href="nature-documentary.html#cb7-43"></a>}</span></code></pre></div>
 </details>
 </div>
 <div id="tasks" class="section level4 hasAnchor">
@@ -368,7 +410,7 @@ For example if you choose the model Cat, you’ll need to write <em>PedHash.Cat<
 <h2><span class="header-section-number">5.5</span> Content Replication Assignment<a href="nature-documentary.html#content-replication-assignment-3" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <div id="deercam-reenactment" class="section level3 hasAnchor">
 <h3><span class="header-section-number">5.5.1</span> Deercam reenactment<a href="nature-documentary.html#deercam-reenactment" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Write a mod script to change your game character into a deer make it autonomously wander around Los Santos.</p>
+<p>Write a mod script to change your game character into a deer by pressing a key, and make it autonomously wander around Los Santos by pressing another key.</p>
 
 </div>
 </div>

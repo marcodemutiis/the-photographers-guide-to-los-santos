@@ -489,7 +489,49 @@ Example code
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{hello}
+\KeywordTok{using}\NormalTok{ System;}
+\KeywordTok{using}\NormalTok{ System.}\FunctionTok{Collections}\NormalTok{.}\FunctionTok{Generic}\NormalTok{;}
+\KeywordTok{using}\NormalTok{ System.}\FunctionTok{Linq}\NormalTok{;}
+\KeywordTok{using}\NormalTok{ System.}\FunctionTok{Text}\NormalTok{;}
+\KeywordTok{using}\NormalTok{ System.}\FunctionTok{Threading}\NormalTok{.}\FunctionTok{Tasks}\NormalTok{;}
+ 
+\KeywordTok{using}\NormalTok{ GTA;}
+\KeywordTok{using}\NormalTok{ GTA.}\FunctionTok{Math}\NormalTok{;}
+\KeywordTok{using}\NormalTok{ System.}\FunctionTok{Windows}\NormalTok{.}\FunctionTok{Forms}\NormalTok{;}
+\KeywordTok{using}\NormalTok{ System.}\FunctionTok{Drawing}\NormalTok{;}
+\KeywordTok{using}\NormalTok{ GTA.}\FunctionTok{Native}\NormalTok{;}
+ 
+ 
+\KeywordTok{namespace}\NormalTok{ moddingTutorial}
+\NormalTok{\{}
+    \KeywordTok{public} \KeywordTok{class}\NormalTok{ moddingTutorial : Script}
+\NormalTok{    \{}
+        \KeywordTok{public} \FunctionTok{moddingTutorial}\NormalTok{()}
+\NormalTok{        \{}
+            \KeywordTok{this}\NormalTok{.}\FunctionTok{Tick}\NormalTok{ += onTick;}
+            \KeywordTok{this}\NormalTok{.}\FunctionTok{KeyUp}\NormalTok{ += onKeyUp;}
+            \KeywordTok{this}\NormalTok{.}\FunctionTok{KeyDown}\NormalTok{ += onKeyDown;}
+\NormalTok{        \}}
+ 
+        \KeywordTok{private} \DataTypeTok{void} \FunctionTok{onTick}\NormalTok{(}\DataTypeTok{object}\NormalTok{ sender, EventArgs e) }\CommentTok{//this function gets executed continuously }
+\NormalTok{        \{}
+\NormalTok{        \}}
+ 
+        \KeywordTok{private} \DataTypeTok{void} \FunctionTok{onKeyUp}\NormalTok{(}\DataTypeTok{object}\NormalTok{ sender, KeyEventArgs e)}\CommentTok{//everything inside here is executed only when we release a key}
+\NormalTok{        \{}
+\NormalTok{        \}}
+ 
+        \KeywordTok{private} \DataTypeTok{void} \FunctionTok{onKeyDown}\NormalTok{(}\DataTypeTok{object}\NormalTok{ sender, KeyEventArgs e) }\CommentTok{//everything inside here is executed only when we press a key}
+\NormalTok{        \{}
+            \CommentTok{//when pressing 'H'}
+            \KeywordTok{if}\NormalTok{(e.}\FunctionTok{KeyCode}\NormalTok{ == Keys.}\FunctionTok{H}\NormalTok{)}
+\NormalTok{            \{}
+                \CommentTok{//change player char into a different model}
+\NormalTok{                Game.}\FunctionTok{Player}\NormalTok{.}\FunctionTok{ChangeModel}\NormalTok{(PedHash.}\FunctionTok{Cat}\NormalTok{); }
+\NormalTok{            \}}
+\NormalTok{        \}}
+\NormalTok{    \}}
+\NormalTok{\}}
 \end{Highlighting}
 \end{Shaded}
 
@@ -502,7 +544,7 @@ Example code
 \hypertarget{deercam-reenactment}{%
 \subsection{Deercam reenactment}\label{deercam-reenactment}}
 
-Write a mod script to change your game character into a deer make it autonomously wander around Los Santos.
+Write a mod script to change your game character into a deer by pressing a key, and make it autonomously wander around Los Santos by pressing another key.
 
 \hypertarget{surrealist-photography}{%
 \chapter{Surrealist Photography}\label{surrealist-photography}}
