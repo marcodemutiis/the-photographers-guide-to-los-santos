@@ -7,7 +7,9 @@
 ## _Nine swimming pools and a broken glas_s by Alan Butler
 
 ## _26 Gasoline stations in GTA V_ by Lorna Ruth Galloway 
-
+```{r fig.align='center', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html')}
+knitr::include_graphics('assets/Galloway 02 Xero Strawberry.jpg', dpi = NA)
+```
 ## _26 Gasoline stations in GTA V_ by M. Earl Williams 
 
 ### locations:
