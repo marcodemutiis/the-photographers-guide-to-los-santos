@@ -7,17 +7,30 @@
 knitr::include_graphics('assets/downandoutinlossantos.jpeg', dpi = NA)
 ```
 
-text and artwork
+artwork text
 
-### location:
+[More about _Down and Out in Los Santos_](http://www.alanbutler.info/down-and-out-in-los-santos-2016)
+
+### Getting There:
+
 
 ## _Fear and Loathing in GTA V_ by Morten Rockford Ravn 
 
-text and artwork
+```{r fig.align='center', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html')}
+knitr::include_graphics('assets/fearandloathingingtav.jpeg', dpi = NA)
+```
 
-### location:
+artwork text
+
+[More about _Fear and Loathing in GTA V_](https://fearandloathingingtav.tumblr.com/)
 
 
-## Tutorial: in-game smartphone camera
+### Getting There:
+
+## Reading:
+
+## Tutorial
+
+### In-game Smartphone Camera
 
 ## Content Replication Assignment:
