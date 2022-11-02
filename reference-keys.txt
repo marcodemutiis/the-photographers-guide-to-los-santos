@@ -14,10 +14,12 @@ screenshotting
 content-replication-assignment
 social-documentary
 down-and-out-in-los-santos-by-alan-butler
-location
+getting-there-1
 fear-and-loathing-in-gta-v-by-morten-rockford-ravn
-location-1
-tutorial-in-game-smartphone-camera
+getting-there-2
+reading
+tutorial-1
+in-game-smartphone-camera
 content-replication-assignment-1
 re-enactment-photography
 a-study-on-perspective-by-roc-herms
