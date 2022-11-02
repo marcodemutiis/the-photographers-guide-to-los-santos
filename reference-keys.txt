@@ -5,8 +5,10 @@ grand-theft-auto-v-tourism
 grand-theft-auto-v-art-education
 architecture-photography
 from-the-continuous-city-by-gareth-damian-martin
-interview-with-gareth-damian-martin
-tutorial-photographing-the-game-screen
+getting-there
+readings
+tutorial
+photographing-the-game-screen
 analogue-game-photography
 screenshotting
 content-replication-assignment
