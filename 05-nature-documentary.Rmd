@@ -1,0 +1,22 @@
+# Nature Documentary
+
+## Deercam by Brent Watanabe
+
+text and artwork
+
+### locations:
+
+
+## Virtual Flora
+
+text and artwork
+
+### locations:
+
+## Tutorial: modding introduction 
+
+### Preparation and setup
+### Creating a mod file
+### Change player model
+
+## Re-enactment mission:
