@@ -24,6 +24,7 @@ gasoline-stations-in-gta-v-by-lorna-ruth-galloway
 gasoline-stations-in-gta-v-by-m.-earl-williams
 locations
 tutorial-scene-director-mode
+content-replication-assignment-2
 nature-documentary
 deercam-by-brent-watanabe
 locations-1
@@ -33,7 +34,7 @@ tutorial-modding-introduction
 preparation-and-setup
 creating-a-mod-file
 change-player-model
-re-enactment-mission
+content-replication-assignment-3
 surrealist-photography
 alexey-andrienko-aka-happ-v2
 tutorial-modding
