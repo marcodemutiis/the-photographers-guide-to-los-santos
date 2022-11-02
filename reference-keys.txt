@@ -24,7 +24,7 @@ content-replication-assignment-1
 re-enactment-photography
 a-study-on-perspective-by-roc-herms
 little-books-of-los-santos-by-luke-caspar-pearson
-nine-swimming-pools-and-a-broken-glas_s-by-alan-butler
+nine-swimming-pools-and-a-broken-glass-by-alan-butler
 gasoline-stations-in-gta-v-by-lorna-ruth-galloway
 gasoline-stations-in-gta-v-by-m.-earl-williams
 getting-there-3
@@ -41,9 +41,6 @@ readings-3
 tutorial-3
 modding-introduction
 preparation-and-setup
-creating-a-mod-file
-change-player-model
-content-replication-assignment-3
 surrealist-photography
 alexey-andrienko-aka-happ-v2
 getting-there-6
@@ -53,4 +50,4 @@ modding-peds
 npcs
 spawn-a-new-npc
 give-tasks-to-npcs
-content-replication-assignment-4
+content-replication-assignment-3
