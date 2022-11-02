@@ -472,6 +472,10 @@ We can give our NPC the task to fight against the player by using the <code>Figh
 </div>
 <div id="teleporting" class="section level4 hasAnchor">
 <h4><span class="header-section-number">6.3.1.4</span> Teleporting<a href="surrealist-photography.html#teleporting" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>We can change the location of the player character or of any Ped or Vehicle entity by using the native function <code>SET_ENTITY_COORDS</code>. This function needs an entity and X, Y and Z coordinate to teleport to.
+We need to know the exact coordinates of the locations we want to teleport to, but thankfully the modding community forums provide lists with all available coordinates we can teleport to. Let’s take the XYZ coordinates of the top of Mount Chiliad (the highest point in the game) to teleport our player character to.</p>
+<p><code>Top of the Mt Chilad X:450.718 Y:5566.614 Z:806.183</code></p>
+<p><a href="https://nitanmarcel.github.io/shvdn-docs.github.io/namespace_g_t_a_1_1_native.html#a84977424e1cb7b6f1c2902770bf9ad2d">Native functions</a> are called by using <code>Function.Call</code> followed by their corresponding Hash and parameters. The native function for teleporting is <code>Function.Call(Hash.SET_ENTITY_COORDS, Ped ped, X, Y, Z, 0, 0, 1);</code></p>
 <div class="sourceCode" id="cb15"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb15-1"><a href="surrealist-photography.html#cb15-1"></a><span class="co">//Teleport to the top of Mount Chilad</span></span>
 <span id="cb15-2"><a href="surrealist-photography.html#cb15-2"></a>Function.<span class="fu">Call</span>(Hash.<span class="fu">SET_ENTITY_COORDS</span>, Game.<span class="fu">Player</span>.<span class="fu">Character</span>, <span class="fl">450.718f</span>, <span class="fl">5566.614f</span>, <span class="fl">806.183f</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>);</span></code></pre></div>
 <p>See this <a href="https://gtaforums.com/topic/792877-list-of-over-100-coordinates-more-comming/">list of locations</a> to find their respective coordinates or click on the list below</p>

@@ -845,6 +845,13 @@ List of Available Tasks
 \hypertarget{teleporting}{%
 \subsubsection{Teleporting}\label{teleporting}}
 
+We can change the location of the player character or of any Ped or Vehicle entity by using the native function \texttt{SET\_ENTITY\_COORDS}. This function needs an entity and X, Y and Z coordinate to teleport to.
+We need to know the exact coordinates of the locations we want to teleport to, but thankfully the modding community forums provide lists with all available coordinates we can teleport to. Let's take the XYZ coordinates of the top of Mount Chiliad (the highest point in the game) to teleport our player character to.
+
+\texttt{Top\ of\ the\ Mt\ Chilad\ X:450.718\ Y:5566.614\ Z:806.183}
+
+\href{https://nitanmarcel.github.io/shvdn-docs.github.io/namespace_g_t_a_1_1_native.html\#a84977424e1cb7b6f1c2902770bf9ad2d}{Native functions} are called by using \texttt{Function.Call} followed by their corresponding Hash and parameters. The native function for teleporting is \texttt{Function.Call(Hash.SET\_ENTITY\_COORDS,\ Ped\ ped,\ X,\ Y,\ Z,\ 0,\ 0,\ 1);}
+
 \begin{Shaded}
 \begin{Highlighting}[]
 \CommentTok{//Teleport to the top of Mount Chilad}
