@@ -167,7 +167,50 @@ add it in your .cs file in the onKeyDown event, triggered by the pressing of the
   <summary>Example code</summary>
 
 ```cs
-hello
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+ 
+using GTA;
+using GTA.Math;
+using System.Windows.Forms;
+using System.Drawing;
+using GTA.Native;
+ 
+ 
+namespace moddingTutorial
+{
+    public class moddingTutorial : Script
+    {
+		public moddingTutorial()
+		{
+			this.Tick += onTick;
+			this.KeyUp += onKeyUp;
+			this.KeyDown += onKeyDown;
+		}
+ 
+		private void onTick(object sender, EventArgs e) //this function gets executed continuously 
+		{
+		}
+ 
+		private void onKeyUp(object sender, KeyEventArgs e)//everything inside here is executed only when we release a key
+		{
+		}
+ 
+		private void onKeyDown(object sender, KeyEventArgs e) //everything inside here is executed only when we press a key
+		{
+			//when pressing 'H'
+			if(e.KeyCode == Keys.H)
+			{
+				//change player char into a different model
+				Game.Player.ChangeModel(PedHash.Cat); 
+			}
+		}
+	}
+}
+
 ```
 </details>
 
@@ -178,6 +221,6 @@ hello
 
 ### Deercam reenactment
 
-Write a mod script to change your game character into a deer make it autonomously wander around Los Santos.
+Write a mod script to change your game character into a deer by pressing a key, and make it autonomously wander around Los Santos by pressing another key.
 
 
