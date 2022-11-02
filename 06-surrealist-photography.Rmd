@@ -7,7 +7,7 @@ knitr::include_graphics('assets/happ_whales.png', dpi = NA)
 ```
 artwork text
 
-## Getting There
+### Getting There
 
 ## Readings
 
