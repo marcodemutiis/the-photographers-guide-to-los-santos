@@ -33,10 +33,11 @@ scene-director-mode
 content-replication-assignment-2
 nature-documentary
 deercam-by-brent-watanabe
-locations
+getting-there-4
 virtual-flora
-locations-1
-tutorial-modding-introduction
+getting-there-5
+tutorial-3
+modding-introduction
 preparation-and-setup
 creating-a-mod-file
 change-player-model
