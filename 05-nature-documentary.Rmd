@@ -2,21 +2,23 @@
 
 ## Deercam by Brent Watanabe
 
-text and artwork
+artwork text
 
-### locations:
+### Getting There
 
 
 ## Virtual Flora
 
-text and artwork
+artwork text
 
-### locations:
+### Getting There
 
-## Tutorial: modding introduction 
+## Tutorial
 
-### Preparation and setup
-### Creating a mod file
-### Change player model
+### Modding Introduction 
 
-## Content Replication Assignment:
+#### Preparation and Setup
+#### Creating a Mod File
+#### Change Player Model
+
+## Content Replication Assignment
