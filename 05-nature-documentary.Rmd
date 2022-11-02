@@ -25,21 +25,6 @@ artwork text
 
 + Download and install [Steam](https://store.steampowered.com/about/) (with a copy of GTA V or to buy the game if you do not have it. GTA V is 100+ GB so it will take a day to download at average/slow internet connections)
 
-+ Download [Script Hook V](https://store.steampowered.com/about/)
-Go to the bin folder and copy dinput8.dll, NativeTrainer.asi and ScriptHookV.dll files into your GTA V directory (C:\Program Files (x86)\Steam\steamapps\common\Grand Theft Auto V)
 
-+ Download [Script Hook V dot net](https://store.steampowered.com/about/)
-Copy the ScriptHookVDotNet.asi file, ScriptHookVDotNet2.dll and ScriptHookVDotNet3.dll files into your GTA V directory (C:\Program Files (x86)\Steam\steamapps\common\Grand Theft Auto V)
-
-+ Create a new folder in GTA V directory and call it “scripts”.
-
-+ Download and install [Visual Studio Community](https://store.steampowered.com/about/) (free version of VS)
-Open Visual Studio and check the .NET desktop development package and install it
-
-+ Run GTA V and test if Script Hook V is working by pressing F4. This should to toggle the console view.
-
-#### Creating a Mod File
-
-+ Open Visual Studio
 
 
