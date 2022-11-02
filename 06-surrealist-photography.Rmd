@@ -5,16 +5,23 @@
 ```{r fig.align='left', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html'), fig.link='https://www.heterotopiaszine.com/'}
 knitr::include_graphics('assets/happ_whales.png', dpi = NA)
 ```
-artwork and text
+artwork text
 
-## Tutorial: modding 
+### Getting There
 
-### NPCs
+## Tutorial
+
+### Modding Peds
+
+#### NPCs
 
 #### Spawn a new NPC
+
 ```cs
 // spawn a new model npc in front of player
 var npc = World.CreatePed(PedHash.Cat, Game.Player.Character.GetOffsetInWorldCoords(new Vector3(0, 5, 0))); 
 ```
+
+#### Give Tasks to NPCs
 
 ## Content Replication Assignment:
