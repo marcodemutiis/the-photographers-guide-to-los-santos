@@ -19,7 +19,7 @@ artwork text
 [Interview with Gareth Damian Martin](https://www.gamescenes.org/2018/04/interview-gareth-damian-martin-the-aesthetics-of-analogue-game-photography.html)
 
 
-## Getting there
+### Getting there
 
 ```{r fig.align='left', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html'), fig.link='https://www.heterotopiaszine.com/'}
 knitr::include_graphics('assets/Interstate4Interstate5-GTAV-Intersection.jpg', dpi = NA)
