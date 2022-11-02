@@ -25,3 +25,13 @@ gasoline-stations-in-gta-v-by-m.-earl-williams
 locations
 tutorial-scene-director-mode
 surrealist-photography
+nature-documentary
+deercam-by-brent-watanabe
+locations-1
+virtual-flora
+locations-2
+tutorial-modding-introduction
+preparation-and-setup
+creating-a-mod-file
+change-player-model
+re-enactment-mission
