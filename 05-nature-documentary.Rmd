@@ -19,4 +19,4 @@ text and artwork
 ### Creating a mod file
 ### Change player model
 
-## Re-enactment mission:
+## Content Replication Assignment:
