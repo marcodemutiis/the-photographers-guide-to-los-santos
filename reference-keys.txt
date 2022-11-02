@@ -34,10 +34,10 @@ tutorial-modding-introduction
 preparation-and-setup
 creating-a-mod-file
 change-player-model
-content-replication-assignment-3
+re-enactment-mission
 surrealist-photography
 alexey-andrienko-aka-happ-v2
 tutorial-modding
 npcs
 spawn-a-new-npc
-content-replication-assignment-4
+re-enactment-assignment
