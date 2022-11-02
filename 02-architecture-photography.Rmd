@@ -19,7 +19,7 @@ artwork text
 [Interview with Gareth Damian Martin](https://www.gamescenes.org/2018/04/interview-gareth-damian-martin-the-aesthetics-of-analogue-game-photography.html)
 
 
-## Getting there:
+## Getting there
 
 ```{r fig.align='left', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html'), fig.link='https://www.heterotopiaszine.com/'}
 knitr::include_graphics('assets/Interstate4Interstate5-GTAV-Intersection.jpg', dpi = NA)
@@ -27,14 +27,14 @@ knitr::include_graphics('assets/Interstate4Interstate5-GTAV-Intersection.jpg', d
 The intersection of Interstate 4 and Interstate 5.
 
 
-## Readings: 
+## Readings
 
 [Heterotopias](https://www.heterotopiaszine.com/)
 
 Mark D Teo, The Urban Architecture of Los Angeles and Grand Theft Auto, 2015. (https://www.academia.edu/18173221/The_Urban_Architecture_of_Los_Angeles_and_Grand_Theft_Auto?auto=download)
 
 
-## Tutorial: 
+## Tutorial
 
 ### Photographing the Game Screen
 
