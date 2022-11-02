@@ -5,6 +5,7 @@
 ```{r fig.align='left', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html'), fig.link='https://www.heterotopiaszine.com/'}
 knitr::include_graphics('assets/outskirts_fromTheContinuousCity.png', dpi = NA)
 ```
+
 ```{r fig.align='left', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html'), fig.link='https://www.heterotopiaszine.com/'}
 knitr::include_graphics('assets/pathways_fromTheContinuousCity.png', dpi = NA)
 ```
