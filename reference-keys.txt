@@ -15,7 +15,7 @@ interview-with-gareth-damian-martin
 tutorial-photographing-the-game-screen
 analogue-game-photography
 screenshotting
-re-enactment-assignment
+content-replication-assignment-1
 re-enactment-photography
 a-study-on-perspective-by-roc-herms
 little-books-of-los-santos-by-luke-caspar-pearson
@@ -39,4 +39,4 @@ alexey-andrienko-aka-happ-v2
 tutorial-modding
 npcs
 spawn-a-new-npc
-re-enactment-assignment-1
+re-enactment-assignment
