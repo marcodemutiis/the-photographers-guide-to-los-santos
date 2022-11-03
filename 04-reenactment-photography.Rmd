@@ -1,12 +1,12 @@
 # Re-enactment photography
 
-## _26 Gasoline stations in GTA V_ by Lorna Ruth Galloway 
+## _26 Gasoline stations in GTA V_ by Lorna Ruth Galloway {-} 
 ```{r fig.align='center', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html')}
 knitr::include_graphics('assets/Galloway 02 Xero Strawberry.jpg', dpi = NA)
 ```
 artwork text
 
-### Getting There
+### Getting There {-}
 ```{r fig.align='center', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html')}
 knitr::include_graphics('assets/gas_stations_locations.png', dpi = NA)
 ```
@@ -21,32 +21,32 @@ knitr::include_graphics('assets/gas_stations_locations.png', dpi = NA)
 
 
 
-## _A Study on Perspective_ by Roc Herms
+## _A Study on Perspective_ by Roc Herms {-}
 
 artwork text
 
-### Getting There
+### Getting There {-}
 
-## Further references
+## Further references {-}
 
-### _Little Books of Los Santos_ by Luke Caspar Pearson 
+### _Little Books of Los Santos_ by Luke Caspar Pearson {-}
 
 artwork text
 
-### _26 Gasoline stations in GTA V_ by M. Earl Williams 
+### _26 Gasoline stations in GTA V_ by M. Earl Williams {-} 
 ```{r fig.align='center', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html')}
 knitr::include_graphics('assets/MEarlWilliams.png', dpi = NA)
 ```
 artwork text
 
-### _Nine swimming pools and a broken glass_ by Alan Butler
+### _Nine swimming pools and a broken glass_ by Alan Butler {-}
 
 artwork text
 
-## Readings
+## Readings {-}
 
-## Tutorial
+## Tutorial {-}
 
-### Scene Director Mode
+### Scene Director Mode {-}
 
-## Content Replication Assignment
+## Content Replication Assignment {-}
