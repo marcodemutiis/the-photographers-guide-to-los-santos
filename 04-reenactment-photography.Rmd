@@ -1,4 +1,21 @@
+# Re-enactment photography
 
+## _26 Gasoline stations in GTA V_ by Lorna Ruth Galloway 
+```{r fig.align='center', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html')}
+knitr::include_graphics('assets/Galloway 02 Xero Strawberry.jpg', dpi = NA)
+```
+artwork text
+
+## _26 Gasoline stations in GTA V_ by M. Earl Williams 
+```{r fig.align='center', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html')}
+knitr::include_graphics('assets/MEarlWilliams.png', dpi = NA)
+```
+artwork text
+
+### Getting There
+```{r fig.align='center', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html')}
+knitr::include_graphics('assets/gas_stations_locations.png', dpi = NA)
+```
 
 +[Capital Blvd & El Rancho Blvd, East Los Santos](https://grandtheftdata.com/landmarks/#513.325,-1374.453,4,hybrid,name=gas_station,Gas_Station,_Capital_Blvd_&_El_Rancho_Blvd,_East_Los_Santos) (1209.708, -1402.539)
 +[Xero Gas Station, Strawberry Ave & Capital Blvd, South Los Santos](https://grandtheftdata.com/landmarks/#513.325,-1374.453,4,hybrid,name=gas_station,Xero_Gas_Station,_Strawberry_Ave_&_Capital_Blvd,_South_Los_Santos)
