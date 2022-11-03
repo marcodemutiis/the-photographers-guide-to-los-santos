@@ -1,25 +1,26 @@
 # Nature Documentary
 
-## Deercam by Brent Watanabe
+## Deercam by Brent Watanabe {-}
+```{r fig.align='left', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html'), fig.link='https://www.heterotopiaszine.com/'}
+knitr::include_graphics('assets/deercam.jpeg', dpi = NA)
+```
+artwork text
+
+### Getting There {-}
+
+## Virtual Flora {-}
 
 artwork text
 
-### Getting There
+### Getting There {-}
 
+## Readings {-}
 
-## Virtual Flora
+## Tutorial {-}
 
-artwork text
+### Modding Introduction {-} 
 
-### Getting There
-
-## Readings
-
-## Tutorial
-
-### Modding Introduction 
-
-#### Preparation and Setup
+#### Preparation and Setup {-}
 
 + Install Windows 11
 
@@ -36,7 +37,7 @@ artwork text
 + Run GTA V and test if Script Hook V is working by pressing ```F4```. This should toggle the console view.
 
 
-#### Creating a Mod File
+#### Creating a Mod File {-}
 
 + Open Visual Studio
 
@@ -147,7 +148,7 @@ private void onKeyDown(object sender, KeyEventArgs e)
 
 
 
-#### Change Player Model
+#### Change Player Model {-}
 
 The player character is controlled as Game.Player. Game.Player can perform different functions, including changing the avatar model, and performing tasks.
 
@@ -216,14 +217,14 @@ namespace moddingTutorial
 </details>
 
 
-#### Tasks
+#### Tasks {-}
 
 Our character can be controlled by our script, and given actions that override manual control of the player. These actions are called _Tasks_ and in order to assign tasks to our characters we have to define our _Game.Player_ as _Game.Player.Character_. The _Game.Player.Character_ code gets the specific model the player is controlling.
 Now we can give tasks to the character by adding the _Task_ function: _Game.Player.Character.Task_.
 
-## Content Replication Assignment
+## Content Replication Assignment {-}
 
-### Deercam reenactment
+### Deercam reenactment {-}
 
 Write a mod script to change your game character into a deer by pressing a key, and make it autonomously wander around Los Santos by pressing another key.
 
