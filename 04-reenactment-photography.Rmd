@@ -17,28 +17,11 @@ artwork text
 knitr::include_graphics('assets/gas_stations_locations.png', dpi = NA)
 ```
 
-
-## _A Study on Perspective_ by Roc Herms
-
-artwork text
-
-### Getting There
-
-## Further references
-
-### _Little Books of Los Santos_ by Luke Caspar Pearson 
-
-artwork text
-
-### _Nine swimming pools and a broken glass_ by Alan Butler
-
-artwork text
-
-## Readings
-
-## Tutorial
-
-### Scene Director Mode
-
-## Content Replication Assignment
++[Capital Blvd & El Rancho Blvd, East Los Santos](https://grandtheftdata.com/landmarks/#513.325,-1374.453,4,hybrid,name=gas_station,Gas_Station,_Capital_Blvd_&_El_Rancho_Blvd,_East_Los_Santos) (1209.708, -1402.539)
++[Xero Gas Station, Strawberry Ave & Capital Blvd, South Los Santos](https://grandtheftdata.com/landmarks/#513.325,-1374.453,4,hybrid,name=gas_station,Xero_Gas_Station,_Strawberry_Ave_&_Capital_Blvd,_South_Los_Santos)
++[RON Gas Station, Davis Ave & Macdonald St, South Los Santos](https://grandtheftdata.com/landmarks/#513.325,-1374.453,4,hybrid,name=gas_station,RON_Gas_Station,_Davis_Ave_&_Macdonald_St,_South_Los_Santos)
++[Xero Gas Station, Calais Ave & Innocence Blvd, Little Seoul](https://grandtheftdata.com/landmarks/#513.325,-1374.453,4,hybrid,name=gas_station,Xero_Gas_Station,_Calais_Ave_&_Innocence_Blvd,_Little_Seoul)
++[LTD Gas Station, Lindsay Circus & Ginger St, Little Seoul](https://grandtheftdata.com/landmarks/#513.325,-1374.453,4,hybrid,name=gas_station,LTD_Gas_Station,_Lindsay_Circus_&_Ginger_St,_Little_Seoul)
++[RON Gas Station, N Rockford Dr & Perth St, Morningwood](https://grandtheftdata.com/landmarks/#-1543.17,-676.107,4,hybrid,name=gas_station,RON_Gas_Station,_N_Rockford_Dr_&_Perth_St,_Morningwood)
++[Xero Gas Station, Great Ocean Hwy, Pacific Bluffs](https://grandtheftdata.com/landmarks/#-1543.17,-676.107,4,hybrid,name=gas_station,Xero_Gas_Station,_Great_Ocean_Hwy,_Pacific_Bluffs)
 
