@@ -9,13 +9,3 @@ re-enactment-photography
 nature-documentary
 ontick-onkeyup-and-onkeydown
 surrealist-photography
-alexey-andrienko-aka-happ-v2
-getting-there-7
-readings-4
-tutorial-4
-modding-peds
-npcs
-spawn-a-new-npc
-give-tasks-to-npcs
-teleporting
-content-replication-assignment-4
