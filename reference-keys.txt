@@ -21,8 +21,12 @@ readings-1
 tutorial-1
 in-game-smartphone-camera
 content-replication-assignment-1
-a-study-on-perspective-by-roc-herms
+re-enactment-photography
+gasoline-stations-in-gta-v-by-lorna-ruth-galloway
+gasoline-stations-in-gta-v-by-m.-earl-williams
 getting-there-3
+a-study-on-perspective-by-roc-herms
+getting-there-4
 further-references
 little-books-of-los-santos-by-luke-caspar-pearson
 nine-swimming-pools-and-a-broken-glass-by-alan-butler
@@ -32,9 +36,9 @@ scene-director-mode
 content-replication-assignment-2
 nature-documentary
 deercam-by-brent-watanabe
-getting-there-4
-virtual-flora
 getting-there-5
+virtual-flora
+getting-there-6
 readings-3
 tutorial-3
 modding-introduction
@@ -47,7 +51,7 @@ content-replication-assignment-3
 deercam-reenactment
 surrealist-photography
 alexey-andrienko-aka-happ-v2
-getting-there-6
+getting-there-7
 readings-4
 tutorial-4
 modding-peds
