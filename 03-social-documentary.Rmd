@@ -1,7 +1,7 @@
 # Social Documentary
 
 
-## _Down and Out in Los Santos_ by Alan Butler
+## _Down and Out in Los Santos_ by Alan Butler {-}
 
 ```{r fig.align='center', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html')}
 knitr::include_graphics('assets/downandoutinlossantos.jpeg', dpi = NA)
@@ -11,10 +11,10 @@ artwork text
 
 [More about _Down and Out in Los Santos_](http://www.alanbutler.info/down-and-out-in-los-santos-2016)
 
-### Getting There
+### Getting There {-}
 
 
-## _Fear and Loathing in GTA V_ by Morten Rockford Ravn 
+## _Fear and Loathing in GTA V_ by Morten Rockford Ravn {-}
 
 ```{r fig.align='center', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html')}
 knitr::include_graphics('assets/fearandloathingingtav.jpeg', dpi = NA)
@@ -25,12 +25,12 @@ artwork text
 [More about _Fear and Loathing in GTA V_](https://fearandloathingingtav.tumblr.com/)
 
 
-### Getting There
+### Getting There {-}
 
-## Readings
+## Readings {-}
 
-## Tutorial
+## Tutorial {-}
 
-### In-game Smartphone Camera
+### In-game Smartphone Camera {-}
 
-## Content Replication Assignment
+## Content Replication Assignment {-}
