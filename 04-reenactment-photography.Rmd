@@ -6,12 +6,6 @@ knitr::include_graphics('assets/Galloway 02 Xero Strawberry.jpg', dpi = NA)
 ```
 artwork text
 
-## _26 Gasoline stations in GTA V_ by M. Earl Williams 
-```{r fig.align='center', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html')}
-knitr::include_graphics('assets/MEarlWilliams.png', dpi = NA)
-```
-artwork text
-
 ### Getting There
 ```{r fig.align='center', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html')}
 knitr::include_graphics('assets/gas_stations_locations.png', dpi = NA)
@@ -37,6 +31,12 @@ artwork text
 
 ### _Little Books of Los Santos_ by Luke Caspar Pearson 
 
+artwork text
+
+### _26 Gasoline stations in GTA V_ by M. Earl Williams 
+```{r fig.align='center', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html')}
+knitr::include_graphics('assets/MEarlWilliams.png', dpi = NA)
+```
 artwork text
 
 ### _Nine swimming pools and a broken glass_ by Alan Butler
