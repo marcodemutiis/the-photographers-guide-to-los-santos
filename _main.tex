@@ -931,13 +931,28 @@ List of Available Tasks
 We can change the location of the player character or of any Ped or Vehicle entity by using the native function \texttt{SET\_ENTITY\_COORDS}. This function needs an entity and X, Y and Z coordinate to teleport to.
 We need to know the exact coordinates of the locations we want to teleport to, but thankfully the modding community forums provide lists with all available coordinates we can teleport to. Let's take the XYZ coordinates of the top of Mount Chiliad (the highest point in the game) to teleport our player character to.
 
-\texttt{Top\ of\ the\ Mt\ Chilad\ X:450.718\ Y:5566.614\ Z:806.183}
+\begin{verbatim}
+LOCATION: Top of the Mt Chilad
+COORDINATES: X:450.718 Y:5566.614 Z:806.183
+\end{verbatim}
 
-\href{https://nitanmarcel.github.io/shvdn-docs.github.io/namespace_g_t_a_1_1_native.html\#a84977424e1cb7b6f1c2902770bf9ad2d}{Native functions} are called by using \texttt{Function.Call} followed by their corresponding Hash and parameters. The native function for teleporting is \texttt{Function.Call(Hash.SET\_ENTITY\_COORDS,\ Ped\ ped,\ X,\ Y,\ Z,\ 0,\ 0,\ 1);}
+To create a teleport function we will use a native function. Script Hook V Dot Net is a wrapper for the C++ ScriptHook, calling the functions in Scripthook to do things in the game. However, there are some functions that are not in Script Hook V Dot Net and in order to use these, we have to use the native calling from Script Hook.
+
+\href{https://nitanmarcel.github.io/shvdn-docs.github.io/namespace_g_t_a_1_1_native.html\#a84977424e1cb7b6f1c2902770bf9ad2d}{Native functions} are called with \texttt{Function.Call} followed by their corresponding hash name and parameters. They use this structure:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{//Teleport to the top of Mount Chilad}
+\NormalTok{Function.}\FunctionTok{Call}\NormalTok{(Hash.}\FunctionTok{HASH_NAME}\NormalTok{, input_params);}
+\end{Highlighting}
+\end{Shaded}
+
+The native function for teleporting expects the hash \texttt{SET\_ENTITY\_COORDS}, the \texttt{ped} entity to teleport, and the X, Y and Z coordinates to teleport the character to. \texttt{Function.Call(Hash.SET\_ENTITY\_COORDS,\ Ped\ ped,\ X,\ Y,\ Z,\ 0,\ 0,\ 1);}
+
+The function to teleport the player character to the top of Moutn Chiliad is:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{//Teleport to the top of Mount Chiliad}
 \NormalTok{Function.}\FunctionTok{Call}\NormalTok{(Hash.}\FunctionTok{SET_ENTITY_COORDS}\NormalTok{, Game.}\FunctionTok{Player}\NormalTok{.}\FunctionTok{Character}\NormalTok{, }\FloatTok{450.718f}\NormalTok{, }\FloatTok{5566.614f}\NormalTok{, }\FloatTok{806.183f}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{);}
 \end{Highlighting}
 \end{Shaded}
