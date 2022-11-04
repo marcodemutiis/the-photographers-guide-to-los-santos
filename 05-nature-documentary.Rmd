@@ -1,16 +1,18 @@
 # Nature Documentary
 
-## _Deercam_ by Brent Watanabe {-}
+## _San Andreas Streaming Deer Cam_ by Brent Watanabe {-}
 ```{r fig.align='left', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html'), fig.link='https://www.heterotopiaszine.com/'}
 knitr::include_graphics('assets/deercam.jpeg', dpi = NA)
 ```
 artwork text
+[More about _Deercam_](https://bwatanabe.com/GTA_V_WanderingDeer.html)
 
 ### Getting There {-}
 
 ## _Virtual Botany Cyanotype_ by Alan Butler {-}
 
 artwork text
+[More about _Virtual Botany Cyanotype_](http://www.alanbutler.info/virtual-botany-cyanotypes)
 
 ### Getting There {-}
 
