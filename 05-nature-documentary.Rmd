@@ -1,6 +1,6 @@
 # Nature Documentary
 
-## Deercam by Brent Watanabe {-}
+## _Deercam_ by Brent Watanabe {-}
 ```{r fig.align='left', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html'), fig.link='https://www.heterotopiaszine.com/'}
 knitr::include_graphics('assets/deercam.jpeg', dpi = NA)
 ```
@@ -8,7 +8,7 @@ artwork text
 
 ### Getting There {-}
 
-## Virtual Flora {-}
+## _Virtual Botany Cyanotype_ by Alan Butler {-}
 
 artwork text
 
