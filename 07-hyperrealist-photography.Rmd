@@ -15,6 +15,10 @@ Aram Bartholl, _8k_, installation view
 [More about 8k](https://arambartholl.com/8k/)
 
 ### Getting there {-}
+```{r fig.align='left', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html')}
+knitr::include_graphics('assets/maps/tataviamMountains.png', dpi = NA)
+```
+* [Land Act Dam, Tataviam Mountains](https://grandtheftdata.com/landmarks/#1672.279,-29.78,4,atlas,name=tataviam_act_dam,Land_Act_Dam,_Tataviam_Mountains)
 
 ## Readings {-}
 
