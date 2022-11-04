@@ -1,0 +1,50 @@
+# Hyperrealist Photography 
+
+### _8k_ by Aram Bartholl {-}
+
+```{r fig.align='left', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html')}
+knitr::include_graphics('assets/aram_bartholl_8K_2016.jpeg', dpi = NA)
+```
+Aram Bartholl, _8k_, installation view
+
+```{r fig.align='left', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html')}
+knitr::include_graphics('assets/aram_bartholl_8K_2016_2.jpeg', dpi = NA)
+```
+Aram Bartholl, _8k_, installation view
+
+[More about 8k](https://arambartholl.com/8k/)
+
+### Getting there {-}
+
+## Readings {-}
+
+## Tutorial {-}
+
+### Natural Vision Evolved {-}
+
+Natural Vision Evolved is a graphic mod develped by [Jamal Rashid, aka Razed](https://www.razedmods.com/).
+
++ Go to razedmods.com/gta-v and download Natural Vision Evolved (6.2 Gb).
+
++ Go to [openiv.com/](https://openiv.com/) and download Open IV, Open 'ovisetup' and install Open IV on your computer.
+
++ Open the Open IV app and select GTA V Windows. Choose Grand Theft Auto V folder ```C:\Program Files (x86)\Steam\steamapps\common\Grand Theft Auto V```
+
++ Once Open IV is open, go to your file window select the ```Tools``` menu on top of the window, and select ```ASI Manager```. In ```ASI Manager``` install all options: ASI Loader, OpenIV.ASI and openCamera.
+
++ Select ```Tools``` again and click ```Options```. Click on the ```"mods" folder``` tab and select ```Allow edit mode only for archive inside "mods" folder```. Click ```Close```.
+
++ Back in Open IV, select ```Edit mode``` at the top right of the window. Select ```OK``` on the pop up window. 
+
++ Now you can add your mod to the mods folder.
+
++ Open the NVE mod folder and copy the subfolder containing the settings you want (low/medium/ultra graphics) to your GTA V directory folder ```C:\Program Files (x86)\Steam\steamapps\common\Grand Theft Auto V```.
+
++ Go back to your downloads and inside the NVE folder select the installation files and open number 1 and 2 with Open IV in the correct order. Always choose to select "mod" folder and select install.
+
++ Go back to your downloads and inside the NVE folder you can choose some optional addons. Install/Uninstall them with Open IV as above Always choose to select "mod" folder and select install.
+
++ Open GTA V, press ```ESC``` to bring up the menu and go to ```SETTINGS```. Adjust the graphics quality, making sure ```Shader Quality```, ```Particle Quality``` and ```Post FX```are set to ```<Very High>```. Restart the game to make change in effect.
+  
+
+## Content Replication Assignment {-}
