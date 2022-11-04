@@ -1,0 +1,25 @@
+## Hyperrealist Photography {-}
+
+### _8k_ by Aram Bartholl
+
+```{r fig.align='left', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html')}
+knitr::include_graphics('assets/aram_bartholl_8K_2016.jpeg', dpi = NA)
+```
+Aram Bartholl, _8k_, installation view
+
+```{r fig.align='left', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html')}
+knitr::include_graphics('assets/aram_bartholl_8K_2016_2.jpeg', dpi = NA)
+```
+Aram Bartholl, _8k_, installation view
+
+[More about 8k](https://arambartholl.com/8k/)
+
+### Getting there {-}
+
+## Readings {-}
+
+## Tutorial {-}
+
+### Modding Introduction {-}
+
+## Content Replication Assignment {-}
