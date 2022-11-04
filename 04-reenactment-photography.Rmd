@@ -14,13 +14,16 @@ artwork text
 knitr::include_graphics('assets/maps/gas_stations_locations.png', dpi = NA)
 ```
 
-+ [Capital Blvd & El Rancho Blvd, East Los Santos](https://grandtheftdata.com/landmarks/#513.325,-1374.453,4,hybrid,name=gas_station,Gas_Station,_Capital_Blvd_&_El_Rancho_Blvd,_East_Los_Santos) (1209.708, -1402.539)
-+ [Xero Gas Station, Strawberry Ave & Capital Blvd, South Los Santos](https://grandtheftdata.com/landmarks/#513.325,-1374.453,4,hybrid,name=gas_station,Xero_Gas_Station,_Strawberry_Ave_&_Capital_Blvd,_South_Los_Santos)
-+ [RON Gas Station, Davis Ave & Macdonald St, South Los Santos](https://grandtheftdata.com/landmarks/#513.325,-1374.453,4,hybrid,name=gas_station,RON_Gas_Station,_Davis_Ave_&_Macdonald_St,_South_Los_Santos)
-+ [Xero Gas Station, Calais Ave & Innocence Blvd, Little Seoul](https://grandtheftdata.com/landmarks/#513.325,-1374.453,4,hybrid,name=gas_station,Xero_Gas_Station,_Calais_Ave_&_Innocence_Blvd,_Little_Seoul)
-+ [LTD Gas Station, Lindsay Circus & Ginger St, Little Seoul](https://grandtheftdata.com/landmarks/#513.325,-1374.453,4,hybrid,name=gas_station,LTD_Gas_Station,_Lindsay_Circus_&_Ginger_St,_Little_Seoul)
-+ [RON Gas Station, N Rockford Dr & Perth St, Morningwood](https://grandtheftdata.com/landmarks/#-1543.17,-676.107,4,hybrid,name=gas_station,RON_Gas_Station,_N_Rockford_Dr_&_Perth_St,_Morningwood)
-+ [Xero Gas Station, Great Ocean Hwy, Pacific Bluffs](https://grandtheftdata.com/landmarks/#-1543.17,-676.107,4,hybrid,name=gas_station,Xero_Gas_Station,_Great_Ocean_Hwy,_Pacific_Bluffs)
++ [Globe Oil Gas Station, Innocence Blvd & Alta St, South Los Santos](https://grandtheftdata.com/landmarks/#513.325,-1374.453,4,atlas,name=gas_station,Globe_Oil_Gas_Station,_Innocence_Blvd_&_Alta_St,_South_Los_Santos)
++ [LTD Gas Station, Davis Ave & Grove St, South Los Santos](https://grandtheftdata.com/landmarks/#513.325,-1374.453,4,atlas,name=gas_station,LTD_Gas_Station,_Davis_Ave_&_Grove_St,_South_Los_Santos)
++ [LTD Gas Station, Mirror Park Blvd & W Mirror Dr, Mirror Park](https://grandtheftdata.com/landmarks/#378.149,-934.191,4,atlas,name=gas_station,LTD_Gas_Station,_Mirror_Park_Blvd_&_W_Mirror_Dr,_Mirror_Park)
++ [Globe Oil Gas Station, Clinton Ave & Fenwell Pl, Vinewood Hills](https://grandtheftdata.com/landmarks/#613.567,192.271,6,atlas,name=gas_station,Globe_Oil_Gas_Station,_Clinton_Ave_&_Fenwell_Pl,_Vinewood_Hills)
++ [Xero Gas Station, Strawberry Ave & Capital Blvd, South Los Santos](https://grandtheftdata.com/landmarks/#513.325,-1374.453,4,atlas,name=gas_station,Xero_Gas_Station,_Strawberry_Ave_&_Capital_Blvd,_South_Los_Santos)
++ [RON Gas Station, Davis Ave & Macdonald St, South Los Santos](https://grandtheftdata.com/landmarks/#513.325,-1374.453,4,atlas,name=gas_station,RON_Gas_Station,_Davis_Ave_&_Macdonald_St,_South_Los_Santos)
++ [Xero Gas Station, Calais Ave & Innocence Blvd, Little Seoul](https://grandtheftdata.com/landmarks/#513.325,-1374.453,4,atlas,name=gas_station,Xero_Gas_Station,_Calais_Ave_&_Innocence_Blvd,_Little_Seoul)
++ [LTD Gas Station, Lindsay Circus & Ginger St, Little Seoul](https://grandtheftdata.com/landmarks/#513.325,-1374.453,4,atlas,name=gas_station,LTD_Gas_Station,_Lindsay_Circus_&_Ginger_St,_Little_Seoul)
++ [RON Gas Station, N Rockford Dr & Perth St, Morningwood](https://grandtheftdata.com/landmarks/#-1543.17,-676.107,4,atlas,name=gas_station,RON_Gas_Station,_N_Rockford_Dr_&_Perth_St,_Morningwood)
++ [Xero Gas Station, Great Ocean Hwy, Pacific Bluffs](https://grandtheftdata.com/landmarks/#-1543.17,-676.107,4,atlas,name=gas_station,Xero_Gas_Station,_Great_Ocean_Hwy,_Pacific_Bluffs)
 
 
 
