@@ -25,7 +25,7 @@ artwork text
 
 ## Tutorial {-}
 
-### Modding Introduction {-} 
+### Scripting Introduction {-} 
 
 #### Preparation and Setup {-}
 
