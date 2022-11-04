@@ -13,7 +13,7 @@ artwork text
 
 ## Tutorial {-}
 
-### Modding Peds {-}
+### Scripting Characters {-}
 
 #### NPCs {-}
 
