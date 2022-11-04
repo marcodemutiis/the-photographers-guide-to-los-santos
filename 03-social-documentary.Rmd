@@ -13,6 +13,9 @@ artwork text
 
 ### Getting There {-}
 
+```{r fig.align='left', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html')}
+knitr::include_graphics('assets/maps/homeless_camp_in_strawberry_los_santos.png', dpi = NA)
+```
 The homeless camp in Los Santos is under the [Olympic Freeway in Strawberry](https://grandtheftdata.com/landmarks/#252.086,-1208.975,5,hybrid,name,Strawberry_Subway_Station,_Downtown). 
 
 ```{r fig.align='left', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html')}
