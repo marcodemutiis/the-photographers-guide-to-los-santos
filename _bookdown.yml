@@ -1,0 +1,5 @@
+book_filename: "The Artist's Guide to Los Santos"
+language:
+  ui:
+    chapter_name: ""
+delete_merged_file: true
