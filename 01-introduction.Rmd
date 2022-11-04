@@ -15,10 +15,9 @@ Finally, the project draws inspiration from the works of artists who have explor
 ## Grand Theft Auto V Studies {-}
 Los Santos is the Grand Theft Auto V's fictional, parodic version of real-life Los Angeles. Just like Los Angeles is the global centre of film and commercial media production, Los Santos is the epicentre of in-game photography and machinima creation. While it may seem reductive to only focus on a single game to address the larger phenomenon of in-game photography, GTA V is the biggest source of creative outputs to date, with its extended open world and one of the largest community of active modders. Launched in 2013, the game contains a world map of more than 80 square kilometers of total area, which includes the urban area of the city of Los Santos and the rural area of Blaine County. This incredibly vast environment features a large desert region, dense forest, several mountains, beachside towns, on top of the large metropolis of Los Santos. The game simulates the everyday life of hundreds of individual NPCs (while it allegedly counts a population of over 4 million) as well as counting 28 animal species, and [more than 800 buildings in GTA V are based on real-life landmarks](https://grandtheftdata.com/landmarks/#0,0,2,satellite). The size of the photorealistic simulation is only matched by the complexity of the game engine and its code, which - thanks to the effort of GTA V's modding community - allows players to use the game world as a powerful tool to create new scenes, take controls of its algorithmic entities, modify cameras and reshaping the game into a movie set or a photo studio.
 
-```{r fig.align='center', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html'), fig.link='https://www.howtowinat.photography/'}
+```{r fig.align='center', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html'), fig.link='https://grandtheftdata.com/landmarks/#0,0,2,satellite'}
 knitr::include_graphics('assets/GTAV_SATELLITE_2048x2048.png', dpi = NA)
 ```
-[GTA V Satellite Map by Manas Sharma](https://www.bragitoff.com/2015/11/gta-v-maps-quad-ultra-high-definition-8k-quality/gtav_satellite_2048x2048/)
 
 
 ## Grand Theft Auto V Tourism {-}
