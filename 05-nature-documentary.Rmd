@@ -238,4 +238,3 @@ Now we can give tasks to the character by adding the _Task_ function: _Game.Play
 
 Write a mod script to change your game character into a deer by pressing a key, and make it autonomously wander around Los Santos by pressing another key.
 
-

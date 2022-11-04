@@ -471,3 +471,4 @@ El Gordo Lighthouse X:3430.155 Y:5174.196 Z:41.280
 ## Content Replication Assignment {-}
 Teleport the player to a beach, spawn ten whales on the shore and generate an NPC wandering aroud them and take a screenshot in the style of HAPP V2.
 
+
