@@ -5,6 +5,7 @@
 knitr::include_graphics('assets/deercam.jpeg', dpi = NA)
 ```
 artwork text
+
 [More about _Deercam_](https://bwatanabe.com/GTA_V_WanderingDeer.html)
 
 ### Getting There {-}
@@ -12,6 +13,7 @@ artwork text
 ## _Virtual Botany Cyanotype_ by Alan Butler {-}
 
 artwork text
+
 [More about _Virtual Botany Cyanotype_](http://www.alanbutler.info/virtual-botany-cyanotypes)
 
 ### Getting There {-}
