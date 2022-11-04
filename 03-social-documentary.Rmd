@@ -39,4 +39,26 @@ artwork text
 
 ### In-game Smartphone Camera {-}
 
+Snapmatic is the photo app on your simulated mobile phone in GTA V.
+
++ Press ```UP``` on the d-pad to bring up your phone.
+
++ Select the Snapmatic app - it's on the bottom left of the homescreen.
+
++ You can shuffle through filters with ```DOWN``` on the d-pad or borders with ```UP``` on the d-pad.
+
++ Move the camera with the ```RIGHT STICK``` and zoom in and out with the ```LEFT STICK```.
+
++ You're also able to concentrate focus and depth of field.
+
++ To take selfie press the ```R3 STICK``` to turn the camera on yourself.
+
++ ```L3``` will let you pull different facial expressions.
+
++ ```LEFT``` on the d-pad will let you strike more of a pose (this changes depending on the character).
+
++ Once you're happy, take the photo with ```X``` on the PS4 and ```A``` on the Xbox One and save it to the Gallery
+
+
+
 ## Content Replication Assignment {-}
