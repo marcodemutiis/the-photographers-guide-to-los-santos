@@ -8,6 +8,12 @@ knitr::include_graphics('assets/happ_whales.png', dpi = NA)
 artwork text
 
 ### Getting There {-}
+```{r fig.align='left', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html'), fig.link='https://www.heterotopiaszine.com/'}
+knitr::include_graphics('assets/maps/ChumashBeach.png', dpi = NA)
+```
+
+[Chumash Beach](https://grandtheftdata.com/landmarks/#-2629.132,626.461,4,atlas,name=beach,Chumash_Beach,_Chumash)
+
 
 ## Readings {-}
 
