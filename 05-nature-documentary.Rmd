@@ -229,8 +229,26 @@ namespace moddingTutorial
 
 #### Tasks {-}
 
-Our character can be controlled by our script, and given actions that override manual control of the player. These actions are called _Tasks_ and in order to assign tasks to our characters we have to define our _Game.Player_ as _Game.Player.Character_. The _Game.Player.Character_ code gets the specific model the player is controlling.
-Now we can give tasks to the character by adding the _Task_ function: _Game.Player.Character.Task_.
+Our character can be controlled by our script, and given actions that override manual control of the player. These actions are called _Tasks_ and in order to assign tasks to our characters we have to define our ```Game.Player``` as ```Game.Player.Character```. The ```Game.Player.Character``` code gets the specific model the player is controlling.
+
+Now we can give tasks to the character by adding the ```Task``` function: ```Game.Player.Character.Task```.
+
+Finally we can specify what task to give the character by choosing a task from [TaskInvoker list](https://nitanmarcel.github.io/shvdn-docs.github.io/class_g_t_a_1_1_task_invoker.html) of possible actions.
+
+Jump:
+```cs
+Game.Player.Character.Task.Jump();
+```
+
+Wander around:
+```cs
+Game.Player.Character.Task.WanderAround();
+```
+
+Hands up for 3000 milliseconds:
+```cs
+Game.Player.Character.Task.HandsUp(3000);
+```
 
 ## Content Replication Assignment {-}
 
