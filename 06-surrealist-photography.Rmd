@@ -274,12 +274,22 @@ void ClearAnimation (string animSet, string animName)
 We can change the location of the player character or of any Ped or Vehicle entity by using the native function ```SET_ENTITY_COORDS```. This function needs an entity and X, Y and Z coordinate to teleport to.
 We need to know the exact coordinates of the locations we want to teleport to, but thankfully the modding community forums provide lists with all available coordinates we can teleport to. Let's take the XYZ coordinates of the top of Mount Chiliad (the highest point in the game) to teleport our player character to.
 
-```Top of the Mt Chilad X:450.718 Y:5566.614 Z:806.183```
+```
+LOCATION: Top of the Mt Chilad
+COORDINATES: X:450.718 Y:5566.614 Z:806.183
+```
+To create a teleport function we will use a native function. Script Hook V Dot Net is a wrapper for the C++ ScriptHook, calling the functions in Scripthook to do things in the game. However, there are some functions that are not in Script Hook V Dot Net and in order to use these, we have to use the native calling from Script Hook.
 
-[Native functions](https://nitanmarcel.github.io/shvdn-docs.github.io/namespace_g_t_a_1_1_native.html#a84977424e1cb7b6f1c2902770bf9ad2d) are called by using ```Function.Call``` followed by their corresponding Hash and parameters. The native function for teleporting  is ```Function.Call(Hash.SET_ENTITY_COORDS, Ped ped, X, Y, Z, 0, 0, 1);```
-
+[Native functions](https://nitanmarcel.github.io/shvdn-docs.github.io/namespace_g_t_a_1_1_native.html#a84977424e1cb7b6f1c2902770bf9ad2d) are called with ```Function.Call``` followed by their corresponding hash name and parameters. They use this structure: 
 ```cs
-//Teleport to the top of Mount Chilad
+Function.Call(Hash.HASH_NAME, input_params);
+```
+
+The native function for teleporting expects the hash ```SET_ENTITY_COORDS```, the ```ped``` entity to teleport, and the X, Y and Z coordinates to teleport the character to. ```Function.Call(Hash.SET_ENTITY_COORDS, Ped ped, X, Y, Z, 0, 0, 1);```
+
+The function to teleport the player character to the top of Moutn Chiliad is:
+```cs
+//Teleport to the top of Mount Chiliad
 Function.Call(Hash.SET_ENTITY_COORDS, Game.Player.Character, 450.718f, 5566.614f, 806.183f, 0, 0, 1);
 ```
 
