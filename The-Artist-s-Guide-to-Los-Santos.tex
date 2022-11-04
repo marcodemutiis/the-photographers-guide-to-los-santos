@@ -648,8 +648,35 @@ Example code
 \subsubsection*{Tasks}\label{tasks}}
 \addcontentsline{toc}{subsubsection}{Tasks}
 
-Our character can be controlled by our script, and given actions that override manual control of the player. These actions are called \emph{Tasks} and in order to assign tasks to our characters we have to define our \emph{Game.Player} as \emph{Game.Player.Character}. The \emph{Game.Player.Character} code gets the specific model the player is controlling.
-Now we can give tasks to the character by adding the \emph{Task} function: \emph{Game.Player.Character.Task}.
+Our character can be controlled by our script, and given actions that override manual control of the player. These actions are called \emph{Tasks} and in order to assign tasks to our characters we have to define our \texttt{Game.Player} as \texttt{Game.Player.Character}. The \texttt{Game.Player.Character} code gets the specific model the player is controlling.
+
+Now we can give tasks to the character by adding the \texttt{Task} function: \texttt{Game.Player.Character.Task}.
+
+Finally we can specify what task to give the character by choosing a task from \href{https://nitanmarcel.github.io/shvdn-docs.github.io/class_g_t_a_1_1_task_invoker.html}{TaskInvoker list} of possible actions.
+
+Jump:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{Game.}\FunctionTok{Player}\NormalTok{.}\FunctionTok{Character}\NormalTok{.}\FunctionTok{Task}\NormalTok{.}\FunctionTok{Jump}\NormalTok{();}
+\end{Highlighting}
+\end{Shaded}
+
+Wander around:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{Game.}\FunctionTok{Player}\NormalTok{.}\FunctionTok{Character}\NormalTok{.}\FunctionTok{Task}\NormalTok{.}\FunctionTok{WanderAround}\NormalTok{();}
+\end{Highlighting}
+\end{Shaded}
+
+Hands up for 3000 milliseconds:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{Game.}\FunctionTok{Player}\NormalTok{.}\FunctionTok{Character}\NormalTok{.}\FunctionTok{Task}\NormalTok{.}\FunctionTok{HandsUp}\NormalTok{(}\DecValTok{3000}\NormalTok{);}
+\end{Highlighting}
+\end{Shaded}
 
 \hypertarget{content-replication-assignment-3}{%
 \section*{Content Replication Assignment}\label{content-replication-assignment-3}}

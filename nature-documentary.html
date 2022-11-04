@@ -421,8 +421,15 @@ For example if you choose the model Cat, you’ll need to write <code>PedHash.Ca
 </div>
 <div id="tasks" class="section level4 unnumbered hasAnchor">
 <h4>Tasks<a href="nature-documentary.html#tasks" class="anchor-section" aria-label="Anchor link to header"></a></h4>
-<p>Our character can be controlled by our script, and given actions that override manual control of the player. These actions are called <em>Tasks</em> and in order to assign tasks to our characters we have to define our <em>Game.Player</em> as <em>Game.Player.Character</em>. The <em>Game.Player.Character</em> code gets the specific model the player is controlling.
-Now we can give tasks to the character by adding the <em>Task</em> function: <em>Game.Player.Character.Task</em>.</p>
+<p>Our character can be controlled by our script, and given actions that override manual control of the player. These actions are called <em>Tasks</em> and in order to assign tasks to our characters we have to define our <code>Game.Player</code> as <code>Game.Player.Character</code>. The <code>Game.Player.Character</code> code gets the specific model the player is controlling.</p>
+<p>Now we can give tasks to the character by adding the <code>Task</code> function: <code>Game.Player.Character.Task</code>.</p>
+<p>Finally we can specify what task to give the character by choosing a task from <a href="https://nitanmarcel.github.io/shvdn-docs.github.io/class_g_t_a_1_1_task_invoker.html">TaskInvoker list</a> of possible actions.</p>
+<p>Jump:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb8-1"><a href="nature-documentary.html#cb8-1"></a>Game.<span class="fu">Player</span>.<span class="fu">Character</span>.<span class="fu">Task</span>.<span class="fu">Jump</span>();</span></code></pre></div>
+<p>Wander around:</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb9-1"><a href="nature-documentary.html#cb9-1"></a>Game.<span class="fu">Player</span>.<span class="fu">Character</span>.<span class="fu">Task</span>.<span class="fu">WanderAround</span>();</span></code></pre></div>
+<p>Hands up for 3000 milliseconds:</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb10-1"><a href="nature-documentary.html#cb10-1"></a>Game.<span class="fu">Player</span>.<span class="fu">Character</span>.<span class="fu">Task</span>.<span class="fu">HandsUp</span>(<span class="dv">3000</span>);</span></code></pre></div>
 </div>
 </div>
 </div>
