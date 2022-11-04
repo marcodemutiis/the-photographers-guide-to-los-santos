@@ -1,6 +1,6 @@
-## Hyperrealist Photography {-}
+# Hyperrealist Photography 
 
-### _8k_ by Aram Bartholl
+### _8k_ by Aram Bartholl {-}
 
 ```{r fig.align='left', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html')}
 knitr::include_graphics('assets/aram_bartholl_8K_2016.jpeg', dpi = NA)
