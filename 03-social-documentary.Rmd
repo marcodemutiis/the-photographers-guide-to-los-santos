@@ -13,10 +13,12 @@ artwork text
 
 ### Getting There {-}
 
-The homeless camp in Los Santos is under the Olympic Freeway in Strawberry. 
+The homeless camp in Los Santos is under the [Olympic Freeway in Strawberry](https://grandtheftdata.com/landmarks/#252.086,-1208.975,5,hybrid,name,Strawberry_Subway_Station,_Downtown). 
 
-Dignity Village is a tent city established by homeless people near Procopio Beach, east of Paleto Bay.
-
+```{r fig.align='left', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html')}
+knitr::include_graphics('assets/maps/dignity_village.png', dpi = NA)
+```
+Dignity Village is a tent city established by homeless people near Procopio Beach, east of [Paleto Bay](https://grandtheftdata.com/landmarks/#-171.667,6208.676,5,hybrid,name=paleto_bay,Belinda_May's_Beauty_Salon,_Paleto_Blvd,_Paleto_Bay).
 
 
 
