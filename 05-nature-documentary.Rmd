@@ -1,5 +1,7 @@
 # Nature Documentary
 
+//general introduction about the creation of a synthetic forms of nature, ecological issues, creation of virtual sublime, flora and fauna that are usually props that become the focus of the player's explorations, "virtual world naturalism"...
+
 ## _San Andreas Streaming Deer Cam_ by Brent Watanabe {-}
 ```{r fig.align='left', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html'), fig.link='https://www.heterotopiaszine.com/'}
 knitr::include_graphics('assets/deercam.jpeg', dpi = NA)
@@ -16,6 +18,8 @@ knitr::include_graphics('assets/maps/mountChiliad.png', dpi = NA)
 
 
 ## _Virtual Botany Cyanotype_ by Alan Butler {-}
+
+//selectioon of flora from GTA V
 
 artwork text
 
