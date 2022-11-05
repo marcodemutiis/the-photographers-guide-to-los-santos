@@ -1,5 +1,7 @@
 # Surrealist Photography
 
+//general introduction about avant garde traditions of distancing from reality and exploring the possibilities of CGI decoupled from realism adn life-like simulation, the game as an engine that can be used to create oniric scenes, which in turn reveal the untapped possibilities hidden within the game code, the player as a modder which can generate worlds within the world...
+
 ## Alexey Andrienko aka HAPP v2 {-}
 
 ```{r fig.align='left', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html'), fig.link='https://www.heterotopiaszine.com/'}
