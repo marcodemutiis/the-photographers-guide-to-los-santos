@@ -1,5 +1,7 @@
 # Architecture Photography
 
+//general intro on architecture in game spaces, the contruction of virtual cities, architecture photography and how it relates to the game environment, the player as a photographer documenting urban spaces...
+
 ## _The Continuous City_, by Gareth Damian Martin {-}
 
 ```{r fig.align='left', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html'), fig.link='https://www.heterotopiaszine.com/'}
