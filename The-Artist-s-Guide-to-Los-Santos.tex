@@ -866,7 +866,7 @@ You can create multiple NPCs and give them custom names. Let's create a human NP
 \end{Highlighting}
 \end{Shaded}
 
-Try to kill one of the \texttt{Ped} NPCs you created by using the \texttt{Kill()} function.
+Try to kill one of the \texttt{Ped} NPCs you created by using the \texttt{Kill()} function (Sorry I know how cruel it sounds to kill an entity you just gave birth to, but we have no choice as we have not learnt how to give them tasks yet).
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -905,6 +905,70 @@ Kill the 3rd spawned NPC:
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{myPeds[}\DecValTok{2}\NormalTok{].}\FunctionTok{Kill}\NormalTok{();}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{nearby-npcs}{%
+\subsubsection{Nearby NPCs}\label{nearby-npcs}}
+
+Script Hook V DOt Net provides a function \texttt{GetNearbyPeds}which groups all the \texttt{Peds} within a nearby radius from a character.
+
+Create a new group that adds \texttt{Peds} which are closer than 20 meters from the player:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{Ped[] NearbyPeds = World.}\FunctionTok{GetNearbyPeds}\NormalTok{(Game.}\FunctionTok{Player}\NormalTok{.}\FunctionTok{Character}\NormalTok{, 20f);}
+\end{Highlighting}
+\end{Shaded}
+
+Use a \href{https://www.simplilearn.com/tutorials/asp-dot-net-tutorial/csharp-foreach\#:~:text=The\%20foreach\%20loop\%20in\%20C\%23,readable\%20alternative\%20to\%20for\%20loop.}{Foreach Loop} to get every \texttt{Ped} in the group and kill them:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{foreach}\NormalTok{ (Ped p }\KeywordTok{in}\NormalTok{ NearbyPeds)}
+\NormalTok{\{}
+\NormalTok{    p.}\FunctionTok{Kill}\NormalTok{();}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\texttt{GetNearbyPeds} does not sort out individual \texttt{Peds}in the group based on distance, so we have to do a bit of manual filtering to get the nearest NPC within the chosen radius from the player character.
+
+Define the global variables in the public class \texttt{public\ class\ moddingTutorial\ :\ Script}:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DataTypeTok{float}\NormalTok{ lastDistance;}
+\NormalTok{Ped Squad1Leader = }\KeywordTok{null}\NormalTok{;}
+\NormalTok{Ped oldSquad1Leader = }\KeywordTok{null}\NormalTok{;}
+\end{Highlighting}
+\end{Shaded}
+
+Get and parse the nearby NPCs in the OnTick function \texttt{private\ void\ onTick(object\ sender,\ EventArgs\ e)}:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{//set radius}
+\DataTypeTok{float}\NormalTok{ maxDistance = 25f;}
+\CommentTok{//get nearest peds      }
+\NormalTok{Ped[] pedsGroup = World.}\FunctionTok{GetNearbyPeds}\NormalTok{(Game.}\FunctionTok{Player}\NormalTok{.}\FunctionTok{Character}\NormalTok{, maxDistance);}
+ 
+\DataTypeTok{float}\NormalTok{ lastDistance = maxDistance;}
+\KeywordTok{foreach}\NormalTok{ (Ped ped }\KeywordTok{in}\NormalTok{ pedsGroup)}
+\NormalTok{\{}
+    \DataTypeTok{float}\NormalTok{ distance = ped.}\FunctionTok{Position}\NormalTok{.}\FunctionTok{DistanceTo}\NormalTok{(Game.}\FunctionTok{Player}\NormalTok{.}\FunctionTok{Character}\NormalTok{.}\FunctionTok{Position}\NormalTok{);}
+    \KeywordTok{if}\NormalTok{ (distance < lastDistance)}
+\NormalTok{    \{}
+\NormalTok{        Squad1Leader = ped;}
+\NormalTok{        lastDistance = distance;}
+\NormalTok{    \}}
+\NormalTok{\}}
+
+    \KeywordTok{if}\NormalTok{ (Squad1Leader != }\KeywordTok{null}\NormalTok{ && oldSquad1Leader != Squad1Leader)}
+\NormalTok{    \{}
+\NormalTok{        Squad1Leader.}\FunctionTok{Kill}\NormalTok{();}
+\NormalTok{    \}}
+\NormalTok{oldSquad1Leader = Squad1Leader;}
 \end{Highlighting}
 \end{Shaded}
 

@@ -6,4 +6,5 @@ nature-documentary
 ontick-onkeyup-and-onkeydown
 surrealist-photography
 control-multiple-npcs
+nearby-npcs
 hyperrealist-photography
