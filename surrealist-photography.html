@@ -325,8 +325,8 @@ To make a Ped appear in front of the player we can create a vector3 data type wi
 <span id="cb15-47"><a href="surrealist-photography.html#cb15-47"></a>}</span></code></pre></div>
 </details>
 </div>
-<div id="control-multiple-npcs" class="section level4 hasAnchor">
-<h4><span class="header-section-number">6.0.0.1</span> Control Multiple NPCs<a href="surrealist-photography.html#control-multiple-npcs" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div id="control-multiple-npcs" class="section level4 unnumbered hasAnchor">
+<h4>Control Multiple NPCs<a href="surrealist-photography.html#control-multiple-npcs" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>You can create multiple NPCs and give them custom names. Let’s create a human NPC and a cat NPC and call them Jim and MannyTheCat respectively:</p>
 <div class="sourceCode" id="cb16"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb16-1"><a href="surrealist-photography.html#cb16-1"></a><span class="dt">var</span> Jim = World.<span class="fu">CreatePed</span>(PedHash.<span class="fu">AviSchwartzman</span>, Game.<span class="fu">Player</span>.<span class="fu">Character</span>.<span class="fu">GetOffsetInWorldCoords</span>(<span class="kw">new</span> <span class="fu">Vector3</span>(<span class="dv">0</span>, <span class="dv">5</span>, <span class="dv">0</span>)));</span>
 <span id="cb16-2"><a href="surrealist-photography.html#cb16-2"></a><span class="dt">var</span> MannyTheCat = World.<span class="fu">CreatePed</span>(PedHash.<span class="fu">Cat</span>, Game.<span class="fu">Player</span>.<span class="fu">Character</span>.<span class="fu">GetOffsetInWorldCoords</span>(<span class="kw">new</span> <span class="fu">Vector3</span>(<span class="dv">0</span>, <span class="dv">3</span>, <span class="dv">0</span>)));</span></code></pre></div>
@@ -347,8 +347,8 @@ To make a Ped appear in front of the player we can create a vector3 data type wi
 <p>Kill the 3rd spawned NPC:</p>
 <div class="sourceCode" id="cb20"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb20-1"><a href="surrealist-photography.html#cb20-1"></a>myPeds[<span class="dv">2</span>].<span class="fu">Kill</span>();</span></code></pre></div>
 </div>
-<div id="nearby-npcs" class="section level4 hasAnchor">
-<h4><span class="header-section-number">6.0.0.2</span> Nearby NPCs<a href="surrealist-photography.html#nearby-npcs" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div id="nearby-npcs" class="section level4 unnumbered hasAnchor">
+<h4>Nearby NPCs<a href="surrealist-photography.html#nearby-npcs" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>Script Hook V DOt Net provides a function <code>GetNearbyPeds</code>which groups all the <code>Peds</code> within a nearby radius from a character.</p>
 <p>Create a new group that adds <code>Peds</code> which are closer than 20 meters from the player:</p>
 <div class="sourceCode" id="cb21"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb21-1"><a href="surrealist-photography.html#cb21-1"></a>Ped[] NearbyPeds = World.<span class="fu">GetNearbyPeds</span>(Game.<span class="fu">Player</span>.<span class="fu">Character</span>, 20f);</span></code></pre></div>
