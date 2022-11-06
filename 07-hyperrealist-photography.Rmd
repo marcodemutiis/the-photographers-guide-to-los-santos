@@ -26,6 +26,39 @@ knitr::include_graphics('assets/maps/tataviamMountains.png', dpi = NA)
 
 ## Tutorial {-}
 
+### Scripting Cinematic Fade Out/ In
+
+Script Hook has native functions to create a fead to/from black. The function hash are ```DO_SCREEN_FADE_OUT``` and ```DO_SCREEN_FADE_OUT``` and they are followed by the number of milliseconds to go from full black to showing the scene and viceversa.
+
+Let's create a fade to black over 3 seconds when we press the letter key 'O':
+```cs
+if (e.KeyCode == Keys.O)
+{
+    Function.Call(Hash.DO_SCREEN_FADE_OUT, 3000);
+}
+```
+
+And a fade over 3 seconds when we press the letter key 'I':
+```cs
+if (e.KeyCode == Keys.I)
+{
+    Function.Call(Hash.DO_SCREEN_FADE_IN, 3000);
+}
+```
+
+We could also create an automated check in our onTick loop, which keeps seeing if the screen has been faded to black. We can use the native function ```IS_SCREEN_FADED_OUT``` which is a boolean data type. This means it will return either true or false. If it returns true, it means the screen has been faded out. 
+
+Let's add an If statement in our onTick loop to chek if the screen has been faded to black, and if so we call a fade in over 3 second:
+```cs
+if (Function.Call<bool>(Hash.IS_SCREEN_FADED_OUT))
+{
+    GTA.Native.Function.Call(Hash.DO_SCREEN_FADE_IN, 3000);
+}
+```
+
+Now if you try to hit the 'O' key, the screen will fade out, and then it will automatically fade in again.
+
+
 ### Natural Vision Evolved Mod {-}
 
 Natural Vision Evolved is a graphic mod develped by [Jamal Rashid, aka Razed](https://www.razedmods.com/). This mod enhances GTA V's lighting, weather effects, ambient colours, world textures, building models, pushing the photo-realism and cinematic looks. While the mod contains settings for different hardware settings, it's recommended to have a relatively powerful PC with a good graphic card. [Here](https://www.systemrequirementslab.com/cyri/requirements/gta-5-naturalvision-remastered/16594) you can find minimum and recommended requirements for Natural Vision Evolved mod.
