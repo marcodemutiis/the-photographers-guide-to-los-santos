@@ -456,6 +456,13 @@ Create a new <code>TaskSequence</code> with a custom name, add tasks to it with 
 <span id="cb13-2"><a href="nature-documentary.html#cb13-2"></a><span class="dt">int</span> waitingTime = rnd.<span class="fu">Next</span>(<span class="dv">1</span>, <span class="dv">7</span>);</span>
 <span id="cb13-3"><a href="nature-documentary.html#cb13-3"></a>Game.<span class="fu">Player</span>.<span class="fu">Character</span>.<span class="fu">Task</span>.<span class="fu">HandsUp</span>(waitingTime * <span class="dv">1000</span>);</span></code></pre></div>
 </div>
+<div id="subtitles-and-notifications" class="section level4 hasAnchor">
+<h4><span class="header-section-number">5.0.0.2</span> Subtitles and Notifications<a href="nature-documentary.html#subtitles-and-notifications" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Generate subtitles with a custom text string and duration (in milliseconds):</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb14-1"><a href="nature-documentary.html#cb14-1"></a>UI.<span class="fu">ShowSubtitle</span>(<span class="st">&quot;Hello World&quot;</span>, <span class="dv">3000</span>);</span></code></pre></div>
+<p>Generate a notification with a custom text string:</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb15-1"><a href="nature-documentary.html#cb15-1"></a>UI.<span class="fu">Notify</span>(<span class="st">&quot;Hello World&quot;</span>);</span></code></pre></div>
+</div>
 </div>
 </div>
 <div id="content-replication-assignment-3" class="section level2 unnumbered hasAnchor">
