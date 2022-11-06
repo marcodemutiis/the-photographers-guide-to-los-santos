@@ -5,4 +5,5 @@ re-enactment-photography
 nature-documentary
 ontick-onkeyup-and-onkeydown
 surrealist-photography
+control-multiple-npcs
 hyperrealist-photography
