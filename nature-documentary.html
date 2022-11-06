@@ -444,6 +444,18 @@ Create a new <code>TaskSequence</code> with a custom name, add tasks to it with 
 <span id="cb11-5"><a href="nature-documentary.html#cb11-5"></a>                </span>
 <span id="cb11-6"><a href="nature-documentary.html#cb11-6"></a>Game.<span class="fu">Player</span>.<span class="fu">Character</span>.<span class="fu">Task</span>.<span class="fu">PerformSequence</span>(mySeq);</span></code></pre></div>
 </div>
+<div id="random" class="section level4 unnumbered hasAnchor">
+<h4>Random<a href="nature-documentary.html#random" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>We can add randomness by using a randomly generated number, which makes things outside of thepredefined programme controlled by us and introduces more autonomous behaviours. We use the <code>Random</code>function to create a randomly generated number between our minimum and maximum parameter (if only one parameter is inserted, the minimum is 0).</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb12-1"><a href="nature-documentary.html#cb12-1"></a>Random rnd = <span class="kw">new</span> <span class="fu">Random</span>(); </span>
+<span id="cb12-2"><a href="nature-documentary.html#cb12-2"></a><span class="dt">int</span> month = rnd.<span class="fu">Next</span>(<span class="dv">1</span>, <span class="dv">13</span>); <span class="co">// creates a number between 1 and 12 </span></span>
+<span id="cb12-3"><a href="nature-documentary.html#cb12-3"></a><span class="dt">int</span> dice = rnd.<span class="fu">Next</span>(<span class="dv">1</span>, <span class="dv">7</span>); <span class="co">// creates a number between 1 and 6 </span></span>
+<span id="cb12-4"><a href="nature-documentary.html#cb12-4"></a><span class="dt">int</span> card = rnd.<span class="fu">Next</span>(<span class="dv">52</span>); <span class="co">// creates a number between 0 and 51</span></span></code></pre></div>
+<p>Let’s create a number to generate a random duration between 1 and 6 seconds, for the <code>HandsUp</code> task.</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb13-1"><a href="nature-documentary.html#cb13-1"></a>Random rnd = <span class="kw">new</span> <span class="fu">Random</span>(); </span>
+<span id="cb13-2"><a href="nature-documentary.html#cb13-2"></a><span class="dt">int</span> waitingTime = rnd.<span class="fu">Next</span>(<span class="dv">1</span>, <span class="dv">7</span>);</span>
+<span id="cb13-3"><a href="nature-documentary.html#cb13-3"></a>Game.<span class="fu">Player</span>.<span class="fu">Character</span>.<span class="fu">Task</span>.<span class="fu">HandsUp</span>(waitingTime * <span class="dv">1000</span>);</span></code></pre></div>
+</div>
 </div>
 </div>
 <div id="content-replication-assignment-3" class="section level2 unnumbered hasAnchor">

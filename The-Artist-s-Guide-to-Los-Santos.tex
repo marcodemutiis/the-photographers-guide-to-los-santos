@@ -719,6 +719,31 @@ Create a new \texttt{TaskSequence} with a custom name, add tasks to it with \tex
 \end{Highlighting}
 \end{Shaded}
 
+\hypertarget{random}{%
+\subsubsection*{Random}\label{random}}
+\addcontentsline{toc}{subsubsection}{Random}
+
+We can add randomness by using a randomly generated number, which makes things outside of thepredefined programme controlled by us and introduces more autonomous behaviours. We use the \texttt{Random}function to create a randomly generated number between our minimum and maximum parameter (if only one parameter is inserted, the minimum is 0).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{Random rnd = }\KeywordTok{new} \FunctionTok{Random}\NormalTok{(); }
+\DataTypeTok{int}\NormalTok{ month = rnd.}\FunctionTok{Next}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{13}\NormalTok{); }\CommentTok{// creates a number between 1 and 12 }
+\DataTypeTok{int}\NormalTok{ dice = rnd.}\FunctionTok{Next}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{7}\NormalTok{); }\CommentTok{// creates a number between 1 and 6 }
+\DataTypeTok{int}\NormalTok{ card = rnd.}\FunctionTok{Next}\NormalTok{(}\DecValTok{52}\NormalTok{); }\CommentTok{// creates a number between 0 and 51}
+\end{Highlighting}
+\end{Shaded}
+
+Let's create a number to generate a random duration between 1 and 6 seconds, for the \texttt{HandsUp} task.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{Random rnd = }\KeywordTok{new} \FunctionTok{Random}\NormalTok{(); }
+\DataTypeTok{int}\NormalTok{ waitingTime = rnd.}\FunctionTok{Next}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{7}\NormalTok{);}
+\NormalTok{Game.}\FunctionTok{Player}\NormalTok{.}\FunctionTok{Character}\NormalTok{.}\FunctionTok{Task}\NormalTok{.}\FunctionTok{HandsUp}\NormalTok{(waitingTime * }\DecValTok{1000}\NormalTok{);}
+\end{Highlighting}
+\end{Shaded}
+
 \hypertarget{content-replication-assignment-3}{%
 \section*{Content Replication Assignment}\label{content-replication-assignment-3}}
 \addcontentsline{toc}{section}{Content Replication Assignment}
