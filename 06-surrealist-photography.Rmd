@@ -99,10 +99,10 @@ namespace moddingTutorial
 			{
 				//select a model and store it in a variable
 				Models myPedModel = "PedHash.AviSchwartzman";
-        //create a position relative to the player
-        Vector3 myPedSpawnPosition = Game.Player.Character.GetOffsetInWorldCoords(new Vector3(0, 5, 0));
-        //create a Ped with the chosen model, spawning at the chosen position
-        var myPed1 = World.CreatePed(myPedModel, myPedSpawnPosition); 
+        			//create a position relative to the player
+       				Vector3 myPedSpawnPosition = Game.Player.Character.GetOffsetInWorldCoords(new Vector3(0, 5, 0));
+      				//create a Ped with the chosen model, spawning at the chosen position
+       				var myPed1 = World.CreatePed(myPedModel, myPedSpawnPosition); 
 			}
 		}
 	}
@@ -110,6 +110,46 @@ namespace moddingTutorial
 ```
 </details>
 
+#### Control Multiple NPCs
+
+You can create multiple NPCs and give them custom names. Let's create a human NPC and a cat NPC and call them Jim and MannyTheCat respectively:
+```cs
+var Jim = World.CreatePed(PedHash.AviSchwartzman, Game.Player.Character.GetOffsetInWorldCoords(new Vector3(0, 5, 0)));
+var MannyTheCat = World.CreatePed(PedHash.Cat, Game.Player.Character.GetOffsetInWorldCoords(new Vector3(0, 3, 0)));
+
+```
+
+Try to kill one of the  ```Ped``` NPCs you created by using the ```Kill()``` function.
+```cs
+Jim.Kill();
+```
+
+
+To handle groups of NPCs we can use the ```List``` class. A ```List``` is a collection of objects, and a ```List```of ```Peds``` allows us to store our NPCs. We can use an index to retrieve and control specific ```Peds``` in the group. ou can see the [reference](https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.list-1?view=net-7.0) for more detailed information.
+
+Create a ```List``` of ```Peds``` named myPeds as a global variable in the public class ```public class moddingTutorial : Script```.
+```cs
+List<Ped> myPeds = new List<Ped>();
+```
+
+In the onKeyDown function ```private void onKeyDown(object sender, KeyEventArgs e)``` create 5 new Peds with a [For Loop](https://www.w3schools.com/cs/cs_for_loop.php)
+
+```cs
+for (int i = 0; i < 5; i++)
+{
+	//spawn a new Ped called newPed
+	var newPed = World.CreatePed(PedHash.AviSchwartzman, Game.Player.Character.GetOffsetInWorldCoords(new Vector3(i, 3, 0)));
+	//add the new Ped to my list of Peds myPeds
+	myPeds.Add(newPed);
+}
+```
+
+Now all the 5 ```Peds``` are part of the myPeds[] ```List```. You can control each Ped individually by calling their individual number ID in the group. The first spawn ```Ped``` is myPed[0], the last one is myPeds[4].
+
+Kill the 3rd spawned NPC:
+```cs
+myPeds[2].Kill();
+```
 
 #### Give Tasks to NPCs {-}
 
@@ -123,7 +163,7 @@ We can give our NPC the task to fight against the player by using the ```FightAg
 myPed1.Task.FightAgainst(Game.Player.Character); //give npc task to fight against player
 ```
 
-Try to replace the task to “fight against” with “flee from (player)” , “hands up”, “jump”... or some of the other available tasks
+Try to replace the task to “fight against” with “flee from (player)” , “hands up”, “jump”... or some of the other available tasks.
 
 See the [TaskInvoker list](https://nitanmarcel.github.io/shvdn-docs.github.io/class_g_t_a_1_1_task_invoker.html) for possible tasks, or click on the list of available tasks below. 
 
