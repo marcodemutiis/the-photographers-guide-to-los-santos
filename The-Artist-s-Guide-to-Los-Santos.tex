@@ -920,6 +920,14 @@ Try to kill one of the \texttt{Ped} NPCs you created by using the \texttt{Kill()
 \end{Highlighting}
 \end{Shaded}
 
+Note that when you kill your \texttt{Ped} `Jim', it falls on the floor and it won't actually respond to any call or task you will give it, but it's not removed from the game. To remove a specific \texttt{Ped} you not use the \texttt{Delete}function, which will remove that instance (and will make the NPC disappear).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{Jim.}\FunctionTok{Delete}\NormalTok{();}
+\end{Highlighting}
+\end{Shaded}
+
 To handle groups of NPCs we can use the \texttt{List} class. A \texttt{List} is a collection of objects, and a \texttt{List}of \texttt{Peds} allows us to store our NPCs. We can use an index to retrieve and control specific \texttt{Peds} in the group. ou can see the \href{https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.list-1?view=net-7.0}{reference} for more detailed information.
 
 Create a \texttt{List} of \texttt{Peds} named myPeds as a global variable in the public class \texttt{public\ class\ moddingTutorial\ :\ Script}.
