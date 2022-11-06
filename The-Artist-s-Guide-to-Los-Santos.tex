@@ -1439,6 +1439,48 @@ Aram Bartholl, \emph{8k}, installation view
 \section*{Tutorial}\label{tutorial-5}}
 \addcontentsline{toc}{section}{Tutorial}
 
+\hypertarget{scripting-cinematic-fade-out-in}{%
+\subsection{Scripting Cinematic Fade Out/ In}\label{scripting-cinematic-fade-out-in}}
+
+Script Hook has native functions to create a fead to/from black. The function hash are \texttt{DO\_SCREEN\_FADE\_OUT} and \texttt{DO\_SCREEN\_FADE\_OUT} and they are followed by the number of milliseconds to go from full black to showing the scene and viceversa.
+
+Let's create a fade to black over 3 seconds when we press the letter key `O':
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{if}\NormalTok{ (e.}\FunctionTok{KeyCode}\NormalTok{ == Keys.}\FunctionTok{O}\NormalTok{)}
+\NormalTok{\{}
+\NormalTok{    Function.}\FunctionTok{Call}\NormalTok{(Hash.}\FunctionTok{DO_SCREEN_FADE_OUT}\NormalTok{, }\DecValTok{3000}\NormalTok{);}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+And a fade over 3 seconds when we press the letter key `I':
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{if}\NormalTok{ (e.}\FunctionTok{KeyCode}\NormalTok{ == Keys.}\FunctionTok{I}\NormalTok{)}
+\NormalTok{\{}
+\NormalTok{    Function.}\FunctionTok{Call}\NormalTok{(Hash.}\FunctionTok{DO_SCREEN_FADE_IN}\NormalTok{, }\DecValTok{3000}\NormalTok{);}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+We could also create an automated check in our onTick loop, which keeps seeing if the screen has been faded to black. We can use the native function \texttt{IS\_SCREEN\_FADED\_OUT} which is a boolean data type. This means it will return either true or false. If it returns true, it means the screen has been faded out.
+
+Let's add an If statement in our onTick loop to chek if the screen has been faded to black, and if so we call a fade in over 3 second:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{if}\NormalTok{ (Function.}\FunctionTok{Call}\NormalTok{<}\DataTypeTok{bool}\NormalTok{>(Hash.}\FunctionTok{IS_SCREEN_FADED_OUT}\NormalTok{))}
+\NormalTok{\{}
+\NormalTok{    GTA.}\FunctionTok{Native}\NormalTok{.}\FunctionTok{Function}\NormalTok{.}\FunctionTok{Call}\NormalTok{(Hash.}\FunctionTok{DO_SCREEN_FADE_IN}\NormalTok{, }\DecValTok{3000}\NormalTok{);}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+Now if you try to hit the `O' key, the screen will fade out, and then it will automatically fade in again.
+
 \hypertarget{natural-vision-evolved-mod}{%
 \subsection*{Natural Vision Evolved Mod}\label{natural-vision-evolved-mod}}
 \addcontentsline{toc}{subsection}{Natural Vision Evolved Mod}

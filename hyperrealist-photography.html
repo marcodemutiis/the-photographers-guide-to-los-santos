@@ -212,6 +212,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="hyperrealist-photography.html"><a href="hyperrealist-photography.html#getting-there-8"><i class="fa fa-check"></i>Getting there</a></li>
 <li class="chapter" data-level="" data-path="hyperrealist-photography.html"><a href="hyperrealist-photography.html#readings-5"><i class="fa fa-check"></i>Readings</a></li>
 <li class="chapter" data-level="" data-path="hyperrealist-photography.html"><a href="hyperrealist-photography.html#tutorial-5"><i class="fa fa-check"></i>Tutorial</a><ul>
+<li class="chapter" data-level="7.0.1" data-path="hyperrealist-photography.html"><a href="hyperrealist-photography.html#scripting-cinematic-fade-out-in"><i class="fa fa-check"></i><b>7.0.1</b> Scripting Cinematic Fade Out/ In</a></li>
 <li class="chapter" data-level="" data-path="hyperrealist-photography.html"><a href="hyperrealist-photography.html#natural-vision-evolved-mod"><i class="fa fa-check"></i>Natural Vision Evolved Mod</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="hyperrealist-photography.html"><a href="hyperrealist-photography.html#content-replication-assignment-5"><i class="fa fa-check"></i>Content Replication Assignment</a></li>
@@ -257,6 +258,27 @@ Aram Bartholl, <em>8k</em>, installation view</p>
 </div>
 <div id="tutorial-5" class="section level2 unnumbered hasAnchor">
 <h2>Tutorial<a href="hyperrealist-photography.html#tutorial-5" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="scripting-cinematic-fade-out-in" class="section level3 hasAnchor">
+<h3><span class="header-section-number">7.0.1</span> Scripting Cinematic Fade Out/ In<a href="hyperrealist-photography.html#scripting-cinematic-fade-out-in" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Script Hook has native functions to create a fead to/from black. The function hash are <code>DO_SCREEN_FADE_OUT</code> and <code>DO_SCREEN_FADE_OUT</code> and they are followed by the number of milliseconds to go from full black to showing the scene and viceversa.</p>
+<p>Let’s create a fade to black over 3 seconds when we press the letter key ‘O’:</p>
+<div class="sourceCode" id="cb36"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb36-1"><a href="hyperrealist-photography.html#cb36-1"></a><span class="kw">if</span> (e.<span class="fu">KeyCode</span> == Keys.<span class="fu">O</span>)</span>
+<span id="cb36-2"><a href="hyperrealist-photography.html#cb36-2"></a>{</span>
+<span id="cb36-3"><a href="hyperrealist-photography.html#cb36-3"></a>    Function.<span class="fu">Call</span>(Hash.<span class="fu">DO_SCREEN_FADE_OUT</span>, <span class="dv">3000</span>);</span>
+<span id="cb36-4"><a href="hyperrealist-photography.html#cb36-4"></a>}</span></code></pre></div>
+<p>And a fade over 3 seconds when we press the letter key ‘I’:</p>
+<div class="sourceCode" id="cb37"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb37-1"><a href="hyperrealist-photography.html#cb37-1"></a><span class="kw">if</span> (e.<span class="fu">KeyCode</span> == Keys.<span class="fu">I</span>)</span>
+<span id="cb37-2"><a href="hyperrealist-photography.html#cb37-2"></a>{</span>
+<span id="cb37-3"><a href="hyperrealist-photography.html#cb37-3"></a>    Function.<span class="fu">Call</span>(Hash.<span class="fu">DO_SCREEN_FADE_IN</span>, <span class="dv">3000</span>);</span>
+<span id="cb37-4"><a href="hyperrealist-photography.html#cb37-4"></a>}</span></code></pre></div>
+<p>We could also create an automated check in our onTick loop, which keeps seeing if the screen has been faded to black. We can use the native function <code>IS_SCREEN_FADED_OUT</code> which is a boolean data type. This means it will return either true or false. If it returns true, it means the screen has been faded out.</p>
+<p>Let’s add an If statement in our onTick loop to chek if the screen has been faded to black, and if so we call a fade in over 3 second:</p>
+<div class="sourceCode" id="cb38"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb38-1"><a href="hyperrealist-photography.html#cb38-1"></a><span class="kw">if</span> (Function.<span class="fu">Call</span>&lt;<span class="dt">bool</span>&gt;(Hash.<span class="fu">IS_SCREEN_FADED_OUT</span>))</span>
+<span id="cb38-2"><a href="hyperrealist-photography.html#cb38-2"></a>{</span>
+<span id="cb38-3"><a href="hyperrealist-photography.html#cb38-3"></a>    GTA.<span class="fu">Native</span>.<span class="fu">Function</span>.<span class="fu">Call</span>(Hash.<span class="fu">DO_SCREEN_FADE_IN</span>, <span class="dv">3000</span>);</span>
+<span id="cb38-4"><a href="hyperrealist-photography.html#cb38-4"></a>}</span></code></pre></div>
+<p>Now if you try to hit the ‘O’ key, the screen will fade out, and then it will automatically fade in again.</p>
+</div>
 <div id="natural-vision-evolved-mod" class="section level3 unnumbered hasAnchor">
 <h3>Natural Vision Evolved Mod<a href="hyperrealist-photography.html#natural-vision-evolved-mod" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Natural Vision Evolved is a graphic mod develped by <a href="https://www.razedmods.com/">Jamal Rashid, aka Razed</a>. This mod enhances GTA V’s lighting, weather effects, ambient colours, world textures, building models, pushing the photo-realism and cinematic looks. While the mod contains settings for different hardware settings, it’s recommended to have a relatively powerful PC with a good graphic card. <a href="https://www.systemrequirementslab.com/cyri/requirements/gta-5-naturalvision-remastered/16594">Here</a> you can find minimum and recommended requirements for Natural Vision Evolved mod.</p>
