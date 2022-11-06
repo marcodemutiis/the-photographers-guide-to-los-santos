@@ -254,6 +254,20 @@ Hands up for 3000 milliseconds:
 Game.Player.Character.Task.HandsUp(3000);
 ```
 
+#### Task Sequences {-}
+
+You can create sequence of multiple tasks by using ```TaskSequence``` and the ```PerformSequence``` function.
+Create a new ```TaskSequence``` with a custom name, add tasks to it with ```AddTask```, close the sequence with ```Close``` and then call ```Task.PerformSequence``` to perform the sequence.
+
+```cs
+TaskSequence mySeq = new TaskSequence();
+mySeq.AddTask.Jump();
+mySeq.AddTask.HandsUp(3000);
+mySeq.Close();
+				
+Game.Player.Character.Task.PerformSequence(mySeq);
+```
+
 ## Content Replication Assignment {-}
 
 ### Deercam reenactment {-}
