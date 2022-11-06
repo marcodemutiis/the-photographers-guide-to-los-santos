@@ -286,6 +286,18 @@ int waitingTime = rnd.Next(1, 7);
 Game.Player.Character.Task.HandsUp(waitingTime * 1000);
 ```
 
+#### Subtitles and Notifications
+
+Generate subtitles with a custom text string and duration (in milliseconds): 
+```cs
+UI.ShowSubtitle("Hello World", 3000);
+```
+
+Generate a notification with a custom text string:
+```cs
+UI.Notify("Hello World");
+```
+
 
 ## Content Replication Assignment {-}
 
