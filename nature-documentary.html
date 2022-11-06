@@ -433,6 +433,17 @@ For example if you choose the model Cat, you’ll need to write <code>PedHash.Ca
 <p>Hands up for 3000 milliseconds:</p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb10-1"><a href="nature-documentary.html#cb10-1"></a>Game.<span class="fu">Player</span>.<span class="fu">Character</span>.<span class="fu">Task</span>.<span class="fu">HandsUp</span>(<span class="dv">3000</span>);</span></code></pre></div>
 </div>
+<div id="task-sequences" class="section level4 unnumbered hasAnchor">
+<h4>Task Sequences<a href="nature-documentary.html#task-sequences" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>You can create sequence of multiple tasks by using <code>TaskSequence</code> and the <code>PerformSequence</code> function.
+Create a new <code>TaskSequence</code> with a custom name, add tasks to it with <code>AddTask</code>, close the sequence with <code>Close</code> and then call <code>Task.PerformSequence</code> to perform the sequence.</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb11-1"><a href="nature-documentary.html#cb11-1"></a>TaskSequence mySeq = <span class="kw">new</span> <span class="fu">TaskSequence</span>();</span>
+<span id="cb11-2"><a href="nature-documentary.html#cb11-2"></a>mySeq.<span class="fu">AddTask</span>.<span class="fu">Jump</span>();</span>
+<span id="cb11-3"><a href="nature-documentary.html#cb11-3"></a>mySeq.<span class="fu">AddTask</span>.<span class="fu">HandsUp</span>(<span class="dv">3000</span>);</span>
+<span id="cb11-4"><a href="nature-documentary.html#cb11-4"></a>mySeq.<span class="fu">Close</span>();</span>
+<span id="cb11-5"><a href="nature-documentary.html#cb11-5"></a>                </span>
+<span id="cb11-6"><a href="nature-documentary.html#cb11-6"></a>Game.<span class="fu">Player</span>.<span class="fu">Character</span>.<span class="fu">Task</span>.<span class="fu">PerformSequence</span>(mySeq);</span></code></pre></div>
+</div>
 </div>
 </div>
 <div id="content-replication-assignment-3" class="section level2 unnumbered hasAnchor">

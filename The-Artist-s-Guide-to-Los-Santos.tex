@@ -701,6 +701,24 @@ Hands up for 3000 milliseconds:
 \end{Highlighting}
 \end{Shaded}
 
+\hypertarget{task-sequences}{%
+\subsubsection*{Task Sequences}\label{task-sequences}}
+\addcontentsline{toc}{subsubsection}{Task Sequences}
+
+You can create sequence of multiple tasks by using \texttt{TaskSequence} and the \texttt{PerformSequence} function.
+Create a new \texttt{TaskSequence} with a custom name, add tasks to it with \texttt{AddTask}, close the sequence with \texttt{Close} and then call \texttt{Task.PerformSequence} to perform the sequence.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{TaskSequence mySeq = }\KeywordTok{new} \FunctionTok{TaskSequence}\NormalTok{();}
+\NormalTok{mySeq.}\FunctionTok{AddTask}\NormalTok{.}\FunctionTok{Jump}\NormalTok{();}
+\NormalTok{mySeq.}\FunctionTok{AddTask}\NormalTok{.}\FunctionTok{HandsUp}\NormalTok{(}\DecValTok{3000}\NormalTok{);}
+\NormalTok{mySeq.}\FunctionTok{Close}\NormalTok{();}
+                
+\NormalTok{Game.}\FunctionTok{Player}\NormalTok{.}\FunctionTok{Character}\NormalTok{.}\FunctionTok{Task}\NormalTok{.}\FunctionTok{PerformSequence}\NormalTok{(mySeq);}
+\end{Highlighting}
+\end{Shaded}
+
 \hypertarget{content-replication-assignment-3}{%
 \section*{Content Replication Assignment}\label{content-replication-assignment-3}}
 \addcontentsline{toc}{section}{Content Replication Assignment}
