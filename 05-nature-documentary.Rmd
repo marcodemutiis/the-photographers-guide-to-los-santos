@@ -268,6 +268,25 @@ mySeq.Close();
 Game.Player.Character.Task.PerformSequence(mySeq);
 ```
 
+#### Random {-}
+
+We can add randomness by using a randomly generated number, which makes things outside of thepredefined programme controlled by us and introduces more autonomous behaviours. We use the ```Random```function to create a randomly generated number between our minimum and maximum parameter (if only one parameter is inserted, the minimum is 0).
+
+```cs
+Random rnd = new Random(); 
+int month = rnd.Next(1, 13); // creates a number between 1 and 12 
+int dice = rnd.Next(1, 7); // creates a number between 1 and 6 
+int card = rnd.Next(52); // creates a number between 0 and 51
+```
+
+Let's create a number to generate a random duration between 1 and 6 seconds, for the ```HandsUp``` task.
+```cs
+Random rnd = new Random(); 
+int waitingTime = rnd.Next(1, 7);
+Game.Player.Character.Task.HandsUp(waitingTime * 1000);
+```
+
+
 ## Content Replication Assignment {-}
 
 ### Deercam reenactment {-}
