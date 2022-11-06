@@ -119,7 +119,7 @@ var MannyTheCat = World.CreatePed(PedHash.Cat, Game.Player.Character.GetOffsetIn
 
 ```
 
-Try to kill one of the  ```Ped``` NPCs you created by using the ```Kill()``` function.
+Try to kill one of the  ```Ped``` NPCs you created by using the ```Kill()``` function (Sorry I know how cruel it sounds to kill an entity you just gave birth to, but we have no choice as we have not learnt how to give them tasks yet).
 ```cs
 Jim.Kill();
 ```
@@ -150,6 +150,58 @@ Kill the 3rd spawned NPC:
 ```cs
 myPeds[2].Kill();
 ```
+
+#### Nearby NPCs
+
+Script Hook V DOt Net provides a function ```GetNearbyPeds```which groups all the ```Peds``` within a nearby radius from a character.
+
+Create a new group that adds ```Peds``` which are closer than 20 meters from the player:
+```cs
+Ped[] NearbyPeds = World.GetNearbyPeds(Game.Player.Character, 20f);
+````
+
+Use a [Foreach Loop](https://www.simplilearn.com/tutorials/asp-dot-net-tutorial/csharp-foreach#:~:text=The%20foreach%20loop%20in%20C%23,readable%20alternative%20to%20for%20loop.) to get every ```Ped``` in the group and kill them:
+```cs
+foreach (Ped p in NearbyPeds)
+{
+	p.Kill();
+}
+```
+
+```GetNearbyPeds``` does not sort out individual ```Peds```in the group based on distance, so we have to do a bit of manual filtering to get the nearest NPC within the chosen radius from the player character.
+
+Define the global variables in the public class ```public class moddingTutorial : Script```:
+```cs
+float lastDistance;
+Ped Squad1Leader = null;
+Ped oldSquad1Leader = null;
+```
+
+Get and parse the nearby NPCs in the OnTick function ```private void onTick(object sender, EventArgs e)```:
+```cs
+//set radius
+float maxDistance = 25f;
+//get nearest peds		
+Ped[] pedsGroup = World.GetNearbyPeds(Game.Player.Character, maxDistance);
+ 
+float lastDistance = maxDistance;
+foreach (Ped ped in pedsGroup)
+{
+	float distance = ped.Position.DistanceTo(Game.Player.Character.Position);
+	if (distance < lastDistance)
+	{
+		Squad1Leader = ped;
+		lastDistance = distance;
+	}
+}
+
+	if (Squad1Leader != null && oldSquad1Leader != Squad1Leader)
+	{
+		Squad1Leader.Kill();
+	}
+oldSquad1Leader = Squad1Leader;
+```
+
 
 #### Give Tasks to NPCs {-}
 
