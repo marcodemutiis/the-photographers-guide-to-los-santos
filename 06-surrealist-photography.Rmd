@@ -110,7 +110,7 @@ namespace moddingTutorial
 ```
 </details>
 
-#### Control Multiple NPCs
+#### Control Multiple NPCs {-}
 
 You can create multiple NPCs and give them custom names. Let's create a human NPC and a cat NPC and call them Jim and MannyTheCat respectively:
 ```cs
@@ -151,7 +151,7 @@ Kill the 3rd spawned NPC:
 myPeds[2].Kill();
 ```
 
-#### Nearby NPCs
+#### Nearby NPCs {-}
 
 Script Hook V DOt Net provides a function ```GetNearbyPeds```which groups all the ```Peds``` within a nearby radius from a character.
 
