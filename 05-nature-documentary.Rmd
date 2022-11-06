@@ -286,7 +286,7 @@ int waitingTime = rnd.Next(1, 7);
 Game.Player.Character.Task.HandsUp(waitingTime * 1000);
 ```
 
-#### Subtitles and Notifications
+#### Subtitles and Notifications {-}
 
 Generate subtitles with a custom text string and duration (in milliseconds): 
 ```cs
