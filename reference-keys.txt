@@ -4,6 +4,5 @@ social-documentary
 re-enactment-photography
 nature-documentary
 ontick-onkeyup-and-onkeydown
-subtitles-and-notifications
 surrealist-photography
 hyperrealist-photography
