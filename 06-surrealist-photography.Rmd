@@ -119,7 +119,7 @@ var MannyTheCat = World.CreatePed(PedHash.Cat, Game.Player.Character.GetOffsetIn
 
 ```
 
-Try to kill one of the  ```Ped``` NPCs you created by using the ```Kill()``` function (Sorry I know how cruel it sounds to kill an entity you just gave birth to, but we have no choice as we have not learnt how to give them tasks yet).
+Try to kill one of the  ```Ped``` NPCs you created by using the ```Kill()```.
 ```cs
 Jim.Kill();
 ```
