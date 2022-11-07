@@ -212,10 +212,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="hyperrealist-photography.html"><a href="hyperrealist-photography.html#getting-there-8"><i class="fa fa-check"></i>Getting there</a></li>
 <li class="chapter" data-level="" data-path="hyperrealist-photography.html"><a href="hyperrealist-photography.html#readings-5"><i class="fa fa-check"></i>Readings</a></li>
 <li class="chapter" data-level="" data-path="hyperrealist-photography.html"><a href="hyperrealist-photography.html#tutorial-5"><i class="fa fa-check"></i>Tutorial</a><ul>
-<li class="chapter" data-level="7.0.1" data-path="hyperrealist-photography.html"><a href="hyperrealist-photography.html#setting-camera-views"><i class="fa fa-check"></i><b>7.0.1</b> Setting Camera Views</a></li>
-<li class="chapter" data-level="7.0.2" data-path="hyperrealist-photography.html"><a href="hyperrealist-photography.html#controlling-the-game-camera"><i class="fa fa-check"></i><b>7.0.2</b> Controlling the Game Camera</a></li>
-<li class="chapter" data-level="7.0.3" data-path="hyperrealist-photography.html"><a href="hyperrealist-photography.html#create-multiple-cameras"><i class="fa fa-check"></i><b>7.0.3</b> Create Multiple Cameras</a></li>
-<li class="chapter" data-level="7.0.4" data-path="hyperrealist-photography.html"><a href="hyperrealist-photography.html#attach-a-camera-to-an-entity"><i class="fa fa-check"></i><b>7.0.4</b> Attach a Camera to an Entity</a></li>
+<li class="chapter" data-level="" data-path="hyperrealist-photography.html"><a href="hyperrealist-photography.html#setting-camera-views"><i class="fa fa-check"></i>Setting Camera Views</a></li>
+<li class="chapter" data-level="" data-path="hyperrealist-photography.html"><a href="hyperrealist-photography.html#controlling-the-game-camera"><i class="fa fa-check"></i>Controlling the Game Camera</a></li>
+<li class="chapter" data-level="" data-path="hyperrealist-photography.html"><a href="hyperrealist-photography.html#create-multiple-cameras"><i class="fa fa-check"></i>Create Multiple Cameras</a></li>
+<li class="chapter" data-level="" data-path="hyperrealist-photography.html"><a href="hyperrealist-photography.html#attach-a-camera-to-an-entity"><i class="fa fa-check"></i>Attach a Camera to an Entity</a></li>
 <li class="chapter" data-level="" data-path="hyperrealist-photography.html"><a href="hyperrealist-photography.html#scripting-cinematic-fade-out-in"><i class="fa fa-check"></i>Scripting Cinematic Fade Out/ In</a></li>
 <li class="chapter" data-level="" data-path="hyperrealist-photography.html"><a href="hyperrealist-photography.html#natural-vision-evolved-mod"><i class="fa fa-check"></i>Natural Vision Evolved Mod</a></li>
 </ul></li>
@@ -262,8 +262,8 @@ Aram Bartholl, <em>8k</em>, installation view</p>
 </div>
 <div id="tutorial-5" class="section level2 unnumbered hasAnchor">
 <h2>Tutorial<a href="hyperrealist-photography.html#tutorial-5" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div id="setting-camera-views" class="section level3 hasAnchor">
-<h3><span class="header-section-number">7.0.1</span> Setting Camera Views<a href="hyperrealist-photography.html#setting-camera-views" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="setting-camera-views" class="section level3 unnumbered hasAnchor">
+<h3>Setting Camera Views<a href="hyperrealist-photography.html#setting-camera-views" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>GTA V has 4 default camera views, which can be switched by pressing the <code>V</code> key on PC.
 To set a specific camera view we can use the native function <code>SET_FOLLOW_PED_CAM_VIEW_MOD</code>, followed by number 0, 1, 2 or 4 to establish the desired point of view:</p>
 <ul>
@@ -273,21 +273,20 @@ To set a specific camera view we can use the native function <code>SET_FOLLOW_PE
 <li>4 - First Person View</li>
 </ul>
 <p>Switch to first person view:</p>
-<div class="sourceCode" id="cb37"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb37-1"><a href="hyperrealist-photography.html#cb37-1"></a><span class="co">//First Person View</span></span>
-<span id="cb37-2"><a href="hyperrealist-photography.html#cb37-2"></a>Function.<span class="fu">Call</span>(Hash.<span class="fu">SET_FOLLOW_PED_CAM_VIEW_MODE</span>, <span class="dv">4</span>); </span></code></pre></div>
+<div class="sourceCode" id="cb37"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb37-1"><a href="hyperrealist-photography.html#cb37-1"></a>Function.<span class="fu">Call</span>(Hash.<span class="fu">SET_FOLLOW_PED_CAM_VIEW_MODE</span>, <span class="dv">4</span>); </span></code></pre></div>
 </div>
-<div id="controlling-the-game-camera" class="section level3 hasAnchor">
-<h3><span class="header-section-number">7.0.2</span> Controlling the Game Camera<a href="hyperrealist-photography.html#controlling-the-game-camera" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="controlling-the-game-camera" class="section level3 unnumbered hasAnchor">
+<h3>Controlling the Game Camera<a href="hyperrealist-photography.html#controlling-the-game-camera" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 </div>
-<div id="create-multiple-cameras" class="section level3 hasAnchor">
-<h3><span class="header-section-number">7.0.3</span> Create Multiple Cameras<a href="hyperrealist-photography.html#create-multiple-cameras" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="create-multiple-cameras" class="section level3 unnumbered hasAnchor">
+<h3>Create Multiple Cameras<a href="hyperrealist-photography.html#create-multiple-cameras" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 </div>
-<div id="attach-a-camera-to-an-entity" class="section level3 hasAnchor">
-<h3><span class="header-section-number">7.0.4</span> Attach a Camera to an Entity<a href="hyperrealist-photography.html#attach-a-camera-to-an-entity" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="attach-a-camera-to-an-entity" class="section level3 unnumbered hasAnchor">
+<h3>Attach a Camera to an Entity<a href="hyperrealist-photography.html#attach-a-camera-to-an-entity" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 </div>
 <div id="scripting-cinematic-fade-out-in" class="section level3 unnumbered hasAnchor">
 <h3>Scripting Cinematic Fade Out/ In<a href="hyperrealist-photography.html#scripting-cinematic-fade-out-in" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Script Hook has native functions to create a fead to/from black. The function hash are <code>DO_SCREEN_FADE_OUT</code> and <code>DO_SCREEN_FADE_OUT</code> and they are followed by the number of milliseconds to go from full black to showing the scene and viceversa.</p>
+<p>Script Hook has native functions to create a fead to/from black. The function hash are <code>DO_SCREEN_FADE_OUT</code> and <code>DO_SCREEN_FADE_IN</code> and they are followed by the number of milliseconds to go from full black to showing the scene and viceversa.</p>
 <p>Let’s create a fade to black over 3 seconds when we press the letter key ‘O’:</p>
 <div class="sourceCode" id="cb38"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb38-1"><a href="hyperrealist-photography.html#cb38-1"></a><span class="kw">if</span> (e.<span class="fu">KeyCode</span> == Keys.<span class="fu">O</span>)</span>
 <span id="cb38-2"><a href="hyperrealist-photography.html#cb38-2"></a>{</span>

@@ -1448,7 +1448,8 @@ Aram Bartholl, \emph{8k}, installation view
 \addcontentsline{toc}{section}{Tutorial}
 
 \hypertarget{setting-camera-views}{%
-\subsection{Setting Camera Views}\label{setting-camera-views}}
+\subsection*{Setting Camera Views}\label{setting-camera-views}}
+\addcontentsline{toc}{subsection}{Setting Camera Views}
 
 GTA V has 4 default camera views, which can be switched by pressing the \texttt{V} key on PC.
 To set a specific camera view we can use the native function \texttt{SET\_FOLLOW\_PED\_CAM\_VIEW\_MOD}, followed by number 0, 1, 2 or 4 to establish the desired point of view:
@@ -1469,25 +1470,27 @@ Switch to first person view:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{//First Person View}
 \NormalTok{Function.}\FunctionTok{Call}\NormalTok{(Hash.}\FunctionTok{SET_FOLLOW_PED_CAM_VIEW_MODE}\NormalTok{, }\DecValTok{4}\NormalTok{); }
 \end{Highlighting}
 \end{Shaded}
 
 \hypertarget{controlling-the-game-camera}{%
-\subsection{Controlling the Game Camera}\label{controlling-the-game-camera}}
+\subsection*{Controlling the Game Camera}\label{controlling-the-game-camera}}
+\addcontentsline{toc}{subsection}{Controlling the Game Camera}
 
 \hypertarget{create-multiple-cameras}{%
-\subsection{Create Multiple Cameras}\label{create-multiple-cameras}}
+\subsection*{Create Multiple Cameras}\label{create-multiple-cameras}}
+\addcontentsline{toc}{subsection}{Create Multiple Cameras}
 
 \hypertarget{attach-a-camera-to-an-entity}{%
-\subsection{Attach a Camera to an Entity}\label{attach-a-camera-to-an-entity}}
+\subsection*{Attach a Camera to an Entity}\label{attach-a-camera-to-an-entity}}
+\addcontentsline{toc}{subsection}{Attach a Camera to an Entity}
 
 \hypertarget{scripting-cinematic-fade-out-in}{%
 \subsection*{Scripting Cinematic Fade Out/ In}\label{scripting-cinematic-fade-out-in}}
 \addcontentsline{toc}{subsection}{Scripting Cinematic Fade Out/ In}
 
-Script Hook has native functions to create a fead to/from black. The function hash are \texttt{DO\_SCREEN\_FADE\_OUT} and \texttt{DO\_SCREEN\_FADE\_OUT} and they are followed by the number of milliseconds to go from full black to showing the scene and viceversa.
+Script Hook has native functions to create a fead to/from black. The function hash are \texttt{DO\_SCREEN\_FADE\_OUT} and \texttt{DO\_SCREEN\_FADE\_IN} and they are followed by the number of milliseconds to go from full black to showing the scene and viceversa.
 
 Let's create a fade to black over 3 seconds when we press the letter key `O':
 
