@@ -26,7 +26,28 @@ knitr::include_graphics('assets/maps/tataviamMountains.png', dpi = NA)
 
 ## Tutorial {-}
 
-### Scripting Cinematic Fade Out/ In
+### Setting Camera Views
+GTA V has 4 default camera views, which can be switched by pressing the ```V``` key on PC.
+To set a specific camera view we can use the native function ```SET_FOLLOW_PED_CAM_VIEW_MOD```, followed by number 0, 1, 2 or 4 to establish the desired point of view:
+
++ 0 - Third Person View - Close
++ 1 - Third Person View - Mid
++ 2 - Third Person View - Far
++ 4 - First Person View 
+
+Switch to first person view:
+```cs
+//First Person View
+Function.Call(Hash.SET_FOLLOW_PED_CAM_VIEW_MODE, 4); 
+```
+
+### Controlling the Game Camera
+
+### Create Multiple Cameras
+
+### Attach a Camera to an Entity
+
+### Scripting Cinematic Fade Out/ In {-}
 
 Script Hook has native functions to create a fead to/from black. The function hash are ```DO_SCREEN_FADE_OUT``` and ```DO_SCREEN_FADE_OUT``` and they are followed by the number of milliseconds to go from full black to showing the scene and viceversa.
 
