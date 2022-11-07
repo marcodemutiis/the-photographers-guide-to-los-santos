@@ -6,4 +6,7 @@ nature-documentary
 ontick-onkeyup-and-onkeydown
 surrealist-photography
 hyperrealist-photography
-scripting-cinematic-fade-out-in
+setting-camera-views
+controlling-the-game-camera
+create-multiple-cameras
+attach-a-camera-to-an-entity
