@@ -29,11 +29,11 @@ knitr::include_graphics('assets/maps/ChumashBeach.png', dpi = NA)
 
 ### Scripting Characters {-}
 
-#### NPCs {-}
+### NPCs {-}
 
 NPCs are non playable characters and in GTA V scripting they are called ```Peds```. Peds are an entity like Props or Vehicles and can be created, assigned different model textures, equipped with weapons and controlled through different tasks. 
 
-#### Spawn a new NPC {-}
+### Spawn a new NPC {-}
 
 A GTA V Ped can be created by the ```World.CreatePed``` function. This takes two parameters: an ID to assign the 3D model and textures, and the location where the Ped is created.
 
@@ -110,7 +110,7 @@ namespace moddingTutorial
 ```
 </details>
 
-#### Control Multiple NPCs {-}
+### Control Multiple NPCs {-}
 
 You can create multiple NPCs and give them custom names. Let's create a human NPC and a cat NPC and call them Jim and MannyTheCat respectively:
 ```cs
@@ -156,7 +156,7 @@ Kill the 3rd spawned NPC:
 myPeds[2].Kill();
 ```
 
-#### Nearby NPCs {-}
+### Nearby NPCs {-}
 
 Script Hook V DOt Net provides a function ```GetNearbyPeds```which groups all the ```Peds``` within a nearby radius from a character.
 
@@ -208,7 +208,7 @@ oldSquad1Leader = Squad1Leader;
 ```
 
 
-#### Give Tasks to NPCs {-}
+### Give Tasks to NPCs {-}
 
 A Ped can be given a task using the ```Task``` function, just like we did in the previous tutorial for the player character.
 ```cs
@@ -380,7 +380,10 @@ void ClearAnimation (string animSet, string animName)
 ```
 </details>
 
-#### Teleporting {-}
+### Animations {-}
+//TO DO
+
+### Teleporting {-}
 
 We can change the location of the player character or of any Ped or Vehicle entity by using the native function ```SET_ENTITY_COORDS```. This function needs an entity and X, Y and Z coordinate to teleport to.
 We need to know the exact coordinates of the locations we want to teleport to, but thankfully the modding community forums provide lists with all available coordinates we can teleport to. Let's take the XYZ coordinates of the top of Mount Chiliad (the highest point in the game) to teleport our player character to.
