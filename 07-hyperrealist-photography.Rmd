@@ -182,6 +182,7 @@ Let's add an If statement in our onTick loop to chek if the screen has been fade
 ```cs
 if (Function.Call<bool>(Hash.IS_SCREEN_FADED_OUT))
 {
+    Wait(500);
     GTA.Native.Function.Call(Hash.DO_SCREEN_FADE_IN, 3000);
 }
 ```
