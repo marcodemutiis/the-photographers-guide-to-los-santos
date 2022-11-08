@@ -204,6 +204,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="surrealist-photography.html"><a href="surrealist-photography.html#readings-4"><i class="fa fa-check"></i>Readings</a></li>
 <li class="chapter" data-level="" data-path="surrealist-photography.html"><a href="surrealist-photography.html#tutorial-4"><i class="fa fa-check"></i>Tutorial</a><ul>
 <li class="chapter" data-level="" data-path="surrealist-photography.html"><a href="surrealist-photography.html#scripting-characters"><i class="fa fa-check"></i>Scripting Characters</a></li>
+<li class="chapter" data-level="" data-path="surrealist-photography.html"><a href="surrealist-photography.html#npcs"><i class="fa fa-check"></i>NPCs</a></li>
+<li class="chapter" data-level="" data-path="surrealist-photography.html"><a href="surrealist-photography.html#spawn-a-new-npc"><i class="fa fa-check"></i>Spawn a new NPC</a></li>
+<li class="chapter" data-level="" data-path="surrealist-photography.html"><a href="surrealist-photography.html#control-multiple-npcs"><i class="fa fa-check"></i>Control Multiple NPCs</a></li>
+<li class="chapter" data-level="" data-path="surrealist-photography.html"><a href="surrealist-photography.html#nearby-npcs"><i class="fa fa-check"></i>Nearby NPCs</a></li>
+<li class="chapter" data-level="" data-path="surrealist-photography.html"><a href="surrealist-photography.html#give-tasks-to-npcs"><i class="fa fa-check"></i>Give Tasks to NPCs</a></li>
+<li class="chapter" data-level="" data-path="surrealist-photography.html"><a href="surrealist-photography.html#animations"><i class="fa fa-check"></i>Animations</a></li>
+<li class="chapter" data-level="" data-path="surrealist-photography.html"><a href="surrealist-photography.html#teleporting"><i class="fa fa-check"></i>Teleporting</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="surrealist-photography.html"><a href="surrealist-photography.html#content-replication-assignment-4"><i class="fa fa-check"></i>Content Replication Assignment</a></li>
 </ul></li>
@@ -263,12 +270,13 @@ artwork text</p>
 <h2>Tutorial<a href="surrealist-photography.html#tutorial-4" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <div id="scripting-characters" class="section level3 unnumbered hasAnchor">
 <h3>Scripting Characters<a href="surrealist-photography.html#scripting-characters" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div id="npcs" class="section level4 unnumbered hasAnchor">
-<h4>NPCs<a href="surrealist-photography.html#npcs" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+</div>
+<div id="npcs" class="section level3 unnumbered hasAnchor">
+<h3>NPCs<a href="surrealist-photography.html#npcs" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>NPCs are non playable characters and in GTA V scripting they are called <code>Peds</code>. Peds are an entity like Props or Vehicles and can be created, assigned different model textures, equipped with weapons and controlled through different tasks.</p>
 </div>
-<div id="spawn-a-new-npc" class="section level4 unnumbered hasAnchor">
-<h4>Spawn a new NPC<a href="surrealist-photography.html#spawn-a-new-npc" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div id="spawn-a-new-npc" class="section level3 unnumbered hasAnchor">
+<h3>Spawn a new NPC<a href="surrealist-photography.html#spawn-a-new-npc" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>A GTA V Ped can be created by the <code>World.CreatePed</code> function. This takes two parameters: an ID to assign the 3D model and textures, and the location where the Ped is created.</p>
 <p>The model IDs are the same we used in the previous tutorial, when we changed our character’s appearance to a cat. A list of all available models can be found <a href="https://wiki.gtanet.work/index.php/Peds">here</a>. <code>PedHash.Cat</code>, <code>PedHash.Deer</code>, <code>PedHash.AviSchwartzman</code>are all possible IDs we can assign to the NPC we want to create.
 We can create a new model variable, which we will name ‘myPedModel’ and assign it a model ID:</p>
@@ -330,8 +338,8 @@ To make a Ped appear in front of the player we can create a vector3 data type wi
 <span id="cb19-47"><a href="surrealist-photography.html#cb19-47"></a>}</span></code></pre></div>
 </details>
 </div>
-<div id="control-multiple-npcs" class="section level4 unnumbered hasAnchor">
-<h4>Control Multiple NPCs<a href="surrealist-photography.html#control-multiple-npcs" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div id="control-multiple-npcs" class="section level3 unnumbered hasAnchor">
+<h3>Control Multiple NPCs<a href="surrealist-photography.html#control-multiple-npcs" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>You can create multiple NPCs and give them custom names. Let’s create a human NPC and a cat NPC and call them Jim and MannyTheCat respectively:</p>
 <div class="sourceCode" id="cb20"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb20-1"><a href="surrealist-photography.html#cb20-1"></a><span class="dt">var</span> Jim = World.<span class="fu">CreatePed</span>(PedHash.<span class="fu">AviSchwartzman</span>, Game.<span class="fu">Player</span>.<span class="fu">Character</span>.<span class="fu">GetOffsetInWorldCoords</span>(<span class="kw">new</span> <span class="fu">Vector3</span>(<span class="dv">0</span>, <span class="dv">5</span>, <span class="dv">0</span>)));</span>
 <span id="cb20-2"><a href="surrealist-photography.html#cb20-2"></a><span class="dt">var</span> MannyTheCat = World.<span class="fu">CreatePed</span>(PedHash.<span class="fu">Cat</span>, Game.<span class="fu">Player</span>.<span class="fu">Character</span>.<span class="fu">GetOffsetInWorldCoords</span>(<span class="kw">new</span> <span class="fu">Vector3</span>(<span class="dv">0</span>, <span class="dv">3</span>, <span class="dv">0</span>)));</span></code></pre></div>
@@ -354,8 +362,8 @@ To make a Ped appear in front of the player we can create a vector3 data type wi
 <p>Kill the 3rd spawned NPC:</p>
 <div class="sourceCode" id="cb25"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb25-1"><a href="surrealist-photography.html#cb25-1"></a>myPeds[<span class="dv">2</span>].<span class="fu">Kill</span>();</span></code></pre></div>
 </div>
-<div id="nearby-npcs" class="section level4 unnumbered hasAnchor">
-<h4>Nearby NPCs<a href="surrealist-photography.html#nearby-npcs" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div id="nearby-npcs" class="section level3 unnumbered hasAnchor">
+<h3>Nearby NPCs<a href="surrealist-photography.html#nearby-npcs" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Script Hook V DOt Net provides a function <code>GetNearbyPeds</code>which groups all the <code>Peds</code> within a nearby radius from a character.</p>
 <p>Create a new group that adds <code>Peds</code> which are closer than 20 meters from the player:</p>
 <div class="sourceCode" id="cb26"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb26-1"><a href="surrealist-photography.html#cb26-1"></a>Ped[] NearbyPeds = World.<span class="fu">GetNearbyPeds</span>(Game.<span class="fu">Player</span>.<span class="fu">Character</span>, 20f);</span></code></pre></div>
@@ -392,8 +400,8 @@ To make a Ped appear in front of the player we can create a vector3 data type wi
 <span id="cb29-20"><a href="surrealist-photography.html#cb29-20"></a>    }</span>
 <span id="cb29-21"><a href="surrealist-photography.html#cb29-21"></a>oldSquad1Leader = Squad1Leader;</span></code></pre></div>
 </div>
-<div id="give-tasks-to-npcs" class="section level4 unnumbered hasAnchor">
-<h4>Give Tasks to NPCs<a href="surrealist-photography.html#give-tasks-to-npcs" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div id="give-tasks-to-npcs" class="section level3 unnumbered hasAnchor">
+<h3>Give Tasks to NPCs<a href="surrealist-photography.html#give-tasks-to-npcs" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>A Ped can be given a task using the <code>Task</code> function, just like we did in the previous tutorial for the player character.</p>
 <div class="sourceCode" id="cb30"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb30-1"><a href="surrealist-photography.html#cb30-1"></a>myPed1.<span class="fu">Task</span>.<span class="fu">WanderAround</span>();</span></code></pre></div>
 <p>Some tasks involve interacting with other characters (Peds or Game.Player.Character) or take different parameters like positions (vector3), duration (in milliseconds), and other data types.
@@ -554,8 +562,12 @@ We can give our NPC the task to fight against the player by using the <code>Figh
 <span id="cb32-149"><a href="surrealist-photography.html#cb32-149"></a><span class="dt">void</span> <span class="fu">ClearAnimation</span> (<span class="dt">string</span> animSet, <span class="dt">string</span> animName)</span></code></pre></div>
 </details>
 </div>
-<div id="teleporting" class="section level4 unnumbered hasAnchor">
-<h4>Teleporting<a href="surrealist-photography.html#teleporting" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div id="animations" class="section level3 unnumbered hasAnchor">
+<h3>Animations<a href="surrealist-photography.html#animations" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>//TO DO</p>
+</div>
+<div id="teleporting" class="section level3 unnumbered hasAnchor">
+<h3>Teleporting<a href="surrealist-photography.html#teleporting" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>We can change the location of the player character or of any Ped or Vehicle entity by using the native function <code>SET_ENTITY_COORDS</code>. This function needs an entity and X, Y and Z coordinate to teleport to.
 We need to know the exact coordinates of the locations we want to teleport to, but thankfully the modding community forums provide lists with all available coordinates we can teleport to. Let’s take the XYZ coordinates of the top of Mount Chiliad (the highest point in the game) to teleport our player character to.</p>
 <pre><code>LOCATION: Top of the Mt Chilad
@@ -731,7 +743,6 @@ Rocket X:1608.698 Y:6438.096 Z:37.637
 
 El Gordo Lighthouse X:3430.155 Y:5174.196 Z:41.280</code></pre>
 </details>
-</div>
 </div>
 </div>
 <div id="content-replication-assignment-4" class="section level2 unnumbered hasAnchor">
