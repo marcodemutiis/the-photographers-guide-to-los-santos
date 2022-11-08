@@ -192,6 +192,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="nature-documentary.html"><a href="nature-documentary.html#readings-3"><i class="fa fa-check"></i>Readings</a></li>
 <li class="chapter" data-level="" data-path="nature-documentary.html"><a href="nature-documentary.html#tutorial-3"><i class="fa fa-check"></i>Tutorial</a><ul>
 <li class="chapter" data-level="" data-path="nature-documentary.html"><a href="nature-documentary.html#scripting-introduction"><i class="fa fa-check"></i>Scripting Introduction</a></li>
+<li class="chapter" data-level="" data-path="nature-documentary.html"><a href="nature-documentary.html#preparation-and-setup"><i class="fa fa-check"></i>Preparation and Setup</a></li>
+<li class="chapter" data-level="" data-path="nature-documentary.html"><a href="nature-documentary.html#change-player-model"><i class="fa fa-check"></i>Change Player Model</a></li>
+<li class="chapter" data-level="" data-path="nature-documentary.html"><a href="nature-documentary.html#tasks"><i class="fa fa-check"></i>Tasks</a></li>
+<li class="chapter" data-level="" data-path="nature-documentary.html"><a href="nature-documentary.html#task-sequences"><i class="fa fa-check"></i>Task Sequences</a></li>
+<li class="chapter" data-level="" data-path="nature-documentary.html"><a href="nature-documentary.html#random"><i class="fa fa-check"></i>Random</a></li>
+<li class="chapter" data-level="" data-path="nature-documentary.html"><a href="nature-documentary.html#subtitles-and-notifications"><i class="fa fa-check"></i>Subtitles and Notifications</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="nature-documentary.html"><a href="nature-documentary.html#content-replication-assignment-3"><i class="fa fa-check"></i>Content Replication Assignment</a><ul>
 <li class="chapter" data-level="" data-path="nature-documentary.html"><a href="nature-documentary.html#deercam-reenactment"><i class="fa fa-check"></i>Deercam reenactment</a></li>
@@ -278,8 +284,9 @@ artwork text</p>
 <h2>Tutorial<a href="nature-documentary.html#tutorial-3" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <div id="scripting-introduction" class="section level3 unnumbered hasAnchor">
 <h3>Scripting Introduction<a href="nature-documentary.html#scripting-introduction" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div id="preparation-and-setup" class="section level4 unnumbered hasAnchor">
-<h4>Preparation and Setup<a href="nature-documentary.html#preparation-and-setup" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+</div>
+<div id="preparation-and-setup" class="section level3 unnumbered hasAnchor">
+<h3>Preparation and Setup<a href="nature-documentary.html#preparation-and-setup" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <ul>
 <li><p>Install Windows 11</p></li>
 <li><p>Download and install <a href="https://store.steampowered.com/about/">Steam</a> (with a copy of GTA V or buy the game if you do not have it. GTA V is 100+ GB so it will take a few hours depending on your internet connections)</p></li>
@@ -289,7 +296,6 @@ artwork text</p>
 <li><p>Download and install <a href="https://store.steampowered.com/about/">Visual Studio Community</a> (free version of VS). Open Visual Studio and check the .NET desktop development package and install it</p></li>
 <li><p>Run GTA V and test if Script Hook V is working by pressing <code>F4</code>. This should toggle the console view.</p></li>
 </ul>
-</div>
 <div id="creating-a-mod-file" class="section level4 unnumbered hasAnchor">
 <h4>Creating a Mod File<a href="nature-documentary.html#creating-a-mod-file" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <ul>
@@ -375,8 +381,9 @@ artwork text</p>
 <span id="cb5-6"><a href="nature-documentary.html#cb5-6"></a>    }</span>
 <span id="cb5-7"><a href="nature-documentary.html#cb5-7"></a>} </span></code></pre></div>
 </div>
-<div id="change-player-model" class="section level4 unnumbered hasAnchor">
-<h4>Change Player Model<a href="nature-documentary.html#change-player-model" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+</div>
+<div id="change-player-model" class="section level3 unnumbered hasAnchor">
+<h3>Change Player Model<a href="nature-documentary.html#change-player-model" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>The player character is controlled as Game.Player. Game.Player can perform different functions, including changing the avatar model, and performing tasks.</p>
 <p>Change the 3D model of your character by using the <code>ChangeModel</code> function.
 The function needs a model ID, in order to load the model file of our game character.
@@ -433,8 +440,8 @@ For example if you choose the model Cat, you’ll need to write <code>PedHash.Ca
 <span id="cb7-43"><a href="nature-documentary.html#cb7-43"></a>}</span></code></pre></div>
 </details>
 </div>
-<div id="tasks" class="section level4 unnumbered hasAnchor">
-<h4>Tasks<a href="nature-documentary.html#tasks" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div id="tasks" class="section level3 unnumbered hasAnchor">
+<h3>Tasks<a href="nature-documentary.html#tasks" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Our character can be controlled by our script, and given actions that override manual control of the player. These actions are called <em>Tasks</em> and in order to assign tasks to our characters we have to define our <code>Game.Player</code> as <code>Game.Player.Character</code>. The <code>Game.Player.Character</code> code gets the specific model the player is controlling.</p>
 <p>Now we can give tasks to the character by adding the <code>Task</code> function: <code>Game.Player.Character.Task</code>.</p>
 <p>Finally we can specify what task to give the character by choosing a task from <a href="https://nitanmarcel.github.io/shvdn-docs.github.io/class_g_t_a_1_1_task_invoker.html">TaskInvoker list</a> of possible actions.</p>
@@ -445,8 +452,8 @@ For example if you choose the model Cat, you’ll need to write <code>PedHash.Ca
 <p>Hands up for 3000 milliseconds:</p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb10-1"><a href="nature-documentary.html#cb10-1"></a>Game.<span class="fu">Player</span>.<span class="fu">Character</span>.<span class="fu">Task</span>.<span class="fu">HandsUp</span>(<span class="dv">3000</span>);</span></code></pre></div>
 </div>
-<div id="task-sequences" class="section level4 unnumbered hasAnchor">
-<h4>Task Sequences<a href="nature-documentary.html#task-sequences" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div id="task-sequences" class="section level3 unnumbered hasAnchor">
+<h3>Task Sequences<a href="nature-documentary.html#task-sequences" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>You can create sequence of multiple tasks by using <code>TaskSequence</code> and the <code>PerformSequence</code> function.
 Create a new <code>TaskSequence</code> with a custom name, add tasks to it with <code>AddTask</code>, close the sequence with <code>Close</code> and then call <code>Task.PerformSequence</code> to perform the sequence.</p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb11-1"><a href="nature-documentary.html#cb11-1"></a>TaskSequence mySeq = <span class="kw">new</span> <span class="fu">TaskSequence</span>();</span>
@@ -456,8 +463,8 @@ Create a new <code>TaskSequence</code> with a custom name, add tasks to it with 
 <span id="cb11-5"><a href="nature-documentary.html#cb11-5"></a>                </span>
 <span id="cb11-6"><a href="nature-documentary.html#cb11-6"></a>Game.<span class="fu">Player</span>.<span class="fu">Character</span>.<span class="fu">Task</span>.<span class="fu">PerformSequence</span>(mySeq);</span></code></pre></div>
 </div>
-<div id="random" class="section level4 unnumbered hasAnchor">
-<h4>Random<a href="nature-documentary.html#random" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div id="random" class="section level3 unnumbered hasAnchor">
+<h3>Random<a href="nature-documentary.html#random" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>We can add randomness by using a randomly generated number, which makes things outside of thepredefined programme controlled by us and introduces more autonomous behaviours. We use the <code>Random</code>function to create a randomly generated number between our minimum and maximum parameter (if only one parameter is inserted, the minimum is 0).</p>
 <div class="sourceCode" id="cb12"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb12-1"><a href="nature-documentary.html#cb12-1"></a>Random rnd = <span class="kw">new</span> <span class="fu">Random</span>(); </span>
 <span id="cb12-2"><a href="nature-documentary.html#cb12-2"></a><span class="dt">int</span> month = rnd.<span class="fu">Next</span>(<span class="dv">1</span>, <span class="dv">13</span>); <span class="co">// creates a number between 1 and 12 </span></span>
@@ -468,13 +475,12 @@ Create a new <code>TaskSequence</code> with a custom name, add tasks to it with 
 <span id="cb13-2"><a href="nature-documentary.html#cb13-2"></a><span class="dt">int</span> waitingTime = rnd.<span class="fu">Next</span>(<span class="dv">1</span>, <span class="dv">7</span>);</span>
 <span id="cb13-3"><a href="nature-documentary.html#cb13-3"></a>Game.<span class="fu">Player</span>.<span class="fu">Character</span>.<span class="fu">Task</span>.<span class="fu">HandsUp</span>(waitingTime * <span class="dv">1000</span>);</span></code></pre></div>
 </div>
-<div id="subtitles-and-notifications" class="section level4 unnumbered hasAnchor">
-<h4>Subtitles and Notifications<a href="nature-documentary.html#subtitles-and-notifications" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div id="subtitles-and-notifications" class="section level3 unnumbered hasAnchor">
+<h3>Subtitles and Notifications<a href="nature-documentary.html#subtitles-and-notifications" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Generate subtitles with a custom text string and duration (in milliseconds):</p>
 <div class="sourceCode" id="cb14"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb14-1"><a href="nature-documentary.html#cb14-1"></a>UI.<span class="fu">ShowSubtitle</span>(<span class="st">&quot;Hello World&quot;</span>, <span class="dv">3000</span>);</span></code></pre></div>
 <p>Generate a notification with a custom text string:</p>
 <div class="sourceCode" id="cb15"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb15-1"><a href="nature-documentary.html#cb15-1"></a>UI.<span class="fu">Notify</span>(<span class="st">&quot;Hello World&quot;</span>);</span></code></pre></div>
-</div>
 </div>
 </div>
 <div id="content-replication-assignment-3" class="section level2 unnumbered hasAnchor">
