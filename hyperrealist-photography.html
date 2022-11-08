@@ -405,8 +405,9 @@ To set a specific camera view we can use the native function <code>SET_FOLLOW_PE
 <p>Let’s add an If statement in our onTick loop to chek if the screen has been faded to black, and if so we call a fade in over 3 second:</p>
 <div class="sourceCode" id="cb41"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb41-1"><a href="hyperrealist-photography.html#cb41-1"></a><span class="kw">if</span> (Function.<span class="fu">Call</span>&lt;<span class="dt">bool</span>&gt;(Hash.<span class="fu">IS_SCREEN_FADED_OUT</span>))</span>
 <span id="cb41-2"><a href="hyperrealist-photography.html#cb41-2"></a>{</span>
-<span id="cb41-3"><a href="hyperrealist-photography.html#cb41-3"></a>    GTA.<span class="fu">Native</span>.<span class="fu">Function</span>.<span class="fu">Call</span>(Hash.<span class="fu">DO_SCREEN_FADE_IN</span>, <span class="dv">3000</span>);</span>
-<span id="cb41-4"><a href="hyperrealist-photography.html#cb41-4"></a>}</span></code></pre></div>
+<span id="cb41-3"><a href="hyperrealist-photography.html#cb41-3"></a>    <span class="fu">Wait</span>(<span class="dv">500</span>);</span>
+<span id="cb41-4"><a href="hyperrealist-photography.html#cb41-4"></a>    GTA.<span class="fu">Native</span>.<span class="fu">Function</span>.<span class="fu">Call</span>(Hash.<span class="fu">DO_SCREEN_FADE_IN</span>, <span class="dv">3000</span>);</span>
+<span id="cb41-5"><a href="hyperrealist-photography.html#cb41-5"></a>}</span></code></pre></div>
 <p>Now if you try to hit the ‘O’ key, the screen will fade out, and then it will automatically fade in again.</p>
 </div>
 <div id="natural-vision-evolved-mod" class="section level3 unnumbered hasAnchor">

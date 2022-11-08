@@ -1630,6 +1630,7 @@ Let's add an If statement in our onTick loop to chek if the screen has been fade
 \begin{Highlighting}[]
 \KeywordTok{if}\NormalTok{ (Function.}\FunctionTok{Call}\NormalTok{<}\DataTypeTok{bool}\NormalTok{>(Hash.}\FunctionTok{IS_SCREEN_FADED_OUT}\NormalTok{))}
 \NormalTok{\{}
+    \FunctionTok{Wait}\NormalTok{(}\DecValTok{500}\NormalTok{);}
 \NormalTok{    GTA.}\FunctionTok{Native}\NormalTok{.}\FunctionTok{Function}\NormalTok{.}\FunctionTok{Call}\NormalTok{(Hash.}\FunctionTok{DO_SCREEN_FADE_IN}\NormalTok{, }\DecValTok{3000}\NormalTok{);}
 \NormalTok{\}}
 \end{Highlighting}
