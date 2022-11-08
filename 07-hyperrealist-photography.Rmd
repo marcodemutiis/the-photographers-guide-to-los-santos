@@ -46,6 +46,116 @@ Function.Call(Hash.SET_FOLLOW_PED_CAM_VIEW_MODE, 4);
 
 ### Attach a Camera to an Entity {-}
 
+<details>
+  <summary>Example code</summary>
+
+```cs
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+using GTA;
+using GTA.Math;
+using System.Windows.Forms;
+using System.Drawing;
+using GTA.Native;
+using System.IO;
+
+
+namespace moddingTutorial
+{
+    public class moddingTutorial : Script
+    {
+		Vector3 myCamPos;
+		int CamSelect = 0;
+        Ped newPed = null;
+		Camera myCam;
+
+		public moddingTutorial()
+		{
+			this.Tick += onTick;
+			this.KeyUp += onKeyUp;
+			this.KeyDown += onKeyDown;
+		}
+
+		private void onTick(object sender, EventArgs e) //this function gets executed continuously 
+		{
+			//exits from the loop if the game is loading
+			if (Game.IsLoading) return;
+			
+			//update the cameras if the ped is spawn
+            if (newPed != null)
+			{   		
+				//create the cameras if none have been created yet.
+				if (myCam == null)            
+				{
+					UI.ShowSubtitle("Set new camera");
+					myCam = World.CreateCamera(Vector3.Zero, newPed.Rotation, 50f);
+					// Set the camera position (relative pos)          
+					myCamPos = new Vector3(0, 0, 1f);
+				}
+				//attach the cameras
+				myCam.AttachTo(newPed, myCamPos);
+                //sync rotation
+				myCam.Rotation = newPed.Rotation;
+			}
+		}
+		
+
+		private void onKeyUp(object sender, KeyEventArgs e)//everything inside here is executed only when we release a key
+		{
+			//press control+K to switch between gameplay default camera and the NPC camera
+			if (e.KeyCode == Keys.K && e.Modifiers == Keys.Shift && newPed != null)
+            {
+				CamSelect = (CamSelect + 1) % 2;
+				switch (CamSelect)
+				{
+					case 0: World.RenderingCamera = null; 
+						UI.ShowSubtitle("Showing Gameplay Cam View"); 
+						break;
+					case 1: World.RenderingCamera = myCam; 
+						UI.ShowSubtitle("Showing NPC Cam View"); 
+						break;
+				}
+
+			}
+		}
+
+		private void onKeyDown(object sender, KeyEventArgs e) //everything inside here is executed only when we press a key
+		{
+			if(e.KeyCode == Keys.G)
+			{
+    			//spawn new Ped
+				newPed = World.CreatePed(PedHash.Cat, Game.Player.Character.GetOffsetInWorldCoords(new Vector3(1, 3, 0)));
+			}
+		
+			if (e.KeyCode == Keys.H)
+			{
+                //follow player (persistent)
+				Function.Call(Hash.TASK_FOLLOW_TO_OFFSET_OF_ENTITY, newPed.Handle, Game.Player.Character.Handle, 0f, 1f, 0f, 2.0f, -1, 5f, true);
+                //look at player
+				newPed.Task.LookAt(Game.Player.Character);
+			}
+            if (e.KeyCode == Keys.J)
+			{
+                //stop NPC
+                newPed.Task.ClearAll();
+			}
+			if (e.KeyCode == Keys.L)
+			{   
+                //delete ped
+				newPed.Delete();
+			}
+		}
+	}
+}
+
+```
+</details>
+
+
 ### Scripting Cinematic Fade Out/ In {-}
 
 Script Hook has native functions to create a fead to/from black. The function hash are ```DO_SCREEN_FADE_OUT``` and ```DO_SCREEN_FADE_IN``` and they are followed by the number of milliseconds to go from full black to showing the scene and viceversa.
