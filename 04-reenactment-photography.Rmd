@@ -40,6 +40,10 @@ artwork text
 
 
 ### Getting There {-}
+```{r fig.align='center', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html')}
+knitr::include_graphics('assets/maps/vinewoodSign.png', dpi = NA)
+```
+[Vinewood Sign, Vinewood Hills](https://grandtheftdata.com/landmarks/#1016.057,312.205,4,atlas,name=vinewood,Vinewood_Sign,_Vinewood_Hills)
 
 ## Further references {-}
 
