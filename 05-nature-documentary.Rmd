@@ -122,7 +122,7 @@ namespace moddingTutorial
 
 + Note: every time you make changes to your .cs file in the scripts folder you can hit ```F4``` to open the console, type ```Reload()``` in the console for the program to reload the script and test again the changes.
 
-#### onTick, onKeyUp and onKeyDown
+#### onTick, onKeyUp and onKeyDown {-}
 The main events of Script Hook V Dot Net are onTick, onKeyUp and onKeyDown. Script Hook V Dot Net will invoke your functions whenever an event is called.
 
 The code within the onTick brackets is executed every interval milliseconds (which is by default 0), meaning that the event will be executed at every frame, for as long as the game is running.
