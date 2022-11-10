@@ -34,7 +34,7 @@ artwork text
 
 ### Scripting Introduction {-} 
 
-#### Preparation and Setup {-}
+### Preparation and Setup {-}
 
 + Install Windows 11
 
@@ -122,7 +122,7 @@ namespace moddingTutorial
 
 + Note: every time you make changes to your .cs file in the scripts folder you can hit ```F4``` to open the console, type ```Reload()``` in the console for the program to reload the script and test again the changes.
 
-#### onTick, onKeyUp and onKeyDown
+#### onTick, onKeyUp and onKeyDown {-}
 The main events of Script Hook V Dot Net are onTick, onKeyUp and onKeyDown. Script Hook V Dot Net will invoke your functions whenever an event is called.
 
 The code within the onTick brackets is executed every interval milliseconds (which is by default 0), meaning that the event will be executed at every frame, for as long as the game is running.
@@ -162,7 +162,7 @@ private void onKeyDown(object sender, KeyEventArgs e)
 
 
 
-#### Change Player Model {-}
+### Change Player Model {-}
 
 The player character is controlled as Game.Player. Game.Player can perform different functions, including changing the avatar model, and performing tasks.
 
@@ -231,7 +231,7 @@ namespace moddingTutorial
 </details>
 
 
-#### Tasks {-}
+### Tasks {-}
 
 Our character can be controlled by our script, and given actions that override manual control of the player. These actions are called _Tasks_ and in order to assign tasks to our characters we have to define our ```Game.Player``` as ```Game.Player.Character```. The ```Game.Player.Character``` code gets the specific model the player is controlling.
 
@@ -253,6 +253,51 @@ Hands up for 3000 milliseconds:
 ```cs
 Game.Player.Character.Task.HandsUp(3000);
 ```
+
+### Task Sequences {-}
+
+You can create sequence of multiple tasks by using ```TaskSequence``` and the ```PerformSequence``` function.
+Create a new ```TaskSequence``` with a custom name, add tasks to it with ```AddTask```, close the sequence with ```Close``` and then call ```Task.PerformSequence``` to perform the sequence.
+
+```cs
+TaskSequence mySeq = new TaskSequence();
+mySeq.AddTask.Jump();
+mySeq.AddTask.HandsUp(3000);
+mySeq.Close();
+				
+Game.Player.Character.Task.PerformSequence(mySeq);
+```
+
+### Random {-}
+
+We can add randomness by using a randomly generated number, which makes things outside of thepredefined programme controlled by us and introduces more autonomous behaviours. We use the ```Random```function to create a randomly generated number between our minimum and maximum parameter (if only one parameter is inserted, the minimum is 0).
+
+```cs
+Random rnd = new Random(); 
+int month = rnd.Next(1, 13); // creates a number between 1 and 12 
+int dice = rnd.Next(1, 7); // creates a number between 1 and 6 
+int card = rnd.Next(52); // creates a number between 0 and 51
+```
+
+Let's create a number to generate a random duration between 1 and 6 seconds, for the ```HandsUp``` task.
+```cs
+Random rnd = new Random(); 
+int waitingTime = rnd.Next(1, 7);
+Game.Player.Character.Task.HandsUp(waitingTime * 1000);
+```
+
+### Subtitles and Notifications {-}
+
+Generate subtitles with a custom text string and duration (in milliseconds): 
+```cs
+UI.ShowSubtitle("Hello World", 3000);
+```
+
+Generate a notification with a custom text string:
+```cs
+UI.Notify("Hello World");
+```
+
 
 ## Content Replication Assignment {-}
 

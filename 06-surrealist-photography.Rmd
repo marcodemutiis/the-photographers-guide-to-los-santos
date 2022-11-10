@@ -29,11 +29,11 @@ knitr::include_graphics('assets/maps/ChumashBeach.png', dpi = NA)
 
 ### Scripting Characters {-}
 
-#### NPCs {-}
+### NPCs {-}
 
 NPCs are non playable characters and in GTA V scripting they are called ```Peds```. Peds are an entity like Props or Vehicles and can be created, assigned different model textures, equipped with weapons and controlled through different tasks. 
 
-#### Spawn a new NPC {-}
+### Spawn a new NPC {-}
 
 A GTA V Ped can be created by the ```World.CreatePed``` function. This takes two parameters: an ID to assign the 3D model and textures, and the location where the Ped is created.
 
@@ -99,10 +99,10 @@ namespace moddingTutorial
 			{
 				//select a model and store it in a variable
 				Models myPedModel = "PedHash.AviSchwartzman";
-        //create a position relative to the player
-        Vector3 myPedSpawnPosition = Game.Player.Character.GetOffsetInWorldCoords(new Vector3(0, 5, 0));
-        //create a Ped with the chosen model, spawning at the chosen position
-        var myPed1 = World.CreatePed(myPedModel, myPedSpawnPosition); 
+        			//create a position relative to the player
+       				Vector3 myPedSpawnPosition = Game.Player.Character.GetOffsetInWorldCoords(new Vector3(0, 5, 0));
+      				//create a Ped with the chosen model, spawning at the chosen position
+       				var myPed1 = World.CreatePed(myPedModel, myPedSpawnPosition); 
 			}
 		}
 	}
@@ -110,8 +110,105 @@ namespace moddingTutorial
 ```
 </details>
 
+### Control Multiple NPCs {-}
 
-#### Give Tasks to NPCs {-}
+You can create multiple NPCs and give them custom names. Let's create a human NPC and a cat NPC and call them Jim and MannyTheCat respectively:
+```cs
+var Jim = World.CreatePed(PedHash.AviSchwartzman, Game.Player.Character.GetOffsetInWorldCoords(new Vector3(0, 5, 0)));
+var MannyTheCat = World.CreatePed(PedHash.Cat, Game.Player.Character.GetOffsetInWorldCoords(new Vector3(0, 3, 0)));
+
+```
+
+Try to kill one of the  ```Ped``` NPCs you created by using the ```Kill()```.
+```cs
+Jim.Kill();
+```
+
+Note that when you kill your ```Ped``` 'Jim', it falls on the floor and it won't actually respond to any call or task you will give it, but it's not removed from the game. To remove a specific ```Ped``` you not use the ```Delete```function, which will remove that instance (and will make the NPC disappear).
+```cs
+Jim.Delete();
+```
+
+
+To handle groups of NPCs we can use the ```List``` class. A ```List``` is a collection of objects, and a ```List```of ```Peds``` allows us to store our NPCs. We can use an index to retrieve and control specific ```Peds``` in the group. ou can see the [reference](https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.list-1?view=net-7.0) for more detailed information.
+
+Create a ```List``` of ```Peds``` named myPeds as a global variable in the public class ```public class moddingTutorial : Script```.
+```cs
+List<Ped> myPeds = new List<Ped>();
+```
+
+In the onKeyDown function ```private void onKeyDown(object sender, KeyEventArgs e)``` create 5 new Peds with a [For Loop](https://www.w3schools.com/cs/cs_for_loop.php)
+
+```cs
+for (int i = 0; i < 5; i++)
+{
+	//spawn a new Ped called newPed
+	var newPed = World.CreatePed(PedHash.AviSchwartzman, Game.Player.Character.GetOffsetInWorldCoords(new Vector3(i, 3, 0)));
+	//add the new Ped to my list of Peds myPeds
+	myPeds.Add(newPed);
+}
+```
+
+Now all the 5 ```Peds``` are part of the myPeds[] ```List```. You can control each Ped individually by calling their individual number ID in the group. The first spawn ```Ped``` is myPed[0], the last one is myPeds[4].
+
+Kill the 3rd spawned NPC:
+```cs
+myPeds[2].Kill();
+```
+
+### Nearby NPCs {-}
+
+Script Hook V DOt Net provides a function ```GetNearbyPeds```which groups all the ```Peds``` within a nearby radius from a character.
+
+Create a new group that adds ```Peds``` which are closer than 20 meters from the player:
+```cs
+Ped[] NearbyPeds = World.GetNearbyPeds(Game.Player.Character, 20f);
+````
+
+Use a [Foreach Loop](https://www.simplilearn.com/tutorials/asp-dot-net-tutorial/csharp-foreach#:~:text=The%20foreach%20loop%20in%20C%23,readable%20alternative%20to%20for%20loop.) to get every ```Ped``` in the group and kill them:
+```cs
+foreach (Ped p in NearbyPeds)
+{
+	p.Kill();
+}
+```
+
+```GetNearbyPeds``` does not sort out individual ```Peds```in the group based on distance, so we have to do a bit of manual filtering to get the nearest NPC within the chosen radius from the player character.
+
+Define the global variables in the public class ```public class moddingTutorial : Script```:
+```cs
+float lastDistance;
+Ped Squad1Leader = null;
+Ped oldSquad1Leader = null;
+```
+
+Get and parse the nearby NPCs in the OnTick function ```private void onTick(object sender, EventArgs e)```:
+```cs
+//set radius
+float maxDistance = 25f;
+//get nearest peds		
+Ped[] pedsGroup = World.GetNearbyPeds(Game.Player.Character, maxDistance);
+ 
+float lastDistance = maxDistance;
+foreach (Ped ped in pedsGroup)
+{
+	float distance = ped.Position.DistanceTo(Game.Player.Character.Position);
+	if (distance < lastDistance)
+	{
+		Squad1Leader = ped;
+		lastDistance = distance;
+	}
+}
+
+	if (Squad1Leader != null && oldSquad1Leader != Squad1Leader)
+	{
+		Squad1Leader.Kill();
+	}
+oldSquad1Leader = Squad1Leader;
+```
+
+
+### Give Tasks to NPCs {-}
 
 A Ped can be given a task using the ```Task``` function, just like we did in the previous tutorial for the player character.
 ```cs
@@ -123,7 +220,7 @@ We can give our NPC the task to fight against the player by using the ```FightAg
 myPed1.Task.FightAgainst(Game.Player.Character); //give npc task to fight against player
 ```
 
-Try to replace the task to “fight against” with “flee from (player)” , “hands up”, “jump”... or some of the other available tasks
+Try to replace the task to “fight against” with “flee from (player)” , “hands up”, “jump”... or some of the other available tasks.
 
 See the [TaskInvoker list](https://nitanmarcel.github.io/shvdn-docs.github.io/class_g_t_a_1_1_task_invoker.html) for possible tasks, or click on the list of available tasks below. 
 
@@ -283,7 +380,10 @@ void ClearAnimation (string animSet, string animName)
 ```
 </details>
 
-#### Teleporting {-}
+### Animations {-}
+//TO DO
+
+### Teleporting {-}
 
 We can change the location of the player character or of any Ped or Vehicle entity by using the native function ```SET_ENTITY_COORDS```. This function needs an entity and X, Y and Z coordinate to teleport to.
 We need to know the exact coordinates of the locations we want to teleport to, but thankfully the modding community forums provide lists with all available coordinates we can teleport to. Let's take the XYZ coordinates of the top of Mount Chiliad (the highest point in the game) to teleport our player character to.
