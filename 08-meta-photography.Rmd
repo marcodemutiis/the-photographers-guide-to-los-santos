@@ -24,7 +24,8 @@ Keys are mapped to Direct Input Keyboard hex codes. You can find a list of all h
 
 ```
 Value	Macro	      Symbol
-0x01	DIK_ESCAPE	Esc	
+------------------------
+0x01	DIK_ESCAPE  Esc	
 0x02	DIK_1	      1	
 0x03	DIK_2	      2	
 0x04	DIK_3	      3	
@@ -49,8 +50,8 @@ Value	Macro	      Symbol
 0x17	DIK_I	      I	
 0x18	DIK_O	      O	
 0x19	DIK_P	      P	
-0x1A	DIK_LBRACKET	[	
-0x1B	DIK_RBRACKET	]	
+0x1A	DIK_LBRACKET  [	
+0x1B	DIK_RBRACKET  ]	
 0x1C	DIK_RETURN	Enter	
 0x1D	DIK_LContol	Ctrl (Left)	
 0x1E	DIK_A	      A	
@@ -154,7 +155,7 @@ Value	Macro	      Symbol
   <summary>Example code</summary>
   
   ```cs
-  using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
