@@ -156,6 +156,155 @@ namespace moddingTutorial
 </details>
 
 
+### Switching Character through Satellite Camera View
+
+<details>
+  <summary>Example code</summary>
+
+```cs
+	
+/*
+	this was adapted from code shared by LeeC22 on gtaforums.com
+	https://gtaforums.com/topic/951002-c-looking-for-player-switch-sample-solved-by-me/#comment-1071197769
+*/
+	
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+using GTA;
+using GTA.Math;
+using System.Windows.Forms;
+using System.Drawing;
+using GTA.Native;
+using System.IO;
+
+
+namespace moddingTutorial
+{
+    public class moddingTutorial : Script
+    {
+        Ped newPed = null;
+        Vector3 SwitchLocation2;
+        List<Vector3> switchLocations = new List<Vector3>();
+        int index = 0;
+        List<String> models = new List<String>();
+        int modelIndex = 0;
+
+        public moddingTutorial()
+        {
+            this.Tick += onTick;
+            this.KeyUp += onKeyUp;
+            this.KeyDown += onKeyDown;
+
+	    //add locations to the switchLocations list
+            switchLocations.Add(new Vector3(24.775f, 7644.102f, 18.055f)); //Most Northerly Point
+            switchLocations.Add(new Vector3(-595.342f, 2086.008f, 130.412f)); //Mine
+            switchLocations.Add(new Vector3(150.126f, -754.591f, 261.865f)); //FIB Roof 
+	
+	    //add models to the models list
+            models.Add("s_m_m_doctor_01");
+            models.Add("s_m_m_migrant_01");
+            models.Add("a_c_cormorant");
+            models.Add("a_c_deer");
+            models.Add("a_c_pug");
+        }
+
+        private void onTick(object sender, EventArgs e) //this function gets executed continuously 
+        {
+            
+            //If the character switch is in process
+            if (Function.Call<bool>(Hash.IS_PLAYER_SWITCH_IN_PROGRESS))
+            {
+                //If Switch State is 8 – that's the point when it starts dropping to the player 
+                if (Function.Call<int>(Hash.GET_PLAYER_SWITCH_STATE) == 8)
+                {
+                    //Set the player to the switch location
+                    Game.Player.Character.Position = switchLocations[index];
+
+                    //Generate the hash for the chosen model
+                    int poshHash = Game.GenerateHash(models[modelIndex]);
+
+                    //Create the model
+                    Model poshModel = new Model(poshHash);
+
+                    //Check if it is valid
+                    if (poshModel.IsValid)
+                    {
+                        //Wait for it to load, should be okay because it was used to create the target ped
+                        while (!poshModel.IsLoaded)
+                        {
+                            Wait(100);
+                        }
+
+                        //Change the player model to the target ped model
+                        Function.Call(Hash.SET_PLAYER_MODEL, Game.Player, poshHash);
+
+                        //Let the game clean up the created Model
+                        poshModel.MarkAsNoLongerNeeded();
+                    }
+                    else
+                    {
+                        //Falls to here if the model valid check fails
+                        Function.Call(Hash.SET_PLAYER_MODEL, Game.Player, (int)PedHash.Tourist01AFY);
+                    }
+
+                    //Delete the target ped as it's no longer needed
+                    newPed.Delete();
+                    
+
+                    // Set the switch outro based on the gameplay camera position
+                    // Function.Call((Hash)0xC208B673CE446B61, camPos.X, camPos.Y, camPos.Z, camRot.X, camRot.Y, camRot.Z, camFOV, camFarClip, p8);
+
+                    Function.Call((Hash)0xC208B673CE446B61, GameplayCamera.Position.X, GameplayCamera.Position.Y, GameplayCamera.Position.Z, GameplayCamera.Rotation.X, GameplayCamera.Rotation.Y, GameplayCamera.Rotation.Z, GameplayCamera.FieldOfView, 500, 2);
+
+                    //Call this unknown native that seems to finish things off
+                    Function.Call(Hash._0x74DE2E8739086740);
+
+		    //Make the character wander around autonomously
+                    Game.Player.Character.Task.WanderAround();
+                }
+            }
+
+        }
+
+
+        private void onKeyUp(object sender, KeyEventArgs e)
+        {
+
+        }
+
+        private void onKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.G)
+            {
+		//Stop previous tasks
+                Game.Player.Character.Task.ClearAll();
+
+                //Move the index to the next location
+                index++;
+                if (index >= switchLocations.Count) index = 0;
+                
+		//Move the index to the new ped model
+                modelIndex++;
+                if (modelIndex >= models.Count) modelIndex = 0;
+
+                //Create the ped to switch to
+                newPed = World.CreatePed(models[modelIndex], switchLocations[index]);
+
+                //Native function to initiate the switch Function.Call(Hash.START_PLAYER_SWITCH, fromPed.Handle, toPed.Handle, flags, switchType);
+                Function.Call(Hash.START_PLAYER_SWITCH, Game.Player.Character.Handle, newPed.Handle, 8, 0);
+
+            }
+        }
+    }
+}
+```
+	</details>
+
+	
 ### Scripting Cinematic Fade Out/ In {-}
 
 Script Hook has native functions to create a fead to/from black. The function hash are ```DO_SCREEN_FADE_OUT``` and ```DO_SCREEN_FADE_IN``` and they are followed by the number of milliseconds to go from full black to showing the scene and viceversa.
