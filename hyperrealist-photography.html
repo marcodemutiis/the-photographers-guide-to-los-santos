@@ -229,6 +229,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="hyperrealist-photography.html"><a href="hyperrealist-photography.html#controlling-the-game-camera"><i class="fa fa-check"></i>Controlling the Game Camera</a></li>
 <li class="chapter" data-level="" data-path="hyperrealist-photography.html"><a href="hyperrealist-photography.html#create-multiple-cameras"><i class="fa fa-check"></i>Create Multiple Cameras</a></li>
 <li class="chapter" data-level="" data-path="hyperrealist-photography.html"><a href="hyperrealist-photography.html#attach-a-camera-to-an-entity"><i class="fa fa-check"></i>Attach a Camera to an Entity</a></li>
+<li class="chapter" data-level="7.0.1" data-path="hyperrealist-photography.html"><a href="hyperrealist-photography.html#switching-character-through-satellite-camera-view"><i class="fa fa-check"></i><b>7.0.1</b> Switching Character through Satellite Camera View</a></li>
 <li class="chapter" data-level="" data-path="hyperrealist-photography.html"><a href="hyperrealist-photography.html#scripting-cinematic-fade-out-in"><i class="fa fa-check"></i>Scripting Cinematic Fade Out/ In</a></li>
 <li class="chapter" data-level="" data-path="hyperrealist-photography.html"><a href="hyperrealist-photography.html#natural-vision-evolved-mod"><i class="fa fa-check"></i>Natural Vision Evolved Mod</a></li>
 </ul></li>
@@ -401,26 +402,171 @@ To set a specific camera view we can use the native function <code>SET_FOLLOW_PE
 <span id="cb38-101"><a href="hyperrealist-photography.html#cb38-101"></a>}</span></code></pre></div>
 </details>
 </div>
+<div id="switching-character-through-satellite-camera-view" class="section level3 hasAnchor">
+<h3><span class="header-section-number">7.0.1</span> Switching Character through Satellite Camera View<a href="hyperrealist-photography.html#switching-character-through-satellite-camera-view" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<details>
+<p><summary>Example code</summary></p>
+<div class="sourceCode" id="cb39"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb39-1"><a href="hyperrealist-photography.html#cb39-1"></a>    </span>
+<span id="cb39-2"><a href="hyperrealist-photography.html#cb39-2"></a><span class="co">/*</span></span>
+<span id="cb39-3"><a href="hyperrealist-photography.html#cb39-3"></a><span class="co">    this was adapted from code shared by LeeC22 on gtaforums.com</span></span>
+<span id="cb39-4"><a href="hyperrealist-photography.html#cb39-4"></a><span class="co">    https://gtaforums.com/topic/951002-c-looking-for-player-switch-sample-solved-by-me/#comment-1071197769</span></span>
+<span id="cb39-5"><a href="hyperrealist-photography.html#cb39-5"></a><span class="co">*/</span></span>
+<span id="cb39-6"><a href="hyperrealist-photography.html#cb39-6"></a>    </span>
+<span id="cb39-7"><a href="hyperrealist-photography.html#cb39-7"></a><span class="kw">using</span> System;</span>
+<span id="cb39-8"><a href="hyperrealist-photography.html#cb39-8"></a><span class="kw">using</span> System.<span class="fu">Collections</span>.<span class="fu">Generic</span>;</span>
+<span id="cb39-9"><a href="hyperrealist-photography.html#cb39-9"></a><span class="kw">using</span> System.<span class="fu">Linq</span>;</span>
+<span id="cb39-10"><a href="hyperrealist-photography.html#cb39-10"></a><span class="kw">using</span> System.<span class="fu">Text</span>;</span>
+<span id="cb39-11"><a href="hyperrealist-photography.html#cb39-11"></a><span class="kw">using</span> System.<span class="fu">Threading</span>.<span class="fu">Tasks</span>;</span>
+<span id="cb39-12"><a href="hyperrealist-photography.html#cb39-12"></a></span>
+<span id="cb39-13"><a href="hyperrealist-photography.html#cb39-13"></a><span class="kw">using</span> GTA;</span>
+<span id="cb39-14"><a href="hyperrealist-photography.html#cb39-14"></a><span class="kw">using</span> GTA.<span class="fu">Math</span>;</span>
+<span id="cb39-15"><a href="hyperrealist-photography.html#cb39-15"></a><span class="kw">using</span> System.<span class="fu">Windows</span>.<span class="fu">Forms</span>;</span>
+<span id="cb39-16"><a href="hyperrealist-photography.html#cb39-16"></a><span class="kw">using</span> System.<span class="fu">Drawing</span>;</span>
+<span id="cb39-17"><a href="hyperrealist-photography.html#cb39-17"></a><span class="kw">using</span> GTA.<span class="fu">Native</span>;</span>
+<span id="cb39-18"><a href="hyperrealist-photography.html#cb39-18"></a><span class="kw">using</span> System.<span class="fu">IO</span>;</span>
+<span id="cb39-19"><a href="hyperrealist-photography.html#cb39-19"></a></span>
+<span id="cb39-20"><a href="hyperrealist-photography.html#cb39-20"></a></span>
+<span id="cb39-21"><a href="hyperrealist-photography.html#cb39-21"></a><span class="kw">namespace</span> moddingTutorial</span>
+<span id="cb39-22"><a href="hyperrealist-photography.html#cb39-22"></a>{</span>
+<span id="cb39-23"><a href="hyperrealist-photography.html#cb39-23"></a>    <span class="kw">public</span> <span class="kw">class</span> moddingTutorial : Script</span>
+<span id="cb39-24"><a href="hyperrealist-photography.html#cb39-24"></a>    {</span>
+<span id="cb39-25"><a href="hyperrealist-photography.html#cb39-25"></a>        Ped newPed = <span class="kw">null</span>;</span>
+<span id="cb39-26"><a href="hyperrealist-photography.html#cb39-26"></a>        Vector3 SwitchLocation2;</span>
+<span id="cb39-27"><a href="hyperrealist-photography.html#cb39-27"></a>        List&lt;Vector3&gt; switchLocations = <span class="kw">new</span> List&lt;Vector3&gt;();</span>
+<span id="cb39-28"><a href="hyperrealist-photography.html#cb39-28"></a>        <span class="dt">int</span> index = <span class="dv">0</span>;</span>
+<span id="cb39-29"><a href="hyperrealist-photography.html#cb39-29"></a>        List&lt;String&gt; models = <span class="kw">new</span> List&lt;String&gt;();</span>
+<span id="cb39-30"><a href="hyperrealist-photography.html#cb39-30"></a>        <span class="dt">int</span> modelIndex = <span class="dv">0</span>;</span>
+<span id="cb39-31"><a href="hyperrealist-photography.html#cb39-31"></a></span>
+<span id="cb39-32"><a href="hyperrealist-photography.html#cb39-32"></a>        <span class="kw">public</span> <span class="fu">moddingTutorial</span>()</span>
+<span id="cb39-33"><a href="hyperrealist-photography.html#cb39-33"></a>        {</span>
+<span id="cb39-34"><a href="hyperrealist-photography.html#cb39-34"></a>            <span class="kw">this</span>.<span class="fu">Tick</span> += onTick;</span>
+<span id="cb39-35"><a href="hyperrealist-photography.html#cb39-35"></a>            <span class="kw">this</span>.<span class="fu">KeyUp</span> += onKeyUp;</span>
+<span id="cb39-36"><a href="hyperrealist-photography.html#cb39-36"></a>            <span class="kw">this</span>.<span class="fu">KeyDown</span> += onKeyDown;</span>
+<span id="cb39-37"><a href="hyperrealist-photography.html#cb39-37"></a></span>
+<span id="cb39-38"><a href="hyperrealist-photography.html#cb39-38"></a>        <span class="co">//add locations to the switchLocations list</span></span>
+<span id="cb39-39"><a href="hyperrealist-photography.html#cb39-39"></a>            switchLocations.<span class="fu">Add</span>(<span class="kw">new</span> <span class="fu">Vector3</span>(<span class="fl">24.775f</span>, <span class="fl">7644.102f</span>, <span class="fl">18.055f</span>)); <span class="co">//Most Northerly Point</span></span>
+<span id="cb39-40"><a href="hyperrealist-photography.html#cb39-40"></a>            switchLocations.<span class="fu">Add</span>(<span class="kw">new</span> <span class="fu">Vector3</span>(-<span class="fl">595.342f</span>, <span class="fl">2086.008f</span>, <span class="fl">130.412f</span>)); <span class="co">//Mine</span></span>
+<span id="cb39-41"><a href="hyperrealist-photography.html#cb39-41"></a>            switchLocations.<span class="fu">Add</span>(<span class="kw">new</span> <span class="fu">Vector3</span>(<span class="fl">150.126f</span>, <span class="fl">-754.591f</span>, <span class="fl">261.865f</span>)); <span class="co">//FIB Roof </span></span>
+<span id="cb39-42"><a href="hyperrealist-photography.html#cb39-42"></a>    </span>
+<span id="cb39-43"><a href="hyperrealist-photography.html#cb39-43"></a>        <span class="co">//add models to the models list</span></span>
+<span id="cb39-44"><a href="hyperrealist-photography.html#cb39-44"></a>            models.<span class="fu">Add</span>(<span class="st">&quot;s_m_m_doctor_01&quot;</span>);</span>
+<span id="cb39-45"><a href="hyperrealist-photography.html#cb39-45"></a>            models.<span class="fu">Add</span>(<span class="st">&quot;s_m_m_migrant_01&quot;</span>);</span>
+<span id="cb39-46"><a href="hyperrealist-photography.html#cb39-46"></a>            models.<span class="fu">Add</span>(<span class="st">&quot;a_c_cormorant&quot;</span>);</span>
+<span id="cb39-47"><a href="hyperrealist-photography.html#cb39-47"></a>            models.<span class="fu">Add</span>(<span class="st">&quot;a_c_deer&quot;</span>);</span>
+<span id="cb39-48"><a href="hyperrealist-photography.html#cb39-48"></a>            models.<span class="fu">Add</span>(<span class="st">&quot;a_c_pug&quot;</span>);</span>
+<span id="cb39-49"><a href="hyperrealist-photography.html#cb39-49"></a>        }</span>
+<span id="cb39-50"><a href="hyperrealist-photography.html#cb39-50"></a></span>
+<span id="cb39-51"><a href="hyperrealist-photography.html#cb39-51"></a>        <span class="kw">private</span> <span class="dt">void</span> <span class="fu">onTick</span>(<span class="dt">object</span> sender, EventArgs e) <span class="co">//this function gets executed continuously </span></span>
+<span id="cb39-52"><a href="hyperrealist-photography.html#cb39-52"></a>        {</span>
+<span id="cb39-53"><a href="hyperrealist-photography.html#cb39-53"></a>            </span>
+<span id="cb39-54"><a href="hyperrealist-photography.html#cb39-54"></a>            <span class="co">//If the character switch is in process</span></span>
+<span id="cb39-55"><a href="hyperrealist-photography.html#cb39-55"></a>            <span class="kw">if</span> (Function.<span class="fu">Call</span>&lt;<span class="dt">bool</span>&gt;(Hash.<span class="fu">IS_PLAYER_SWITCH_IN_PROGRESS</span>))</span>
+<span id="cb39-56"><a href="hyperrealist-photography.html#cb39-56"></a>            {</span>
+<span id="cb39-57"><a href="hyperrealist-photography.html#cb39-57"></a>                <span class="co">//If Switch State is 8 – that&#39;s the point when it starts dropping to the player </span></span>
+<span id="cb39-58"><a href="hyperrealist-photography.html#cb39-58"></a>                <span class="kw">if</span> (Function.<span class="fu">Call</span>&lt;<span class="dt">int</span>&gt;(Hash.<span class="fu">GET_PLAYER_SWITCH_STATE</span>) == <span class="dv">8</span>)</span>
+<span id="cb39-59"><a href="hyperrealist-photography.html#cb39-59"></a>                {</span>
+<span id="cb39-60"><a href="hyperrealist-photography.html#cb39-60"></a>                    <span class="co">//Set the player to the switch location</span></span>
+<span id="cb39-61"><a href="hyperrealist-photography.html#cb39-61"></a>                    Game.<span class="fu">Player</span>.<span class="fu">Character</span>.<span class="fu">Position</span> = switchLocations[index];</span>
+<span id="cb39-62"><a href="hyperrealist-photography.html#cb39-62"></a></span>
+<span id="cb39-63"><a href="hyperrealist-photography.html#cb39-63"></a>                    <span class="co">//Generate the hash for the chosen model</span></span>
+<span id="cb39-64"><a href="hyperrealist-photography.html#cb39-64"></a>                    <span class="dt">int</span> poshHash = Game.<span class="fu">GenerateHash</span>(models[modelIndex]);</span>
+<span id="cb39-65"><a href="hyperrealist-photography.html#cb39-65"></a></span>
+<span id="cb39-66"><a href="hyperrealist-photography.html#cb39-66"></a>                    <span class="co">//Create the model</span></span>
+<span id="cb39-67"><a href="hyperrealist-photography.html#cb39-67"></a>                    Model poshModel = <span class="kw">new</span> <span class="fu">Model</span>(poshHash);</span>
+<span id="cb39-68"><a href="hyperrealist-photography.html#cb39-68"></a></span>
+<span id="cb39-69"><a href="hyperrealist-photography.html#cb39-69"></a>                    <span class="co">//Check if it is valid</span></span>
+<span id="cb39-70"><a href="hyperrealist-photography.html#cb39-70"></a>                    <span class="kw">if</span> (poshModel.<span class="fu">IsValid</span>)</span>
+<span id="cb39-71"><a href="hyperrealist-photography.html#cb39-71"></a>                    {</span>
+<span id="cb39-72"><a href="hyperrealist-photography.html#cb39-72"></a>                        <span class="co">//Wait for it to load, should be okay because it was used to create the target ped</span></span>
+<span id="cb39-73"><a href="hyperrealist-photography.html#cb39-73"></a>                        <span class="kw">while</span> (!poshModel.<span class="fu">IsLoaded</span>)</span>
+<span id="cb39-74"><a href="hyperrealist-photography.html#cb39-74"></a>                        {</span>
+<span id="cb39-75"><a href="hyperrealist-photography.html#cb39-75"></a>                            <span class="fu">Wait</span>(<span class="dv">100</span>);</span>
+<span id="cb39-76"><a href="hyperrealist-photography.html#cb39-76"></a>                        }</span>
+<span id="cb39-77"><a href="hyperrealist-photography.html#cb39-77"></a></span>
+<span id="cb39-78"><a href="hyperrealist-photography.html#cb39-78"></a>                        <span class="co">//Change the player model to the target ped model</span></span>
+<span id="cb39-79"><a href="hyperrealist-photography.html#cb39-79"></a>                        Function.<span class="fu">Call</span>(Hash.<span class="fu">SET_PLAYER_MODEL</span>, Game.<span class="fu">Player</span>, poshHash);</span>
+<span id="cb39-80"><a href="hyperrealist-photography.html#cb39-80"></a></span>
+<span id="cb39-81"><a href="hyperrealist-photography.html#cb39-81"></a>                        <span class="co">//Let the game clean up the created Model</span></span>
+<span id="cb39-82"><a href="hyperrealist-photography.html#cb39-82"></a>                        poshModel.<span class="fu">MarkAsNoLongerNeeded</span>();</span>
+<span id="cb39-83"><a href="hyperrealist-photography.html#cb39-83"></a>                    }</span>
+<span id="cb39-84"><a href="hyperrealist-photography.html#cb39-84"></a>                    <span class="kw">else</span></span>
+<span id="cb39-85"><a href="hyperrealist-photography.html#cb39-85"></a>                    {</span>
+<span id="cb39-86"><a href="hyperrealist-photography.html#cb39-86"></a>                        <span class="co">//Falls to here if the model valid check fails</span></span>
+<span id="cb39-87"><a href="hyperrealist-photography.html#cb39-87"></a>                        Function.<span class="fu">Call</span>(Hash.<span class="fu">SET_PLAYER_MODEL</span>, Game.<span class="fu">Player</span>, (<span class="dt">int</span>)PedHash.<span class="fu">Tourist01AFY</span>);</span>
+<span id="cb39-88"><a href="hyperrealist-photography.html#cb39-88"></a>                    }</span>
+<span id="cb39-89"><a href="hyperrealist-photography.html#cb39-89"></a></span>
+<span id="cb39-90"><a href="hyperrealist-photography.html#cb39-90"></a>                    <span class="co">//Delete the target ped as it&#39;s no longer needed</span></span>
+<span id="cb39-91"><a href="hyperrealist-photography.html#cb39-91"></a>                    newPed.<span class="fu">Delete</span>();</span>
+<span id="cb39-92"><a href="hyperrealist-photography.html#cb39-92"></a>                    </span>
+<span id="cb39-93"><a href="hyperrealist-photography.html#cb39-93"></a></span>
+<span id="cb39-94"><a href="hyperrealist-photography.html#cb39-94"></a>                    <span class="co">// Set the switch outro based on the gameplay camera position</span></span>
+<span id="cb39-95"><a href="hyperrealist-photography.html#cb39-95"></a>                    <span class="co">// Function.Call((Hash)0xC208B673CE446B61, camPos.X, camPos.Y, camPos.Z, camRot.X, camRot.Y, camRot.Z, camFOV, camFarClip, p8);</span></span>
+<span id="cb39-96"><a href="hyperrealist-photography.html#cb39-96"></a></span>
+<span id="cb39-97"><a href="hyperrealist-photography.html#cb39-97"></a>                    Function.<span class="fu">Call</span>((Hash)<span class="bn">0xC208B673CE446B61</span>, GameplayCamera.<span class="fu">Position</span>.<span class="fu">X</span>, GameplayCamera.<span class="fu">Position</span>.<span class="fu">Y</span>, GameplayCamera.<span class="fu">Position</span>.<span class="fu">Z</span>, GameplayCamera.<span class="fu">Rotation</span>.<span class="fu">X</span>, GameplayCamera.<span class="fu">Rotation</span>.<span class="fu">Y</span>, GameplayCamera.<span class="fu">Rotation</span>.<span class="fu">Z</span>, GameplayCamera.<span class="fu">FieldOfView</span>, <span class="dv">500</span>, <span class="dv">2</span>);</span>
+<span id="cb39-98"><a href="hyperrealist-photography.html#cb39-98"></a></span>
+<span id="cb39-99"><a href="hyperrealist-photography.html#cb39-99"></a>                    <span class="co">//Call this unknown native that seems to finish things off</span></span>
+<span id="cb39-100"><a href="hyperrealist-photography.html#cb39-100"></a>                    Function.<span class="fu">Call</span>(Hash._<span class="bn">0x74DE2E8739086740</span>);</span>
+<span id="cb39-101"><a href="hyperrealist-photography.html#cb39-101"></a></span>
+<span id="cb39-102"><a href="hyperrealist-photography.html#cb39-102"></a>            <span class="co">//Make the character wander around autonomously</span></span>
+<span id="cb39-103"><a href="hyperrealist-photography.html#cb39-103"></a>                    Game.<span class="fu">Player</span>.<span class="fu">Character</span>.<span class="fu">Task</span>.<span class="fu">WanderAround</span>();</span>
+<span id="cb39-104"><a href="hyperrealist-photography.html#cb39-104"></a>                }</span>
+<span id="cb39-105"><a href="hyperrealist-photography.html#cb39-105"></a>            }</span>
+<span id="cb39-106"><a href="hyperrealist-photography.html#cb39-106"></a></span>
+<span id="cb39-107"><a href="hyperrealist-photography.html#cb39-107"></a>        }</span>
+<span id="cb39-108"><a href="hyperrealist-photography.html#cb39-108"></a></span>
+<span id="cb39-109"><a href="hyperrealist-photography.html#cb39-109"></a></span>
+<span id="cb39-110"><a href="hyperrealist-photography.html#cb39-110"></a>        <span class="kw">private</span> <span class="dt">void</span> <span class="fu">onKeyUp</span>(<span class="dt">object</span> sender, KeyEventArgs e)</span>
+<span id="cb39-111"><a href="hyperrealist-photography.html#cb39-111"></a>        {</span>
+<span id="cb39-112"><a href="hyperrealist-photography.html#cb39-112"></a></span>
+<span id="cb39-113"><a href="hyperrealist-photography.html#cb39-113"></a>        }</span>
+<span id="cb39-114"><a href="hyperrealist-photography.html#cb39-114"></a></span>
+<span id="cb39-115"><a href="hyperrealist-photography.html#cb39-115"></a>        <span class="kw">private</span> <span class="dt">void</span> <span class="fu">onKeyDown</span>(<span class="dt">object</span> sender, KeyEventArgs e)</span>
+<span id="cb39-116"><a href="hyperrealist-photography.html#cb39-116"></a>        {</span>
+<span id="cb39-117"><a href="hyperrealist-photography.html#cb39-117"></a>            <span class="kw">if</span> (e.<span class="fu">KeyCode</span> == Keys.<span class="fu">G</span>)</span>
+<span id="cb39-118"><a href="hyperrealist-photography.html#cb39-118"></a>            {</span>
+<span id="cb39-119"><a href="hyperrealist-photography.html#cb39-119"></a>        <span class="co">//Stop previous tasks</span></span>
+<span id="cb39-120"><a href="hyperrealist-photography.html#cb39-120"></a>                Game.<span class="fu">Player</span>.<span class="fu">Character</span>.<span class="fu">Task</span>.<span class="fu">ClearAll</span>();</span>
+<span id="cb39-121"><a href="hyperrealist-photography.html#cb39-121"></a></span>
+<span id="cb39-122"><a href="hyperrealist-photography.html#cb39-122"></a>                <span class="co">//Move the index to the next location</span></span>
+<span id="cb39-123"><a href="hyperrealist-photography.html#cb39-123"></a>                index++;</span>
+<span id="cb39-124"><a href="hyperrealist-photography.html#cb39-124"></a>                <span class="kw">if</span> (index &gt;= switchLocations.<span class="fu">Count</span>) index = <span class="dv">0</span>;</span>
+<span id="cb39-125"><a href="hyperrealist-photography.html#cb39-125"></a>                </span>
+<span id="cb39-126"><a href="hyperrealist-photography.html#cb39-126"></a>        <span class="co">//Move the index to the new ped model</span></span>
+<span id="cb39-127"><a href="hyperrealist-photography.html#cb39-127"></a>                modelIndex++;</span>
+<span id="cb39-128"><a href="hyperrealist-photography.html#cb39-128"></a>                <span class="kw">if</span> (modelIndex &gt;= models.<span class="fu">Count</span>) modelIndex = <span class="dv">0</span>;</span>
+<span id="cb39-129"><a href="hyperrealist-photography.html#cb39-129"></a></span>
+<span id="cb39-130"><a href="hyperrealist-photography.html#cb39-130"></a>                <span class="co">//Create the ped to switch to</span></span>
+<span id="cb39-131"><a href="hyperrealist-photography.html#cb39-131"></a>                newPed = World.<span class="fu">CreatePed</span>(models[modelIndex], switchLocations[index]);</span>
+<span id="cb39-132"><a href="hyperrealist-photography.html#cb39-132"></a></span>
+<span id="cb39-133"><a href="hyperrealist-photography.html#cb39-133"></a>                <span class="co">//Native function to initiate the switch Function.Call(Hash.START_PLAYER_SWITCH, fromPed.Handle, toPed.Handle, flags, switchType);</span></span>
+<span id="cb39-134"><a href="hyperrealist-photography.html#cb39-134"></a>                Function.<span class="fu">Call</span>(Hash.<span class="fu">START_PLAYER_SWITCH</span>, Game.<span class="fu">Player</span>.<span class="fu">Character</span>.<span class="fu">Handle</span>, newPed.<span class="fu">Handle</span>, <span class="dv">8</span>, <span class="dv">0</span>);</span>
+<span id="cb39-135"><a href="hyperrealist-photography.html#cb39-135"></a></span>
+<span id="cb39-136"><a href="hyperrealist-photography.html#cb39-136"></a>            }</span>
+<span id="cb39-137"><a href="hyperrealist-photography.html#cb39-137"></a>        }</span>
+<span id="cb39-138"><a href="hyperrealist-photography.html#cb39-138"></a>    }</span>
+<span id="cb39-139"><a href="hyperrealist-photography.html#cb39-139"></a>}</span></code></pre></div>
+</details>
+</div>
 <div id="scripting-cinematic-fade-out-in" class="section level3 unnumbered hasAnchor">
 <h3>Scripting Cinematic Fade Out/ In<a href="hyperrealist-photography.html#scripting-cinematic-fade-out-in" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Script Hook has native functions to create a fead to/from black. The function hash are <code>DO_SCREEN_FADE_OUT</code> and <code>DO_SCREEN_FADE_IN</code> and they are followed by the number of milliseconds to go from full black to showing the scene and viceversa.</p>
 <p>Let’s create a fade to black over 3 seconds when we press the letter key ‘O’:</p>
-<div class="sourceCode" id="cb39"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb39-1"><a href="hyperrealist-photography.html#cb39-1"></a><span class="kw">if</span> (e.<span class="fu">KeyCode</span> == Keys.<span class="fu">O</span>)</span>
-<span id="cb39-2"><a href="hyperrealist-photography.html#cb39-2"></a>{</span>
-<span id="cb39-3"><a href="hyperrealist-photography.html#cb39-3"></a>    Function.<span class="fu">Call</span>(Hash.<span class="fu">DO_SCREEN_FADE_OUT</span>, <span class="dv">3000</span>);</span>
-<span id="cb39-4"><a href="hyperrealist-photography.html#cb39-4"></a>}</span></code></pre></div>
-<p>And a fade over 3 seconds when we press the letter key ‘I’:</p>
-<div class="sourceCode" id="cb40"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb40-1"><a href="hyperrealist-photography.html#cb40-1"></a><span class="kw">if</span> (e.<span class="fu">KeyCode</span> == Keys.<span class="fu">I</span>)</span>
+<div class="sourceCode" id="cb40"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb40-1"><a href="hyperrealist-photography.html#cb40-1"></a><span class="kw">if</span> (e.<span class="fu">KeyCode</span> == Keys.<span class="fu">O</span>)</span>
 <span id="cb40-2"><a href="hyperrealist-photography.html#cb40-2"></a>{</span>
-<span id="cb40-3"><a href="hyperrealist-photography.html#cb40-3"></a>    Function.<span class="fu">Call</span>(Hash.<span class="fu">DO_SCREEN_FADE_IN</span>, <span class="dv">3000</span>);</span>
+<span id="cb40-3"><a href="hyperrealist-photography.html#cb40-3"></a>    Function.<span class="fu">Call</span>(Hash.<span class="fu">DO_SCREEN_FADE_OUT</span>, <span class="dv">3000</span>);</span>
 <span id="cb40-4"><a href="hyperrealist-photography.html#cb40-4"></a>}</span></code></pre></div>
+<p>And a fade over 3 seconds when we press the letter key ‘I’:</p>
+<div class="sourceCode" id="cb41"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb41-1"><a href="hyperrealist-photography.html#cb41-1"></a><span class="kw">if</span> (e.<span class="fu">KeyCode</span> == Keys.<span class="fu">I</span>)</span>
+<span id="cb41-2"><a href="hyperrealist-photography.html#cb41-2"></a>{</span>
+<span id="cb41-3"><a href="hyperrealist-photography.html#cb41-3"></a>    Function.<span class="fu">Call</span>(Hash.<span class="fu">DO_SCREEN_FADE_IN</span>, <span class="dv">3000</span>);</span>
+<span id="cb41-4"><a href="hyperrealist-photography.html#cb41-4"></a>}</span></code></pre></div>
 <p>We could also create an automated check in our onTick loop, which keeps seeing if the screen has been faded to black. We can use the native function <code>IS_SCREEN_FADED_OUT</code> which is a boolean data type. This means it will return either true or false. If it returns true, it means the screen has been faded out.</p>
 <p>Let’s add an If statement in our onTick loop to chek if the screen has been faded to black, and if so we call a fade in over 3 second:</p>
-<div class="sourceCode" id="cb41"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb41-1"><a href="hyperrealist-photography.html#cb41-1"></a><span class="kw">if</span> (Function.<span class="fu">Call</span>&lt;<span class="dt">bool</span>&gt;(Hash.<span class="fu">IS_SCREEN_FADED_OUT</span>))</span>
-<span id="cb41-2"><a href="hyperrealist-photography.html#cb41-2"></a>{</span>
-<span id="cb41-3"><a href="hyperrealist-photography.html#cb41-3"></a>    <span class="fu">Wait</span>(<span class="dv">500</span>);</span>
-<span id="cb41-4"><a href="hyperrealist-photography.html#cb41-4"></a>    GTA.<span class="fu">Native</span>.<span class="fu">Function</span>.<span class="fu">Call</span>(Hash.<span class="fu">DO_SCREEN_FADE_IN</span>, <span class="dv">3000</span>);</span>
-<span id="cb41-5"><a href="hyperrealist-photography.html#cb41-5"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb42"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb42-1"><a href="hyperrealist-photography.html#cb42-1"></a><span class="kw">if</span> (Function.<span class="fu">Call</span>&lt;<span class="dt">bool</span>&gt;(Hash.<span class="fu">IS_SCREEN_FADED_OUT</span>))</span>
+<span id="cb42-2"><a href="hyperrealist-photography.html#cb42-2"></a>{</span>
+<span id="cb42-3"><a href="hyperrealist-photography.html#cb42-3"></a>    <span class="fu">Wait</span>(<span class="dv">500</span>);</span>
+<span id="cb42-4"><a href="hyperrealist-photography.html#cb42-4"></a>    GTA.<span class="fu">Native</span>.<span class="fu">Function</span>.<span class="fu">Call</span>(Hash.<span class="fu">DO_SCREEN_FADE_IN</span>, <span class="dv">3000</span>);</span>
+<span id="cb42-5"><a href="hyperrealist-photography.html#cb42-5"></a>}</span></code></pre></div>
 <p>Now if you try to hit the ‘O’ key, the screen will fade out, and then it will automatically fade in again.</p>
 </div>
 <div id="natural-vision-evolved-mod" class="section level3 unnumbered hasAnchor">

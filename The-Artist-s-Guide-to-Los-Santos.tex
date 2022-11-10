@@ -1601,6 +1601,155 @@ Example code
 \end{Highlighting}
 \end{Shaded}
 
+\hypertarget{switching-character-through-satellite-camera-view}{%
+\subsection{Switching Character through Satellite Camera View}\label{switching-character-through-satellite-camera-view}}
+
+Example code
+
+\begin{Shaded}
+\begin{Highlighting}[]
+    
+\CommentTok{/*}
+\CommentTok{    this was adapted from code shared by LeeC22 on gtaforums.com}
+\CommentTok{    https://gtaforums.com/topic/951002-c-looking-for-player-switch-sample-solved-by-me/#comment-1071197769}
+\CommentTok{*/}
+    
+\KeywordTok{using}\NormalTok{ System;}
+\KeywordTok{using}\NormalTok{ System.}\FunctionTok{Collections}\NormalTok{.}\FunctionTok{Generic}\NormalTok{;}
+\KeywordTok{using}\NormalTok{ System.}\FunctionTok{Linq}\NormalTok{;}
+\KeywordTok{using}\NormalTok{ System.}\FunctionTok{Text}\NormalTok{;}
+\KeywordTok{using}\NormalTok{ System.}\FunctionTok{Threading}\NormalTok{.}\FunctionTok{Tasks}\NormalTok{;}
+
+\KeywordTok{using}\NormalTok{ GTA;}
+\KeywordTok{using}\NormalTok{ GTA.}\FunctionTok{Math}\NormalTok{;}
+\KeywordTok{using}\NormalTok{ System.}\FunctionTok{Windows}\NormalTok{.}\FunctionTok{Forms}\NormalTok{;}
+\KeywordTok{using}\NormalTok{ System.}\FunctionTok{Drawing}\NormalTok{;}
+\KeywordTok{using}\NormalTok{ GTA.}\FunctionTok{Native}\NormalTok{;}
+\KeywordTok{using}\NormalTok{ System.}\FunctionTok{IO}\NormalTok{;}
+
+
+\KeywordTok{namespace}\NormalTok{ moddingTutorial}
+\NormalTok{\{}
+    \KeywordTok{public} \KeywordTok{class}\NormalTok{ moddingTutorial : Script}
+\NormalTok{    \{}
+\NormalTok{        Ped newPed = }\KeywordTok{null}\NormalTok{;}
+\NormalTok{        Vector3 SwitchLocation2;}
+\NormalTok{        List<Vector3> switchLocations = }\KeywordTok{new}\NormalTok{ List<Vector3>();}
+        \DataTypeTok{int}\NormalTok{ index = }\DecValTok{0}\NormalTok{;}
+\NormalTok{        List<String> models = }\KeywordTok{new}\NormalTok{ List<String>();}
+        \DataTypeTok{int}\NormalTok{ modelIndex = }\DecValTok{0}\NormalTok{;}
+
+        \KeywordTok{public} \FunctionTok{moddingTutorial}\NormalTok{()}
+\NormalTok{        \{}
+            \KeywordTok{this}\NormalTok{.}\FunctionTok{Tick}\NormalTok{ += onTick;}
+            \KeywordTok{this}\NormalTok{.}\FunctionTok{KeyUp}\NormalTok{ += onKeyUp;}
+            \KeywordTok{this}\NormalTok{.}\FunctionTok{KeyDown}\NormalTok{ += onKeyDown;}
+
+        \CommentTok{//add locations to the switchLocations list}
+\NormalTok{            switchLocations.}\FunctionTok{Add}\NormalTok{(}\KeywordTok{new} \FunctionTok{Vector3}\NormalTok{(}\FloatTok{24.775f}\NormalTok{, }\FloatTok{7644.102f}\NormalTok{, }\FloatTok{18.055f}\NormalTok{)); }\CommentTok{//Most Northerly Point}
+\NormalTok{            switchLocations.}\FunctionTok{Add}\NormalTok{(}\KeywordTok{new} \FunctionTok{Vector3}\NormalTok{(-}\FloatTok{595.342f}\NormalTok{, }\FloatTok{2086.008f}\NormalTok{, }\FloatTok{130.412f}\NormalTok{)); }\CommentTok{//Mine}
+\NormalTok{            switchLocations.}\FunctionTok{Add}\NormalTok{(}\KeywordTok{new} \FunctionTok{Vector3}\NormalTok{(}\FloatTok{150.126f}\NormalTok{, }\FloatTok{-754.591f}\NormalTok{, }\FloatTok{261.865f}\NormalTok{)); }\CommentTok{//FIB Roof }
+    
+        \CommentTok{//add models to the models list}
+\NormalTok{            models.}\FunctionTok{Add}\NormalTok{(}\StringTok{"s_m_m_doctor_01"}\NormalTok{);}
+\NormalTok{            models.}\FunctionTok{Add}\NormalTok{(}\StringTok{"s_m_m_migrant_01"}\NormalTok{);}
+\NormalTok{            models.}\FunctionTok{Add}\NormalTok{(}\StringTok{"a_c_cormorant"}\NormalTok{);}
+\NormalTok{            models.}\FunctionTok{Add}\NormalTok{(}\StringTok{"a_c_deer"}\NormalTok{);}
+\NormalTok{            models.}\FunctionTok{Add}\NormalTok{(}\StringTok{"a_c_pug"}\NormalTok{);}
+\NormalTok{        \}}
+
+        \KeywordTok{private} \DataTypeTok{void} \FunctionTok{onTick}\NormalTok{(}\DataTypeTok{object}\NormalTok{ sender, EventArgs e) }\CommentTok{//this function gets executed continuously }
+\NormalTok{        \{}
+            
+            \CommentTok{//If the character switch is in process}
+            \KeywordTok{if}\NormalTok{ (Function.}\FunctionTok{Call}\NormalTok{<}\DataTypeTok{bool}\NormalTok{>(Hash.}\FunctionTok{IS_PLAYER_SWITCH_IN_PROGRESS}\NormalTok{))}
+\NormalTok{            \{}
+                \CommentTok{//If Switch State is 8 – that's the point when it starts dropping to the player }
+                \KeywordTok{if}\NormalTok{ (Function.}\FunctionTok{Call}\NormalTok{<}\DataTypeTok{int}\NormalTok{>(Hash.}\FunctionTok{GET_PLAYER_SWITCH_STATE}\NormalTok{) == }\DecValTok{8}\NormalTok{)}
+\NormalTok{                \{}
+                    \CommentTok{//Set the player to the switch location}
+\NormalTok{                    Game.}\FunctionTok{Player}\NormalTok{.}\FunctionTok{Character}\NormalTok{.}\FunctionTok{Position}\NormalTok{ = switchLocations[index];}
+
+                    \CommentTok{//Generate the hash for the chosen model}
+                    \DataTypeTok{int}\NormalTok{ poshHash = Game.}\FunctionTok{GenerateHash}\NormalTok{(models[modelIndex]);}
+
+                    \CommentTok{//Create the model}
+\NormalTok{                    Model poshModel = }\KeywordTok{new} \FunctionTok{Model}\NormalTok{(poshHash);}
+
+                    \CommentTok{//Check if it is valid}
+                    \KeywordTok{if}\NormalTok{ (poshModel.}\FunctionTok{IsValid}\NormalTok{)}
+\NormalTok{                    \{}
+                        \CommentTok{//Wait for it to load, should be okay because it was used to create the target ped}
+                        \KeywordTok{while}\NormalTok{ (!poshModel.}\FunctionTok{IsLoaded}\NormalTok{)}
+\NormalTok{                        \{}
+                            \FunctionTok{Wait}\NormalTok{(}\DecValTok{100}\NormalTok{);}
+\NormalTok{                        \}}
+
+                        \CommentTok{//Change the player model to the target ped model}
+\NormalTok{                        Function.}\FunctionTok{Call}\NormalTok{(Hash.}\FunctionTok{SET_PLAYER_MODEL}\NormalTok{, Game.}\FunctionTok{Player}\NormalTok{, poshHash);}
+
+                        \CommentTok{//Let the game clean up the created Model}
+\NormalTok{                        poshModel.}\FunctionTok{MarkAsNoLongerNeeded}\NormalTok{();}
+\NormalTok{                    \}}
+                    \KeywordTok{else}
+\NormalTok{                    \{}
+                        \CommentTok{//Falls to here if the model valid check fails}
+\NormalTok{                        Function.}\FunctionTok{Call}\NormalTok{(Hash.}\FunctionTok{SET_PLAYER_MODEL}\NormalTok{, Game.}\FunctionTok{Player}\NormalTok{, (}\DataTypeTok{int}\NormalTok{)PedHash.}\FunctionTok{Tourist01AFY}\NormalTok{);}
+\NormalTok{                    \}}
+
+                    \CommentTok{//Delete the target ped as it's no longer needed}
+\NormalTok{                    newPed.}\FunctionTok{Delete}\NormalTok{();}
+                    
+
+                    \CommentTok{// Set the switch outro based on the gameplay camera position}
+                    \CommentTok{// Function.Call((Hash)0xC208B673CE446B61, camPos.X, camPos.Y, camPos.Z, camRot.X, camRot.Y, camRot.Z, camFOV, camFarClip, p8);}
+
+\NormalTok{                    Function.}\FunctionTok{Call}\NormalTok{((Hash)}\BaseNTok{0xC208B673CE446B61}\NormalTok{, GameplayCamera.}\FunctionTok{Position}\NormalTok{.}\FunctionTok{X}\NormalTok{, GameplayCamera.}\FunctionTok{Position}\NormalTok{.}\FunctionTok{Y}\NormalTok{, GameplayCamera.}\FunctionTok{Position}\NormalTok{.}\FunctionTok{Z}\NormalTok{, GameplayCamera.}\FunctionTok{Rotation}\NormalTok{.}\FunctionTok{X}\NormalTok{, GameplayCamera.}\FunctionTok{Rotation}\NormalTok{.}\FunctionTok{Y}\NormalTok{, GameplayCamera.}\FunctionTok{Rotation}\NormalTok{.}\FunctionTok{Z}\NormalTok{, GameplayCamera.}\FunctionTok{FieldOfView}\NormalTok{, }\DecValTok{500}\NormalTok{, }\DecValTok{2}\NormalTok{);}
+
+                    \CommentTok{//Call this unknown native that seems to finish things off}
+\NormalTok{                    Function.}\FunctionTok{Call}\NormalTok{(Hash._}\BaseNTok{0x74DE2E8739086740}\NormalTok{);}
+
+            \CommentTok{//Make the character wander around autonomously}
+\NormalTok{                    Game.}\FunctionTok{Player}\NormalTok{.}\FunctionTok{Character}\NormalTok{.}\FunctionTok{Task}\NormalTok{.}\FunctionTok{WanderAround}\NormalTok{();}
+\NormalTok{                \}}
+\NormalTok{            \}}
+
+\NormalTok{        \}}
+
+
+        \KeywordTok{private} \DataTypeTok{void} \FunctionTok{onKeyUp}\NormalTok{(}\DataTypeTok{object}\NormalTok{ sender, KeyEventArgs e)}
+\NormalTok{        \{}
+
+\NormalTok{        \}}
+
+        \KeywordTok{private} \DataTypeTok{void} \FunctionTok{onKeyDown}\NormalTok{(}\DataTypeTok{object}\NormalTok{ sender, KeyEventArgs e)}
+\NormalTok{        \{}
+            \KeywordTok{if}\NormalTok{ (e.}\FunctionTok{KeyCode}\NormalTok{ == Keys.}\FunctionTok{G}\NormalTok{)}
+\NormalTok{            \{}
+        \CommentTok{//Stop previous tasks}
+\NormalTok{                Game.}\FunctionTok{Player}\NormalTok{.}\FunctionTok{Character}\NormalTok{.}\FunctionTok{Task}\NormalTok{.}\FunctionTok{ClearAll}\NormalTok{();}
+
+                \CommentTok{//Move the index to the next location}
+\NormalTok{                index++;}
+                \KeywordTok{if}\NormalTok{ (index >= switchLocations.}\FunctionTok{Count}\NormalTok{) index = }\DecValTok{0}\NormalTok{;}
+                
+        \CommentTok{//Move the index to the new ped model}
+\NormalTok{                modelIndex++;}
+                \KeywordTok{if}\NormalTok{ (modelIndex >= models.}\FunctionTok{Count}\NormalTok{) modelIndex = }\DecValTok{0}\NormalTok{;}
+
+                \CommentTok{//Create the ped to switch to}
+\NormalTok{                newPed = World.}\FunctionTok{CreatePed}\NormalTok{(models[modelIndex], switchLocations[index]);}
+
+                \CommentTok{//Native function to initiate the switch Function.Call(Hash.START_PLAYER_SWITCH, fromPed.Handle, toPed.Handle, flags, switchType);}
+\NormalTok{                Function.}\FunctionTok{Call}\NormalTok{(Hash.}\FunctionTok{START_PLAYER_SWITCH}\NormalTok{, Game.}\FunctionTok{Player}\NormalTok{.}\FunctionTok{Character}\NormalTok{.}\FunctionTok{Handle}\NormalTok{, newPed.}\FunctionTok{Handle}\NormalTok{, }\DecValTok{8}\NormalTok{, }\DecValTok{0}\NormalTok{);}
+
+\NormalTok{            \}}
+\NormalTok{        \}}
+\NormalTok{    \}}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
 \hypertarget{scripting-cinematic-fade-out-in}{%
 \subsection*{Scripting Cinematic Fade Out/ In}\label{scripting-cinematic-fade-out-in}}
 \addcontentsline{toc}{subsection}{Scripting Cinematic Fade Out/ In}
