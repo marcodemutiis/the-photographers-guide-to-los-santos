@@ -4,6 +4,10 @@
 
 ### GTA V Photography Bot {-}
 
+```{r fig.align='left', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html')}
+knitr::include_graphics('assets/gtavphotobot.png', dpi = NA)
+
+
 ### Crossroad of Realities by Benoit Paillé {-}
 
 
@@ -329,5 +333,368 @@ namespace moddingTutorial
 ```
   </details>
 
+
+<details>
+  <summary>GTA V Photographer Bot Script</summary>
+  
+  ```cs
+  using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+using GTA;
+using GTA.Math;
+using System.Windows.Forms;
+using System.Drawing;
+using GTA.Native;
+using System.IO;
+using System.Runtime.InteropServices;
+
+namespace moddingTutorial
+{
+    public class moddingTutorial : Script
+    {
+        bool botOn = false;
+  
+        //KEYBOARD AND MOUSE INPUT STUFF
+        [StructLayout(LayoutKind.Sequential)]
+        public struct KeyboardInput
+        {
+            public ushort wVk;
+            public ushort wScan;
+            public uint dwFlags;
+            public uint time;
+            public IntPtr dwExtraInfo;
+        }
+        [StructLayout(LayoutKind.Sequential)]
+        public struct MouseInput
+        {
+            public int dx;
+            public int dy;
+            public uint mouseData;
+            public uint dwFlags;
+            public uint time;
+            public IntPtr dwExtraInfo;
+        }
+        [StructLayout(LayoutKind.Sequential)]
+        public struct HardwareInput
+        {
+            public uint uMsg;
+            public ushort wParamL;
+            public ushort wParamH;
+        }
+        [StructLayout(LayoutKind.Explicit)]
+        public struct InputUnion
+        {
+            [FieldOffset(0)] public MouseInput mi;
+            [FieldOffset(0)] public KeyboardInput ki;
+            [FieldOffset(0)] public HardwareInput hi;
+        }
+        public struct Input
+        {
+            public int type;
+            public InputUnion u;
+        }
+        [Flags]
+        public enum InputType
+        {
+            Mouse = 0,
+            Keyboard = 1,
+            Hardware = 2
+        }
+        [Flags]
+        public enum KeyEventF
+        {
+            KeyDown = 0x0000,
+            ExtendedKey = 0x0001,
+            KeyUp = 0x0002,
+            Unicode = 0x0004,
+            Scancode = 0x0008
+        }
+        [Flags]
+        public enum MouseEventF
+        {
+            Absolute = 0x8000,
+            HWheel = 0x01000,
+            Move = 0x0001,
+            MoveNoCoalesce = 0x2000,
+            LeftDown = 0x0002,
+            LeftUp = 0x0004,
+            RightDown = 0x0008,
+            RightUp = 0x0010,
+            MiddleDown = 0x0020,
+            MiddleUp = 0x0040,
+            VirtualDesk = 0x4000,
+            Wheel = 0x0800,
+            XDown = 0x0080,
+            XUp = 0x0100
+        }
+
+
+        [DllImport("user32.dll", SetLastError = true)]
+        private static extern uint SendInput(uint nInputs, Input[] pInputs, int cbSize);
+        [DllImport("user32.dll")]
+        private static extern IntPtr GetMessageExtraInfo();
+        bool pressKey = false;
+
+        public moddingTutorial()
+        {
+            this.Tick += onTick;
+            this.KeyUp += onKeyUp;
+            this.KeyDown += onKeyDown;
+        }
+
+        private void onTick(object sender, EventArgs e) //this function gets executed continuously 
+        {
+            if(botOn)
+            {
+                //SET PLAYER INVINCIBLE
+                Function.Call(Hash.SET_PLAYER_INVINCIBLE, Game.Player, true);
+
+                //SET 1st PERSON VIEW
+                Function.Call(Hash.SET_FOLLOW_PED_CAM_VIEW_MODE, 4);
+
+                //TASK SEQUENCE
+                TaskSequence mySeq = new TaskSequence();
+
+                //WALK
+                Random rndWalk = new Random();
+                int Walk = (int)rndWalk.Next(-10, 10);
+                //Game.Player.Character.Task.RunTo(Game.Player.Character.GetOffsetInWorldCoords(new Vector3(0, Run, 0)));
+                mySeq.AddTask.GoTo(Game.Player.Character.GetOffsetInWorldCoords(new Vector3(Walk, 0, 0)));
+
+                //RUN
+                Random rndRun = new Random();
+                int Run = (int)rndRun.Next(-10, 10);
+                //Game.Player.Character.Task.RunTo(Game.Player.Character.GetOffsetInWorldCoords(new Vector3(0, Run, 0)));
+                mySeq.AddTask.RunTo(Game.Player.Character.GetOffsetInWorldCoords(new Vector3(0, Run, 0)));
+
+                //WANDER AROUND
+                //Game.Player.Character.Task.WanderAround();
+                mySeq.AddTask.WanderAround();
+                mySeq.Close();
+                Game.Player.Character.Task.PerformSequence(mySeq);
+
+                //LET IT WANDER FOR RANDOM TIME
+                Random rndWandering = new Random();
+                int Wandering = (int)rndWandering.Next(20, 50);
+                Wait(Wandering*1000);
+                Game.Player.Character.Task.ClearAll();
+                Wait(500);
+
+                //^TO DO: teleport character if it's in the water
+                if (Game.Player.Character.IsSwimming)//(Function.Call<bool>(Hash.IS_PED_SWIMMING, Game.Player.Character))
+                {
+                    //teleport
+                }
+
+                if (Game.Player.Character.IsStopped)
+                {
+                    //PHOTO TAKING STUFF (VIRTUAL KEYS)
+                    UI.ShowSubtitle("take out phone", 1000);
+                    keyOut(0xC8, 1000); //Arrow UP
+                    Wait(1000);
+                    UI.ShowSubtitle("move down", 1000);
+                    keyOut(0xD0, 500); //Arrow DOWN
+                    Wait(1000);
+                    UI.ShowSubtitle("take left", 1000);
+                    keyOut(0xCB, 500); //Arrow LEFT
+                    Wait(1000);
+                    UI.ShowSubtitle("open app", 1000);
+                    keyOut(0x1C, 500); //ENTER
+                    Wait(3000);
+
+                    //RANDOM ZOOM
+                    //ZOOM IN
+                    Random rndZoomIn = new Random();
+                    int ZoomIn = (int)rndZoomIn.Next(4, 14);
+                    UI.ShowSubtitle("Zooooooming In " + ZoomIn + " times", 2000);
+                    for (int i = 0; i < ZoomIn; i++)
+                    {
+                        mouseWheelOut(130);
+                        Wait(20);
+                    }
+                    Wait(1000);
+                    //ZOOM OUT
+                    Random rndZoomOut = new Random();
+                    int ZoomOut = (int)rndZoomOut.Next(2, 8);
+                    UI.ShowSubtitle("Zooooooming Out " + ZoomOut + " times", 2000);
+                    for (int i = 0; i < ZoomOut; i++)
+                    {
+                        mouseWheelOut(unchecked((uint)-130));
+                        Wait(20);
+                    }
+                    Wait(3000);
+
+                    //TO DO: SMOOTH RANDOM MOUSE XY
+                    /*Random rndCamMove = new Random();
+                    int camMove = rndCamMove.Next(5, 10);
+                    UI.ShowSubtitle("find the right framing", 1000 + (20 * camMove));
+                    for (int i = 0; i < camMove; i++)
+                    {
+                        Random rndX = new Random();
+                        Random rndY = new Random();
+                        int newX = rndX.Next(-10, 10);
+                        int newY = rndY.Next(-10, 10);
+                        //mouseOut(newX*2, newY*2); //mouse xy
+                        mouseOut(newX * 10, 0); //mouse xy
+                        Wait(500);
+                    }
+                    Wait(2000);*/
+
+                    //CHOOSE A RANDOM FILTER
+                    Random rnd = new Random();
+                    int filter = rnd.Next(14);
+                    UI.ShowSubtitle("choose a random filter", 1000 + (500 * filter));
+                    for (int i = 0; i < filter; i++)
+                    {
+                        keyOut(0xD0, 500); //Arrow DOWN
+                        Wait(500);
+                    }
+                    Wait(1000);
+
+                    //TAKE PHOTO
+                    UI.ShowSubtitle("take photo", 1000);
+                    keyOut(0x1C, 500); //ENTER
+                    Wait(5000);
+
+                    //DELETE PHOTO
+                    UI.ShowSubtitle("delete photo", 1000);
+                    keyOut(0xD3, 500); //DELETE
+                    Wait(2000);
+
+                    //CLOSE THE CAMERA APP
+                    UI.ShowSubtitle("close app", 1000);
+                    keyOut(0x01, 500); //ESC
+                    Wait(2000);
+
+                    //PUT AWAY THE PHONE
+                    UI.ShowSubtitle("put away phone", 1000);
+                    keyOut(0x01, 500); //ESC
+                    
+                    Wait(4000);
+            }
+        }
+
+        
+        //VIRTUAL MOUSE X AND Y MOVEMENT
+        public static void mouseOut(int coordX, int coordY)
+        {
+            //mouse move xy
+            Input[] inputs = new Input[]
+            {
+                new Input
+                {
+                    type = (int) InputType.Mouse,
+                    u = new InputUnion
+                    {
+                        mi = new MouseInput
+                        {
+                            dx = coordX,
+                            dy = coordY,
+                            dwFlags = (uint)(MouseEventF.Move),
+                            dwExtraInfo = GetMessageExtraInfo()
+                        }
+                    }
+                }
+            };
+            SendInput((uint)inputs.Length, inputs, Marshal.SizeOf(typeof(Input)));
+        }
+
+        //VIRTUAL MOUSE WHEEL SCROLLING
+        public static void mouseWheelOut(uint duration)
+        {
+            //mouse wheel
+            Input[] inputs = new Input[]
+            {
+                new Input
+                {
+                    type = (int) InputType.Mouse,
+                    u = new InputUnion
+                    {
+                        mi = new MouseInput
+                        {
+                            dx = 100,
+                            dy = 100,
+                            //time = 0,
+                            mouseData = duration,
+                            dwFlags = (uint)(MouseEventF.Wheel),
+                            dwExtraInfo = GetMessageExtraInfo()
+                        }
+                    }
+                }
+            };
+            SendInput((uint)inputs.Length, inputs, Marshal.SizeOf(typeof(Input)));
+        }
+        
+        //VIRTUAL KEY PRESS AND RELEASE
+        public static void keyOut(ushort hexKey, int delay)
+        {
+            //key pressed
+            Input[] inputs = new Input[]
+            {
+                new Input
+                {
+                    type = (int)InputType.Keyboard,
+                    u = new InputUnion
+                    {
+                        ki = new KeyboardInput
+                        {
+                            wVk = 0,
+                            wScan = hexKey, //0xC8,
+                            dwFlags = (uint)(KeyEventF.KeyDown | KeyEventF.Scancode),
+                            dwExtraInfo = GetMessageExtraInfo()
+                        }
+                    }
+                }
+            };
+
+
+            //key released
+            Input[] inputs2 = new Input[]
+            {
+                new Input
+                {
+                    type = (int)InputType.Keyboard,
+                    u = new InputUnion
+                    {
+                        ki = new KeyboardInput
+                        {
+                            wVk = 0,
+                            wScan = hexKey, //0xC8,
+                            dwFlags = (uint)(KeyEventF.KeyUp | KeyEventF.Scancode),
+                            dwExtraInfo = GetMessageExtraInfo()
+                        }
+                    }
+                }
+            };
+
+            //send key press / delay / release
+            SendInput((uint)inputs.Length, inputs, Marshal.SizeOf(typeof(Input)));
+            Wait(delay);
+            SendInput((uint)inputs2.Length, inputs2, Marshal.SizeOf(typeof(Input)));
+
+        }
+
+        private void onKeyDown(object sender, KeyEventArgs e)
+        {
+           
+        }
+        private void onKeyUp(object sender, KeyEventArgs e)
+        {
+           if (e.KeyCode == Keys.H)
+           {
+              //SWITCH THE BOT ON/OFF
+              botOn = !botOn;
+              UI.ShowSubtitle($"GTA V Photographer Bot is {(botOn ? "~g~ON" : "~r~OFF")}", 3000);
+           }
+        }
+    }
+}
+
+  ```
+  </details>
 
 ## Content Replication Assignment {-}
