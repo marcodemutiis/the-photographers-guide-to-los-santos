@@ -1,6 +1,6 @@
-# Hyperrealist Photography 
+# Hyperrealism 
 
-//general introduction on the relationship between the game and the physical world, the way virtual spaces influence and shape society (training self driving cars in GTA V, CGI shaping architecture of buildings and object...), the blurrying of the lines between virtual and physical...
+//intro to the artistic current of photorealism and hyperrealism in painting and drawing, connected to the idea of photorealism and simulation in games (attempt to simulate life itself, not just photography), relationship between the game and the physical world, the way virtual spaces influence and shape society (training self driving cars in GTA V, CGI shaping architecture of buildings and object...), the blurrying of the lines between virtual and physical...
 
 ### _8k_ by Aram Bartholl {-}
 
