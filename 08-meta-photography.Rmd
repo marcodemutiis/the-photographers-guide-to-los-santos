@@ -6,8 +6,8 @@
 
 ```{r fig.align='left', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html')}
 knitr::include_graphics('assets/gtavphotobot.png', dpi = NA)
+```
 
-text
 
 ### Crossroad of Realities by Benoit Paillé {-}
 
