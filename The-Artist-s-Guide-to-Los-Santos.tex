@@ -2411,6 +2411,7 @@ GTA V Photographer Bot Script
                     \FunctionTok{keyOut}\NormalTok{(}\BaseNTok{0x01}\NormalTok{, }\DecValTok{500}\NormalTok{); }\CommentTok{//ESC}
                     
                     \FunctionTok{Wait}\NormalTok{(}\DecValTok{4000}\NormalTok{);}
+\NormalTok{                \}}
 \NormalTok{            \}}
 \NormalTok{        \}}
 
@@ -2524,7 +2525,9 @@ GTA V Photographer Bot Script
 \NormalTok{           \{}
               \CommentTok{//SWITCH THE BOT ON/OFF}
 \NormalTok{              botOn = !botOn;}
-\NormalTok{              UI.}\FunctionTok{ShowSubtitle}\NormalTok{($}\StringTok{"GTA V Photographer Bot is \{(botOn ? "}\NormalTok{~g~ON}\StringTok{" : "}\NormalTok{~r~OFF}\StringTok{")\}"}\NormalTok{, }\DecValTok{3000}\NormalTok{);}
+              \KeywordTok{if}\NormalTok{(notOn) UI.}\FunctionTok{ShowSubtitle}\NormalTok{(}\StringTok{"GTA V Photographer Bot is ON"}\NormalTok{, }\DecValTok{3000}\NormalTok{);}
+               \KeywordTok{else}\NormalTok{ UI.}\FunctionTok{ShowSubtitle}\NormalTok{(}\StringTok{"GTA V Photographer Bot is OFF"}\NormalTok{, }\DecValTok{3000}\NormalTok{);}
+  
 \NormalTok{           \}}
 \NormalTok{        \}}
 \NormalTok{    \}}
