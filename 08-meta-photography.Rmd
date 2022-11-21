@@ -339,7 +339,7 @@ namespace moddingTutorial
   <summary>GTA V Photographer Bot Script</summary>
   
   ```cs
-  using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -480,9 +480,9 @@ namespace moddingTutorial
 
                 //LET IT WANDER FOR RANDOM TIME
                 Random rndWandering = new Random();
-                int Wandering = (int)rndWandering.Next(20, 50);
+                int Wandering = (int)rndWandering.Next(10, 20);
                 Wait(Wandering*1000);
-                Game.Player.Character.Task.ClearAll();
+                Game.Player.Character.Task.ClearAllImmediately();
                 Wait(500);
 
                 //^TO DO: teleport character if it's in the water
@@ -575,7 +575,7 @@ namespace moddingTutorial
                     UI.ShowSubtitle("put away phone", 1000);
                     keyOut(0x01, 500); //ESC
                     
-                    Wait(4000);
+                    Wait(2000);
                 }
             }
         }
