@@ -156,7 +156,7 @@ namespace moddingTutorial
 </details>
 
 
-### Switching Character through Satellite Camera View
+### Switching Character through Satellite Camera View {-}
 
 <details>
   <summary>Example code</summary>
