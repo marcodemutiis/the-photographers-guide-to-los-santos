@@ -586,7 +586,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </details>
 <details>
 <p><summary>GTA V Photographer Bot Script</summary></p>
-<div class="sourceCode" id="cb45"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb45-1"><a href="meta-photography.html#cb45-1"></a>  <span class="kw">using</span> System;</span>
+<div class="sourceCode" id="cb45"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb45-1"><a href="meta-photography.html#cb45-1"></a><span class="kw">using</span> System;</span>
 <span id="cb45-2"><a href="meta-photography.html#cb45-2"></a><span class="kw">using</span> System.<span class="fu">Collections</span>.<span class="fu">Generic</span>;</span>
 <span id="cb45-3"><a href="meta-photography.html#cb45-3"></a><span class="kw">using</span> System.<span class="fu">Linq</span>;</span>
 <span id="cb45-4"><a href="meta-photography.html#cb45-4"></a><span class="kw">using</span> System.<span class="fu">Text</span>;</span>
@@ -727,9 +727,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb45-139"><a href="meta-photography.html#cb45-139"></a></span>
 <span id="cb45-140"><a href="meta-photography.html#cb45-140"></a>                <span class="co">//LET IT WANDER FOR RANDOM TIME</span></span>
 <span id="cb45-141"><a href="meta-photography.html#cb45-141"></a>                Random rndWandering = <span class="kw">new</span> <span class="fu">Random</span>();</span>
-<span id="cb45-142"><a href="meta-photography.html#cb45-142"></a>                <span class="dt">int</span> Wandering = (<span class="dt">int</span>)rndWandering.<span class="fu">Next</span>(<span class="dv">20</span>, <span class="dv">50</span>);</span>
+<span id="cb45-142"><a href="meta-photography.html#cb45-142"></a>                <span class="dt">int</span> Wandering = (<span class="dt">int</span>)rndWandering.<span class="fu">Next</span>(<span class="dv">10</span>, <span class="dv">20</span>);</span>
 <span id="cb45-143"><a href="meta-photography.html#cb45-143"></a>                <span class="fu">Wait</span>(Wandering*<span class="dv">1000</span>);</span>
-<span id="cb45-144"><a href="meta-photography.html#cb45-144"></a>                Game.<span class="fu">Player</span>.<span class="fu">Character</span>.<span class="fu">Task</span>.<span class="fu">ClearAll</span>();</span>
+<span id="cb45-144"><a href="meta-photography.html#cb45-144"></a>                Game.<span class="fu">Player</span>.<span class="fu">Character</span>.<span class="fu">Task</span>.<span class="fu">ClearAllImmediately</span>();</span>
 <span id="cb45-145"><a href="meta-photography.html#cb45-145"></a>                <span class="fu">Wait</span>(<span class="dv">500</span>);</span>
 <span id="cb45-146"><a href="meta-photography.html#cb45-146"></a></span>
 <span id="cb45-147"><a href="meta-photography.html#cb45-147"></a>                <span class="co">//^TO DO: teleport character if it&#39;s in the water</span></span>
@@ -822,7 +822,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb45-234"><a href="meta-photography.html#cb45-234"></a>                    UI.<span class="fu">ShowSubtitle</span>(<span class="st">&quot;put away phone&quot;</span>, <span class="dv">1000</span>);</span>
 <span id="cb45-235"><a href="meta-photography.html#cb45-235"></a>                    <span class="fu">keyOut</span>(<span class="bn">0x01</span>, <span class="dv">500</span>); <span class="co">//ESC</span></span>
 <span id="cb45-236"><a href="meta-photography.html#cb45-236"></a>                    </span>
-<span id="cb45-237"><a href="meta-photography.html#cb45-237"></a>                    <span class="fu">Wait</span>(<span class="dv">4000</span>);</span>
+<span id="cb45-237"><a href="meta-photography.html#cb45-237"></a>                    <span class="fu">Wait</span>(<span class="dv">2000</span>);</span>
 <span id="cb45-238"><a href="meta-photography.html#cb45-238"></a>                }</span>
 <span id="cb45-239"><a href="meta-photography.html#cb45-239"></a>            }</span>
 <span id="cb45-240"><a href="meta-photography.html#cb45-240"></a>        }</span>

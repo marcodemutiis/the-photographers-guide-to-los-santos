@@ -2174,7 +2174,7 @@ GTA V Photographer Bot Script
 
 \begin{Shaded}
 \begin{Highlighting}[]
-  \KeywordTok{using}\NormalTok{ System;}
+\KeywordTok{using}\NormalTok{ System;}
 \KeywordTok{using}\NormalTok{ System.}\FunctionTok{Collections}\NormalTok{.}\FunctionTok{Generic}\NormalTok{;}
 \KeywordTok{using}\NormalTok{ System.}\FunctionTok{Linq}\NormalTok{;}
 \KeywordTok{using}\NormalTok{ System.}\FunctionTok{Text}\NormalTok{;}
@@ -2315,9 +2315,9 @@ GTA V Photographer Bot Script
 
                 \CommentTok{//LET IT WANDER FOR RANDOM TIME}
 \NormalTok{                Random rndWandering = }\KeywordTok{new} \FunctionTok{Random}\NormalTok{();}
-                \DataTypeTok{int}\NormalTok{ Wandering = (}\DataTypeTok{int}\NormalTok{)rndWandering.}\FunctionTok{Next}\NormalTok{(}\DecValTok{20}\NormalTok{, }\DecValTok{50}\NormalTok{);}
+                \DataTypeTok{int}\NormalTok{ Wandering = (}\DataTypeTok{int}\NormalTok{)rndWandering.}\FunctionTok{Next}\NormalTok{(}\DecValTok{10}\NormalTok{, }\DecValTok{20}\NormalTok{);}
                 \FunctionTok{Wait}\NormalTok{(Wandering*}\DecValTok{1000}\NormalTok{);}
-\NormalTok{                Game.}\FunctionTok{Player}\NormalTok{.}\FunctionTok{Character}\NormalTok{.}\FunctionTok{Task}\NormalTok{.}\FunctionTok{ClearAll}\NormalTok{();}
+\NormalTok{                Game.}\FunctionTok{Player}\NormalTok{.}\FunctionTok{Character}\NormalTok{.}\FunctionTok{Task}\NormalTok{.}\FunctionTok{ClearAllImmediately}\NormalTok{();}
                 \FunctionTok{Wait}\NormalTok{(}\DecValTok{500}\NormalTok{);}
 
                 \CommentTok{//^TO DO: teleport character if it's in the water}
@@ -2410,7 +2410,7 @@ GTA V Photographer Bot Script
 \NormalTok{                    UI.}\FunctionTok{ShowSubtitle}\NormalTok{(}\StringTok{"put away phone"}\NormalTok{, }\DecValTok{1000}\NormalTok{);}
                     \FunctionTok{keyOut}\NormalTok{(}\BaseNTok{0x01}\NormalTok{, }\DecValTok{500}\NormalTok{); }\CommentTok{//ESC}
                     
-                    \FunctionTok{Wait}\NormalTok{(}\DecValTok{4000}\NormalTok{);}
+                    \FunctionTok{Wait}\NormalTok{(}\DecValTok{2000}\NormalTok{);}
 \NormalTok{                \}}
 \NormalTok{            \}}
 \NormalTok{        \}}
