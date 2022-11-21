@@ -576,6 +576,7 @@ namespace moddingTutorial
                     keyOut(0x01, 500); //ESC
                     
                     Wait(4000);
+                }
             }
         }
 
@@ -689,7 +690,9 @@ namespace moddingTutorial
            {
               //SWITCH THE BOT ON/OFF
               botOn = !botOn;
-              UI.ShowSubtitle($"GTA V Photographer Bot is {(botOn ? "~g~ON" : "~r~OFF")}", 3000);
+              if(notOn) UI.ShowSubtitle("GTA V Photographer Bot is ON", 3000);
+               else UI.ShowSubtitle("GTA V Photographer Bot is OFF", 3000);
+  
            }
         }
     }
