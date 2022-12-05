@@ -2177,6 +2177,8 @@ GTA V Photographer Bot Script
 
 \begin{Shaded}
 \begin{Highlighting}[]
+\CommentTok{//#define debug}
+
 \KeywordTok{using}\NormalTok{ System;}
 \KeywordTok{using}\NormalTok{ System.}\FunctionTok{Collections}\NormalTok{.}\FunctionTok{Generic}\NormalTok{;}
 \KeywordTok{using}\NormalTok{ System.}\FunctionTok{Linq}\NormalTok{;}
@@ -2191,10 +2193,13 @@ GTA V Photographer Bot Script
 \KeywordTok{using}\NormalTok{ System.}\FunctionTok{IO}\NormalTok{;}
 \KeywordTok{using}\NormalTok{ System.}\FunctionTok{Runtime}\NormalTok{.}\FunctionTok{InteropServices}\NormalTok{;}
 
+
+
 \KeywordTok{namespace}\NormalTok{ moddingTutorial}
 \NormalTok{\{}
     \KeywordTok{public} \KeywordTok{class}\NormalTok{ moddingTutorial : Script}
 \NormalTok{    \{}
+
         \DataTypeTok{bool}\NormalTok{ botOn = }\KeywordTok{false}\NormalTok{;}
   
         \CommentTok{//KEYBOARD AND MOUSE INPUT STUFF}
@@ -2285,9 +2290,23 @@ GTA V Photographer Bot Script
             \KeywordTok{this}\NormalTok{.}\FunctionTok{KeyDown}\NormalTok{ += onKeyDown;}
 \NormalTok{        \}}
 
+        \KeywordTok{private} \DataTypeTok{void} \FunctionTok{checkDanger}\NormalTok{()}
+\NormalTok{        \{}
+            \KeywordTok{if}\NormalTok{ (Game.}\FunctionTok{Player}\NormalTok{.}\FunctionTok{Character}\NormalTok{.}\FunctionTok{IsSwimming}\NormalTok{ || Game.}\FunctionTok{Player}\NormalTok{.}\FunctionTok{Character}\NormalTok{.}\FunctionTok{IsInCombat}\NormalTok{ || Game.}\FunctionTok{Player}\NormalTok{.}\FunctionTok{Character}\NormalTok{.}\FunctionTok{IsInMeleeCombat}\NormalTok{ || Game.}\FunctionTok{Player}\NormalTok{.}\FunctionTok{Character}\NormalTok{.}\FunctionTok{IsInWater}\NormalTok{)}\CommentTok{//(Function.Call<bool>(Hash.IS_PED_SWIMMING, Game.Player.Character))}
+\NormalTok{            \{}
+                \CommentTok{//teleport}
+\NormalTok{                Function.}\FunctionTok{Call}\NormalTok{(Hash.}\FunctionTok{SET_ENTITY_COORDS}\NormalTok{, Game.}\FunctionTok{Player}\NormalTok{.}\FunctionTok{Character}\NormalTok{, }\FloatTok{-1578.27f}\NormalTok{, }\FloatTok{5155.2f}\NormalTok{, }\FloatTok{19.79865f}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{);}
+                \CommentTok{//Function.Call(Hash.SET_ENTITY_COORDS, Game.Player.Character, 82.81281f, 6432.408f, 31.31271f, 0, 0, 1);}
+                \CommentTok{//Function.Call(Hash.SET_ENTITY_COORDS, Game.Player.Character, -237.6f, 5497.5f, 189.6f, 0, 0, 1);}
+\NormalTok{                UI.}\FunctionTok{Notify}\NormalTok{(}\StringTok{"Teleport"}\NormalTok{);}
+\NormalTok{            \}}
+\NormalTok{        \}}
+
         \KeywordTok{private} \DataTypeTok{void} \FunctionTok{onTick}\NormalTok{(}\DataTypeTok{object}\NormalTok{ sender, EventArgs e) }\CommentTok{//this function gets executed continuously }
 \NormalTok{        \{}
-            \KeywordTok{if}\NormalTok{(botOn)}
+            \FunctionTok{checkDanger}\NormalTok{();}
+
+            \KeywordTok{if}\NormalTok{ (botOn)}
 \NormalTok{            \{}
                 \CommentTok{//SET PLAYER INVINCIBLE}
 \NormalTok{                Function.}\FunctionTok{Call}\NormalTok{(Hash.}\FunctionTok{SET_PLAYER_INVINCIBLE}\NormalTok{, Game.}\FunctionTok{Player}\NormalTok{, }\KeywordTok{true}\NormalTok{);}
@@ -2313,35 +2332,40 @@ GTA V Photographer Bot Script
                 \CommentTok{//WANDER AROUND}
                 \CommentTok{//Game.Player.Character.Task.WanderAround();}
 \NormalTok{                mySeq.}\FunctionTok{AddTask}\NormalTok{.}\FunctionTok{WanderAround}\NormalTok{();}
+                
 \NormalTok{                mySeq.}\FunctionTok{Close}\NormalTok{();}
 \NormalTok{                Game.}\FunctionTok{Player}\NormalTok{.}\FunctionTok{Character}\NormalTok{.}\FunctionTok{Task}\NormalTok{.}\FunctionTok{PerformSequence}\NormalTok{(mySeq);}
 
                 \CommentTok{//LET IT WANDER FOR RANDOM TIME}
 \NormalTok{                Random rndWandering = }\KeywordTok{new} \FunctionTok{Random}\NormalTok{();}
-                \DataTypeTok{int}\NormalTok{ Wandering = (}\DataTypeTok{int}\NormalTok{)rndWandering.}\FunctionTok{Next}\NormalTok{(}\DecValTok{10}\NormalTok{, }\DecValTok{20}\NormalTok{);}
+                \DataTypeTok{int}\NormalTok{ Wandering = (}\DataTypeTok{int}\NormalTok{)rndWandering.}\FunctionTok{Next}\NormalTok{(}\DecValTok{13}\NormalTok{, }\DecValTok{25}\NormalTok{);}
                 \FunctionTok{Wait}\NormalTok{(Wandering*}\DecValTok{1000}\NormalTok{);}
 \NormalTok{                Game.}\FunctionTok{Player}\NormalTok{.}\FunctionTok{Character}\NormalTok{.}\FunctionTok{Task}\NormalTok{.}\FunctionTok{ClearAllImmediately}\NormalTok{();}
+                \FunctionTok{checkDanger}\NormalTok{();}
                 \FunctionTok{Wait}\NormalTok{(}\DecValTok{500}\NormalTok{);}
-
-                \CommentTok{//^TO DO: teleport character if it's in the water}
-                \KeywordTok{if}\NormalTok{ (Game.}\FunctionTok{Player}\NormalTok{.}\FunctionTok{Character}\NormalTok{.}\FunctionTok{IsSwimming}\NormalTok{)}\CommentTok{//(Function.Call<bool>(Hash.IS_PED_SWIMMING, Game.Player.Character))}
-\NormalTok{                \{}
-                    \CommentTok{//teleport}
-\NormalTok{                \}}
 
                 \KeywordTok{if}\NormalTok{ (Game.}\FunctionTok{Player}\NormalTok{.}\FunctionTok{Character}\NormalTok{.}\FunctionTok{IsStopped}\NormalTok{)}
 \NormalTok{                \{}
                     \CommentTok{//PHOTO TAKING STUFF (VIRTUAL KEYS)}
-\NormalTok{                    UI.}\FunctionTok{ShowSubtitle}\NormalTok{(}\StringTok{"take out phone"}\NormalTok{, }\DecValTok{1000}\NormalTok{);}
+                    
+                    \KeywordTok{#if}\NormalTok{ (debug) }
+\NormalTok{                    UI.}\FunctionTok{ShowSubtitle}\NormalTok{(}\StringTok{"take out phone"}\NormalTok{, }\DecValTok{1000}\NormalTok{); }
+                    \KeywordTok{#endif}
                     \FunctionTok{keyOut}\NormalTok{(}\BaseNTok{0xC8}\NormalTok{, }\DecValTok{1000}\NormalTok{); }\CommentTok{//Arrow UP}
                     \FunctionTok{Wait}\NormalTok{(}\DecValTok{1000}\NormalTok{);}
+                    \KeywordTok{#if}\NormalTok{ (debug)}
 \NormalTok{                    UI.}\FunctionTok{ShowSubtitle}\NormalTok{(}\StringTok{"move down"}\NormalTok{, }\DecValTok{1000}\NormalTok{);}
+                    \KeywordTok{#endif}
                     \FunctionTok{keyOut}\NormalTok{(}\BaseNTok{0xD0}\NormalTok{, }\DecValTok{500}\NormalTok{); }\CommentTok{//Arrow DOWN}
                     \FunctionTok{Wait}\NormalTok{(}\DecValTok{1000}\NormalTok{);}
-\NormalTok{                    UI.}\FunctionTok{ShowSubtitle}\NormalTok{(}\StringTok{"take left"}\NormalTok{, }\DecValTok{1000}\NormalTok{);}
+                    \KeywordTok{#if}\NormalTok{ (debug) }
+\NormalTok{                    UI.}\FunctionTok{ShowSubtitle}\NormalTok{(}\StringTok{"take left"}\NormalTok{, }\DecValTok{1000}\NormalTok{); }
+                    \KeywordTok{#endif}
                     \FunctionTok{keyOut}\NormalTok{(}\BaseNTok{0xCB}\NormalTok{, }\DecValTok{500}\NormalTok{); }\CommentTok{//Arrow LEFT}
                     \FunctionTok{Wait}\NormalTok{(}\DecValTok{1000}\NormalTok{);}
+                    \KeywordTok{#if}\NormalTok{ (debug) }
 \NormalTok{                    UI.}\FunctionTok{ShowSubtitle}\NormalTok{(}\StringTok{"open app"}\NormalTok{, }\DecValTok{1000}\NormalTok{);}
+                    \KeywordTok{#endif}
                     \FunctionTok{keyOut}\NormalTok{(}\BaseNTok{0x1C}\NormalTok{, }\DecValTok{500}\NormalTok{); }\CommentTok{//ENTER}
                     \FunctionTok{Wait}\NormalTok{(}\DecValTok{3000}\NormalTok{);}
 
@@ -2349,7 +2373,9 @@ GTA V Photographer Bot Script
                     \CommentTok{//ZOOM IN}
 \NormalTok{                    Random rndZoomIn = }\KeywordTok{new} \FunctionTok{Random}\NormalTok{();}
                     \DataTypeTok{int}\NormalTok{ ZoomIn = (}\DataTypeTok{int}\NormalTok{)rndZoomIn.}\FunctionTok{Next}\NormalTok{(}\DecValTok{4}\NormalTok{, }\DecValTok{14}\NormalTok{);}
+                    \KeywordTok{#if}\NormalTok{ (debug) }
 \NormalTok{                    UI.}\FunctionTok{ShowSubtitle}\NormalTok{(}\StringTok{"Zooooooming In "}\NormalTok{ + ZoomIn + }\StringTok{" times"}\NormalTok{, }\DecValTok{2000}\NormalTok{);}
+                    \KeywordTok{#endif}
                     \KeywordTok{for}\NormalTok{ (}\DataTypeTok{int}\NormalTok{ i = }\DecValTok{0}\NormalTok{; i < ZoomIn; i++)}
 \NormalTok{                    \{}
                         \FunctionTok{mouseWheelOut}\NormalTok{(}\DecValTok{130}\NormalTok{);}
@@ -2359,7 +2385,9 @@ GTA V Photographer Bot Script
                     \CommentTok{//ZOOM OUT}
 \NormalTok{                    Random rndZoomOut = }\KeywordTok{new} \FunctionTok{Random}\NormalTok{();}
                     \DataTypeTok{int}\NormalTok{ ZoomOut = (}\DataTypeTok{int}\NormalTok{)rndZoomOut.}\FunctionTok{Next}\NormalTok{(}\DecValTok{2}\NormalTok{, }\DecValTok{8}\NormalTok{);}
+                    \KeywordTok{#if}\NormalTok{ (debug) }
 \NormalTok{                    UI.}\FunctionTok{ShowSubtitle}\NormalTok{(}\StringTok{"Zooooooming Out "}\NormalTok{ + ZoomOut + }\StringTok{" times"}\NormalTok{, }\DecValTok{2000}\NormalTok{);}
+                    \KeywordTok{#endif}
                     \KeywordTok{for}\NormalTok{ (}\DataTypeTok{int}\NormalTok{ i = }\DecValTok{0}\NormalTok{; i < ZoomOut; i++)}
 \NormalTok{                    \{}
                         \FunctionTok{mouseWheelOut}\NormalTok{(}\KeywordTok{unchecked}\NormalTok{((}\DataTypeTok{uint}\NormalTok{)-}\DecValTok{130}\NormalTok{));}
@@ -2386,7 +2414,9 @@ GTA V Photographer Bot Script
                     \CommentTok{//CHOOSE A RANDOM FILTER}
 \NormalTok{                    Random rnd = }\KeywordTok{new} \FunctionTok{Random}\NormalTok{();}
                     \DataTypeTok{int}\NormalTok{ filter = rnd.}\FunctionTok{Next}\NormalTok{(}\DecValTok{14}\NormalTok{);}
+                    \KeywordTok{#if}\NormalTok{ (debug) }
 \NormalTok{                    UI.}\FunctionTok{ShowSubtitle}\NormalTok{(}\StringTok{"choose a random filter"}\NormalTok{, }\DecValTok{1000}\NormalTok{ + (}\DecValTok{500}\NormalTok{ * filter));}
+                    \KeywordTok{#endif}
                     \KeywordTok{for}\NormalTok{ (}\DataTypeTok{int}\NormalTok{ i = }\DecValTok{0}\NormalTok{; i < filter; i++)}
 \NormalTok{                    \{}
                         \FunctionTok{keyOut}\NormalTok{(}\BaseNTok{0xD0}\NormalTok{, }\DecValTok{500}\NormalTok{); }\CommentTok{//Arrow DOWN}
@@ -2395,22 +2425,30 @@ GTA V Photographer Bot Script
                     \FunctionTok{Wait}\NormalTok{(}\DecValTok{1000}\NormalTok{);}
 
                     \CommentTok{//TAKE PHOTO}
+                    \KeywordTok{#if}\NormalTok{ (debug)}
 \NormalTok{                    UI.}\FunctionTok{ShowSubtitle}\NormalTok{(}\StringTok{"take photo"}\NormalTok{, }\DecValTok{1000}\NormalTok{);}
+                    \KeywordTok{#endif}
                     \FunctionTok{keyOut}\NormalTok{(}\BaseNTok{0x1C}\NormalTok{, }\DecValTok{500}\NormalTok{); }\CommentTok{//ENTER}
                     \FunctionTok{Wait}\NormalTok{(}\DecValTok{5000}\NormalTok{);}
 
                     \CommentTok{//DELETE PHOTO}
+                    \KeywordTok{#if}\NormalTok{ (debug) }
 \NormalTok{                    UI.}\FunctionTok{ShowSubtitle}\NormalTok{(}\StringTok{"delete photo"}\NormalTok{, }\DecValTok{1000}\NormalTok{);}
+                    \KeywordTok{#endif}
                     \FunctionTok{keyOut}\NormalTok{(}\BaseNTok{0xD3}\NormalTok{, }\DecValTok{500}\NormalTok{); }\CommentTok{//DELETE}
                     \FunctionTok{Wait}\NormalTok{(}\DecValTok{2000}\NormalTok{);}
 
                     \CommentTok{//CLOSE THE CAMERA APP}
+                    \KeywordTok{#if}\NormalTok{ (debug) }
 \NormalTok{                    UI.}\FunctionTok{ShowSubtitle}\NormalTok{(}\StringTok{"close app"}\NormalTok{, }\DecValTok{1000}\NormalTok{);}
+                    \KeywordTok{#endif}
                     \FunctionTok{keyOut}\NormalTok{(}\BaseNTok{0x01}\NormalTok{, }\DecValTok{500}\NormalTok{); }\CommentTok{//ESC}
                     \FunctionTok{Wait}\NormalTok{(}\DecValTok{2000}\NormalTok{);}
 
                     \CommentTok{//PUT AWAY THE PHONE}
+                    \KeywordTok{#if}\NormalTok{ (debug) }
 \NormalTok{                    UI.}\FunctionTok{ShowSubtitle}\NormalTok{(}\StringTok{"put away phone"}\NormalTok{, }\DecValTok{1000}\NormalTok{);}
+                    \KeywordTok{#endif}
                     \FunctionTok{keyOut}\NormalTok{(}\BaseNTok{0x01}\NormalTok{, }\DecValTok{500}\NormalTok{); }\CommentTok{//ESC}
                     
                     \FunctionTok{Wait}\NormalTok{(}\DecValTok{2000}\NormalTok{);}
@@ -2535,6 +2573,7 @@ GTA V Photographer Bot Script
 \NormalTok{        \}}
 \NormalTok{    \}}
 \NormalTok{\}}
+
 \end{Highlighting}
 \end{Shaded}
 
