@@ -690,7 +690,7 @@ namespace moddingTutorial
            {
               //SWITCH THE BOT ON/OFF
               botOn = !botOn;
-              if(notOn) UI.ShowSubtitle("GTA V Photographer Bot is ON", 3000);
+              if(botOn) UI.ShowSubtitle("GTA V Photographer Bot is ON", 3000);
                else UI.ShowSubtitle("GTA V Photographer Bot is OFF", 3000);
   
            }
