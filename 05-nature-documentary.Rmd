@@ -50,6 +50,8 @@ artwork text
 
 + Run GTA V and test if Script Hook V is working by pressing ```F4```. This should toggle the console view.
 
++ [Optional] copy a [game save file](https://www.gta5-mods.com/misc/100-save-game) to skip the story mode. Extract the content of the file and copy both files SGTAXXXXX and SGTAXXXXX.bak in Documents/GTA V/Profiles/YYYYYYYY/
+
 
 #### Creating a Mod File {-}
 
