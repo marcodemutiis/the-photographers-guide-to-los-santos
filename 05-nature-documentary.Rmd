@@ -42,7 +42,7 @@ artwork text
 
 + Download [Script Hook V](https://store.steampowered.com/about/), go to the bin folder and copy ```dinput8.dll``` and ```ScriptHookV.dll``` files into your GTA V directory ```C:\Program Files (x86)\Steam\steamapps\common\Grand Theft Auto V```
 
-+ Download [Script Hook V dot net](https://store.steampowered.com/about/), copy the ```ScriptHookVDotNet.asi``` file, ```ScriptHookVDotNet2.dll``` and ```ScriptHookVDotNet3.dll``` files into your GTA V directory ```C:\Program Files (x86)\Steam\steamapps\common\Grand Theft Auto V```
++ Download [Script Hook V dot net](https://github.com/crosire/scripthookvdotnet/releases), copy the ```ScriptHookVDotNet.asi``` file, ```ScriptHookVDotNet2.dll``` and ```ScriptHookVDotNet3.dll``` files into your GTA V directory ```C:\Program Files (x86)\Steam\steamapps\common\Grand Theft Auto V```
 
 + Create a new folder in GTA V directory and call it “scripts”.
 
