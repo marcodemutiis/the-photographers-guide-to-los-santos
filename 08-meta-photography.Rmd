@@ -339,6 +339,8 @@ namespace moddingTutorial
   <summary>GTA V Photographer Bot Script</summary>
   
   ```cs
+//#define debug
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -353,10 +355,13 @@ using GTA.Native;
 using System.IO;
 using System.Runtime.InteropServices;
 
+
+
 namespace moddingTutorial
 {
     public class moddingTutorial : Script
     {
+
         bool botOn = false;
   
         //KEYBOARD AND MOUSE INPUT STUFF
@@ -447,9 +452,23 @@ namespace moddingTutorial
             this.KeyDown += onKeyDown;
         }
 
+        private void checkDanger()
+        {
+            if (Game.Player.Character.IsSwimming || Game.Player.Character.IsInCombat || Game.Player.Character.IsInMeleeCombat || Game.Player.Character.IsInWater)//(Function.Call<bool>(Hash.IS_PED_SWIMMING, Game.Player.Character))
+            {
+                //teleport
+                Function.Call(Hash.SET_ENTITY_COORDS, Game.Player.Character, -1578.27f, 5155.2f, 19.79865f, 0, 0, 1);
+                //Function.Call(Hash.SET_ENTITY_COORDS, Game.Player.Character, 82.81281f, 6432.408f, 31.31271f, 0, 0, 1);
+                //Function.Call(Hash.SET_ENTITY_COORDS, Game.Player.Character, -237.6f, 5497.5f, 189.6f, 0, 0, 1);
+                UI.Notify("Teleport");
+            }
+        }
+
         private void onTick(object sender, EventArgs e) //this function gets executed continuously 
         {
-            if(botOn)
+            checkDanger();
+
+            if (botOn)
             {
                 //SET PLAYER INVINCIBLE
                 Function.Call(Hash.SET_PLAYER_INVINCIBLE, Game.Player, true);
@@ -475,35 +494,40 @@ namespace moddingTutorial
                 //WANDER AROUND
                 //Game.Player.Character.Task.WanderAround();
                 mySeq.AddTask.WanderAround();
+                
                 mySeq.Close();
                 Game.Player.Character.Task.PerformSequence(mySeq);
 
                 //LET IT WANDER FOR RANDOM TIME
                 Random rndWandering = new Random();
-                int Wandering = (int)rndWandering.Next(10, 20);
+                int Wandering = (int)rndWandering.Next(13, 25);
                 Wait(Wandering*1000);
                 Game.Player.Character.Task.ClearAllImmediately();
+                checkDanger();
                 Wait(500);
-
-                //^TO DO: teleport character if it's in the water
-                if (Game.Player.Character.IsSwimming)//(Function.Call<bool>(Hash.IS_PED_SWIMMING, Game.Player.Character))
-                {
-                    //teleport
-                }
 
                 if (Game.Player.Character.IsStopped)
                 {
                     //PHOTO TAKING STUFF (VIRTUAL KEYS)
-                    UI.ShowSubtitle("take out phone", 1000);
+                    
+                    #if (debug) 
+                    UI.ShowSubtitle("take out phone", 1000); 
+                    #endif
                     keyOut(0xC8, 1000); //Arrow UP
                     Wait(1000);
+                    #if (debug)
                     UI.ShowSubtitle("move down", 1000);
+                    #endif
                     keyOut(0xD0, 500); //Arrow DOWN
                     Wait(1000);
-                    UI.ShowSubtitle("take left", 1000);
+                    #if (debug) 
+                    UI.ShowSubtitle("take left", 1000); 
+                    #endif
                     keyOut(0xCB, 500); //Arrow LEFT
                     Wait(1000);
+                    #if (debug) 
                     UI.ShowSubtitle("open app", 1000);
+                    #endif
                     keyOut(0x1C, 500); //ENTER
                     Wait(3000);
 
@@ -511,7 +535,9 @@ namespace moddingTutorial
                     //ZOOM IN
                     Random rndZoomIn = new Random();
                     int ZoomIn = (int)rndZoomIn.Next(4, 14);
+                    #if (debug) 
                     UI.ShowSubtitle("Zooooooming In " + ZoomIn + " times", 2000);
+                    #endif
                     for (int i = 0; i < ZoomIn; i++)
                     {
                         mouseWheelOut(130);
@@ -521,7 +547,9 @@ namespace moddingTutorial
                     //ZOOM OUT
                     Random rndZoomOut = new Random();
                     int ZoomOut = (int)rndZoomOut.Next(2, 8);
+                    #if (debug) 
                     UI.ShowSubtitle("Zooooooming Out " + ZoomOut + " times", 2000);
+                    #endif
                     for (int i = 0; i < ZoomOut; i++)
                     {
                         mouseWheelOut(unchecked((uint)-130));
@@ -548,7 +576,9 @@ namespace moddingTutorial
                     //CHOOSE A RANDOM FILTER
                     Random rnd = new Random();
                     int filter = rnd.Next(14);
+                    #if (debug) 
                     UI.ShowSubtitle("choose a random filter", 1000 + (500 * filter));
+                    #endif
                     for (int i = 0; i < filter; i++)
                     {
                         keyOut(0xD0, 500); //Arrow DOWN
@@ -557,22 +587,30 @@ namespace moddingTutorial
                     Wait(1000);
 
                     //TAKE PHOTO
+                    #if (debug)
                     UI.ShowSubtitle("take photo", 1000);
+                    #endif
                     keyOut(0x1C, 500); //ENTER
                     Wait(5000);
 
                     //DELETE PHOTO
+                    #if (debug) 
                     UI.ShowSubtitle("delete photo", 1000);
+                    #endif
                     keyOut(0xD3, 500); //DELETE
                     Wait(2000);
 
                     //CLOSE THE CAMERA APP
+                    #if (debug) 
                     UI.ShowSubtitle("close app", 1000);
+                    #endif
                     keyOut(0x01, 500); //ESC
                     Wait(2000);
 
                     //PUT AWAY THE PHONE
+                    #if (debug) 
                     UI.ShowSubtitle("put away phone", 1000);
+                    #endif
                     keyOut(0x01, 500); //ESC
                     
                     Wait(2000);
@@ -697,6 +735,7 @@ namespace moddingTutorial
         }
     }
 }
+
 
   ```
   </details>
