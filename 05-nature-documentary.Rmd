@@ -46,7 +46,7 @@ artwork text
 
 + Create a new folder in GTA V directory and call it “scripts”.
 
-+ Download and install [Visual Studio Community](https://store.steampowered.com/about/) (free version of VS). Open Visual Studio and check the .NET desktop development package and install it
++ Download and install [Visual Studio Community](https://visualstudio.microsoft.com/vs/community/) (free version of VS). Open Visual Studio and check the .NET desktop development package and install it
 
 + Run GTA V and test if Script Hook V is working by pressing ```F4```. This should toggle the console view.
 
