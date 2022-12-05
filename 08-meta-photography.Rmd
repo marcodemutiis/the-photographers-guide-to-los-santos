@@ -341,6 +341,7 @@ namespace moddingTutorial
   ```cs
 //#define debug
 
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -362,8 +363,10 @@ namespace moddingTutorial
     public class moddingTutorial : Script
     {
 
-        bool botOn = false;
-  
+        bool botOn = false; //turn the bot ON/OFF
+        List<Vector3> switchLocations = new List<Vector3>(); //list of locations to teleport the character if in danger
+        int index;
+
         //KEYBOARD AND MOUSE INPUT STUFF
         [StructLayout(LayoutKind.Sequential)]
         public struct KeyboardInput
@@ -450,17 +453,28 @@ namespace moddingTutorial
             this.Tick += onTick;
             this.KeyUp += onKeyUp;
             this.KeyDown += onKeyDown;
+
+
+            switchLocations.Add(new Vector3(-1578.27f, 5155.2f, 19.79865f)); //Submarine pier
+            switchLocations.Add(new Vector3(82.81281f, 6432.408f, 31.31271f)); //
+            switchLocations.Add(new Vector3(-237.6f, 5497.5f, 189.6f)); // 
+
+            index = 0;
         }
 
         private void checkDanger()
         {
             if (Game.Player.Character.IsSwimming || Game.Player.Character.IsInCombat || Game.Player.Character.IsInMeleeCombat || Game.Player.Character.IsInWater)//(Function.Call<bool>(Hash.IS_PED_SWIMMING, Game.Player.Character))
             {
-                //teleport
-                Function.Call(Hash.SET_ENTITY_COORDS, Game.Player.Character, -1578.27f, 5155.2f, 19.79865f, 0, 0, 1);
-                //Function.Call(Hash.SET_ENTITY_COORDS, Game.Player.Character, 82.81281f, 6432.408f, 31.31271f, 0, 0, 1);
-                //Function.Call(Hash.SET_ENTITY_COORDS, Game.Player.Character, -237.6f, 5497.5f, 189.6f, 0, 0, 1);
+                //teleport to one of the locations
+                Function.Call(Hash.SET_ENTITY_COORDS, Game.Player.Character, switchLocations[index].X, switchLocations[index].Y, switchLocations[index].Z, 0, 0, 1);
+
+                //Move the index to the next location
+                index++;
+                if (index >= switchLocations.Count) index = 0;
+#if (debug)
                 UI.Notify("Teleport");
+#endif
             }
         }
 
@@ -510,24 +524,24 @@ namespace moddingTutorial
                 {
                     //PHOTO TAKING STUFF (VIRTUAL KEYS)
                     
-                    #if (debug) 
+#if (debug)
                     UI.ShowSubtitle("take out phone", 1000); 
-                    #endif
+#endif
                     keyOut(0xC8, 1000); //Arrow UP
                     Wait(1000);
-                    #if (debug)
+#if (debug)
                     UI.ShowSubtitle("move down", 1000);
-                    #endif
+#endif
                     keyOut(0xD0, 500); //Arrow DOWN
                     Wait(1000);
-                    #if (debug) 
+#if (debug)
                     UI.ShowSubtitle("take left", 1000); 
-                    #endif
+#endif
                     keyOut(0xCB, 500); //Arrow LEFT
                     Wait(1000);
-                    #if (debug) 
+#if (debug)
                     UI.ShowSubtitle("open app", 1000);
-                    #endif
+#endif
                     keyOut(0x1C, 500); //ENTER
                     Wait(3000);
 
@@ -535,9 +549,9 @@ namespace moddingTutorial
                     //ZOOM IN
                     Random rndZoomIn = new Random();
                     int ZoomIn = (int)rndZoomIn.Next(4, 14);
-                    #if (debug) 
+#if (debug)
                     UI.ShowSubtitle("Zooooooming In " + ZoomIn + " times", 2000);
-                    #endif
+#endif
                     for (int i = 0; i < ZoomIn; i++)
                     {
                         mouseWheelOut(130);
@@ -547,9 +561,9 @@ namespace moddingTutorial
                     //ZOOM OUT
                     Random rndZoomOut = new Random();
                     int ZoomOut = (int)rndZoomOut.Next(2, 8);
-                    #if (debug) 
+#if (debug)
                     UI.ShowSubtitle("Zooooooming Out " + ZoomOut + " times", 2000);
-                    #endif
+#endif
                     for (int i = 0; i < ZoomOut; i++)
                     {
                         mouseWheelOut(unchecked((uint)-130));
@@ -576,9 +590,9 @@ namespace moddingTutorial
                     //CHOOSE A RANDOM FILTER
                     Random rnd = new Random();
                     int filter = rnd.Next(14);
-                    #if (debug) 
+#if (debug)
                     UI.ShowSubtitle("choose a random filter", 1000 + (500 * filter));
-                    #endif
+#endif
                     for (int i = 0; i < filter; i++)
                     {
                         keyOut(0xD0, 500); //Arrow DOWN
@@ -587,30 +601,30 @@ namespace moddingTutorial
                     Wait(1000);
 
                     //TAKE PHOTO
-                    #if (debug)
+#if (debug)
                     UI.ShowSubtitle("take photo", 1000);
-                    #endif
+#endif
                     keyOut(0x1C, 500); //ENTER
                     Wait(5000);
 
                     //DELETE PHOTO
-                    #if (debug) 
+#if (debug)
                     UI.ShowSubtitle("delete photo", 1000);
-                    #endif
+#endif
                     keyOut(0xD3, 500); //DELETE
                     Wait(2000);
 
                     //CLOSE THE CAMERA APP
-                    #if (debug) 
+#if (debug)
                     UI.ShowSubtitle("close app", 1000);
-                    #endif
+#endif
                     keyOut(0x01, 500); //ESC
                     Wait(2000);
 
                     //PUT AWAY THE PHONE
-                    #if (debug) 
+#if (debug)
                     UI.ShowSubtitle("put away phone", 1000);
-                    #endif
+#endif
                     keyOut(0x01, 500); //ESC
                     
                     Wait(2000);
@@ -732,9 +746,17 @@ namespace moddingTutorial
                else UI.ShowSubtitle("GTA V Photographer Bot is OFF", 3000);
   
            }
+           if (e.KeyCode == Keys.J)
+           {
+              //TELEPORT MANUALLY
+              Function.Call(Hash.SET_ENTITY_COORDS, Game.Player.Character, switchLocations[index].X, switchLocations[index].Y, switchLocations[index].Z, 0, 0, 1);
+              index++;
+              if (index >= switchLocations.Count) index = 0;
+            }
         }
     }
 }
+
 
 
   ```
