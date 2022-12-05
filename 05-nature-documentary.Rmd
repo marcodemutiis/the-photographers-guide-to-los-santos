@@ -40,7 +40,7 @@ artwork text
 
 + Download and install [Steam](https://store.steampowered.com/about/) (with a copy of GTA V or buy the game if you do not have it. GTA V is 100+ GB so it will take a few hours depending on your internet connections)
 
-+ Download [Script Hook V](https://store.steampowered.com/about/), go to the bin folder and copy ```dinput8.dll``` and ```ScriptHookV.dll``` files into your GTA V directory ```C:\Program Files (x86)\Steam\steamapps\common\Grand Theft Auto V```
++ Download [Script Hook V](https://www.gta5-mods.com/tools/script-hook-v), go to the bin folder and copy ```dinput8.dll``` and ```ScriptHookV.dll``` files into your GTA V directory ```C:\Program Files (x86)\Steam\steamapps\common\Grand Theft Auto V```
 
 + Download [Script Hook V dot net](https://github.com/crosire/scripthookvdotnet/releases), copy the ```ScriptHookVDotNet.asi``` file, ```ScriptHookVDotNet2.dll``` and ```ScriptHookVDotNet3.dll``` files into your GTA V directory ```C:\Program Files (x86)\Steam\steamapps\common\Grand Theft Auto V```
 
