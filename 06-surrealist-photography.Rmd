@@ -178,8 +178,8 @@ foreach (Ped p in NearbyPeds)
 Define the global variables in the public class ```public class moddingTutorial : Script```:
 ```cs
 float lastDistance;
-Ped Squad1Leader = null;
-Ped oldSquad1Leader = null;
+Ped nearestPed = null;
+Ped oldNearestPed = null;
 ```
 
 Get and parse the nearby NPCs in the OnTick function ```private void onTick(object sender, EventArgs e)```:
@@ -195,16 +195,16 @@ foreach (Ped ped in pedsGroup)
 	float distance = ped.Position.DistanceTo(Game.Player.Character.Position);
 	if (distance < lastDistance)
 	{
-		Squad1Leader = ped;
+		nearestPed = ped;
 		lastDistance = distance;
 	}
 }
 
-	if (Squad1Leader != null && oldSquad1Leader != Squad1Leader)
+	if (nearestPed != null && oldNearestPed != nearestPed)
 	{
-		Squad1Leader.Kill();
+		nearestPed.Kill();
 	}
-oldSquad1Leader = Squad1Leader;
+oldNearestPed = nearestPed;
 ```
 
 
@@ -381,15 +381,18 @@ void ClearAnimation (string animSet, string animName)
 </details>
 
 
+
 You can spawn a group of NPCs and give them individual tasks. You can also make them interact with each other (or with the player character). Here we spawn 3 NPCs and tell the to fight with each other.
 
 ```cs
 //create a list of Peds
 List<Ped> myPeds = new List<Ped>();
+
 //create a list of Ped models 
 List<Model> myPedModel = new List<Model>();
+
 //manually add models for each ped
-myPedModel.Add(PedHash.MovSpace01SMM);
+myPedModel.Add(PedHash.Clown01SMY);
 myPedModel.Add(PedHash.Doctor01SMM);
 myPedModel.Add(PedHash.AviSchwartzman);
 
@@ -408,10 +411,103 @@ myPeds[2].Task.FightAgainst(myPeds[0]);
 
 ```
 
+To clear a task at any given moment we can use the task ```ClearAllImmediately();```. To stop our 3 NPCs from fighting each other we give them the task to stop everything they are doing immediately.
+
+```cs
+myPeds[0].Task.ClearAllImmediately();
+myPeds[1].Task.ClearAllImmediately();
+myPeds[2].Task.ClearAllImmediately();
+```
 
 
 ### Animations {-}
-//TO DO
+
+We can give Peds a task to play specific animations. To do this we can use the native function ```TASK_PLAY_ANIM```.
+The function takes a lot of parameters (some of them still not exactly know), but here is the full function and a breakdown of each parameters.
+
+```cs
+Native.Function.Call(Native.Hash.TASK_PLAY_ANIM, thePed, sDict, sAnim, speed, speed * -1, -1, flags, 0, False, bDisableLegIK, False) 
+```
+Most information found for this functions were found [here](Source: http://gtaxscripting.blogspot.com/2016/06/tut-gta-v-playing-and-handling.html) 
+
+```thePed```  		The Ped that will play the animation
+```sDict```   		The dictionary where the anim is located
+```sAnim```   		The anim name
+```speed```  		The play start speed (This is important to make smooth changes between anims)
+```speed * -1```	Unknown
+```-1```   		Unknown
+```flags```  		Flags that you can set for the playback (see flags below)
+```0```   		Unknown
+```false```   		Unknown
+```bDisableLegIK``` 	If the anim will ignore the leg/foot interaction with obstacles
+```false``` 	 	Unknown
+
+<details>
+	<summary>Flags for playback modes</summary>
+	
+        ```
+	normal = 0
+        repeat = 1
+        stop_last_frame = 2
+        unk1 = 4
+        unk2_air = 8
+        upperbody = 16
+        enablePlCtrl = 32
+        unk3 = 64
+        cancelable = 128
+        unk4_creature = 256
+        unk5_freezePos = 512
+        unk6_rot90 = 1024
+	```
+	
+</details>
+
+
+You need to request the animation dictionary before start using it in your script: ```REQUEST_ANIM_DICT```. 
+After that, wait for the animation to load (or you could check if it’s loaded with the boolean ```HAS_ANIM_DICT_LOADED```), before playing the animation.
+
+Once you have requested your animation dictionary and it is loaded, you can play and stop the specific animation using ```TASK_PLAY_ANIM``` and ```STOP_ANIM_TASK```.
+
+```cs
+//request animation dictionary
+Function.Call(Hash.REQUEST_ANIM_DICT, "combat@chg_stance");
+ 
+//wait 100 ms to load the animation
+Wait(100);
+ 
+//play animation from animation dictionary using the player character
+Function.Call(Hash.TASK_PLAY_ANIM, Game.Player.Character, "combat@chg_stance", "aimb_loop", 8.0, 8.0 * -1, -1, 0, 0, false, false, false);
+ 
+//wait 5 secs
+Wait(5000);
+ 
+//stop the animation
+Function.Call(Hash.STOP_ANIM_TASK, Game.Player.Character, "combat@chg_stance", "aimb_loop", 1.0);
+```
+
+
+There are 6645 animation dictionaries and 35460 animation clips. You can see some of the possible animations in GTA V here: [youtube.com/playlist?list=PLFy_1HUkWwEAgPtwtjjLYpKCbBiwXamST](https://www.youtube.com/playlist?list=PLFy_1HUkWwEAgPtwtjjLYpKCbBiwXamST).
+Here you can find a [list of available dictionaries and animations](https://docs.ragepluginhook.net/html/62951c37-a440-478c-b389-c471230ddfc5.htm).
+
+
+Give animations to nearby peds.
+
+```cs
+//request animation dictionary
+Function.Call(Hash.REQUEST_ANIM_DICT, "gestures@miss@fbi_5");
+//wait for it to load
+Wait(50);
+//get nearby ped
+Ped[] NearbyPeds = World.GetNearbyPeds(Game.Player.Character, 20f);
+foreach (Ped p in NearbyPeds)
+{	
+	//clear the peds of any tasks they might have
+	p.Task.ClearAllImmediately();
+	//play animation from animation dictionary
+	Function.Call(Hash.TASK_PLAY_ANIM, p, "missfbi5ig_2", "crying_trevor", 8.0, 8.0 * -1, -1, 0, 0, false, false, false);
+}
+```
+
 
 ### Teleporting {-}
 
