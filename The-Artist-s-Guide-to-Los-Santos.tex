@@ -893,8 +893,10 @@ Example code
 \NormalTok{            \{}
                 \CommentTok{//select a model and store it in a variable}
 \NormalTok{                Models myPedModel = }\StringTok{"PedHash.AviSchwartzman"}\NormalTok{;}
+    
                     \CommentTok{//create a position relative to the player}
 \NormalTok{                    Vector3 myPedSpawnPosition = Game.}\FunctionTok{Player}\NormalTok{.}\FunctionTok{Character}\NormalTok{.}\FunctionTok{GetOffsetInWorldCoords}\NormalTok{(}\KeywordTok{new} \FunctionTok{Vector3}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{5}\NormalTok{, }\DecValTok{0}\NormalTok{));}
+    
                     \CommentTok{//create a Ped with the chosen model, spawning at the chosen position}
                     \DataTypeTok{var}\NormalTok{ myPed1 = World.}\FunctionTok{CreatePed}\NormalTok{(myPedModel, myPedSpawnPosition); }
 \NormalTok{            \}}
@@ -925,7 +927,7 @@ Try to kill one of the \texttt{Ped} NPCs you created by using the \texttt{Kill()
 \end{Highlighting}
 \end{Shaded}
 
-Note that when you kill your \texttt{Ped} `Jim', it falls on the floor and it won't actually respond to any call or task you will give it, but it's not removed from the game. To remove a specific \texttt{Ped} you not use the \texttt{Delete}function, which will remove that instance (and will make the NPC disappear).
+Note that when you kill your \texttt{Ped} `Jim', it falls on the floor and it won't actually respond to any call or task you will give it, but it's not removed from the game. To remove a specific \texttt{Ped} you have to use the \texttt{Delete}function, which will remove that instance (and will make the NPC disappear).
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1253,6 +1255,8 @@ To clear a task at any given moment we can use the task \texttt{ClearAllImmediat
 \end{Highlighting}
 \end{Shaded}
 
+Peace is restored in the universe.
+
 \hypertarget{animations}{%
 \subsection*{Animations}\label{animations}}
 \addcontentsline{toc}{subsection}{Animations}
@@ -1265,8 +1269,6 @@ The function takes a lot of parameters (some of them still not exactly know), bu
 \NormalTok{Native.}\FunctionTok{Function}\NormalTok{.}\FunctionTok{Call}\NormalTok{(Native.}\FunctionTok{Hash}\NormalTok{.}\FunctionTok{TASK_PLAY_ANIM}\NormalTok{, thePed, sDict, sAnim, speed, speed * }\DecValTok{-1}\NormalTok{, }\DecValTok{-1}\NormalTok{, flags, }\DecValTok{0}\NormalTok{, False, bDisableLegIK, False) }
 \end{Highlighting}
 \end{Shaded}
-
-Most information found for this functions were found \href{Source:\%20http://gtaxscripting.blogspot.com/2016/06/tut-gta-v-playing-and-handling.html}{here}
 
 \texttt{thePed} The Ped that will play the animation
 \texttt{sDict} The dictionary where the anim is located
@@ -1323,6 +1325,8 @@ Once you have requested your animation dictionary and it is loaded, you can play
 \end{Highlighting}
 \end{Shaded}
 
+Most information found for this functions were found \href{Source:\%20http://gtaxscripting.blogspot.com/2016/06/tut-gta-v-playing-and-handling.html}{here}. More example code and information is avaiable there.
+
 There are 6645 animation dictionaries and 35460 animation clips. You can see some of the possible animations in GTA V here: \href{https://www.youtube.com/playlist?list=PLFy_1HUkWwEAgPtwtjjLYpKCbBiwXamST}{youtube.com/playlist?list=PLFy\_1HUkWwEAgPtwtjjLYpKCbBiwXamST}.
 Here you can find a \href{https://docs.ragepluginhook.net/html/62951c37-a440-478c-b389-c471230ddfc5.htm}{list of available dictionaries and animations}.
 
@@ -1332,10 +1336,13 @@ Give animations to nearby peds.
 \begin{Highlighting}[]
 \CommentTok{//request animation dictionary}
 \NormalTok{Function.}\FunctionTok{Call}\NormalTok{(Hash.}\FunctionTok{REQUEST_ANIM_DICT}\NormalTok{, }\StringTok{"gestures@miss@fbi_5"}\NormalTok{);}
+
 \CommentTok{//wait for it to load}
 \FunctionTok{Wait}\NormalTok{(}\DecValTok{50}\NormalTok{);}
+
 \CommentTok{//get nearby ped}
 \NormalTok{Ped[] NearbyPeds = World.}\FunctionTok{GetNearbyPeds}\NormalTok{(Game.}\FunctionTok{Player}\NormalTok{.}\FunctionTok{Character}\NormalTok{, 20f);}
+
 \KeywordTok{foreach}\NormalTok{ (Ped p }\KeywordTok{in}\NormalTok{ NearbyPeds)}
 \NormalTok{\{   }
     \CommentTok{//clear the peds of any tasks they might have}

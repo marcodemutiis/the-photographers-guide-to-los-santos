@@ -344,14 +344,16 @@ To make a Ped appear in front of the player we can create a vector3 data type wi
 <span id="cb19-37"><a href="surrealist-photography.html#cb19-37"></a>            {</span>
 <span id="cb19-38"><a href="surrealist-photography.html#cb19-38"></a>                <span class="co">//select a model and store it in a variable</span></span>
 <span id="cb19-39"><a href="surrealist-photography.html#cb19-39"></a>                Models myPedModel = <span class="st">&quot;PedHash.AviSchwartzman&quot;</span>;</span>
-<span id="cb19-40"><a href="surrealist-photography.html#cb19-40"></a>                    <span class="co">//create a position relative to the player</span></span>
-<span id="cb19-41"><a href="surrealist-photography.html#cb19-41"></a>                    Vector3 myPedSpawnPosition = Game.<span class="fu">Player</span>.<span class="fu">Character</span>.<span class="fu">GetOffsetInWorldCoords</span>(<span class="kw">new</span> <span class="fu">Vector3</span>(<span class="dv">0</span>, <span class="dv">5</span>, <span class="dv">0</span>));</span>
-<span id="cb19-42"><a href="surrealist-photography.html#cb19-42"></a>                    <span class="co">//create a Ped with the chosen model, spawning at the chosen position</span></span>
-<span id="cb19-43"><a href="surrealist-photography.html#cb19-43"></a>                    <span class="dt">var</span> myPed1 = World.<span class="fu">CreatePed</span>(myPedModel, myPedSpawnPosition); </span>
-<span id="cb19-44"><a href="surrealist-photography.html#cb19-44"></a>            }</span>
-<span id="cb19-45"><a href="surrealist-photography.html#cb19-45"></a>        }</span>
-<span id="cb19-46"><a href="surrealist-photography.html#cb19-46"></a>    }</span>
-<span id="cb19-47"><a href="surrealist-photography.html#cb19-47"></a>}</span></code></pre></div>
+<span id="cb19-40"><a href="surrealist-photography.html#cb19-40"></a>    </span>
+<span id="cb19-41"><a href="surrealist-photography.html#cb19-41"></a>                    <span class="co">//create a position relative to the player</span></span>
+<span id="cb19-42"><a href="surrealist-photography.html#cb19-42"></a>                    Vector3 myPedSpawnPosition = Game.<span class="fu">Player</span>.<span class="fu">Character</span>.<span class="fu">GetOffsetInWorldCoords</span>(<span class="kw">new</span> <span class="fu">Vector3</span>(<span class="dv">0</span>, <span class="dv">5</span>, <span class="dv">0</span>));</span>
+<span id="cb19-43"><a href="surrealist-photography.html#cb19-43"></a>    </span>
+<span id="cb19-44"><a href="surrealist-photography.html#cb19-44"></a>                    <span class="co">//create a Ped with the chosen model, spawning at the chosen position</span></span>
+<span id="cb19-45"><a href="surrealist-photography.html#cb19-45"></a>                    <span class="dt">var</span> myPed1 = World.<span class="fu">CreatePed</span>(myPedModel, myPedSpawnPosition); </span>
+<span id="cb19-46"><a href="surrealist-photography.html#cb19-46"></a>            }</span>
+<span id="cb19-47"><a href="surrealist-photography.html#cb19-47"></a>        }</span>
+<span id="cb19-48"><a href="surrealist-photography.html#cb19-48"></a>    }</span>
+<span id="cb19-49"><a href="surrealist-photography.html#cb19-49"></a>}</span></code></pre></div>
 </details>
 </div>
 <div id="control-multiple-npcs" class="section level3 unnumbered hasAnchor">
@@ -361,7 +363,7 @@ To make a Ped appear in front of the player we can create a vector3 data type wi
 <span id="cb20-2"><a href="surrealist-photography.html#cb20-2"></a><span class="dt">var</span> MannyTheCat = World.<span class="fu">CreatePed</span>(PedHash.<span class="fu">Cat</span>, Game.<span class="fu">Player</span>.<span class="fu">Character</span>.<span class="fu">GetOffsetInWorldCoords</span>(<span class="kw">new</span> <span class="fu">Vector3</span>(<span class="dv">0</span>, <span class="dv">3</span>, <span class="dv">0</span>)));</span></code></pre></div>
 <p>Try to kill one of the <code>Ped</code> NPCs you created by using the <code>Kill()</code>.</p>
 <div class="sourceCode" id="cb21"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb21-1"><a href="surrealist-photography.html#cb21-1"></a>Jim.<span class="fu">Kill</span>();</span></code></pre></div>
-<p>Note that when you kill your <code>Ped</code> ‘Jim’, it falls on the floor and it won’t actually respond to any call or task you will give it, but it’s not removed from the game. To remove a specific <code>Ped</code> you not use the <code>Delete</code>function, which will remove that instance (and will make the NPC disappear).</p>
+<p>Note that when you kill your <code>Ped</code> ‘Jim’, it falls on the floor and it won’t actually respond to any call or task you will give it, but it’s not removed from the game. To remove a specific <code>Ped</code> you have to use the <code>Delete</code>function, which will remove that instance (and will make the NPC disappear).</p>
 <div class="sourceCode" id="cb22"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb22-1"><a href="surrealist-photography.html#cb22-1"></a>Jim.<span class="fu">Delete</span>();</span></code></pre></div>
 <p>To handle groups of NPCs we can use the <code>List</code> class. A <code>List</code> is a collection of objects, and a <code>List</code>of <code>Peds</code> allows us to store our NPCs. We can use an index to retrieve and control specific <code>Peds</code> in the group. You can see the <a href="https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.list-1?view=net-7.0">reference</a> for more detailed information.</p>
 <p>Create a <code>List</code> of <code>Peds</code> named myPeds as a global variable in the public class <code>public class moddingTutorial : Script</code>.</p>
@@ -605,13 +607,13 @@ We can give our NPC the task to fight against the player by using the <code>Figh
 <div class="sourceCode" id="cb34"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb34-1"><a href="surrealist-photography.html#cb34-1"></a>myPeds[<span class="dv">0</span>].<span class="fu">Task</span>.<span class="fu">ClearAllImmediately</span>();</span>
 <span id="cb34-2"><a href="surrealist-photography.html#cb34-2"></a>myPeds[<span class="dv">1</span>].<span class="fu">Task</span>.<span class="fu">ClearAllImmediately</span>();</span>
 <span id="cb34-3"><a href="surrealist-photography.html#cb34-3"></a>myPeds[<span class="dv">2</span>].<span class="fu">Task</span>.<span class="fu">ClearAllImmediately</span>();</span></code></pre></div>
+<p>Peace is restored in the universe.</p>
 </div>
 <div id="animations" class="section level3 unnumbered hasAnchor">
 <h3>Animations<a href="surrealist-photography.html#animations" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>We can give Peds a task to play specific animations. To do this we can use the native function <code>TASK_PLAY_ANIM</code>.
 The function takes a lot of parameters (some of them still not exactly know), but here is the full function and a breakdown of each parameters.</p>
 <div class="sourceCode" id="cb35"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb35-1"><a href="surrealist-photography.html#cb35-1"></a>Native.<span class="fu">Function</span>.<span class="fu">Call</span>(Native.<span class="fu">Hash</span>.<span class="fu">TASK_PLAY_ANIM</span>, thePed, sDict, sAnim, speed, speed * <span class="dv">-1</span>, <span class="dv">-1</span>, flags, <span class="dv">0</span>, False, bDisableLegIK, False) </span></code></pre></div>
-<p>Most information found for this functions were found <a href="Source:%20http://gtaxscripting.blogspot.com/2016/06/tut-gta-v-playing-and-handling.html">here</a></p>
 <p><code>thePed</code> The Ped that will play the animation
 <code>sDict</code> The dictionary where the anim is located
 <code>sAnim</code> The anim name
@@ -657,22 +659,26 @@ After that, wait for the animation to load (or you could check if it’s loaded 
 <span id="cb37-12"><a href="surrealist-photography.html#cb37-12"></a> </span>
 <span id="cb37-13"><a href="surrealist-photography.html#cb37-13"></a><span class="co">//stop the animation</span></span>
 <span id="cb37-14"><a href="surrealist-photography.html#cb37-14"></a>Function.<span class="fu">Call</span>(Hash.<span class="fu">STOP_ANIM_TASK</span>, Game.<span class="fu">Player</span>.<span class="fu">Character</span>, <span class="st">&quot;combat@chg_stance&quot;</span>, <span class="st">&quot;aimb_loop&quot;</span>, <span class="fl">1.0</span>);</span></code></pre></div>
+<p>Most information found for this functions were found <a href="Source:%20http://gtaxscripting.blogspot.com/2016/06/tut-gta-v-playing-and-handling.html">here</a>. More example code and information is avaiable there.</p>
 <p>There are 6645 animation dictionaries and 35460 animation clips. You can see some of the possible animations in GTA V here: <a href="https://www.youtube.com/playlist?list=PLFy_1HUkWwEAgPtwtjjLYpKCbBiwXamST">youtube.com/playlist?list=PLFy_1HUkWwEAgPtwtjjLYpKCbBiwXamST</a>.
 Here you can find a <a href="https://docs.ragepluginhook.net/html/62951c37-a440-478c-b389-c471230ddfc5.htm">list of available dictionaries and animations</a>.</p>
 <p>Give animations to nearby peds.</p>
 <div class="sourceCode" id="cb38"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb38-1"><a href="surrealist-photography.html#cb38-1"></a><span class="co">//request animation dictionary</span></span>
 <span id="cb38-2"><a href="surrealist-photography.html#cb38-2"></a>Function.<span class="fu">Call</span>(Hash.<span class="fu">REQUEST_ANIM_DICT</span>, <span class="st">&quot;gestures@miss@fbi_5&quot;</span>);</span>
-<span id="cb38-3"><a href="surrealist-photography.html#cb38-3"></a><span class="co">//wait for it to load</span></span>
-<span id="cb38-4"><a href="surrealist-photography.html#cb38-4"></a><span class="fu">Wait</span>(<span class="dv">50</span>);</span>
-<span id="cb38-5"><a href="surrealist-photography.html#cb38-5"></a><span class="co">//get nearby ped</span></span>
-<span id="cb38-6"><a href="surrealist-photography.html#cb38-6"></a>Ped[] NearbyPeds = World.<span class="fu">GetNearbyPeds</span>(Game.<span class="fu">Player</span>.<span class="fu">Character</span>, 20f);</span>
-<span id="cb38-7"><a href="surrealist-photography.html#cb38-7"></a><span class="kw">foreach</span> (Ped p <span class="kw">in</span> NearbyPeds)</span>
-<span id="cb38-8"><a href="surrealist-photography.html#cb38-8"></a>{   </span>
-<span id="cb38-9"><a href="surrealist-photography.html#cb38-9"></a>    <span class="co">//clear the peds of any tasks they might have</span></span>
-<span id="cb38-10"><a href="surrealist-photography.html#cb38-10"></a>    p.<span class="fu">Task</span>.<span class="fu">ClearAllImmediately</span>();</span>
-<span id="cb38-11"><a href="surrealist-photography.html#cb38-11"></a>    <span class="co">//play animation from animation dictionary</span></span>
-<span id="cb38-12"><a href="surrealist-photography.html#cb38-12"></a>    Function.<span class="fu">Call</span>(Hash.<span class="fu">TASK_PLAY_ANIM</span>, p, <span class="st">&quot;missfbi5ig_2&quot;</span>, <span class="st">&quot;crying_trevor&quot;</span>, <span class="fl">8.0</span>, <span class="fl">8.0</span> * <span class="dv">-1</span>, <span class="dv">-1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="kw">false</span>, <span class="kw">false</span>, <span class="kw">false</span>);</span>
-<span id="cb38-13"><a href="surrealist-photography.html#cb38-13"></a>}</span></code></pre></div>
+<span id="cb38-3"><a href="surrealist-photography.html#cb38-3"></a></span>
+<span id="cb38-4"><a href="surrealist-photography.html#cb38-4"></a><span class="co">//wait for it to load</span></span>
+<span id="cb38-5"><a href="surrealist-photography.html#cb38-5"></a><span class="fu">Wait</span>(<span class="dv">50</span>);</span>
+<span id="cb38-6"><a href="surrealist-photography.html#cb38-6"></a></span>
+<span id="cb38-7"><a href="surrealist-photography.html#cb38-7"></a><span class="co">//get nearby ped</span></span>
+<span id="cb38-8"><a href="surrealist-photography.html#cb38-8"></a>Ped[] NearbyPeds = World.<span class="fu">GetNearbyPeds</span>(Game.<span class="fu">Player</span>.<span class="fu">Character</span>, 20f);</span>
+<span id="cb38-9"><a href="surrealist-photography.html#cb38-9"></a></span>
+<span id="cb38-10"><a href="surrealist-photography.html#cb38-10"></a><span class="kw">foreach</span> (Ped p <span class="kw">in</span> NearbyPeds)</span>
+<span id="cb38-11"><a href="surrealist-photography.html#cb38-11"></a>{   </span>
+<span id="cb38-12"><a href="surrealist-photography.html#cb38-12"></a>    <span class="co">//clear the peds of any tasks they might have</span></span>
+<span id="cb38-13"><a href="surrealist-photography.html#cb38-13"></a>    p.<span class="fu">Task</span>.<span class="fu">ClearAllImmediately</span>();</span>
+<span id="cb38-14"><a href="surrealist-photography.html#cb38-14"></a>    <span class="co">//play animation from animation dictionary</span></span>
+<span id="cb38-15"><a href="surrealist-photography.html#cb38-15"></a>    Function.<span class="fu">Call</span>(Hash.<span class="fu">TASK_PLAY_ANIM</span>, p, <span class="st">&quot;missfbi5ig_2&quot;</span>, <span class="st">&quot;crying_trevor&quot;</span>, <span class="fl">8.0</span>, <span class="fl">8.0</span> * <span class="dv">-1</span>, <span class="dv">-1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="kw">false</span>, <span class="kw">false</span>, <span class="kw">false</span>);</span>
+<span id="cb38-16"><a href="surrealist-photography.html#cb38-16"></a>}</span></code></pre></div>
 </div>
 <div id="teleporting" class="section level3 unnumbered hasAnchor">
 <h3>Teleporting<a href="surrealist-photography.html#teleporting" class="anchor-section" aria-label="Anchor link to header"></a></h3>
