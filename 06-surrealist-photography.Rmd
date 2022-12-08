@@ -99,8 +99,10 @@ namespace moddingTutorial
 			{
 				//select a model and store it in a variable
 				Models myPedModel = "PedHash.AviSchwartzman";
+	
         			//create a position relative to the player
        				Vector3 myPedSpawnPosition = Game.Player.Character.GetOffsetInWorldCoords(new Vector3(0, 5, 0));
+	
       				//create a Ped with the chosen model, spawning at the chosen position
        				var myPed1 = World.CreatePed(myPedModel, myPedSpawnPosition); 
 			}
@@ -124,7 +126,7 @@ Try to kill one of the  ```Ped``` NPCs you created by using the ```Kill()```.
 Jim.Kill();
 ```
 
-Note that when you kill your ```Ped``` 'Jim', it falls on the floor and it won't actually respond to any call or task you will give it, but it's not removed from the game. To remove a specific ```Ped``` you not use the ```Delete```function, which will remove that instance (and will make the NPC disappear).
+Note that when you kill your ```Ped``` 'Jim', it falls on the floor and it won't actually respond to any call or task you will give it, but it's not removed from the game. To remove a specific ```Ped``` you have to use the ```Delete```function, which will remove that instance (and will make the NPC disappear).
 ```cs
 Jim.Delete();
 ```
@@ -419,6 +421,9 @@ myPeds[1].Task.ClearAllImmediately();
 myPeds[2].Task.ClearAllImmediately();
 ```
 
+Peace is restored in the universe.
+
+
 
 ### Animations {-}
 
@@ -428,7 +433,6 @@ The function takes a lot of parameters (some of them still not exactly know), bu
 ```cs
 Native.Function.Call(Native.Hash.TASK_PLAY_ANIM, thePed, sDict, sAnim, speed, speed * -1, -1, flags, 0, False, bDisableLegIK, False) 
 ```
-Most information found for this functions were found [here](Source: http://gtaxscripting.blogspot.com/2016/06/tut-gta-v-playing-and-handling.html) 
 
 ```thePed```  		The Ped that will play the animation
 ```sDict```   		The dictionary where the anim is located
@@ -485,6 +489,7 @@ Wait(5000);
 Function.Call(Hash.STOP_ANIM_TASK, Game.Player.Character, "combat@chg_stance", "aimb_loop", 1.0);
 ```
 
+Most information found for this functions were found [here](Source: http://gtaxscripting.blogspot.com/2016/06/tut-gta-v-playing-and-handling.html). More example code and information is avaiable there.
 
 There are 6645 animation dictionaries and 35460 animation clips. You can see some of the possible animations in GTA V here: [youtube.com/playlist?list=PLFy_1HUkWwEAgPtwtjjLYpKCbBiwXamST](https://www.youtube.com/playlist?list=PLFy_1HUkWwEAgPtwtjjLYpKCbBiwXamST).
 Here you can find a [list of available dictionaries and animations](https://docs.ragepluginhook.net/html/62951c37-a440-478c-b389-c471230ddfc5.htm).
@@ -495,10 +500,13 @@ Give animations to nearby peds.
 ```cs
 //request animation dictionary
 Function.Call(Hash.REQUEST_ANIM_DICT, "gestures@miss@fbi_5");
+
 //wait for it to load
 Wait(50);
+
 //get nearby ped
 Ped[] NearbyPeds = World.GetNearbyPeds(Game.Player.Character, 20f);
+
 foreach (Ped p in NearbyPeds)
 {	
 	//clear the peds of any tasks they might have
