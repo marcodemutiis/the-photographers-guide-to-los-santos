@@ -999,8 +999,8 @@ Define the global variables in the public class \texttt{public\ class\ moddingTu
 \begin{Shaded}
 \begin{Highlighting}[]
 \DataTypeTok{float}\NormalTok{ lastDistance;}
-\NormalTok{Ped Squad1Leader = }\KeywordTok{null}\NormalTok{;}
-\NormalTok{Ped oldSquad1Leader = }\KeywordTok{null}\NormalTok{;}
+\NormalTok{Ped nearestPed = }\KeywordTok{null}\NormalTok{;}
+\NormalTok{Ped oldNearestPed = }\KeywordTok{null}\NormalTok{;}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1019,16 +1019,16 @@ Get and parse the nearby NPCs in the OnTick function \texttt{private\ void\ onTi
     \DataTypeTok{float}\NormalTok{ distance = ped.}\FunctionTok{Position}\NormalTok{.}\FunctionTok{DistanceTo}\NormalTok{(Game.}\FunctionTok{Player}\NormalTok{.}\FunctionTok{Character}\NormalTok{.}\FunctionTok{Position}\NormalTok{);}
     \KeywordTok{if}\NormalTok{ (distance < lastDistance)}
 \NormalTok{    \{}
-\NormalTok{        Squad1Leader = ped;}
+\NormalTok{        nearestPed = ped;}
 \NormalTok{        lastDistance = distance;}
 \NormalTok{    \}}
 \NormalTok{\}}
 
-    \KeywordTok{if}\NormalTok{ (Squad1Leader != }\KeywordTok{null}\NormalTok{ && oldSquad1Leader != Squad1Leader)}
+    \KeywordTok{if}\NormalTok{ (nearestPed != }\KeywordTok{null}\NormalTok{ && oldNearestPed != nearestPed)}
 \NormalTok{    \{}
-\NormalTok{        Squad1Leader.}\FunctionTok{Kill}\NormalTok{();}
+\NormalTok{        nearestPed.}\FunctionTok{Kill}\NormalTok{();}
 \NormalTok{    \}}
-\NormalTok{oldSquad1Leader = Squad1Leader;}
+\NormalTok{oldNearestPed = nearestPed;}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1219,10 +1219,12 @@ You can spawn a group of NPCs and give them individual tasks. You can also make 
 \begin{Highlighting}[]
 \CommentTok{//create a list of Peds}
 \NormalTok{List<Ped> myPeds = }\KeywordTok{new}\NormalTok{ List<Ped>();}
+
 \CommentTok{//create a list of Ped models }
 \NormalTok{List<Model> myPedModel = }\KeywordTok{new}\NormalTok{ List<Model>();}
+
 \CommentTok{//manually add models for each ped}
-\NormalTok{myPedModel.}\FunctionTok{Add}\NormalTok{(PedHash.}\FunctionTok{MovSpace01SMM}\NormalTok{);}
+\NormalTok{myPedModel.}\FunctionTok{Add}\NormalTok{(PedHash.}\FunctionTok{Clown01SMY}\NormalTok{);}
 \NormalTok{myPedModel.}\FunctionTok{Add}\NormalTok{(PedHash.}\FunctionTok{Doctor01SMM}\NormalTok{);}
 \NormalTok{myPedModel.}\FunctionTok{Add}\NormalTok{(PedHash.}\FunctionTok{AviSchwartzman}\NormalTok{);}
 
@@ -1241,11 +1243,108 @@ You can spawn a group of NPCs and give them individual tasks. You can also make 
 \end{Highlighting}
 \end{Shaded}
 
+To clear a task at any given moment we can use the task \texttt{ClearAllImmediately();}. To stop our 3 NPCs from fighting each other we give them the task to stop everything they are doing immediately.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{myPeds[}\DecValTok{0}\NormalTok{].}\FunctionTok{Task}\NormalTok{.}\FunctionTok{ClearAllImmediately}\NormalTok{();}
+\NormalTok{myPeds[}\DecValTok{1}\NormalTok{].}\FunctionTok{Task}\NormalTok{.}\FunctionTok{ClearAllImmediately}\NormalTok{();}
+\NormalTok{myPeds[}\DecValTok{2}\NormalTok{].}\FunctionTok{Task}\NormalTok{.}\FunctionTok{ClearAllImmediately}\NormalTok{();}
+\end{Highlighting}
+\end{Shaded}
+
 \hypertarget{animations}{%
 \subsection*{Animations}\label{animations}}
 \addcontentsline{toc}{subsection}{Animations}
 
-//TO DO
+We can give Peds a task to play specific animations. To do this we can use the native function \texttt{TASK\_PLAY\_ANIM}.
+The function takes a lot of parameters (some of them still not exactly know), but here is the full function and a breakdown of each parameters.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{Native.}\FunctionTok{Function}\NormalTok{.}\FunctionTok{Call}\NormalTok{(Native.}\FunctionTok{Hash}\NormalTok{.}\FunctionTok{TASK_PLAY_ANIM}\NormalTok{, thePed, sDict, sAnim, speed, speed * }\DecValTok{-1}\NormalTok{, }\DecValTok{-1}\NormalTok{, flags, }\DecValTok{0}\NormalTok{, False, bDisableLegIK, False) }
+\end{Highlighting}
+\end{Shaded}
+
+Most information found for this functions were found \href{Source:\%20http://gtaxscripting.blogspot.com/2016/06/tut-gta-v-playing-and-handling.html}{here}
+
+\texttt{thePed} The Ped that will play the animation
+\texttt{sDict} The dictionary where the anim is located
+\texttt{sAnim} The anim name
+\texttt{speed} The play start speed (This is important to make smooth changes between anims)
+\texttt{speed\ *\ -1} Unknown
+\texttt{-1} Unknown
+\texttt{flags} Flags that you can set for the playback (see flags below)
+\texttt{0} Unknown
+\texttt{false} Unknown
+\texttt{bDisableLegIK} If the anim will ignore the leg/foot interaction with obstacles
+\texttt{false} Unknown
+
+Flags for playback modes
+
+\begin{verbatim}
+```
+normal = 0
+    repeat = 1
+    stop_last_frame = 2
+    unk1 = 4
+    unk2_air = 8
+    upperbody = 16
+    enablePlCtrl = 32
+    unk3 = 64
+    cancelable = 128
+    unk4_creature = 256
+    unk5_freezePos = 512
+    unk6_rot90 = 1024
+```
+\end{verbatim}
+
+You need to request the animation dictionary before start using it in your script: \texttt{REQUEST\_ANIM\_DICT}.
+After that, wait for the animation to load (or you could check if it's loaded with the boolean \texttt{HAS\_ANIM\_DICT\_LOADED}), before playing the animation.
+
+Once you have requested your animation dictionary and it is loaded, you can play and stop the specific animation using \texttt{TASK\_PLAY\_ANIM} and \texttt{STOP\_ANIM\_TASK}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{//request animation dictionary}
+\NormalTok{Function.}\FunctionTok{Call}\NormalTok{(Hash.}\FunctionTok{REQUEST_ANIM_DICT}\NormalTok{, }\StringTok{"combat@chg_stance"}\NormalTok{);}
+ 
+\CommentTok{//wait 100 ms to load the animation}
+\FunctionTok{Wait}\NormalTok{(}\DecValTok{100}\NormalTok{);}
+ 
+\CommentTok{//play animation from animation dictionary using the player character}
+\NormalTok{Function.}\FunctionTok{Call}\NormalTok{(Hash.}\FunctionTok{TASK_PLAY_ANIM}\NormalTok{, Game.}\FunctionTok{Player}\NormalTok{.}\FunctionTok{Character}\NormalTok{, }\StringTok{"combat@chg_stance"}\NormalTok{, }\StringTok{"aimb_loop"}\NormalTok{, }\FloatTok{8.0}\NormalTok{, }\FloatTok{8.0}\NormalTok{ * }\DecValTok{-1}\NormalTok{, }\DecValTok{-1}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{, }\KeywordTok{false}\NormalTok{, }\KeywordTok{false}\NormalTok{, }\KeywordTok{false}\NormalTok{);}
+ 
+\CommentTok{//wait 5 secs}
+\FunctionTok{Wait}\NormalTok{(}\DecValTok{5000}\NormalTok{);}
+ 
+\CommentTok{//stop the animation}
+\NormalTok{Function.}\FunctionTok{Call}\NormalTok{(Hash.}\FunctionTok{STOP_ANIM_TASK}\NormalTok{, Game.}\FunctionTok{Player}\NormalTok{.}\FunctionTok{Character}\NormalTok{, }\StringTok{"combat@chg_stance"}\NormalTok{, }\StringTok{"aimb_loop"}\NormalTok{, }\FloatTok{1.0}\NormalTok{);}
+\end{Highlighting}
+\end{Shaded}
+
+There are 6645 animation dictionaries and 35460 animation clips. You can see some of the possible animations in GTA V here: \href{https://www.youtube.com/playlist?list=PLFy_1HUkWwEAgPtwtjjLYpKCbBiwXamST}{youtube.com/playlist?list=PLFy\_1HUkWwEAgPtwtjjLYpKCbBiwXamST}.
+Here you can find a \href{https://docs.ragepluginhook.net/html/62951c37-a440-478c-b389-c471230ddfc5.htm}{list of available dictionaries and animations}.
+
+Give animations to nearby peds.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{//request animation dictionary}
+\NormalTok{Function.}\FunctionTok{Call}\NormalTok{(Hash.}\FunctionTok{REQUEST_ANIM_DICT}\NormalTok{, }\StringTok{"gestures@miss@fbi_5"}\NormalTok{);}
+\CommentTok{//wait for it to load}
+\FunctionTok{Wait}\NormalTok{(}\DecValTok{50}\NormalTok{);}
+\CommentTok{//get nearby ped}
+\NormalTok{Ped[] NearbyPeds = World.}\FunctionTok{GetNearbyPeds}\NormalTok{(Game.}\FunctionTok{Player}\NormalTok{.}\FunctionTok{Character}\NormalTok{, 20f);}
+\KeywordTok{foreach}\NormalTok{ (Ped p }\KeywordTok{in}\NormalTok{ NearbyPeds)}
+\NormalTok{\{   }
+    \CommentTok{//clear the peds of any tasks they might have}
+\NormalTok{    p.}\FunctionTok{Task}\NormalTok{.}\FunctionTok{ClearAllImmediately}\NormalTok{();}
+    \CommentTok{//play animation from animation dictionary}
+\NormalTok{    Function.}\FunctionTok{Call}\NormalTok{(Hash.}\FunctionTok{TASK_PLAY_ANIM}\NormalTok{, p, }\StringTok{"missfbi5ig_2"}\NormalTok{, }\StringTok{"crying_trevor"}\NormalTok{, }\FloatTok{8.0}\NormalTok{, }\FloatTok{8.0}\NormalTok{ * }\DecValTok{-1}\NormalTok{, }\DecValTok{-1}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{, }\KeywordTok{false}\NormalTok{, }\KeywordTok{false}\NormalTok{, }\KeywordTok{false}\NormalTok{);}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
 
 \hypertarget{teleporting}{%
 \subsection*{Teleporting}\label{teleporting}}
