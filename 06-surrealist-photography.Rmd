@@ -130,7 +130,7 @@ Jim.Delete();
 ```
 
 
-To handle groups of NPCs we can use the ```List``` class. A ```List``` is a collection of objects, and a ```List```of ```Peds``` allows us to store our NPCs. We can use an index to retrieve and control specific ```Peds``` in the group. ou can see the [reference](https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.list-1?view=net-7.0) for more detailed information.
+To handle groups of NPCs we can use the ```List``` class. A ```List``` is a collection of objects, and a ```List```of ```Peds``` allows us to store our NPCs. We can use an index to retrieve and control specific ```Peds``` in the group. You can see the [reference](https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.list-1?view=net-7.0) for more detailed information.
 
 Create a ```List``` of ```Peds``` named myPeds as a global variable in the public class ```public class moddingTutorial : Script```.
 ```cs
@@ -379,6 +379,36 @@ void ClearSecondary ()
 void ClearAnimation (string animSet, string animName)
 ```
 </details>
+
+
+You can spawn a group of NPCs and give them individual tasks. You can also make them interact with each other (or with the player character). Here we spawn 3 NPCs and tell the to fight with each other.
+
+```cs
+//create a list of Peds
+List<Ped> myPeds = new List<Ped>();
+//create a list of Ped models 
+List<Model> myPedModel = new List<Model>();
+//manually add models for each ped
+myPedModel.Add(PedHash.MovSpace01SMM);
+myPedModel.Add(PedHash.Doctor01SMM);
+myPedModel.Add(PedHash.AviSchwartzman);
+
+
+for(int i = 0; i < myPedModel.Count; i++)
+{
+    //spawn a new Ped for each model
+    var newPed = World.CreatePed(myPedModel[i], Game.Player.Character.GetOffsetInWorldCoords(new Vector3(i*2, 3, 0)));
+    //add the new Ped to my list of Peds
+    myPeds.Add(newPed);
+}
+
+myPeds[0].Task.FightAgainst(myPeds[1]);
+myPeds[1].Task.FightAgainst(myPeds[2]);
+myPeds[2].Task.FightAgainst(myPeds[0]);
+
+```
+
+
 
 ### Animations {-}
 //TO DO
