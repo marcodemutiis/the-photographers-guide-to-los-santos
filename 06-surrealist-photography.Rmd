@@ -40,7 +40,7 @@ A GTA V Ped can be created by the ```World.CreatePed``` function. This takes two
 The model IDs are the same we used in the previous tutorial, when we changed our character's appearance to a cat. A list of all available models can be found [here](https://wiki.gtanet.work/index.php/Peds). ```PedHash.Cat```, ```PedHash.Deer```, ```PedHash.AviSchwartzman```are all possible IDs we can assign to the NPC we want to create.
 We can create a new model variable, which we will name 'myPedModel' and assign it a model ID:
 ```cs 
-Models myPedModel = "PedHash.AviSchwartzman";
+Model myPedModel = PedHash.AviSchwartzman;
 ```
 
 The location where the NPC is created through a vector3 data type, which represents a vector in 3D space. This basically means a point that contains X, Y and Z coordinates. We can give absolute coordinates, making the Ped appear at a specific location in the game, but we can also use a location relative to our position in the game. In order not to risk making a Ped appear somewhere completely outside of our view – on some mountain or in the sea – let's look at a vector3 that points to a position in front of the player.
