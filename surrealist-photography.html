@@ -363,7 +363,7 @@ To make a Ped appear in front of the player we can create a vector3 data type wi
 <div class="sourceCode" id="cb21"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb21-1"><a href="surrealist-photography.html#cb21-1"></a>Jim.<span class="fu">Kill</span>();</span></code></pre></div>
 <p>Note that when you kill your <code>Ped</code> ‘Jim’, it falls on the floor and it won’t actually respond to any call or task you will give it, but it’s not removed from the game. To remove a specific <code>Ped</code> you not use the <code>Delete</code>function, which will remove that instance (and will make the NPC disappear).</p>
 <div class="sourceCode" id="cb22"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb22-1"><a href="surrealist-photography.html#cb22-1"></a>Jim.<span class="fu">Delete</span>();</span></code></pre></div>
-<p>To handle groups of NPCs we can use the <code>List</code> class. A <code>List</code> is a collection of objects, and a <code>List</code>of <code>Peds</code> allows us to store our NPCs. We can use an index to retrieve and control specific <code>Peds</code> in the group. ou can see the <a href="https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.list-1?view=net-7.0">reference</a> for more detailed information.</p>
+<p>To handle groups of NPCs we can use the <code>List</code> class. A <code>List</code> is a collection of objects, and a <code>List</code>of <code>Peds</code> allows us to store our NPCs. We can use an index to retrieve and control specific <code>Peds</code> in the group. You can see the <a href="https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.list-1?view=net-7.0">reference</a> for more detailed information.</p>
 <p>Create a <code>List</code> of <code>Peds</code> named myPeds as a global variable in the public class <code>public class moddingTutorial : Script</code>.</p>
 <div class="sourceCode" id="cb23"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb23-1"><a href="surrealist-photography.html#cb23-1"></a>List&lt;Ped&gt; myPeds = <span class="kw">new</span> List&lt;Ped&gt;();</span></code></pre></div>
 <p>In the onKeyDown function <code>private void onKeyDown(object sender, KeyEventArgs e)</code> create 5 new Peds with a <a href="https://www.w3schools.com/cs/cs_for_loop.php">For Loop</a></p>
@@ -577,6 +577,28 @@ We can give our NPC the task to fight against the player by using the <code>Figh
 <span id="cb32-148"><a href="surrealist-photography.html#cb32-148"></a> </span>
 <span id="cb32-149"><a href="surrealist-photography.html#cb32-149"></a><span class="dt">void</span> <span class="fu">ClearAnimation</span> (<span class="dt">string</span> animSet, <span class="dt">string</span> animName)</span></code></pre></div>
 </details>
+<p>You can spawn a group of NPCs and give them individual tasks. You can also make them interact with each other (or with the player character). Here we spawn 3 NPCs and tell the to fight with each other.</p>
+<div class="sourceCode" id="cb33"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb33-1"><a href="surrealist-photography.html#cb33-1"></a><span class="co">//create a list of Peds</span></span>
+<span id="cb33-2"><a href="surrealist-photography.html#cb33-2"></a>List&lt;Ped&gt; myPeds = <span class="kw">new</span> List&lt;Ped&gt;();</span>
+<span id="cb33-3"><a href="surrealist-photography.html#cb33-3"></a><span class="co">//create a list of Ped models </span></span>
+<span id="cb33-4"><a href="surrealist-photography.html#cb33-4"></a>List&lt;Model&gt; myPedModel = <span class="kw">new</span> List&lt;Model&gt;();</span>
+<span id="cb33-5"><a href="surrealist-photography.html#cb33-5"></a><span class="co">//manually add models for each ped</span></span>
+<span id="cb33-6"><a href="surrealist-photography.html#cb33-6"></a>myPedModel.<span class="fu">Add</span>(PedHash.<span class="fu">MovSpace01SMM</span>);</span>
+<span id="cb33-7"><a href="surrealist-photography.html#cb33-7"></a>myPedModel.<span class="fu">Add</span>(PedHash.<span class="fu">Doctor01SMM</span>);</span>
+<span id="cb33-8"><a href="surrealist-photography.html#cb33-8"></a>myPedModel.<span class="fu">Add</span>(PedHash.<span class="fu">AviSchwartzman</span>);</span>
+<span id="cb33-9"><a href="surrealist-photography.html#cb33-9"></a></span>
+<span id="cb33-10"><a href="surrealist-photography.html#cb33-10"></a></span>
+<span id="cb33-11"><a href="surrealist-photography.html#cb33-11"></a><span class="kw">for</span>(<span class="dt">int</span> i = <span class="dv">0</span>; i &lt; myPedModel.<span class="fu">Count</span>; i++)</span>
+<span id="cb33-12"><a href="surrealist-photography.html#cb33-12"></a>{</span>
+<span id="cb33-13"><a href="surrealist-photography.html#cb33-13"></a>    <span class="co">//spawn a new Ped for each model</span></span>
+<span id="cb33-14"><a href="surrealist-photography.html#cb33-14"></a>    <span class="dt">var</span> newPed = World.<span class="fu">CreatePed</span>(myPedModel[i], Game.<span class="fu">Player</span>.<span class="fu">Character</span>.<span class="fu">GetOffsetInWorldCoords</span>(<span class="kw">new</span> <span class="fu">Vector3</span>(i*<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">0</span>)));</span>
+<span id="cb33-15"><a href="surrealist-photography.html#cb33-15"></a>    <span class="co">//add the new Ped to my list of Peds</span></span>
+<span id="cb33-16"><a href="surrealist-photography.html#cb33-16"></a>    myPeds.<span class="fu">Add</span>(newPed);</span>
+<span id="cb33-17"><a href="surrealist-photography.html#cb33-17"></a>}</span>
+<span id="cb33-18"><a href="surrealist-photography.html#cb33-18"></a></span>
+<span id="cb33-19"><a href="surrealist-photography.html#cb33-19"></a>myPeds[<span class="dv">0</span>].<span class="fu">Task</span>.<span class="fu">FightAgainst</span>(myPeds[<span class="dv">1</span>]);</span>
+<span id="cb33-20"><a href="surrealist-photography.html#cb33-20"></a>myPeds[<span class="dv">1</span>].<span class="fu">Task</span>.<span class="fu">FightAgainst</span>(myPeds[<span class="dv">2</span>]);</span>
+<span id="cb33-21"><a href="surrealist-photography.html#cb33-21"></a>myPeds[<span class="dv">2</span>].<span class="fu">Task</span>.<span class="fu">FightAgainst</span>(myPeds[<span class="dv">0</span>]);</span></code></pre></div>
 </div>
 <div id="animations" class="section level3 unnumbered hasAnchor">
 <h3>Animations<a href="surrealist-photography.html#animations" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -590,11 +612,11 @@ We need to know the exact coordinates of the locations we want to teleport to, b
 COORDINATES: X:450.718 Y:5566.614 Z:806.183</code></pre>
 <p>To create a teleport function we will use a native function. Script Hook V Dot Net is a wrapper for the C++ ScriptHook, calling the functions in Scripthook to do things in the game. However, there are some functions that are not in Script Hook V Dot Net and in order to use these, we have to use the native calling from Script Hook.</p>
 <p><a href="https://nitanmarcel.github.io/shvdn-docs.github.io/namespace_g_t_a_1_1_native.html#a84977424e1cb7b6f1c2902770bf9ad2d">Native functions</a> are called with <code>Function.Call</code> followed by their corresponding hash name and parameters. They use this structure:</p>
-<div class="sourceCode" id="cb34"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb34-1"><a href="surrealist-photography.html#cb34-1"></a>Function.<span class="fu">Call</span>(Hash.<span class="fu">HASH_NAME</span>, input_params);</span></code></pre></div>
+<div class="sourceCode" id="cb35"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb35-1"><a href="surrealist-photography.html#cb35-1"></a>Function.<span class="fu">Call</span>(Hash.<span class="fu">HASH_NAME</span>, input_params);</span></code></pre></div>
 <p>The native function for teleporting expects the hash <code>SET_ENTITY_COORDS</code>, the <code>ped</code> entity to teleport, and the X, Y and Z coordinates to teleport the character to. <code>Function.Call(Hash.SET_ENTITY_COORDS, Ped ped, X, Y, Z, 0, 0, 1);</code></p>
 <p>The function to teleport the player character to the top of Moutn Chiliad is:</p>
-<div class="sourceCode" id="cb35"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb35-1"><a href="surrealist-photography.html#cb35-1"></a><span class="co">//Teleport to the top of Mount Chiliad</span></span>
-<span id="cb35-2"><a href="surrealist-photography.html#cb35-2"></a>Function.<span class="fu">Call</span>(Hash.<span class="fu">SET_ENTITY_COORDS</span>, Game.<span class="fu">Player</span>.<span class="fu">Character</span>, <span class="fl">450.718f</span>, <span class="fl">5566.614f</span>, <span class="fl">806.183f</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>);</span></code></pre></div>
+<div class="sourceCode" id="cb36"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb36-1"><a href="surrealist-photography.html#cb36-1"></a><span class="co">//Teleport to the top of Mount Chiliad</span></span>
+<span id="cb36-2"><a href="surrealist-photography.html#cb36-2"></a>Function.<span class="fu">Call</span>(Hash.<span class="fu">SET_ENTITY_COORDS</span>, Game.<span class="fu">Player</span>.<span class="fu">Character</span>, <span class="fl">450.718f</span>, <span class="fl">5566.614f</span>, <span class="fl">806.183f</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>);</span></code></pre></div>
 <p>See this <a href="https://gtaforums.com/topic/792877-list-of-over-100-coordinates-more-comming/">list of locations</a> to find their respective coordinates or click on the list below</p>
 <details>
 <p><summary>List of Locations with Coordinates</summary></p>

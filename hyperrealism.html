@@ -296,7 +296,7 @@ To set a specific camera view we can use the native function <code>SET_FOLLOW_PE
 <li>4 - First Person View</li>
 </ul>
 <p>Switch to first person view:</p>
-<div class="sourceCode" id="cb37"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb37-1"><a href="hyperrealism.html#cb37-1"></a>Function.<span class="fu">Call</span>(Hash.<span class="fu">SET_FOLLOW_PED_CAM_VIEW_MODE</span>, <span class="dv">4</span>); </span></code></pre></div>
+<div class="sourceCode" id="cb38"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb38-1"><a href="hyperrealism.html#cb38-1"></a>Function.<span class="fu">Call</span>(Hash.<span class="fu">SET_FOLLOW_PED_CAM_VIEW_MODE</span>, <span class="dv">4</span>); </span></code></pre></div>
 </div>
 <div id="controlling-the-game-camera" class="section level3 unnumbered hasAnchor">
 <h3>Controlling the Game Camera<a href="hyperrealism.html#controlling-the-game-camera" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -308,274 +308,274 @@ To set a specific camera view we can use the native function <code>SET_FOLLOW_PE
 <h3>Attach a Camera to an Entity<a href="hyperrealism.html#attach-a-camera-to-an-entity" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <details>
 <p><summary>Example code</summary></p>
-<div class="sourceCode" id="cb38"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb38-1"><a href="hyperrealism.html#cb38-1"></a><span class="kw">using</span> System;</span>
-<span id="cb38-2"><a href="hyperrealism.html#cb38-2"></a><span class="kw">using</span> System.<span class="fu">Collections</span>.<span class="fu">Generic</span>;</span>
-<span id="cb38-3"><a href="hyperrealism.html#cb38-3"></a><span class="kw">using</span> System.<span class="fu">Linq</span>;</span>
-<span id="cb38-4"><a href="hyperrealism.html#cb38-4"></a><span class="kw">using</span> System.<span class="fu">Text</span>;</span>
-<span id="cb38-5"><a href="hyperrealism.html#cb38-5"></a><span class="kw">using</span> System.<span class="fu">Threading</span>.<span class="fu">Tasks</span>;</span>
-<span id="cb38-6"><a href="hyperrealism.html#cb38-6"></a></span>
-<span id="cb38-7"><a href="hyperrealism.html#cb38-7"></a><span class="kw">using</span> GTA;</span>
-<span id="cb38-8"><a href="hyperrealism.html#cb38-8"></a><span class="kw">using</span> GTA.<span class="fu">Math</span>;</span>
-<span id="cb38-9"><a href="hyperrealism.html#cb38-9"></a><span class="kw">using</span> System.<span class="fu">Windows</span>.<span class="fu">Forms</span>;</span>
-<span id="cb38-10"><a href="hyperrealism.html#cb38-10"></a><span class="kw">using</span> System.<span class="fu">Drawing</span>;</span>
-<span id="cb38-11"><a href="hyperrealism.html#cb38-11"></a><span class="kw">using</span> GTA.<span class="fu">Native</span>;</span>
-<span id="cb38-12"><a href="hyperrealism.html#cb38-12"></a><span class="kw">using</span> System.<span class="fu">IO</span>;</span>
-<span id="cb38-13"><a href="hyperrealism.html#cb38-13"></a></span>
-<span id="cb38-14"><a href="hyperrealism.html#cb38-14"></a></span>
-<span id="cb38-15"><a href="hyperrealism.html#cb38-15"></a><span class="kw">namespace</span> moddingTutorial</span>
-<span id="cb38-16"><a href="hyperrealism.html#cb38-16"></a>{</span>
-<span id="cb38-17"><a href="hyperrealism.html#cb38-17"></a>    <span class="kw">public</span> <span class="kw">class</span> moddingTutorial : Script</span>
-<span id="cb38-18"><a href="hyperrealism.html#cb38-18"></a>    {</span>
-<span id="cb38-19"><a href="hyperrealism.html#cb38-19"></a>        Vector3 myCamPos;</span>
-<span id="cb38-20"><a href="hyperrealism.html#cb38-20"></a>        <span class="dt">int</span> CamSelect = <span class="dv">0</span>;</span>
-<span id="cb38-21"><a href="hyperrealism.html#cb38-21"></a>        Ped newPed = <span class="kw">null</span>;</span>
-<span id="cb38-22"><a href="hyperrealism.html#cb38-22"></a>        Camera myCam;</span>
-<span id="cb38-23"><a href="hyperrealism.html#cb38-23"></a></span>
-<span id="cb38-24"><a href="hyperrealism.html#cb38-24"></a>        <span class="kw">public</span> <span class="fu">moddingTutorial</span>()</span>
-<span id="cb38-25"><a href="hyperrealism.html#cb38-25"></a>        {</span>
-<span id="cb38-26"><a href="hyperrealism.html#cb38-26"></a>            <span class="kw">this</span>.<span class="fu">Tick</span> += onTick;</span>
-<span id="cb38-27"><a href="hyperrealism.html#cb38-27"></a>            <span class="kw">this</span>.<span class="fu">KeyUp</span> += onKeyUp;</span>
-<span id="cb38-28"><a href="hyperrealism.html#cb38-28"></a>            <span class="kw">this</span>.<span class="fu">KeyDown</span> += onKeyDown;</span>
-<span id="cb38-29"><a href="hyperrealism.html#cb38-29"></a>        }</span>
-<span id="cb38-30"><a href="hyperrealism.html#cb38-30"></a></span>
-<span id="cb38-31"><a href="hyperrealism.html#cb38-31"></a>        <span class="kw">private</span> <span class="dt">void</span> <span class="fu">onTick</span>(<span class="dt">object</span> sender, EventArgs e) <span class="co">//this function gets executed continuously </span></span>
-<span id="cb38-32"><a href="hyperrealism.html#cb38-32"></a>        {</span>
-<span id="cb38-33"><a href="hyperrealism.html#cb38-33"></a>            <span class="co">//exits from the loop if the game is loading</span></span>
-<span id="cb38-34"><a href="hyperrealism.html#cb38-34"></a>            <span class="kw">if</span> (Game.<span class="fu">IsLoading</span>) <span class="kw">return</span>;</span>
-<span id="cb38-35"><a href="hyperrealism.html#cb38-35"></a>            </span>
-<span id="cb38-36"><a href="hyperrealism.html#cb38-36"></a>            <span class="co">//update the cameras if the ped is spawn</span></span>
-<span id="cb38-37"><a href="hyperrealism.html#cb38-37"></a>            <span class="kw">if</span> (newPed != <span class="kw">null</span>)</span>
-<span id="cb38-38"><a href="hyperrealism.html#cb38-38"></a>            {           </span>
-<span id="cb38-39"><a href="hyperrealism.html#cb38-39"></a>                <span class="co">//create the cameras if none have been created yet.</span></span>
-<span id="cb38-40"><a href="hyperrealism.html#cb38-40"></a>                <span class="kw">if</span> (myCam == <span class="kw">null</span>)            </span>
-<span id="cb38-41"><a href="hyperrealism.html#cb38-41"></a>                {</span>
-<span id="cb38-42"><a href="hyperrealism.html#cb38-42"></a>                    UI.<span class="fu">ShowSubtitle</span>(<span class="st">&quot;Set new camera&quot;</span>);</span>
-<span id="cb38-43"><a href="hyperrealism.html#cb38-43"></a>                    myCam = World.<span class="fu">CreateCamera</span>(Vector3.<span class="fu">Zero</span>, newPed.<span class="fu">Rotation</span>, 50f);</span>
-<span id="cb38-44"><a href="hyperrealism.html#cb38-44"></a>                    <span class="co">// Set the camera position (relative pos)          </span></span>
-<span id="cb38-45"><a href="hyperrealism.html#cb38-45"></a>                    myCamPos = <span class="kw">new</span> <span class="fu">Vector3</span>(<span class="dv">0</span>, <span class="dv">0</span>, 1f);</span>
-<span id="cb38-46"><a href="hyperrealism.html#cb38-46"></a>                }</span>
-<span id="cb38-47"><a href="hyperrealism.html#cb38-47"></a>                <span class="co">//attach the cameras</span></span>
-<span id="cb38-48"><a href="hyperrealism.html#cb38-48"></a>                myCam.<span class="fu">AttachTo</span>(newPed, myCamPos);</span>
-<span id="cb38-49"><a href="hyperrealism.html#cb38-49"></a>                <span class="co">//sync rotation</span></span>
-<span id="cb38-50"><a href="hyperrealism.html#cb38-50"></a>                myCam.<span class="fu">Rotation</span> = newPed.<span class="fu">Rotation</span>;</span>
-<span id="cb38-51"><a href="hyperrealism.html#cb38-51"></a>            }</span>
-<span id="cb38-52"><a href="hyperrealism.html#cb38-52"></a>        }</span>
-<span id="cb38-53"><a href="hyperrealism.html#cb38-53"></a>        </span>
-<span id="cb38-54"><a href="hyperrealism.html#cb38-54"></a></span>
-<span id="cb38-55"><a href="hyperrealism.html#cb38-55"></a>        <span class="kw">private</span> <span class="dt">void</span> <span class="fu">onKeyUp</span>(<span class="dt">object</span> sender, KeyEventArgs e)<span class="co">//everything inside here is executed only when we release a key</span></span>
-<span id="cb38-56"><a href="hyperrealism.html#cb38-56"></a>        {</span>
-<span id="cb38-57"><a href="hyperrealism.html#cb38-57"></a>            <span class="co">//press control+K to switch between gameplay default camera and the NPC camera</span></span>
-<span id="cb38-58"><a href="hyperrealism.html#cb38-58"></a>            <span class="kw">if</span> (e.<span class="fu">KeyCode</span> == Keys.<span class="fu">K</span> &amp;&amp; e.<span class="fu">Modifiers</span> == Keys.<span class="fu">Shift</span> &amp;&amp; newPed != <span class="kw">null</span>)</span>
-<span id="cb38-59"><a href="hyperrealism.html#cb38-59"></a>            {</span>
-<span id="cb38-60"><a href="hyperrealism.html#cb38-60"></a>                CamSelect = (CamSelect + <span class="dv">1</span>) % <span class="dv">2</span>;</span>
-<span id="cb38-61"><a href="hyperrealism.html#cb38-61"></a>                <span class="kw">switch</span> (CamSelect)</span>
-<span id="cb38-62"><a href="hyperrealism.html#cb38-62"></a>                {</span>
-<span id="cb38-63"><a href="hyperrealism.html#cb38-63"></a>                    <span class="kw">case</span> <span class="dv">0</span>: World.<span class="fu">RenderingCamera</span> = <span class="kw">null</span>; </span>
-<span id="cb38-64"><a href="hyperrealism.html#cb38-64"></a>                        UI.<span class="fu">ShowSubtitle</span>(<span class="st">&quot;Showing Gameplay Cam View&quot;</span>); </span>
-<span id="cb38-65"><a href="hyperrealism.html#cb38-65"></a>                        <span class="kw">break</span>;</span>
-<span id="cb38-66"><a href="hyperrealism.html#cb38-66"></a>                    <span class="kw">case</span> <span class="dv">1</span>: World.<span class="fu">RenderingCamera</span> = myCam; </span>
-<span id="cb38-67"><a href="hyperrealism.html#cb38-67"></a>                        UI.<span class="fu">ShowSubtitle</span>(<span class="st">&quot;Showing NPC Cam View&quot;</span>); </span>
-<span id="cb38-68"><a href="hyperrealism.html#cb38-68"></a>                        <span class="kw">break</span>;</span>
-<span id="cb38-69"><a href="hyperrealism.html#cb38-69"></a>                }</span>
-<span id="cb38-70"><a href="hyperrealism.html#cb38-70"></a></span>
-<span id="cb38-71"><a href="hyperrealism.html#cb38-71"></a>            }</span>
-<span id="cb38-72"><a href="hyperrealism.html#cb38-72"></a>        }</span>
-<span id="cb38-73"><a href="hyperrealism.html#cb38-73"></a></span>
-<span id="cb38-74"><a href="hyperrealism.html#cb38-74"></a>        <span class="kw">private</span> <span class="dt">void</span> <span class="fu">onKeyDown</span>(<span class="dt">object</span> sender, KeyEventArgs e) <span class="co">//everything inside here is executed only when we press a key</span></span>
-<span id="cb38-75"><a href="hyperrealism.html#cb38-75"></a>        {</span>
-<span id="cb38-76"><a href="hyperrealism.html#cb38-76"></a>            <span class="kw">if</span>(e.<span class="fu">KeyCode</span> == Keys.<span class="fu">G</span>)</span>
-<span id="cb38-77"><a href="hyperrealism.html#cb38-77"></a>            {</span>
-<span id="cb38-78"><a href="hyperrealism.html#cb38-78"></a>                <span class="co">//spawn new Ped</span></span>
-<span id="cb38-79"><a href="hyperrealism.html#cb38-79"></a>                newPed = World.<span class="fu">CreatePed</span>(PedHash.<span class="fu">Cat</span>, Game.<span class="fu">Player</span>.<span class="fu">Character</span>.<span class="fu">GetOffsetInWorldCoords</span>(<span class="kw">new</span> <span class="fu">Vector3</span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">0</span>)));</span>
-<span id="cb38-80"><a href="hyperrealism.html#cb38-80"></a>            }</span>
-<span id="cb38-81"><a href="hyperrealism.html#cb38-81"></a>        </span>
-<span id="cb38-82"><a href="hyperrealism.html#cb38-82"></a>            <span class="kw">if</span> (e.<span class="fu">KeyCode</span> == Keys.<span class="fu">H</span>)</span>
-<span id="cb38-83"><a href="hyperrealism.html#cb38-83"></a>            {</span>
-<span id="cb38-84"><a href="hyperrealism.html#cb38-84"></a>                <span class="co">//follow player (persistent)</span></span>
-<span id="cb38-85"><a href="hyperrealism.html#cb38-85"></a>                Function.<span class="fu">Call</span>(Hash.<span class="fu">TASK_FOLLOW_TO_OFFSET_OF_ENTITY</span>, newPed.<span class="fu">Handle</span>, Game.<span class="fu">Player</span>.<span class="fu">Character</span>.<span class="fu">Handle</span>, 0f, 1f, 0f, <span class="fl">2.0f</span>, <span class="dv">-1</span>, 5f, <span class="kw">true</span>);</span>
-<span id="cb38-86"><a href="hyperrealism.html#cb38-86"></a>                <span class="co">//look at player</span></span>
-<span id="cb38-87"><a href="hyperrealism.html#cb38-87"></a>                newPed.<span class="fu">Task</span>.<span class="fu">LookAt</span>(Game.<span class="fu">Player</span>.<span class="fu">Character</span>);</span>
-<span id="cb38-88"><a href="hyperrealism.html#cb38-88"></a>            }</span>
-<span id="cb38-89"><a href="hyperrealism.html#cb38-89"></a>            <span class="kw">if</span> (e.<span class="fu">KeyCode</span> == Keys.<span class="fu">J</span>)</span>
-<span id="cb38-90"><a href="hyperrealism.html#cb38-90"></a>            {</span>
-<span id="cb38-91"><a href="hyperrealism.html#cb38-91"></a>                <span class="co">//stop NPC</span></span>
-<span id="cb38-92"><a href="hyperrealism.html#cb38-92"></a>                newPed.<span class="fu">Task</span>.<span class="fu">ClearAll</span>();</span>
-<span id="cb38-93"><a href="hyperrealism.html#cb38-93"></a>            }</span>
-<span id="cb38-94"><a href="hyperrealism.html#cb38-94"></a>            <span class="kw">if</span> (e.<span class="fu">KeyCode</span> == Keys.<span class="fu">L</span>)</span>
-<span id="cb38-95"><a href="hyperrealism.html#cb38-95"></a>            {   </span>
-<span id="cb38-96"><a href="hyperrealism.html#cb38-96"></a>                <span class="co">//delete ped</span></span>
-<span id="cb38-97"><a href="hyperrealism.html#cb38-97"></a>                newPed.<span class="fu">Delete</span>();</span>
-<span id="cb38-98"><a href="hyperrealism.html#cb38-98"></a>            }</span>
-<span id="cb38-99"><a href="hyperrealism.html#cb38-99"></a>        }</span>
-<span id="cb38-100"><a href="hyperrealism.html#cb38-100"></a>    }</span>
-<span id="cb38-101"><a href="hyperrealism.html#cb38-101"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb39"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb39-1"><a href="hyperrealism.html#cb39-1"></a><span class="kw">using</span> System;</span>
+<span id="cb39-2"><a href="hyperrealism.html#cb39-2"></a><span class="kw">using</span> System.<span class="fu">Collections</span>.<span class="fu">Generic</span>;</span>
+<span id="cb39-3"><a href="hyperrealism.html#cb39-3"></a><span class="kw">using</span> System.<span class="fu">Linq</span>;</span>
+<span id="cb39-4"><a href="hyperrealism.html#cb39-4"></a><span class="kw">using</span> System.<span class="fu">Text</span>;</span>
+<span id="cb39-5"><a href="hyperrealism.html#cb39-5"></a><span class="kw">using</span> System.<span class="fu">Threading</span>.<span class="fu">Tasks</span>;</span>
+<span id="cb39-6"><a href="hyperrealism.html#cb39-6"></a></span>
+<span id="cb39-7"><a href="hyperrealism.html#cb39-7"></a><span class="kw">using</span> GTA;</span>
+<span id="cb39-8"><a href="hyperrealism.html#cb39-8"></a><span class="kw">using</span> GTA.<span class="fu">Math</span>;</span>
+<span id="cb39-9"><a href="hyperrealism.html#cb39-9"></a><span class="kw">using</span> System.<span class="fu">Windows</span>.<span class="fu">Forms</span>;</span>
+<span id="cb39-10"><a href="hyperrealism.html#cb39-10"></a><span class="kw">using</span> System.<span class="fu">Drawing</span>;</span>
+<span id="cb39-11"><a href="hyperrealism.html#cb39-11"></a><span class="kw">using</span> GTA.<span class="fu">Native</span>;</span>
+<span id="cb39-12"><a href="hyperrealism.html#cb39-12"></a><span class="kw">using</span> System.<span class="fu">IO</span>;</span>
+<span id="cb39-13"><a href="hyperrealism.html#cb39-13"></a></span>
+<span id="cb39-14"><a href="hyperrealism.html#cb39-14"></a></span>
+<span id="cb39-15"><a href="hyperrealism.html#cb39-15"></a><span class="kw">namespace</span> moddingTutorial</span>
+<span id="cb39-16"><a href="hyperrealism.html#cb39-16"></a>{</span>
+<span id="cb39-17"><a href="hyperrealism.html#cb39-17"></a>    <span class="kw">public</span> <span class="kw">class</span> moddingTutorial : Script</span>
+<span id="cb39-18"><a href="hyperrealism.html#cb39-18"></a>    {</span>
+<span id="cb39-19"><a href="hyperrealism.html#cb39-19"></a>        Vector3 myCamPos;</span>
+<span id="cb39-20"><a href="hyperrealism.html#cb39-20"></a>        <span class="dt">int</span> CamSelect = <span class="dv">0</span>;</span>
+<span id="cb39-21"><a href="hyperrealism.html#cb39-21"></a>        Ped newPed = <span class="kw">null</span>;</span>
+<span id="cb39-22"><a href="hyperrealism.html#cb39-22"></a>        Camera myCam;</span>
+<span id="cb39-23"><a href="hyperrealism.html#cb39-23"></a></span>
+<span id="cb39-24"><a href="hyperrealism.html#cb39-24"></a>        <span class="kw">public</span> <span class="fu">moddingTutorial</span>()</span>
+<span id="cb39-25"><a href="hyperrealism.html#cb39-25"></a>        {</span>
+<span id="cb39-26"><a href="hyperrealism.html#cb39-26"></a>            <span class="kw">this</span>.<span class="fu">Tick</span> += onTick;</span>
+<span id="cb39-27"><a href="hyperrealism.html#cb39-27"></a>            <span class="kw">this</span>.<span class="fu">KeyUp</span> += onKeyUp;</span>
+<span id="cb39-28"><a href="hyperrealism.html#cb39-28"></a>            <span class="kw">this</span>.<span class="fu">KeyDown</span> += onKeyDown;</span>
+<span id="cb39-29"><a href="hyperrealism.html#cb39-29"></a>        }</span>
+<span id="cb39-30"><a href="hyperrealism.html#cb39-30"></a></span>
+<span id="cb39-31"><a href="hyperrealism.html#cb39-31"></a>        <span class="kw">private</span> <span class="dt">void</span> <span class="fu">onTick</span>(<span class="dt">object</span> sender, EventArgs e) <span class="co">//this function gets executed continuously </span></span>
+<span id="cb39-32"><a href="hyperrealism.html#cb39-32"></a>        {</span>
+<span id="cb39-33"><a href="hyperrealism.html#cb39-33"></a>            <span class="co">//exits from the loop if the game is loading</span></span>
+<span id="cb39-34"><a href="hyperrealism.html#cb39-34"></a>            <span class="kw">if</span> (Game.<span class="fu">IsLoading</span>) <span class="kw">return</span>;</span>
+<span id="cb39-35"><a href="hyperrealism.html#cb39-35"></a>            </span>
+<span id="cb39-36"><a href="hyperrealism.html#cb39-36"></a>            <span class="co">//update the cameras if the ped is spawn</span></span>
+<span id="cb39-37"><a href="hyperrealism.html#cb39-37"></a>            <span class="kw">if</span> (newPed != <span class="kw">null</span>)</span>
+<span id="cb39-38"><a href="hyperrealism.html#cb39-38"></a>            {           </span>
+<span id="cb39-39"><a href="hyperrealism.html#cb39-39"></a>                <span class="co">//create the cameras if none have been created yet.</span></span>
+<span id="cb39-40"><a href="hyperrealism.html#cb39-40"></a>                <span class="kw">if</span> (myCam == <span class="kw">null</span>)            </span>
+<span id="cb39-41"><a href="hyperrealism.html#cb39-41"></a>                {</span>
+<span id="cb39-42"><a href="hyperrealism.html#cb39-42"></a>                    UI.<span class="fu">ShowSubtitle</span>(<span class="st">&quot;Set new camera&quot;</span>);</span>
+<span id="cb39-43"><a href="hyperrealism.html#cb39-43"></a>                    myCam = World.<span class="fu">CreateCamera</span>(Vector3.<span class="fu">Zero</span>, newPed.<span class="fu">Rotation</span>, 50f);</span>
+<span id="cb39-44"><a href="hyperrealism.html#cb39-44"></a>                    <span class="co">// Set the camera position (relative pos)          </span></span>
+<span id="cb39-45"><a href="hyperrealism.html#cb39-45"></a>                    myCamPos = <span class="kw">new</span> <span class="fu">Vector3</span>(<span class="dv">0</span>, <span class="dv">0</span>, 1f);</span>
+<span id="cb39-46"><a href="hyperrealism.html#cb39-46"></a>                }</span>
+<span id="cb39-47"><a href="hyperrealism.html#cb39-47"></a>                <span class="co">//attach the cameras</span></span>
+<span id="cb39-48"><a href="hyperrealism.html#cb39-48"></a>                myCam.<span class="fu">AttachTo</span>(newPed, myCamPos);</span>
+<span id="cb39-49"><a href="hyperrealism.html#cb39-49"></a>                <span class="co">//sync rotation</span></span>
+<span id="cb39-50"><a href="hyperrealism.html#cb39-50"></a>                myCam.<span class="fu">Rotation</span> = newPed.<span class="fu">Rotation</span>;</span>
+<span id="cb39-51"><a href="hyperrealism.html#cb39-51"></a>            }</span>
+<span id="cb39-52"><a href="hyperrealism.html#cb39-52"></a>        }</span>
+<span id="cb39-53"><a href="hyperrealism.html#cb39-53"></a>        </span>
+<span id="cb39-54"><a href="hyperrealism.html#cb39-54"></a></span>
+<span id="cb39-55"><a href="hyperrealism.html#cb39-55"></a>        <span class="kw">private</span> <span class="dt">void</span> <span class="fu">onKeyUp</span>(<span class="dt">object</span> sender, KeyEventArgs e)<span class="co">//everything inside here is executed only when we release a key</span></span>
+<span id="cb39-56"><a href="hyperrealism.html#cb39-56"></a>        {</span>
+<span id="cb39-57"><a href="hyperrealism.html#cb39-57"></a>            <span class="co">//press control+K to switch between gameplay default camera and the NPC camera</span></span>
+<span id="cb39-58"><a href="hyperrealism.html#cb39-58"></a>            <span class="kw">if</span> (e.<span class="fu">KeyCode</span> == Keys.<span class="fu">K</span> &amp;&amp; e.<span class="fu">Modifiers</span> == Keys.<span class="fu">Shift</span> &amp;&amp; newPed != <span class="kw">null</span>)</span>
+<span id="cb39-59"><a href="hyperrealism.html#cb39-59"></a>            {</span>
+<span id="cb39-60"><a href="hyperrealism.html#cb39-60"></a>                CamSelect = (CamSelect + <span class="dv">1</span>) % <span class="dv">2</span>;</span>
+<span id="cb39-61"><a href="hyperrealism.html#cb39-61"></a>                <span class="kw">switch</span> (CamSelect)</span>
+<span id="cb39-62"><a href="hyperrealism.html#cb39-62"></a>                {</span>
+<span id="cb39-63"><a href="hyperrealism.html#cb39-63"></a>                    <span class="kw">case</span> <span class="dv">0</span>: World.<span class="fu">RenderingCamera</span> = <span class="kw">null</span>; </span>
+<span id="cb39-64"><a href="hyperrealism.html#cb39-64"></a>                        UI.<span class="fu">ShowSubtitle</span>(<span class="st">&quot;Showing Gameplay Cam View&quot;</span>); </span>
+<span id="cb39-65"><a href="hyperrealism.html#cb39-65"></a>                        <span class="kw">break</span>;</span>
+<span id="cb39-66"><a href="hyperrealism.html#cb39-66"></a>                    <span class="kw">case</span> <span class="dv">1</span>: World.<span class="fu">RenderingCamera</span> = myCam; </span>
+<span id="cb39-67"><a href="hyperrealism.html#cb39-67"></a>                        UI.<span class="fu">ShowSubtitle</span>(<span class="st">&quot;Showing NPC Cam View&quot;</span>); </span>
+<span id="cb39-68"><a href="hyperrealism.html#cb39-68"></a>                        <span class="kw">break</span>;</span>
+<span id="cb39-69"><a href="hyperrealism.html#cb39-69"></a>                }</span>
+<span id="cb39-70"><a href="hyperrealism.html#cb39-70"></a></span>
+<span id="cb39-71"><a href="hyperrealism.html#cb39-71"></a>            }</span>
+<span id="cb39-72"><a href="hyperrealism.html#cb39-72"></a>        }</span>
+<span id="cb39-73"><a href="hyperrealism.html#cb39-73"></a></span>
+<span id="cb39-74"><a href="hyperrealism.html#cb39-74"></a>        <span class="kw">private</span> <span class="dt">void</span> <span class="fu">onKeyDown</span>(<span class="dt">object</span> sender, KeyEventArgs e) <span class="co">//everything inside here is executed only when we press a key</span></span>
+<span id="cb39-75"><a href="hyperrealism.html#cb39-75"></a>        {</span>
+<span id="cb39-76"><a href="hyperrealism.html#cb39-76"></a>            <span class="kw">if</span>(e.<span class="fu">KeyCode</span> == Keys.<span class="fu">G</span>)</span>
+<span id="cb39-77"><a href="hyperrealism.html#cb39-77"></a>            {</span>
+<span id="cb39-78"><a href="hyperrealism.html#cb39-78"></a>                <span class="co">//spawn new Ped</span></span>
+<span id="cb39-79"><a href="hyperrealism.html#cb39-79"></a>                newPed = World.<span class="fu">CreatePed</span>(PedHash.<span class="fu">Cat</span>, Game.<span class="fu">Player</span>.<span class="fu">Character</span>.<span class="fu">GetOffsetInWorldCoords</span>(<span class="kw">new</span> <span class="fu">Vector3</span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">0</span>)));</span>
+<span id="cb39-80"><a href="hyperrealism.html#cb39-80"></a>            }</span>
+<span id="cb39-81"><a href="hyperrealism.html#cb39-81"></a>        </span>
+<span id="cb39-82"><a href="hyperrealism.html#cb39-82"></a>            <span class="kw">if</span> (e.<span class="fu">KeyCode</span> == Keys.<span class="fu">H</span>)</span>
+<span id="cb39-83"><a href="hyperrealism.html#cb39-83"></a>            {</span>
+<span id="cb39-84"><a href="hyperrealism.html#cb39-84"></a>                <span class="co">//follow player (persistent)</span></span>
+<span id="cb39-85"><a href="hyperrealism.html#cb39-85"></a>                Function.<span class="fu">Call</span>(Hash.<span class="fu">TASK_FOLLOW_TO_OFFSET_OF_ENTITY</span>, newPed.<span class="fu">Handle</span>, Game.<span class="fu">Player</span>.<span class="fu">Character</span>.<span class="fu">Handle</span>, 0f, 1f, 0f, <span class="fl">2.0f</span>, <span class="dv">-1</span>, 5f, <span class="kw">true</span>);</span>
+<span id="cb39-86"><a href="hyperrealism.html#cb39-86"></a>                <span class="co">//look at player</span></span>
+<span id="cb39-87"><a href="hyperrealism.html#cb39-87"></a>                newPed.<span class="fu">Task</span>.<span class="fu">LookAt</span>(Game.<span class="fu">Player</span>.<span class="fu">Character</span>);</span>
+<span id="cb39-88"><a href="hyperrealism.html#cb39-88"></a>            }</span>
+<span id="cb39-89"><a href="hyperrealism.html#cb39-89"></a>            <span class="kw">if</span> (e.<span class="fu">KeyCode</span> == Keys.<span class="fu">J</span>)</span>
+<span id="cb39-90"><a href="hyperrealism.html#cb39-90"></a>            {</span>
+<span id="cb39-91"><a href="hyperrealism.html#cb39-91"></a>                <span class="co">//stop NPC</span></span>
+<span id="cb39-92"><a href="hyperrealism.html#cb39-92"></a>                newPed.<span class="fu">Task</span>.<span class="fu">ClearAll</span>();</span>
+<span id="cb39-93"><a href="hyperrealism.html#cb39-93"></a>            }</span>
+<span id="cb39-94"><a href="hyperrealism.html#cb39-94"></a>            <span class="kw">if</span> (e.<span class="fu">KeyCode</span> == Keys.<span class="fu">L</span>)</span>
+<span id="cb39-95"><a href="hyperrealism.html#cb39-95"></a>            {   </span>
+<span id="cb39-96"><a href="hyperrealism.html#cb39-96"></a>                <span class="co">//delete ped</span></span>
+<span id="cb39-97"><a href="hyperrealism.html#cb39-97"></a>                newPed.<span class="fu">Delete</span>();</span>
+<span id="cb39-98"><a href="hyperrealism.html#cb39-98"></a>            }</span>
+<span id="cb39-99"><a href="hyperrealism.html#cb39-99"></a>        }</span>
+<span id="cb39-100"><a href="hyperrealism.html#cb39-100"></a>    }</span>
+<span id="cb39-101"><a href="hyperrealism.html#cb39-101"></a>}</span></code></pre></div>
 </details>
 </div>
 <div id="switching-character-through-satellite-camera-view" class="section level3 unnumbered hasAnchor">
 <h3>Switching Character through Satellite Camera View<a href="hyperrealism.html#switching-character-through-satellite-camera-view" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <details>
 <p><summary>Example code</summary></p>
-<div class="sourceCode" id="cb39"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb39-1"><a href="hyperrealism.html#cb39-1"></a>    </span>
-<span id="cb39-2"><a href="hyperrealism.html#cb39-2"></a><span class="co">/*</span></span>
-<span id="cb39-3"><a href="hyperrealism.html#cb39-3"></a><span class="co">    this was adapted from code shared by LeeC22 on gtaforums.com</span></span>
-<span id="cb39-4"><a href="hyperrealism.html#cb39-4"></a><span class="co">    https://gtaforums.com/topic/951002-c-looking-for-player-switch-sample-solved-by-me/#comment-1071197769</span></span>
-<span id="cb39-5"><a href="hyperrealism.html#cb39-5"></a><span class="co">*/</span></span>
-<span id="cb39-6"><a href="hyperrealism.html#cb39-6"></a>    </span>
-<span id="cb39-7"><a href="hyperrealism.html#cb39-7"></a><span class="kw">using</span> System;</span>
-<span id="cb39-8"><a href="hyperrealism.html#cb39-8"></a><span class="kw">using</span> System.<span class="fu">Collections</span>.<span class="fu">Generic</span>;</span>
-<span id="cb39-9"><a href="hyperrealism.html#cb39-9"></a><span class="kw">using</span> System.<span class="fu">Linq</span>;</span>
-<span id="cb39-10"><a href="hyperrealism.html#cb39-10"></a><span class="kw">using</span> System.<span class="fu">Text</span>;</span>
-<span id="cb39-11"><a href="hyperrealism.html#cb39-11"></a><span class="kw">using</span> System.<span class="fu">Threading</span>.<span class="fu">Tasks</span>;</span>
-<span id="cb39-12"><a href="hyperrealism.html#cb39-12"></a></span>
-<span id="cb39-13"><a href="hyperrealism.html#cb39-13"></a><span class="kw">using</span> GTA;</span>
-<span id="cb39-14"><a href="hyperrealism.html#cb39-14"></a><span class="kw">using</span> GTA.<span class="fu">Math</span>;</span>
-<span id="cb39-15"><a href="hyperrealism.html#cb39-15"></a><span class="kw">using</span> System.<span class="fu">Windows</span>.<span class="fu">Forms</span>;</span>
-<span id="cb39-16"><a href="hyperrealism.html#cb39-16"></a><span class="kw">using</span> System.<span class="fu">Drawing</span>;</span>
-<span id="cb39-17"><a href="hyperrealism.html#cb39-17"></a><span class="kw">using</span> GTA.<span class="fu">Native</span>;</span>
-<span id="cb39-18"><a href="hyperrealism.html#cb39-18"></a><span class="kw">using</span> System.<span class="fu">IO</span>;</span>
-<span id="cb39-19"><a href="hyperrealism.html#cb39-19"></a></span>
-<span id="cb39-20"><a href="hyperrealism.html#cb39-20"></a></span>
-<span id="cb39-21"><a href="hyperrealism.html#cb39-21"></a><span class="kw">namespace</span> moddingTutorial</span>
-<span id="cb39-22"><a href="hyperrealism.html#cb39-22"></a>{</span>
-<span id="cb39-23"><a href="hyperrealism.html#cb39-23"></a>    <span class="kw">public</span> <span class="kw">class</span> moddingTutorial : Script</span>
-<span id="cb39-24"><a href="hyperrealism.html#cb39-24"></a>    {</span>
-<span id="cb39-25"><a href="hyperrealism.html#cb39-25"></a>        Ped newPed = <span class="kw">null</span>;</span>
-<span id="cb39-26"><a href="hyperrealism.html#cb39-26"></a>        Vector3 SwitchLocation2;</span>
-<span id="cb39-27"><a href="hyperrealism.html#cb39-27"></a>        List&lt;Vector3&gt; switchLocations = <span class="kw">new</span> List&lt;Vector3&gt;();</span>
-<span id="cb39-28"><a href="hyperrealism.html#cb39-28"></a>        <span class="dt">int</span> index = <span class="dv">0</span>;</span>
-<span id="cb39-29"><a href="hyperrealism.html#cb39-29"></a>        List&lt;String&gt; models = <span class="kw">new</span> List&lt;String&gt;();</span>
-<span id="cb39-30"><a href="hyperrealism.html#cb39-30"></a>        <span class="dt">int</span> modelIndex = <span class="dv">0</span>;</span>
-<span id="cb39-31"><a href="hyperrealism.html#cb39-31"></a></span>
-<span id="cb39-32"><a href="hyperrealism.html#cb39-32"></a>        <span class="kw">public</span> <span class="fu">moddingTutorial</span>()</span>
-<span id="cb39-33"><a href="hyperrealism.html#cb39-33"></a>        {</span>
-<span id="cb39-34"><a href="hyperrealism.html#cb39-34"></a>            <span class="kw">this</span>.<span class="fu">Tick</span> += onTick;</span>
-<span id="cb39-35"><a href="hyperrealism.html#cb39-35"></a>            <span class="kw">this</span>.<span class="fu">KeyUp</span> += onKeyUp;</span>
-<span id="cb39-36"><a href="hyperrealism.html#cb39-36"></a>            <span class="kw">this</span>.<span class="fu">KeyDown</span> += onKeyDown;</span>
-<span id="cb39-37"><a href="hyperrealism.html#cb39-37"></a></span>
-<span id="cb39-38"><a href="hyperrealism.html#cb39-38"></a>        <span class="co">//add locations to the switchLocations list</span></span>
-<span id="cb39-39"><a href="hyperrealism.html#cb39-39"></a>            switchLocations.<span class="fu">Add</span>(<span class="kw">new</span> <span class="fu">Vector3</span>(<span class="fl">24.775f</span>, <span class="fl">7644.102f</span>, <span class="fl">18.055f</span>)); <span class="co">//Most Northerly Point</span></span>
-<span id="cb39-40"><a href="hyperrealism.html#cb39-40"></a>            switchLocations.<span class="fu">Add</span>(<span class="kw">new</span> <span class="fu">Vector3</span>(-<span class="fl">595.342f</span>, <span class="fl">2086.008f</span>, <span class="fl">130.412f</span>)); <span class="co">//Mine</span></span>
-<span id="cb39-41"><a href="hyperrealism.html#cb39-41"></a>            switchLocations.<span class="fu">Add</span>(<span class="kw">new</span> <span class="fu">Vector3</span>(<span class="fl">150.126f</span>, <span class="fl">-754.591f</span>, <span class="fl">261.865f</span>)); <span class="co">//FIB Roof </span></span>
-<span id="cb39-42"><a href="hyperrealism.html#cb39-42"></a>    </span>
-<span id="cb39-43"><a href="hyperrealism.html#cb39-43"></a>        <span class="co">//add models to the models list</span></span>
-<span id="cb39-44"><a href="hyperrealism.html#cb39-44"></a>            models.<span class="fu">Add</span>(<span class="st">&quot;s_m_m_doctor_01&quot;</span>);</span>
-<span id="cb39-45"><a href="hyperrealism.html#cb39-45"></a>            models.<span class="fu">Add</span>(<span class="st">&quot;s_m_m_migrant_01&quot;</span>);</span>
-<span id="cb39-46"><a href="hyperrealism.html#cb39-46"></a>            models.<span class="fu">Add</span>(<span class="st">&quot;a_c_cormorant&quot;</span>);</span>
-<span id="cb39-47"><a href="hyperrealism.html#cb39-47"></a>            models.<span class="fu">Add</span>(<span class="st">&quot;a_c_deer&quot;</span>);</span>
-<span id="cb39-48"><a href="hyperrealism.html#cb39-48"></a>            models.<span class="fu">Add</span>(<span class="st">&quot;a_c_pug&quot;</span>);</span>
-<span id="cb39-49"><a href="hyperrealism.html#cb39-49"></a>        }</span>
-<span id="cb39-50"><a href="hyperrealism.html#cb39-50"></a></span>
-<span id="cb39-51"><a href="hyperrealism.html#cb39-51"></a>        <span class="kw">private</span> <span class="dt">void</span> <span class="fu">onTick</span>(<span class="dt">object</span> sender, EventArgs e) <span class="co">//this function gets executed continuously </span></span>
-<span id="cb39-52"><a href="hyperrealism.html#cb39-52"></a>        {</span>
-<span id="cb39-53"><a href="hyperrealism.html#cb39-53"></a>            </span>
-<span id="cb39-54"><a href="hyperrealism.html#cb39-54"></a>            <span class="co">//If the character switch is in process</span></span>
-<span id="cb39-55"><a href="hyperrealism.html#cb39-55"></a>            <span class="kw">if</span> (Function.<span class="fu">Call</span>&lt;<span class="dt">bool</span>&gt;(Hash.<span class="fu">IS_PLAYER_SWITCH_IN_PROGRESS</span>))</span>
-<span id="cb39-56"><a href="hyperrealism.html#cb39-56"></a>            {</span>
-<span id="cb39-57"><a href="hyperrealism.html#cb39-57"></a>                <span class="co">//If Switch State is 8 – that&#39;s the point when it starts dropping to the player </span></span>
-<span id="cb39-58"><a href="hyperrealism.html#cb39-58"></a>                <span class="kw">if</span> (Function.<span class="fu">Call</span>&lt;<span class="dt">int</span>&gt;(Hash.<span class="fu">GET_PLAYER_SWITCH_STATE</span>) == <span class="dv">8</span>)</span>
-<span id="cb39-59"><a href="hyperrealism.html#cb39-59"></a>                {</span>
-<span id="cb39-60"><a href="hyperrealism.html#cb39-60"></a>                    <span class="co">//Set the player to the switch location</span></span>
-<span id="cb39-61"><a href="hyperrealism.html#cb39-61"></a>                    Game.<span class="fu">Player</span>.<span class="fu">Character</span>.<span class="fu">Position</span> = switchLocations[index];</span>
-<span id="cb39-62"><a href="hyperrealism.html#cb39-62"></a></span>
-<span id="cb39-63"><a href="hyperrealism.html#cb39-63"></a>                    <span class="co">//Generate the hash for the chosen model</span></span>
-<span id="cb39-64"><a href="hyperrealism.html#cb39-64"></a>                    <span class="dt">int</span> poshHash = Game.<span class="fu">GenerateHash</span>(models[modelIndex]);</span>
-<span id="cb39-65"><a href="hyperrealism.html#cb39-65"></a></span>
-<span id="cb39-66"><a href="hyperrealism.html#cb39-66"></a>                    <span class="co">//Create the model</span></span>
-<span id="cb39-67"><a href="hyperrealism.html#cb39-67"></a>                    Model poshModel = <span class="kw">new</span> <span class="fu">Model</span>(poshHash);</span>
-<span id="cb39-68"><a href="hyperrealism.html#cb39-68"></a></span>
-<span id="cb39-69"><a href="hyperrealism.html#cb39-69"></a>                    <span class="co">//Check if it is valid</span></span>
-<span id="cb39-70"><a href="hyperrealism.html#cb39-70"></a>                    <span class="kw">if</span> (poshModel.<span class="fu">IsValid</span>)</span>
-<span id="cb39-71"><a href="hyperrealism.html#cb39-71"></a>                    {</span>
-<span id="cb39-72"><a href="hyperrealism.html#cb39-72"></a>                        <span class="co">//Wait for it to load, should be okay because it was used to create the target ped</span></span>
-<span id="cb39-73"><a href="hyperrealism.html#cb39-73"></a>                        <span class="kw">while</span> (!poshModel.<span class="fu">IsLoaded</span>)</span>
-<span id="cb39-74"><a href="hyperrealism.html#cb39-74"></a>                        {</span>
-<span id="cb39-75"><a href="hyperrealism.html#cb39-75"></a>                            <span class="fu">Wait</span>(<span class="dv">100</span>);</span>
-<span id="cb39-76"><a href="hyperrealism.html#cb39-76"></a>                        }</span>
-<span id="cb39-77"><a href="hyperrealism.html#cb39-77"></a></span>
-<span id="cb39-78"><a href="hyperrealism.html#cb39-78"></a>                        <span class="co">//Change the player model to the target ped model</span></span>
-<span id="cb39-79"><a href="hyperrealism.html#cb39-79"></a>                        Function.<span class="fu">Call</span>(Hash.<span class="fu">SET_PLAYER_MODEL</span>, Game.<span class="fu">Player</span>, poshHash);</span>
-<span id="cb39-80"><a href="hyperrealism.html#cb39-80"></a></span>
-<span id="cb39-81"><a href="hyperrealism.html#cb39-81"></a>                        <span class="co">//Let the game clean up the created Model</span></span>
-<span id="cb39-82"><a href="hyperrealism.html#cb39-82"></a>                        poshModel.<span class="fu">MarkAsNoLongerNeeded</span>();</span>
-<span id="cb39-83"><a href="hyperrealism.html#cb39-83"></a>                    }</span>
-<span id="cb39-84"><a href="hyperrealism.html#cb39-84"></a>                    <span class="kw">else</span></span>
-<span id="cb39-85"><a href="hyperrealism.html#cb39-85"></a>                    {</span>
-<span id="cb39-86"><a href="hyperrealism.html#cb39-86"></a>                        <span class="co">//Falls to here if the model valid check fails</span></span>
-<span id="cb39-87"><a href="hyperrealism.html#cb39-87"></a>                        Function.<span class="fu">Call</span>(Hash.<span class="fu">SET_PLAYER_MODEL</span>, Game.<span class="fu">Player</span>, (<span class="dt">int</span>)PedHash.<span class="fu">Tourist01AFY</span>);</span>
-<span id="cb39-88"><a href="hyperrealism.html#cb39-88"></a>                    }</span>
-<span id="cb39-89"><a href="hyperrealism.html#cb39-89"></a></span>
-<span id="cb39-90"><a href="hyperrealism.html#cb39-90"></a>                    <span class="co">//Delete the target ped as it&#39;s no longer needed</span></span>
-<span id="cb39-91"><a href="hyperrealism.html#cb39-91"></a>                    newPed.<span class="fu">Delete</span>();</span>
-<span id="cb39-92"><a href="hyperrealism.html#cb39-92"></a>                    </span>
-<span id="cb39-93"><a href="hyperrealism.html#cb39-93"></a></span>
-<span id="cb39-94"><a href="hyperrealism.html#cb39-94"></a>                    <span class="co">// Set the switch outro based on the gameplay camera position</span></span>
-<span id="cb39-95"><a href="hyperrealism.html#cb39-95"></a>                    <span class="co">// Function.Call((Hash)0xC208B673CE446B61, camPos.X, camPos.Y, camPos.Z, camRot.X, camRot.Y, camRot.Z, camFOV, camFarClip, p8);</span></span>
-<span id="cb39-96"><a href="hyperrealism.html#cb39-96"></a></span>
-<span id="cb39-97"><a href="hyperrealism.html#cb39-97"></a>                    Function.<span class="fu">Call</span>((Hash)<span class="bn">0xC208B673CE446B61</span>, GameplayCamera.<span class="fu">Position</span>.<span class="fu">X</span>, GameplayCamera.<span class="fu">Position</span>.<span class="fu">Y</span>, GameplayCamera.<span class="fu">Position</span>.<span class="fu">Z</span>, GameplayCamera.<span class="fu">Rotation</span>.<span class="fu">X</span>, GameplayCamera.<span class="fu">Rotation</span>.<span class="fu">Y</span>, GameplayCamera.<span class="fu">Rotation</span>.<span class="fu">Z</span>, GameplayCamera.<span class="fu">FieldOfView</span>, <span class="dv">500</span>, <span class="dv">2</span>);</span>
-<span id="cb39-98"><a href="hyperrealism.html#cb39-98"></a></span>
-<span id="cb39-99"><a href="hyperrealism.html#cb39-99"></a>                    <span class="co">//Call this unknown native that seems to finish things off</span></span>
-<span id="cb39-100"><a href="hyperrealism.html#cb39-100"></a>                    Function.<span class="fu">Call</span>(Hash._<span class="bn">0x74DE2E8739086740</span>);</span>
-<span id="cb39-101"><a href="hyperrealism.html#cb39-101"></a></span>
-<span id="cb39-102"><a href="hyperrealism.html#cb39-102"></a>            <span class="co">//Make the character wander around autonomously</span></span>
-<span id="cb39-103"><a href="hyperrealism.html#cb39-103"></a>                    Game.<span class="fu">Player</span>.<span class="fu">Character</span>.<span class="fu">Task</span>.<span class="fu">WanderAround</span>();</span>
-<span id="cb39-104"><a href="hyperrealism.html#cb39-104"></a>                }</span>
-<span id="cb39-105"><a href="hyperrealism.html#cb39-105"></a>            }</span>
-<span id="cb39-106"><a href="hyperrealism.html#cb39-106"></a></span>
-<span id="cb39-107"><a href="hyperrealism.html#cb39-107"></a>        }</span>
-<span id="cb39-108"><a href="hyperrealism.html#cb39-108"></a></span>
-<span id="cb39-109"><a href="hyperrealism.html#cb39-109"></a></span>
-<span id="cb39-110"><a href="hyperrealism.html#cb39-110"></a>        <span class="kw">private</span> <span class="dt">void</span> <span class="fu">onKeyUp</span>(<span class="dt">object</span> sender, KeyEventArgs e)</span>
-<span id="cb39-111"><a href="hyperrealism.html#cb39-111"></a>        {</span>
-<span id="cb39-112"><a href="hyperrealism.html#cb39-112"></a></span>
-<span id="cb39-113"><a href="hyperrealism.html#cb39-113"></a>        }</span>
-<span id="cb39-114"><a href="hyperrealism.html#cb39-114"></a></span>
-<span id="cb39-115"><a href="hyperrealism.html#cb39-115"></a>        <span class="kw">private</span> <span class="dt">void</span> <span class="fu">onKeyDown</span>(<span class="dt">object</span> sender, KeyEventArgs e)</span>
-<span id="cb39-116"><a href="hyperrealism.html#cb39-116"></a>        {</span>
-<span id="cb39-117"><a href="hyperrealism.html#cb39-117"></a>            <span class="kw">if</span> (e.<span class="fu">KeyCode</span> == Keys.<span class="fu">G</span>)</span>
-<span id="cb39-118"><a href="hyperrealism.html#cb39-118"></a>            {</span>
-<span id="cb39-119"><a href="hyperrealism.html#cb39-119"></a>        <span class="co">//Stop previous tasks</span></span>
-<span id="cb39-120"><a href="hyperrealism.html#cb39-120"></a>                Game.<span class="fu">Player</span>.<span class="fu">Character</span>.<span class="fu">Task</span>.<span class="fu">ClearAll</span>();</span>
-<span id="cb39-121"><a href="hyperrealism.html#cb39-121"></a></span>
-<span id="cb39-122"><a href="hyperrealism.html#cb39-122"></a>                <span class="co">//Move the index to the next location</span></span>
-<span id="cb39-123"><a href="hyperrealism.html#cb39-123"></a>                index++;</span>
-<span id="cb39-124"><a href="hyperrealism.html#cb39-124"></a>                <span class="kw">if</span> (index &gt;= switchLocations.<span class="fu">Count</span>) index = <span class="dv">0</span>;</span>
-<span id="cb39-125"><a href="hyperrealism.html#cb39-125"></a>                </span>
-<span id="cb39-126"><a href="hyperrealism.html#cb39-126"></a>        <span class="co">//Move the index to the new ped model</span></span>
-<span id="cb39-127"><a href="hyperrealism.html#cb39-127"></a>                modelIndex++;</span>
-<span id="cb39-128"><a href="hyperrealism.html#cb39-128"></a>                <span class="kw">if</span> (modelIndex &gt;= models.<span class="fu">Count</span>) modelIndex = <span class="dv">0</span>;</span>
-<span id="cb39-129"><a href="hyperrealism.html#cb39-129"></a></span>
-<span id="cb39-130"><a href="hyperrealism.html#cb39-130"></a>                <span class="co">//Create the ped to switch to</span></span>
-<span id="cb39-131"><a href="hyperrealism.html#cb39-131"></a>                newPed = World.<span class="fu">CreatePed</span>(models[modelIndex], switchLocations[index]);</span>
-<span id="cb39-132"><a href="hyperrealism.html#cb39-132"></a></span>
-<span id="cb39-133"><a href="hyperrealism.html#cb39-133"></a>                <span class="co">//Native function to initiate the switch Function.Call(Hash.START_PLAYER_SWITCH, fromPed.Handle, toPed.Handle, flags, switchType);</span></span>
-<span id="cb39-134"><a href="hyperrealism.html#cb39-134"></a>                Function.<span class="fu">Call</span>(Hash.<span class="fu">START_PLAYER_SWITCH</span>, Game.<span class="fu">Player</span>.<span class="fu">Character</span>.<span class="fu">Handle</span>, newPed.<span class="fu">Handle</span>, <span class="dv">8</span>, <span class="dv">0</span>);</span>
-<span id="cb39-135"><a href="hyperrealism.html#cb39-135"></a></span>
-<span id="cb39-136"><a href="hyperrealism.html#cb39-136"></a>            }</span>
-<span id="cb39-137"><a href="hyperrealism.html#cb39-137"></a>        }</span>
-<span id="cb39-138"><a href="hyperrealism.html#cb39-138"></a>    }</span>
-<span id="cb39-139"><a href="hyperrealism.html#cb39-139"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb40"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb40-1"><a href="hyperrealism.html#cb40-1"></a>    </span>
+<span id="cb40-2"><a href="hyperrealism.html#cb40-2"></a><span class="co">/*</span></span>
+<span id="cb40-3"><a href="hyperrealism.html#cb40-3"></a><span class="co">    this was adapted from code shared by LeeC22 on gtaforums.com</span></span>
+<span id="cb40-4"><a href="hyperrealism.html#cb40-4"></a><span class="co">    https://gtaforums.com/topic/951002-c-looking-for-player-switch-sample-solved-by-me/#comment-1071197769</span></span>
+<span id="cb40-5"><a href="hyperrealism.html#cb40-5"></a><span class="co">*/</span></span>
+<span id="cb40-6"><a href="hyperrealism.html#cb40-6"></a>    </span>
+<span id="cb40-7"><a href="hyperrealism.html#cb40-7"></a><span class="kw">using</span> System;</span>
+<span id="cb40-8"><a href="hyperrealism.html#cb40-8"></a><span class="kw">using</span> System.<span class="fu">Collections</span>.<span class="fu">Generic</span>;</span>
+<span id="cb40-9"><a href="hyperrealism.html#cb40-9"></a><span class="kw">using</span> System.<span class="fu">Linq</span>;</span>
+<span id="cb40-10"><a href="hyperrealism.html#cb40-10"></a><span class="kw">using</span> System.<span class="fu">Text</span>;</span>
+<span id="cb40-11"><a href="hyperrealism.html#cb40-11"></a><span class="kw">using</span> System.<span class="fu">Threading</span>.<span class="fu">Tasks</span>;</span>
+<span id="cb40-12"><a href="hyperrealism.html#cb40-12"></a></span>
+<span id="cb40-13"><a href="hyperrealism.html#cb40-13"></a><span class="kw">using</span> GTA;</span>
+<span id="cb40-14"><a href="hyperrealism.html#cb40-14"></a><span class="kw">using</span> GTA.<span class="fu">Math</span>;</span>
+<span id="cb40-15"><a href="hyperrealism.html#cb40-15"></a><span class="kw">using</span> System.<span class="fu">Windows</span>.<span class="fu">Forms</span>;</span>
+<span id="cb40-16"><a href="hyperrealism.html#cb40-16"></a><span class="kw">using</span> System.<span class="fu">Drawing</span>;</span>
+<span id="cb40-17"><a href="hyperrealism.html#cb40-17"></a><span class="kw">using</span> GTA.<span class="fu">Native</span>;</span>
+<span id="cb40-18"><a href="hyperrealism.html#cb40-18"></a><span class="kw">using</span> System.<span class="fu">IO</span>;</span>
+<span id="cb40-19"><a href="hyperrealism.html#cb40-19"></a></span>
+<span id="cb40-20"><a href="hyperrealism.html#cb40-20"></a></span>
+<span id="cb40-21"><a href="hyperrealism.html#cb40-21"></a><span class="kw">namespace</span> moddingTutorial</span>
+<span id="cb40-22"><a href="hyperrealism.html#cb40-22"></a>{</span>
+<span id="cb40-23"><a href="hyperrealism.html#cb40-23"></a>    <span class="kw">public</span> <span class="kw">class</span> moddingTutorial : Script</span>
+<span id="cb40-24"><a href="hyperrealism.html#cb40-24"></a>    {</span>
+<span id="cb40-25"><a href="hyperrealism.html#cb40-25"></a>        Ped newPed = <span class="kw">null</span>;</span>
+<span id="cb40-26"><a href="hyperrealism.html#cb40-26"></a>        Vector3 SwitchLocation2;</span>
+<span id="cb40-27"><a href="hyperrealism.html#cb40-27"></a>        List&lt;Vector3&gt; switchLocations = <span class="kw">new</span> List&lt;Vector3&gt;();</span>
+<span id="cb40-28"><a href="hyperrealism.html#cb40-28"></a>        <span class="dt">int</span> index = <span class="dv">0</span>;</span>
+<span id="cb40-29"><a href="hyperrealism.html#cb40-29"></a>        List&lt;String&gt; models = <span class="kw">new</span> List&lt;String&gt;();</span>
+<span id="cb40-30"><a href="hyperrealism.html#cb40-30"></a>        <span class="dt">int</span> modelIndex = <span class="dv">0</span>;</span>
+<span id="cb40-31"><a href="hyperrealism.html#cb40-31"></a></span>
+<span id="cb40-32"><a href="hyperrealism.html#cb40-32"></a>        <span class="kw">public</span> <span class="fu">moddingTutorial</span>()</span>
+<span id="cb40-33"><a href="hyperrealism.html#cb40-33"></a>        {</span>
+<span id="cb40-34"><a href="hyperrealism.html#cb40-34"></a>            <span class="kw">this</span>.<span class="fu">Tick</span> += onTick;</span>
+<span id="cb40-35"><a href="hyperrealism.html#cb40-35"></a>            <span class="kw">this</span>.<span class="fu">KeyUp</span> += onKeyUp;</span>
+<span id="cb40-36"><a href="hyperrealism.html#cb40-36"></a>            <span class="kw">this</span>.<span class="fu">KeyDown</span> += onKeyDown;</span>
+<span id="cb40-37"><a href="hyperrealism.html#cb40-37"></a></span>
+<span id="cb40-38"><a href="hyperrealism.html#cb40-38"></a>        <span class="co">//add locations to the switchLocations list</span></span>
+<span id="cb40-39"><a href="hyperrealism.html#cb40-39"></a>            switchLocations.<span class="fu">Add</span>(<span class="kw">new</span> <span class="fu">Vector3</span>(<span class="fl">24.775f</span>, <span class="fl">7644.102f</span>, <span class="fl">18.055f</span>)); <span class="co">//Most Northerly Point</span></span>
+<span id="cb40-40"><a href="hyperrealism.html#cb40-40"></a>            switchLocations.<span class="fu">Add</span>(<span class="kw">new</span> <span class="fu">Vector3</span>(-<span class="fl">595.342f</span>, <span class="fl">2086.008f</span>, <span class="fl">130.412f</span>)); <span class="co">//Mine</span></span>
+<span id="cb40-41"><a href="hyperrealism.html#cb40-41"></a>            switchLocations.<span class="fu">Add</span>(<span class="kw">new</span> <span class="fu">Vector3</span>(<span class="fl">150.126f</span>, <span class="fl">-754.591f</span>, <span class="fl">261.865f</span>)); <span class="co">//FIB Roof </span></span>
+<span id="cb40-42"><a href="hyperrealism.html#cb40-42"></a>    </span>
+<span id="cb40-43"><a href="hyperrealism.html#cb40-43"></a>        <span class="co">//add models to the models list</span></span>
+<span id="cb40-44"><a href="hyperrealism.html#cb40-44"></a>            models.<span class="fu">Add</span>(<span class="st">&quot;s_m_m_doctor_01&quot;</span>);</span>
+<span id="cb40-45"><a href="hyperrealism.html#cb40-45"></a>            models.<span class="fu">Add</span>(<span class="st">&quot;s_m_m_migrant_01&quot;</span>);</span>
+<span id="cb40-46"><a href="hyperrealism.html#cb40-46"></a>            models.<span class="fu">Add</span>(<span class="st">&quot;a_c_cormorant&quot;</span>);</span>
+<span id="cb40-47"><a href="hyperrealism.html#cb40-47"></a>            models.<span class="fu">Add</span>(<span class="st">&quot;a_c_deer&quot;</span>);</span>
+<span id="cb40-48"><a href="hyperrealism.html#cb40-48"></a>            models.<span class="fu">Add</span>(<span class="st">&quot;a_c_pug&quot;</span>);</span>
+<span id="cb40-49"><a href="hyperrealism.html#cb40-49"></a>        }</span>
+<span id="cb40-50"><a href="hyperrealism.html#cb40-50"></a></span>
+<span id="cb40-51"><a href="hyperrealism.html#cb40-51"></a>        <span class="kw">private</span> <span class="dt">void</span> <span class="fu">onTick</span>(<span class="dt">object</span> sender, EventArgs e) <span class="co">//this function gets executed continuously </span></span>
+<span id="cb40-52"><a href="hyperrealism.html#cb40-52"></a>        {</span>
+<span id="cb40-53"><a href="hyperrealism.html#cb40-53"></a>            </span>
+<span id="cb40-54"><a href="hyperrealism.html#cb40-54"></a>            <span class="co">//If the character switch is in process</span></span>
+<span id="cb40-55"><a href="hyperrealism.html#cb40-55"></a>            <span class="kw">if</span> (Function.<span class="fu">Call</span>&lt;<span class="dt">bool</span>&gt;(Hash.<span class="fu">IS_PLAYER_SWITCH_IN_PROGRESS</span>))</span>
+<span id="cb40-56"><a href="hyperrealism.html#cb40-56"></a>            {</span>
+<span id="cb40-57"><a href="hyperrealism.html#cb40-57"></a>                <span class="co">//If Switch State is 8 – that&#39;s the point when it starts dropping to the player </span></span>
+<span id="cb40-58"><a href="hyperrealism.html#cb40-58"></a>                <span class="kw">if</span> (Function.<span class="fu">Call</span>&lt;<span class="dt">int</span>&gt;(Hash.<span class="fu">GET_PLAYER_SWITCH_STATE</span>) == <span class="dv">8</span>)</span>
+<span id="cb40-59"><a href="hyperrealism.html#cb40-59"></a>                {</span>
+<span id="cb40-60"><a href="hyperrealism.html#cb40-60"></a>                    <span class="co">//Set the player to the switch location</span></span>
+<span id="cb40-61"><a href="hyperrealism.html#cb40-61"></a>                    Game.<span class="fu">Player</span>.<span class="fu">Character</span>.<span class="fu">Position</span> = switchLocations[index];</span>
+<span id="cb40-62"><a href="hyperrealism.html#cb40-62"></a></span>
+<span id="cb40-63"><a href="hyperrealism.html#cb40-63"></a>                    <span class="co">//Generate the hash for the chosen model</span></span>
+<span id="cb40-64"><a href="hyperrealism.html#cb40-64"></a>                    <span class="dt">int</span> poshHash = Game.<span class="fu">GenerateHash</span>(models[modelIndex]);</span>
+<span id="cb40-65"><a href="hyperrealism.html#cb40-65"></a></span>
+<span id="cb40-66"><a href="hyperrealism.html#cb40-66"></a>                    <span class="co">//Create the model</span></span>
+<span id="cb40-67"><a href="hyperrealism.html#cb40-67"></a>                    Model poshModel = <span class="kw">new</span> <span class="fu">Model</span>(poshHash);</span>
+<span id="cb40-68"><a href="hyperrealism.html#cb40-68"></a></span>
+<span id="cb40-69"><a href="hyperrealism.html#cb40-69"></a>                    <span class="co">//Check if it is valid</span></span>
+<span id="cb40-70"><a href="hyperrealism.html#cb40-70"></a>                    <span class="kw">if</span> (poshModel.<span class="fu">IsValid</span>)</span>
+<span id="cb40-71"><a href="hyperrealism.html#cb40-71"></a>                    {</span>
+<span id="cb40-72"><a href="hyperrealism.html#cb40-72"></a>                        <span class="co">//Wait for it to load, should be okay because it was used to create the target ped</span></span>
+<span id="cb40-73"><a href="hyperrealism.html#cb40-73"></a>                        <span class="kw">while</span> (!poshModel.<span class="fu">IsLoaded</span>)</span>
+<span id="cb40-74"><a href="hyperrealism.html#cb40-74"></a>                        {</span>
+<span id="cb40-75"><a href="hyperrealism.html#cb40-75"></a>                            <span class="fu">Wait</span>(<span class="dv">100</span>);</span>
+<span id="cb40-76"><a href="hyperrealism.html#cb40-76"></a>                        }</span>
+<span id="cb40-77"><a href="hyperrealism.html#cb40-77"></a></span>
+<span id="cb40-78"><a href="hyperrealism.html#cb40-78"></a>                        <span class="co">//Change the player model to the target ped model</span></span>
+<span id="cb40-79"><a href="hyperrealism.html#cb40-79"></a>                        Function.<span class="fu">Call</span>(Hash.<span class="fu">SET_PLAYER_MODEL</span>, Game.<span class="fu">Player</span>, poshHash);</span>
+<span id="cb40-80"><a href="hyperrealism.html#cb40-80"></a></span>
+<span id="cb40-81"><a href="hyperrealism.html#cb40-81"></a>                        <span class="co">//Let the game clean up the created Model</span></span>
+<span id="cb40-82"><a href="hyperrealism.html#cb40-82"></a>                        poshModel.<span class="fu">MarkAsNoLongerNeeded</span>();</span>
+<span id="cb40-83"><a href="hyperrealism.html#cb40-83"></a>                    }</span>
+<span id="cb40-84"><a href="hyperrealism.html#cb40-84"></a>                    <span class="kw">else</span></span>
+<span id="cb40-85"><a href="hyperrealism.html#cb40-85"></a>                    {</span>
+<span id="cb40-86"><a href="hyperrealism.html#cb40-86"></a>                        <span class="co">//Falls to here if the model valid check fails</span></span>
+<span id="cb40-87"><a href="hyperrealism.html#cb40-87"></a>                        Function.<span class="fu">Call</span>(Hash.<span class="fu">SET_PLAYER_MODEL</span>, Game.<span class="fu">Player</span>, (<span class="dt">int</span>)PedHash.<span class="fu">Tourist01AFY</span>);</span>
+<span id="cb40-88"><a href="hyperrealism.html#cb40-88"></a>                    }</span>
+<span id="cb40-89"><a href="hyperrealism.html#cb40-89"></a></span>
+<span id="cb40-90"><a href="hyperrealism.html#cb40-90"></a>                    <span class="co">//Delete the target ped as it&#39;s no longer needed</span></span>
+<span id="cb40-91"><a href="hyperrealism.html#cb40-91"></a>                    newPed.<span class="fu">Delete</span>();</span>
+<span id="cb40-92"><a href="hyperrealism.html#cb40-92"></a>                    </span>
+<span id="cb40-93"><a href="hyperrealism.html#cb40-93"></a></span>
+<span id="cb40-94"><a href="hyperrealism.html#cb40-94"></a>                    <span class="co">// Set the switch outro based on the gameplay camera position</span></span>
+<span id="cb40-95"><a href="hyperrealism.html#cb40-95"></a>                    <span class="co">// Function.Call((Hash)0xC208B673CE446B61, camPos.X, camPos.Y, camPos.Z, camRot.X, camRot.Y, camRot.Z, camFOV, camFarClip, p8);</span></span>
+<span id="cb40-96"><a href="hyperrealism.html#cb40-96"></a></span>
+<span id="cb40-97"><a href="hyperrealism.html#cb40-97"></a>                    Function.<span class="fu">Call</span>((Hash)<span class="bn">0xC208B673CE446B61</span>, GameplayCamera.<span class="fu">Position</span>.<span class="fu">X</span>, GameplayCamera.<span class="fu">Position</span>.<span class="fu">Y</span>, GameplayCamera.<span class="fu">Position</span>.<span class="fu">Z</span>, GameplayCamera.<span class="fu">Rotation</span>.<span class="fu">X</span>, GameplayCamera.<span class="fu">Rotation</span>.<span class="fu">Y</span>, GameplayCamera.<span class="fu">Rotation</span>.<span class="fu">Z</span>, GameplayCamera.<span class="fu">FieldOfView</span>, <span class="dv">500</span>, <span class="dv">2</span>);</span>
+<span id="cb40-98"><a href="hyperrealism.html#cb40-98"></a></span>
+<span id="cb40-99"><a href="hyperrealism.html#cb40-99"></a>                    <span class="co">//Call this unknown native that seems to finish things off</span></span>
+<span id="cb40-100"><a href="hyperrealism.html#cb40-100"></a>                    Function.<span class="fu">Call</span>(Hash._<span class="bn">0x74DE2E8739086740</span>);</span>
+<span id="cb40-101"><a href="hyperrealism.html#cb40-101"></a></span>
+<span id="cb40-102"><a href="hyperrealism.html#cb40-102"></a>            <span class="co">//Make the character wander around autonomously</span></span>
+<span id="cb40-103"><a href="hyperrealism.html#cb40-103"></a>                    Game.<span class="fu">Player</span>.<span class="fu">Character</span>.<span class="fu">Task</span>.<span class="fu">WanderAround</span>();</span>
+<span id="cb40-104"><a href="hyperrealism.html#cb40-104"></a>                }</span>
+<span id="cb40-105"><a href="hyperrealism.html#cb40-105"></a>            }</span>
+<span id="cb40-106"><a href="hyperrealism.html#cb40-106"></a></span>
+<span id="cb40-107"><a href="hyperrealism.html#cb40-107"></a>        }</span>
+<span id="cb40-108"><a href="hyperrealism.html#cb40-108"></a></span>
+<span id="cb40-109"><a href="hyperrealism.html#cb40-109"></a></span>
+<span id="cb40-110"><a href="hyperrealism.html#cb40-110"></a>        <span class="kw">private</span> <span class="dt">void</span> <span class="fu">onKeyUp</span>(<span class="dt">object</span> sender, KeyEventArgs e)</span>
+<span id="cb40-111"><a href="hyperrealism.html#cb40-111"></a>        {</span>
+<span id="cb40-112"><a href="hyperrealism.html#cb40-112"></a></span>
+<span id="cb40-113"><a href="hyperrealism.html#cb40-113"></a>        }</span>
+<span id="cb40-114"><a href="hyperrealism.html#cb40-114"></a></span>
+<span id="cb40-115"><a href="hyperrealism.html#cb40-115"></a>        <span class="kw">private</span> <span class="dt">void</span> <span class="fu">onKeyDown</span>(<span class="dt">object</span> sender, KeyEventArgs e)</span>
+<span id="cb40-116"><a href="hyperrealism.html#cb40-116"></a>        {</span>
+<span id="cb40-117"><a href="hyperrealism.html#cb40-117"></a>            <span class="kw">if</span> (e.<span class="fu">KeyCode</span> == Keys.<span class="fu">G</span>)</span>
+<span id="cb40-118"><a href="hyperrealism.html#cb40-118"></a>            {</span>
+<span id="cb40-119"><a href="hyperrealism.html#cb40-119"></a>        <span class="co">//Stop previous tasks</span></span>
+<span id="cb40-120"><a href="hyperrealism.html#cb40-120"></a>                Game.<span class="fu">Player</span>.<span class="fu">Character</span>.<span class="fu">Task</span>.<span class="fu">ClearAll</span>();</span>
+<span id="cb40-121"><a href="hyperrealism.html#cb40-121"></a></span>
+<span id="cb40-122"><a href="hyperrealism.html#cb40-122"></a>                <span class="co">//Move the index to the next location</span></span>
+<span id="cb40-123"><a href="hyperrealism.html#cb40-123"></a>                index++;</span>
+<span id="cb40-124"><a href="hyperrealism.html#cb40-124"></a>                <span class="kw">if</span> (index &gt;= switchLocations.<span class="fu">Count</span>) index = <span class="dv">0</span>;</span>
+<span id="cb40-125"><a href="hyperrealism.html#cb40-125"></a>                </span>
+<span id="cb40-126"><a href="hyperrealism.html#cb40-126"></a>        <span class="co">//Move the index to the new ped model</span></span>
+<span id="cb40-127"><a href="hyperrealism.html#cb40-127"></a>                modelIndex++;</span>
+<span id="cb40-128"><a href="hyperrealism.html#cb40-128"></a>                <span class="kw">if</span> (modelIndex &gt;= models.<span class="fu">Count</span>) modelIndex = <span class="dv">0</span>;</span>
+<span id="cb40-129"><a href="hyperrealism.html#cb40-129"></a></span>
+<span id="cb40-130"><a href="hyperrealism.html#cb40-130"></a>                <span class="co">//Create the ped to switch to</span></span>
+<span id="cb40-131"><a href="hyperrealism.html#cb40-131"></a>                newPed = World.<span class="fu">CreatePed</span>(models[modelIndex], switchLocations[index]);</span>
+<span id="cb40-132"><a href="hyperrealism.html#cb40-132"></a></span>
+<span id="cb40-133"><a href="hyperrealism.html#cb40-133"></a>                <span class="co">//Native function to initiate the switch Function.Call(Hash.START_PLAYER_SWITCH, fromPed.Handle, toPed.Handle, flags, switchType);</span></span>
+<span id="cb40-134"><a href="hyperrealism.html#cb40-134"></a>                Function.<span class="fu">Call</span>(Hash.<span class="fu">START_PLAYER_SWITCH</span>, Game.<span class="fu">Player</span>.<span class="fu">Character</span>.<span class="fu">Handle</span>, newPed.<span class="fu">Handle</span>, <span class="dv">8</span>, <span class="dv">0</span>);</span>
+<span id="cb40-135"><a href="hyperrealism.html#cb40-135"></a></span>
+<span id="cb40-136"><a href="hyperrealism.html#cb40-136"></a>            }</span>
+<span id="cb40-137"><a href="hyperrealism.html#cb40-137"></a>        }</span>
+<span id="cb40-138"><a href="hyperrealism.html#cb40-138"></a>    }</span>
+<span id="cb40-139"><a href="hyperrealism.html#cb40-139"></a>}</span></code></pre></div>
 </details>
 </div>
 <div id="scripting-cinematic-fade-out-in" class="section level3 unnumbered hasAnchor">
 <h3>Scripting Cinematic Fade Out/ In<a href="hyperrealism.html#scripting-cinematic-fade-out-in" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Script Hook has native functions to create a fead to/from black. The function hash are <code>DO_SCREEN_FADE_OUT</code> and <code>DO_SCREEN_FADE_IN</code> and they are followed by the number of milliseconds to go from full black to showing the scene and viceversa.</p>
 <p>Let’s create a fade to black over 3 seconds when we press the letter key ‘O’:</p>
-<div class="sourceCode" id="cb40"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb40-1"><a href="hyperrealism.html#cb40-1"></a><span class="kw">if</span> (e.<span class="fu">KeyCode</span> == Keys.<span class="fu">O</span>)</span>
-<span id="cb40-2"><a href="hyperrealism.html#cb40-2"></a>{</span>
-<span id="cb40-3"><a href="hyperrealism.html#cb40-3"></a>    Function.<span class="fu">Call</span>(Hash.<span class="fu">DO_SCREEN_FADE_OUT</span>, <span class="dv">3000</span>);</span>
-<span id="cb40-4"><a href="hyperrealism.html#cb40-4"></a>}</span></code></pre></div>
-<p>And a fade over 3 seconds when we press the letter key ‘I’:</p>
-<div class="sourceCode" id="cb41"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb41-1"><a href="hyperrealism.html#cb41-1"></a><span class="kw">if</span> (e.<span class="fu">KeyCode</span> == Keys.<span class="fu">I</span>)</span>
+<div class="sourceCode" id="cb41"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb41-1"><a href="hyperrealism.html#cb41-1"></a><span class="kw">if</span> (e.<span class="fu">KeyCode</span> == Keys.<span class="fu">O</span>)</span>
 <span id="cb41-2"><a href="hyperrealism.html#cb41-2"></a>{</span>
-<span id="cb41-3"><a href="hyperrealism.html#cb41-3"></a>    Function.<span class="fu">Call</span>(Hash.<span class="fu">DO_SCREEN_FADE_IN</span>, <span class="dv">3000</span>);</span>
+<span id="cb41-3"><a href="hyperrealism.html#cb41-3"></a>    Function.<span class="fu">Call</span>(Hash.<span class="fu">DO_SCREEN_FADE_OUT</span>, <span class="dv">3000</span>);</span>
 <span id="cb41-4"><a href="hyperrealism.html#cb41-4"></a>}</span></code></pre></div>
+<p>And a fade over 3 seconds when we press the letter key ‘I’:</p>
+<div class="sourceCode" id="cb42"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb42-1"><a href="hyperrealism.html#cb42-1"></a><span class="kw">if</span> (e.<span class="fu">KeyCode</span> == Keys.<span class="fu">I</span>)</span>
+<span id="cb42-2"><a href="hyperrealism.html#cb42-2"></a>{</span>
+<span id="cb42-3"><a href="hyperrealism.html#cb42-3"></a>    Function.<span class="fu">Call</span>(Hash.<span class="fu">DO_SCREEN_FADE_IN</span>, <span class="dv">3000</span>);</span>
+<span id="cb42-4"><a href="hyperrealism.html#cb42-4"></a>}</span></code></pre></div>
 <p>We could also create an automated check in our onTick loop, which keeps seeing if the screen has been faded to black. We can use the native function <code>IS_SCREEN_FADED_OUT</code> which is a boolean data type. This means it will return either true or false. If it returns true, it means the screen has been faded out.</p>
 <p>Let’s add an If statement in our onTick loop to chek if the screen has been faded to black, and if so we call a fade in over 3 second:</p>
-<div class="sourceCode" id="cb42"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb42-1"><a href="hyperrealism.html#cb42-1"></a><span class="kw">if</span> (Function.<span class="fu">Call</span>&lt;<span class="dt">bool</span>&gt;(Hash.<span class="fu">IS_SCREEN_FADED_OUT</span>))</span>
-<span id="cb42-2"><a href="hyperrealism.html#cb42-2"></a>{</span>
-<span id="cb42-3"><a href="hyperrealism.html#cb42-3"></a>    <span class="fu">Wait</span>(<span class="dv">500</span>);</span>
-<span id="cb42-4"><a href="hyperrealism.html#cb42-4"></a>    GTA.<span class="fu">Native</span>.<span class="fu">Function</span>.<span class="fu">Call</span>(Hash.<span class="fu">DO_SCREEN_FADE_IN</span>, <span class="dv">3000</span>);</span>
-<span id="cb42-5"><a href="hyperrealism.html#cb42-5"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb43"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb43-1"><a href="hyperrealism.html#cb43-1"></a><span class="kw">if</span> (Function.<span class="fu">Call</span>&lt;<span class="dt">bool</span>&gt;(Hash.<span class="fu">IS_SCREEN_FADED_OUT</span>))</span>
+<span id="cb43-2"><a href="hyperrealism.html#cb43-2"></a>{</span>
+<span id="cb43-3"><a href="hyperrealism.html#cb43-3"></a>    <span class="fu">Wait</span>(<span class="dv">500</span>);</span>
+<span id="cb43-4"><a href="hyperrealism.html#cb43-4"></a>    GTA.<span class="fu">Native</span>.<span class="fu">Function</span>.<span class="fu">Call</span>(Hash.<span class="fu">DO_SCREEN_FADE_IN</span>, <span class="dv">3000</span>);</span>
+<span id="cb43-5"><a href="hyperrealism.html#cb43-5"></a>}</span></code></pre></div>
 <p>Now if you try to hit the ‘O’ key, the screen will fade out, and then it will automatically fade in again.</p>
 </div>
 <div id="natural-vision-evolved-mod" class="section level3 unnumbered hasAnchor">

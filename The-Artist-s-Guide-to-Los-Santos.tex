@@ -933,7 +933,7 @@ Note that when you kill your \texttt{Ped} `Jim', it falls on the floor and it wo
 \end{Highlighting}
 \end{Shaded}
 
-To handle groups of NPCs we can use the \texttt{List} class. A \texttt{List} is a collection of objects, and a \texttt{List}of \texttt{Peds} allows us to store our NPCs. We can use an index to retrieve and control specific \texttt{Peds} in the group. ou can see the \href{https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.list-1?view=net-7.0}{reference} for more detailed information.
+To handle groups of NPCs we can use the \texttt{List} class. A \texttt{List} is a collection of objects, and a \texttt{List}of \texttt{Peds} allows us to store our NPCs. We can use an index to retrieve and control specific \texttt{Peds} in the group. You can see the \href{https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.list-1?view=net-7.0}{reference} for more detailed information.
 
 Create a \texttt{List} of \texttt{Peds} named myPeds as a global variable in the public class \texttt{public\ class\ moddingTutorial\ :\ Script}.
 
@@ -1210,6 +1210,34 @@ List of Available Tasks
 \DataTypeTok{void} \FunctionTok{ClearSecondary}\NormalTok{ ()}
  
 \DataTypeTok{void} \FunctionTok{ClearAnimation}\NormalTok{ (}\DataTypeTok{string}\NormalTok{ animSet, }\DataTypeTok{string}\NormalTok{ animName)}
+\end{Highlighting}
+\end{Shaded}
+
+You can spawn a group of NPCs and give them individual tasks. You can also make them interact with each other (or with the player character). Here we spawn 3 NPCs and tell the to fight with each other.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{//create a list of Peds}
+\NormalTok{List<Ped> myPeds = }\KeywordTok{new}\NormalTok{ List<Ped>();}
+\CommentTok{//create a list of Ped models }
+\NormalTok{List<Model> myPedModel = }\KeywordTok{new}\NormalTok{ List<Model>();}
+\CommentTok{//manually add models for each ped}
+\NormalTok{myPedModel.}\FunctionTok{Add}\NormalTok{(PedHash.}\FunctionTok{MovSpace01SMM}\NormalTok{);}
+\NormalTok{myPedModel.}\FunctionTok{Add}\NormalTok{(PedHash.}\FunctionTok{Doctor01SMM}\NormalTok{);}
+\NormalTok{myPedModel.}\FunctionTok{Add}\NormalTok{(PedHash.}\FunctionTok{AviSchwartzman}\NormalTok{);}
+
+
+\KeywordTok{for}\NormalTok{(}\DataTypeTok{int}\NormalTok{ i = }\DecValTok{0}\NormalTok{; i < myPedModel.}\FunctionTok{Count}\NormalTok{; i++)}
+\NormalTok{\{}
+    \CommentTok{//spawn a new Ped for each model}
+    \DataTypeTok{var}\NormalTok{ newPed = World.}\FunctionTok{CreatePed}\NormalTok{(myPedModel[i], Game.}\FunctionTok{Player}\NormalTok{.}\FunctionTok{Character}\NormalTok{.}\FunctionTok{GetOffsetInWorldCoords}\NormalTok{(}\KeywordTok{new} \FunctionTok{Vector3}\NormalTok{(i*}\DecValTok{2}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{0}\NormalTok{)));}
+    \CommentTok{//add the new Ped to my list of Peds}
+\NormalTok{    myPeds.}\FunctionTok{Add}\NormalTok{(newPed);}
+\NormalTok{\}}
+
+\NormalTok{myPeds[}\DecValTok{0}\NormalTok{].}\FunctionTok{Task}\NormalTok{.}\FunctionTok{FightAgainst}\NormalTok{(myPeds[}\DecValTok{1}\NormalTok{]);}
+\NormalTok{myPeds[}\DecValTok{1}\NormalTok{].}\FunctionTok{Task}\NormalTok{.}\FunctionTok{FightAgainst}\NormalTok{(myPeds[}\DecValTok{2}\NormalTok{]);}
+\NormalTok{myPeds[}\DecValTok{2}\NormalTok{].}\FunctionTok{Task}\NormalTok{.}\FunctionTok{FightAgainst}\NormalTok{(myPeds[}\DecValTok{0}\NormalTok{]);}
 \end{Highlighting}
 \end{Shaded}
 
