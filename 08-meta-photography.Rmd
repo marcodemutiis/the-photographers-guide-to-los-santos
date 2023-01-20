@@ -618,14 +618,14 @@ namespace moddingTutorial
 #if (debug)
                     UI.ShowSubtitle("close app", 1000);
 #endif
-                    keyOut(0x01, 500); //ESC
+                    keyOut(0x0E, 500); //BACK SPACE
                     Wait(2000);
 
                     //PUT AWAY THE PHONE
 #if (debug)
                     UI.ShowSubtitle("put away phone", 1000);
 #endif
-                    keyOut(0x01, 500); //ESC
+                    keyOut(0x0E, 500); //BACK SPACE
                     
                     Wait(2000);
                 }

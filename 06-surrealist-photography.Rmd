@@ -40,7 +40,7 @@ A GTA V Ped can be created by the ```World.CreatePed``` function. This takes two
 The model IDs are the same we used in the previous tutorial, when we changed our character's appearance to a cat. A list of all available models can be found [here](https://wiki.gtanet.work/index.php/Peds). ```PedHash.Cat```, ```PedHash.Deer```, ```PedHash.AviSchwartzman```are all possible IDs we can assign to the NPC we want to create.
 We can create a new model variable, which we will name 'myPedModel' and assign it a model ID:
 ```cs 
-Models myPedModel = "PedHash.AviSchwartzman";
+Model myPedModel = PedHash.AviSchwartzman;
 ```
 
 The location where the NPC is created through a vector3 data type, which represents a vector in 3D space. This basically means a point that contains X, Y and Z coordinates. We can give absolute coordinates, making the Ped appear at a specific location in the game, but we can also use a location relative to our position in the game. In order not to risk making a Ped appear somewhere completely outside of our view – on some mountain or in the sea – let's look at a vector3 that points to a position in front of the player.
@@ -99,8 +99,10 @@ namespace moddingTutorial
 			{
 				//select a model and store it in a variable
 				Models myPedModel = "PedHash.AviSchwartzman";
+	
         			//create a position relative to the player
        				Vector3 myPedSpawnPosition = Game.Player.Character.GetOffsetInWorldCoords(new Vector3(0, 5, 0));
+	
       				//create a Ped with the chosen model, spawning at the chosen position
        				var myPed1 = World.CreatePed(myPedModel, myPedSpawnPosition); 
 			}
@@ -124,13 +126,13 @@ Try to kill one of the  ```Ped``` NPCs you created by using the ```Kill()```.
 Jim.Kill();
 ```
 
-Note that when you kill your ```Ped``` 'Jim', it falls on the floor and it won't actually respond to any call or task you will give it, but it's not removed from the game. To remove a specific ```Ped``` you not use the ```Delete```function, which will remove that instance (and will make the NPC disappear).
+Note that when you kill your ```Ped``` 'Jim', it falls on the floor and it won't actually respond to any call or task you will give it, but it's not removed from the game. To remove a specific ```Ped``` you have to use the ```Delete```function, which will remove that instance (and will make the NPC disappear).
 ```cs
 Jim.Delete();
 ```
 
 
-To handle groups of NPCs we can use the ```List``` class. A ```List``` is a collection of objects, and a ```List```of ```Peds``` allows us to store our NPCs. We can use an index to retrieve and control specific ```Peds``` in the group. ou can see the [reference](https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.list-1?view=net-7.0) for more detailed information.
+To handle groups of NPCs we can use the ```List``` class. A ```List``` is a collection of objects, and a ```List```of ```Peds``` allows us to store our NPCs. We can use an index to retrieve and control specific ```Peds``` in the group. You can see the [reference](https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.list-1?view=net-7.0) for more detailed information.
 
 Create a ```List``` of ```Peds``` named myPeds as a global variable in the public class ```public class moddingTutorial : Script```.
 ```cs
@@ -178,8 +180,8 @@ foreach (Ped p in NearbyPeds)
 Define the global variables in the public class ```public class moddingTutorial : Script```:
 ```cs
 float lastDistance;
-Ped Squad1Leader = null;
-Ped oldSquad1Leader = null;
+Ped nearestPed = null;
+Ped oldNearestPed = null;
 ```
 
 Get and parse the nearby NPCs in the OnTick function ```private void onTick(object sender, EventArgs e)```:
@@ -195,16 +197,16 @@ foreach (Ped ped in pedsGroup)
 	float distance = ped.Position.DistanceTo(Game.Player.Character.Position);
 	if (distance < lastDistance)
 	{
-		Squad1Leader = ped;
+		nearestPed = ped;
 		lastDistance = distance;
 	}
 }
 
-	if (Squad1Leader != null && oldSquad1Leader != Squad1Leader)
+	if (nearestPed != null && oldNearestPed != nearestPed)
 	{
-		Squad1Leader.Kill();
+		nearestPed.Kill();
 	}
-oldSquad1Leader = Squad1Leader;
+oldNearestPed = nearestPed;
 ```
 
 
@@ -380,8 +382,140 @@ void ClearAnimation (string animSet, string animName)
 ```
 </details>
 
+
+
+You can spawn a group of NPCs and give them individual tasks. You can also make them interact with each other (or with the player character). Here we spawn 3 NPCs and tell the to fight with each other.
+
+```cs
+//create a list of Peds
+List<Ped> myPeds = new List<Ped>();
+
+//create a list of Ped models 
+List<Model> myPedModel = new List<Model>();
+
+//manually add models for each ped
+myPedModel.Add(PedHash.Clown01SMY);
+myPedModel.Add(PedHash.Doctor01SMM);
+myPedModel.Add(PedHash.AviSchwartzman);
+
+
+for(int i = 0; i < myPedModel.Count; i++)
+{
+    //spawn a new Ped for each model
+    var newPed = World.CreatePed(myPedModel[i], Game.Player.Character.GetOffsetInWorldCoords(new Vector3(i*2, 3, 0)));
+    //add the new Ped to my list of Peds
+    myPeds.Add(newPed);
+}
+
+myPeds[0].Task.FightAgainst(myPeds[1]);
+myPeds[1].Task.FightAgainst(myPeds[2]);
+myPeds[2].Task.FightAgainst(myPeds[0]);
+
+```
+
+To clear a task at any given moment we can use the task ```ClearAllImmediately();```. To stop our 3 NPCs from fighting each other we give them the task to stop everything they are doing immediately.
+
+```cs
+myPeds[0].Task.ClearAllImmediately();
+myPeds[1].Task.ClearAllImmediately();
+myPeds[2].Task.ClearAllImmediately();
+```
+
+Peace is restored in the universe.
+
+
+
 ### Animations {-}
-//TO DO
+
+We can give Peds a task to play specific animations. To do this we can use the native function ```TASK_PLAY_ANIM```.
+The function takes a lot of parameters (some of them still not exactly know), but here is the full function and a breakdown of each parameters.
+
+```cs
+Native.Function.Call(Native.Hash.TASK_PLAY_ANIM, thePed, sDict, sAnim, speed, speed * -1, -1, flags, 0, False, bDisableLegIK, False) 
+```
+
+```thePed```  		The Ped that will play the animation
+```sDict```   		The dictionary where the anim is located
+```sAnim```   		The anim name
+```speed```  		The play start speed (This is important to make smooth changes between anims)
+```speed * -1```	Unknown
+```-1```   		Unknown
+```flags```  		Flags that you can set for the playback (see flags below)
+```0```   		Unknown
+```false```   		Unknown
+```bDisableLegIK``` 	If the anim will ignore the leg/foot interaction with obstacles
+```false``` 	 	Unknown
+
+<details>
+	<summary>Flags for playback modes</summary>
+	
+        ```
+	normal = 0
+        repeat = 1
+        stop_last_frame = 2
+        unk1 = 4
+        unk2_air = 8
+        upperbody = 16
+        enablePlCtrl = 32
+        unk3 = 64
+        cancelable = 128
+        unk4_creature = 256
+        unk5_freezePos = 512
+        unk6_rot90 = 1024
+	```
+	
+</details>
+
+
+You need to request the animation dictionary before start using it in your script: ```REQUEST_ANIM_DICT```. 
+After that, wait for the animation to load (or you could check if it’s loaded with the boolean ```HAS_ANIM_DICT_LOADED```), before playing the animation.
+
+Once you have requested your animation dictionary and it is loaded, you can play and stop the specific animation using ```TASK_PLAY_ANIM``` and ```STOP_ANIM_TASK```.
+
+```cs
+//request animation dictionary
+Function.Call(Hash.REQUEST_ANIM_DICT, "combat@chg_stance");
+ 
+//wait 100 ms to load the animation
+Wait(100);
+ 
+//play animation from animation dictionary using the player character
+Function.Call(Hash.TASK_PLAY_ANIM, Game.Player.Character, "combat@chg_stance", "aimb_loop", 8.0, 8.0 * -1, -1, 0, 0, false, false, false);
+ 
+//wait 5 secs
+Wait(5000);
+ 
+//stop the animation
+Function.Call(Hash.STOP_ANIM_TASK, Game.Player.Character, "combat@chg_stance", "aimb_loop", 1.0);
+```
+
+Most information found for this functions were found [here](Source: http://gtaxscripting.blogspot.com/2016/06/tut-gta-v-playing-and-handling.html). More example code and information is avaiable there.
+
+There are 6645 animation dictionaries and 35460 animation clips. You can see some of the possible animations in GTA V here: [youtube.com/playlist?list=PLFy_1HUkWwEAgPtwtjjLYpKCbBiwXamST](https://www.youtube.com/playlist?list=PLFy_1HUkWwEAgPtwtjjLYpKCbBiwXamST).
+Here you can find a [list of available dictionaries and animations](https://docs.ragepluginhook.net/html/62951c37-a440-478c-b389-c471230ddfc5.htm).
+
+
+Give animations to nearby peds.
+
+```cs
+//request animation dictionary
+Function.Call(Hash.REQUEST_ANIM_DICT, "gestures@miss@fbi_5");
+
+//wait for it to load
+Wait(50);
+
+//get nearby ped
+Ped[] NearbyPeds = World.GetNearbyPeds(Game.Player.Character, 20f);
+
+foreach (Ped p in NearbyPeds)
+{	
+	//clear the peds of any tasks they might have
+	p.Task.ClearAllImmediately();
+	//play animation from animation dictionary
+	Function.Call(Hash.TASK_PLAY_ANIM, p, "missfbi5ig_2", "crying_trevor", 8.0, 8.0 * -1, -1, 0, 0, false, false, false);
+}
+```
+
 
 ### Teleporting {-}
 
