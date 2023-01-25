@@ -1621,6 +1621,105 @@ Switch to first person view:
 \subsection*{Create Multiple Cameras}\label{create-multiple-cameras}}
 \addcontentsline{toc}{subsection}{Create Multiple Cameras}
 
+Example code
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{using}\NormalTok{ System;}
+\KeywordTok{using}\NormalTok{ System.}\FunctionTok{Collections}\NormalTok{.}\FunctionTok{Generic}\NormalTok{;}
+\KeywordTok{using}\NormalTok{ System.}\FunctionTok{Linq}\NormalTok{;}
+\KeywordTok{using}\NormalTok{ System.}\FunctionTok{Text}\NormalTok{;}
+\KeywordTok{using}\NormalTok{ System.}\FunctionTok{Threading}\NormalTok{.}\FunctionTok{Tasks}\NormalTok{;}
+\KeywordTok{using}\NormalTok{ GTA;}
+\KeywordTok{using}\NormalTok{ GTA.}\FunctionTok{Math}\NormalTok{;}
+\KeywordTok{using}\NormalTok{ System.}\FunctionTok{Windows}\NormalTok{.}\FunctionTok{Forms}\NormalTok{;}
+\KeywordTok{using}\NormalTok{ System.}\FunctionTok{Drawing}\NormalTok{;}
+\KeywordTok{using}\NormalTok{ GTA.}\FunctionTok{Native}\NormalTok{;}
+
+\KeywordTok{namespace}\NormalTok{ ModdingTutorial}
+\NormalTok{\{}
+    \KeywordTok{public} \KeywordTok{class}\NormalTok{ ModdingTutorial : Script    }
+\NormalTok{    \{}
+\NormalTok{        Vector3 myCamPos;}
+        \DataTypeTok{int}\NormalTok{ CamSelect = }\DecValTok{0}\NormalTok{;}
+        \DataTypeTok{int}\NormalTok{ CamCount = }\DecValTok{3}\NormalTok{;}
+
+\NormalTok{        List<Ped> myPeds = }\KeywordTok{new}\NormalTok{ List<Ped>();}
+\NormalTok{        Model myModel = PedHash.}\FunctionTok{Abigail}\NormalTok{;}
+\NormalTok{        List<Vector3> myLocs = }\KeywordTok{new}\NormalTok{ List<Vector3>();}
+\NormalTok{        Camera newCam= }\KeywordTok{null}\NormalTok{;}
+\NormalTok{        List<Camera> myCam = }\KeywordTok{new}\NormalTok{ List<Camera>();}
+
+        
+        \KeywordTok{public} \FunctionTok{ModdingTutorial}\NormalTok{()}
+\NormalTok{        \{}
+            \KeywordTok{this}\NormalTok{.}\FunctionTok{Tick}\NormalTok{ += onTick;}
+            \KeywordTok{this}\NormalTok{.}\FunctionTok{KeyUp}\NormalTok{ += onKeyUp;}
+            \KeywordTok{this}\NormalTok{.}\FunctionTok{KeyDown}\NormalTok{ += onKeyDown;}
+
+\NormalTok{            myLocs.}\FunctionTok{Add}\NormalTok{(}\KeywordTok{new} \FunctionTok{Vector3}\NormalTok{(}\FloatTok{450.178f}\NormalTok{, }\FloatTok{5566.614f}\NormalTok{, }\FloatTok{806.183f}\NormalTok{)); }\CommentTok{//Mt.Chiliad}
+\NormalTok{            myLocs.}\FunctionTok{Add}\NormalTok{(}\KeywordTok{new} \FunctionTok{Vector3}\NormalTok{(}\FloatTok{24.775f}\NormalTok{, }\FloatTok{7644.102f}\NormalTok{, }\FloatTok{18.055f}\NormalTok{)); }\CommentTok{//Most Northern Point}
+\NormalTok{            myLocs.}\FunctionTok{Add}\NormalTok{(}\KeywordTok{new} \FunctionTok{Vector3}\NormalTok{(}\FloatTok{150.126f}\NormalTok{, }\FloatTok{-754.591f}\NormalTok{, }\FloatTok{261.865f}\NormalTok{)); }\CommentTok{//FIB Roof}
+
+            \KeywordTok{for}\NormalTok{ (}\DataTypeTok{int}\NormalTok{ i = }\DecValTok{0}\NormalTok{; i < CamCount; i++)}
+\NormalTok{            \{}
+                \CommentTok{//create Ped}
+                \DataTypeTok{var}\NormalTok{ newPed = World.}\FunctionTok{CreatePed}\NormalTok{(myModel, myLocs[i]);}
+\NormalTok{                myPeds.}\FunctionTok{Add}\NormalTok{(newPed);}
+
+                \CommentTok{//create Cam}
+\NormalTok{                newCam = World.}\FunctionTok{CreateCamera}\NormalTok{(Vector3.}\FunctionTok{Zero}\NormalTok{, myPeds[i].}\FunctionTok{Rotation}\NormalTok{, 50f);}
+\NormalTok{                myCam.}\FunctionTok{Add}\NormalTok{(newCam);}
+\NormalTok{                myCamPos = }\KeywordTok{new} \FunctionTok{Vector3}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{, 1f);}
+\NormalTok{            \}}
+            
+\NormalTok{        \}}
+
+        \KeywordTok{private} \DataTypeTok{void} \FunctionTok{onTick}\NormalTok{(}\DataTypeTok{object}\NormalTok{ sender, EventArgs e)}
+\NormalTok{        \{}
+            \CommentTok{//update Cams}
+            \KeywordTok{for}\NormalTok{ (}\DataTypeTok{int}\NormalTok{ i = }\DecValTok{0}\NormalTok{; i < CamCount; i++)}
+\NormalTok{            \{}
+\NormalTok{                myCam[i].}\FunctionTok{AttachTo}\NormalTok{(myPeds[i], myCamPos);}
+\NormalTok{                myCam[i].}\FunctionTok{Rotation}\NormalTok{ = myPeds[i].}\FunctionTok{Rotation}\NormalTok{;}
+\NormalTok{            \}}
+\NormalTok{        \}}
+
+        \KeywordTok{private} \DataTypeTok{void} \FunctionTok{onKeyUp}\NormalTok{(}\DataTypeTok{object}\NormalTok{ sender, KeyEventArgs e)}
+\NormalTok{        \{}
+            \CommentTok{//switch between cameras when pressing SHIFT + K}
+            \KeywordTok{if}\NormalTok{(e.}\FunctionTok{KeyCode}\NormalTok{ == Keys.}\FunctionTok{K}\NormalTok{ && e.}\FunctionTok{Modifiers}\NormalTok{ == Keys.}\FunctionTok{Shift}\NormalTok{ && myPeds[}\DecValTok{2}\NormalTok{] != }\KeywordTok{null}\NormalTok{)}
+\NormalTok{            \{}
+\NormalTok{                CamSelect = (CamSelect + }\DecValTok{1}\NormalTok{) % }\DecValTok{4}\NormalTok{;}
+                \KeywordTok{switch}\NormalTok{(CamSelect)}
+\NormalTok{                \{}
+                    \KeywordTok{case} \DecValTok{0}\NormalTok{: World.}\FunctionTok{RenderingCamera}\NormalTok{ = }\KeywordTok{null}\NormalTok{;}
+\NormalTok{                        UI.}\FunctionTok{ShowSubtitle}\NormalTok{(}\StringTok{"Showing Gameplay Cam View"}\NormalTok{);}
+                        \KeywordTok{break}\NormalTok{;}
+                    \KeywordTok{case} \DecValTok{1}\NormalTok{: World.}\FunctionTok{RenderingCamera}\NormalTok{ = myCam[}\DecValTok{0}\NormalTok{];}
+\NormalTok{                        UI.}\FunctionTok{ShowSubtitle}\NormalTok{(}\StringTok{"Showing Cam 1"}\NormalTok{);}
+                        \KeywordTok{break}\NormalTok{;}
+                    \KeywordTok{case} \DecValTok{2}\NormalTok{: World.}\FunctionTok{RenderingCamera}\NormalTok{ = myCam[}\DecValTok{1}\NormalTok{];}
+\NormalTok{                        UI.}\FunctionTok{ShowSubtitle}\NormalTok{(}\StringTok{"Showing Cam 2"}\NormalTok{);}
+                        \KeywordTok{break}\NormalTok{;}
+                    \KeywordTok{case} \DecValTok{3}\NormalTok{:}
+\NormalTok{                        World.}\FunctionTok{RenderingCamera}\NormalTok{ = myCam[}\DecValTok{2}\NormalTok{];}
+\NormalTok{                        UI.}\FunctionTok{ShowSubtitle}\NormalTok{(}\StringTok{"Showing Cam 3"}\NormalTok{);}
+                        \KeywordTok{break}\NormalTok{;}
+
+\NormalTok{                \}}
+\NormalTok{            \}}
+\NormalTok{        \}}
+
+        \KeywordTok{private} \DataTypeTok{void} \FunctionTok{onKeyDown}\NormalTok{(}\DataTypeTok{object}\NormalTok{ sender, KeyEventArgs e)}
+\NormalTok{        \{}
+\NormalTok{        \}}
+\NormalTok{    \}}
+\NormalTok{\}}
+    
+\end{Highlighting}
+\end{Shaded}
+
 \hypertarget{attach-a-camera-to-an-entity}{%
 \subsection*{Attach a Camera to an Entity}\label{attach-a-camera-to-an-entity}}
 \addcontentsline{toc}{subsection}{Attach a Camera to an Entity}
