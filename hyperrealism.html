@@ -345,56 +345,57 @@ To set a specific camera view we can use the native function <code>SET_FOLLOW_PE
 <span id="cb44-38"><a href="hyperrealism.html#cb44-38"></a>            {</span>
 <span id="cb44-39"><a href="hyperrealism.html#cb44-39"></a>                <span class="co">//create Ped</span></span>
 <span id="cb44-40"><a href="hyperrealism.html#cb44-40"></a>                <span class="dt">var</span> newPed = World.<span class="fu">CreatePed</span>(myModel, myLocs[i]);</span>
-<span id="cb44-41"><a href="hyperrealism.html#cb44-41"></a>                myPeds.<span class="fu">Add</span>(newPed);</span>
-<span id="cb44-42"><a href="hyperrealism.html#cb44-42"></a></span>
-<span id="cb44-43"><a href="hyperrealism.html#cb44-43"></a>                <span class="co">//create Cam</span></span>
-<span id="cb44-44"><a href="hyperrealism.html#cb44-44"></a>                newCam = World.<span class="fu">CreateCamera</span>(Vector3.<span class="fu">Zero</span>, myPeds[i].<span class="fu">Rotation</span>, 50f);</span>
-<span id="cb44-45"><a href="hyperrealism.html#cb44-45"></a>                myCam.<span class="fu">Add</span>(newCam);</span>
-<span id="cb44-46"><a href="hyperrealism.html#cb44-46"></a>                myCamPos = <span class="kw">new</span> <span class="fu">Vector3</span>(<span class="dv">0</span>, <span class="dv">0</span>, 1f);</span>
-<span id="cb44-47"><a href="hyperrealism.html#cb44-47"></a>            }</span>
-<span id="cb44-48"><a href="hyperrealism.html#cb44-48"></a>            </span>
-<span id="cb44-49"><a href="hyperrealism.html#cb44-49"></a>        }</span>
-<span id="cb44-50"><a href="hyperrealism.html#cb44-50"></a></span>
-<span id="cb44-51"><a href="hyperrealism.html#cb44-51"></a>        <span class="kw">private</span> <span class="dt">void</span> <span class="fu">onTick</span>(<span class="dt">object</span> sender, EventArgs e)</span>
-<span id="cb44-52"><a href="hyperrealism.html#cb44-52"></a>        {</span>
-<span id="cb44-53"><a href="hyperrealism.html#cb44-53"></a>            <span class="co">//update Cams</span></span>
-<span id="cb44-54"><a href="hyperrealism.html#cb44-54"></a>            <span class="kw">for</span> (<span class="dt">int</span> i = <span class="dv">0</span>; i &lt; CamCount; i++)</span>
-<span id="cb44-55"><a href="hyperrealism.html#cb44-55"></a>            {</span>
-<span id="cb44-56"><a href="hyperrealism.html#cb44-56"></a>                myCam[i].<span class="fu">AttachTo</span>(myPeds[i], myCamPos);</span>
-<span id="cb44-57"><a href="hyperrealism.html#cb44-57"></a>                myCam[i].<span class="fu">Rotation</span> = myPeds[i].<span class="fu">Rotation</span>;</span>
-<span id="cb44-58"><a href="hyperrealism.html#cb44-58"></a>            }</span>
-<span id="cb44-59"><a href="hyperrealism.html#cb44-59"></a>        }</span>
-<span id="cb44-60"><a href="hyperrealism.html#cb44-60"></a></span>
-<span id="cb44-61"><a href="hyperrealism.html#cb44-61"></a>        <span class="kw">private</span> <span class="dt">void</span> <span class="fu">onKeyUp</span>(<span class="dt">object</span> sender, KeyEventArgs e)</span>
-<span id="cb44-62"><a href="hyperrealism.html#cb44-62"></a>        {</span>
-<span id="cb44-63"><a href="hyperrealism.html#cb44-63"></a>            <span class="co">//switch between cameras when pressing SHIFT + K</span></span>
-<span id="cb44-64"><a href="hyperrealism.html#cb44-64"></a>            <span class="kw">if</span>(e.<span class="fu">KeyCode</span> == Keys.<span class="fu">K</span> &amp;&amp; e.<span class="fu">Modifiers</span> == Keys.<span class="fu">Shift</span> &amp;&amp; myPeds[<span class="dv">2</span>] != <span class="kw">null</span>)</span>
-<span id="cb44-65"><a href="hyperrealism.html#cb44-65"></a>            {</span>
-<span id="cb44-66"><a href="hyperrealism.html#cb44-66"></a>                CamSelect = (CamSelect + <span class="dv">1</span>) % <span class="dv">4</span>;</span>
-<span id="cb44-67"><a href="hyperrealism.html#cb44-67"></a>                <span class="kw">switch</span>(CamSelect)</span>
-<span id="cb44-68"><a href="hyperrealism.html#cb44-68"></a>                {</span>
-<span id="cb44-69"><a href="hyperrealism.html#cb44-69"></a>                    <span class="kw">case</span> <span class="dv">0</span>: World.<span class="fu">RenderingCamera</span> = <span class="kw">null</span>;</span>
-<span id="cb44-70"><a href="hyperrealism.html#cb44-70"></a>                        UI.<span class="fu">ShowSubtitle</span>(<span class="st">&quot;Showing Gameplay Cam View&quot;</span>);</span>
-<span id="cb44-71"><a href="hyperrealism.html#cb44-71"></a>                        <span class="kw">break</span>;</span>
-<span id="cb44-72"><a href="hyperrealism.html#cb44-72"></a>                    <span class="kw">case</span> <span class="dv">1</span>: World.<span class="fu">RenderingCamera</span> = myCam[<span class="dv">0</span>];</span>
-<span id="cb44-73"><a href="hyperrealism.html#cb44-73"></a>                        UI.<span class="fu">ShowSubtitle</span>(<span class="st">&quot;Showing Cam 1&quot;</span>);</span>
-<span id="cb44-74"><a href="hyperrealism.html#cb44-74"></a>                        <span class="kw">break</span>;</span>
-<span id="cb44-75"><a href="hyperrealism.html#cb44-75"></a>                    <span class="kw">case</span> <span class="dv">2</span>: World.<span class="fu">RenderingCamera</span> = myCam[<span class="dv">1</span>];</span>
-<span id="cb44-76"><a href="hyperrealism.html#cb44-76"></a>                        UI.<span class="fu">ShowSubtitle</span>(<span class="st">&quot;Showing Cam 2&quot;</span>);</span>
-<span id="cb44-77"><a href="hyperrealism.html#cb44-77"></a>                        <span class="kw">break</span>;</span>
-<span id="cb44-78"><a href="hyperrealism.html#cb44-78"></a>                    <span class="kw">case</span> <span class="dv">3</span>: World.<span class="fu">RenderingCamera</span> = myCam[<span class="dv">2</span>];</span>
-<span id="cb44-79"><a href="hyperrealism.html#cb44-79"></a>                        UI.<span class="fu">ShowSubtitle</span>(<span class="st">&quot;Showing Cam 3&quot;</span>);</span>
-<span id="cb44-80"><a href="hyperrealism.html#cb44-80"></a>                        <span class="kw">break</span>;</span>
-<span id="cb44-81"><a href="hyperrealism.html#cb44-81"></a>                }</span>
-<span id="cb44-82"><a href="hyperrealism.html#cb44-82"></a>            }</span>
-<span id="cb44-83"><a href="hyperrealism.html#cb44-83"></a>        }</span>
-<span id="cb44-84"><a href="hyperrealism.html#cb44-84"></a></span>
-<span id="cb44-85"><a href="hyperrealism.html#cb44-85"></a>        <span class="kw">private</span> <span class="dt">void</span> <span class="fu">onKeyDown</span>(<span class="dt">object</span> sender, KeyEventArgs e)</span>
-<span id="cb44-86"><a href="hyperrealism.html#cb44-86"></a>        {</span>
-<span id="cb44-87"><a href="hyperrealism.html#cb44-87"></a>        }</span>
-<span id="cb44-88"><a href="hyperrealism.html#cb44-88"></a>    }</span>
-<span id="cb44-89"><a href="hyperrealism.html#cb44-89"></a>}</span>
-<span id="cb44-90"><a href="hyperrealism.html#cb44-90"></a>    </span></code></pre></div>
+<span id="cb44-41"><a href="hyperrealism.html#cb44-41"></a>        Function.<span class="fu">Call</span>(Hash.<span class="fu">SET_ENTITY_VISIBLE</span>, newPed, <span class="kw">false</span>, <span class="dv">0</span>);</span>
+<span id="cb44-42"><a href="hyperrealism.html#cb44-42"></a>                myPeds.<span class="fu">Add</span>(newPed);</span>
+<span id="cb44-43"><a href="hyperrealism.html#cb44-43"></a></span>
+<span id="cb44-44"><a href="hyperrealism.html#cb44-44"></a>                <span class="co">//create Cam</span></span>
+<span id="cb44-45"><a href="hyperrealism.html#cb44-45"></a>                newCam = World.<span class="fu">CreateCamera</span>(Vector3.<span class="fu">Zero</span>, myPeds[i].<span class="fu">Rotation</span>, 50f);</span>
+<span id="cb44-46"><a href="hyperrealism.html#cb44-46"></a>                myCam.<span class="fu">Add</span>(newCam);</span>
+<span id="cb44-47"><a href="hyperrealism.html#cb44-47"></a>                myCamPos = <span class="kw">new</span> <span class="fu">Vector3</span>(<span class="dv">0</span>, <span class="dv">0</span>, 1f);</span>
+<span id="cb44-48"><a href="hyperrealism.html#cb44-48"></a>            }</span>
+<span id="cb44-49"><a href="hyperrealism.html#cb44-49"></a>            </span>
+<span id="cb44-50"><a href="hyperrealism.html#cb44-50"></a>        }</span>
+<span id="cb44-51"><a href="hyperrealism.html#cb44-51"></a></span>
+<span id="cb44-52"><a href="hyperrealism.html#cb44-52"></a>        <span class="kw">private</span> <span class="dt">void</span> <span class="fu">onTick</span>(<span class="dt">object</span> sender, EventArgs e)</span>
+<span id="cb44-53"><a href="hyperrealism.html#cb44-53"></a>        {</span>
+<span id="cb44-54"><a href="hyperrealism.html#cb44-54"></a>            <span class="co">//update Cams</span></span>
+<span id="cb44-55"><a href="hyperrealism.html#cb44-55"></a>            <span class="kw">for</span> (<span class="dt">int</span> i = <span class="dv">0</span>; i &lt; CamCount; i++)</span>
+<span id="cb44-56"><a href="hyperrealism.html#cb44-56"></a>            {</span>
+<span id="cb44-57"><a href="hyperrealism.html#cb44-57"></a>                myCam[i].<span class="fu">AttachTo</span>(myPeds[i], myCamPos);</span>
+<span id="cb44-58"><a href="hyperrealism.html#cb44-58"></a>                myCam[i].<span class="fu">Rotation</span> = myPeds[i].<span class="fu">Rotation</span>;</span>
+<span id="cb44-59"><a href="hyperrealism.html#cb44-59"></a>            }</span>
+<span id="cb44-60"><a href="hyperrealism.html#cb44-60"></a>        }</span>
+<span id="cb44-61"><a href="hyperrealism.html#cb44-61"></a></span>
+<span id="cb44-62"><a href="hyperrealism.html#cb44-62"></a>        <span class="kw">private</span> <span class="dt">void</span> <span class="fu">onKeyUp</span>(<span class="dt">object</span> sender, KeyEventArgs e)</span>
+<span id="cb44-63"><a href="hyperrealism.html#cb44-63"></a>        {</span>
+<span id="cb44-64"><a href="hyperrealism.html#cb44-64"></a>            <span class="co">//switch between cameras when pressing SHIFT + K</span></span>
+<span id="cb44-65"><a href="hyperrealism.html#cb44-65"></a>            <span class="kw">if</span>(e.<span class="fu">KeyCode</span> == Keys.<span class="fu">K</span> &amp;&amp; e.<span class="fu">Modifiers</span> == Keys.<span class="fu">Shift</span> &amp;&amp; myPeds[<span class="dv">2</span>] != <span class="kw">null</span>)</span>
+<span id="cb44-66"><a href="hyperrealism.html#cb44-66"></a>            {</span>
+<span id="cb44-67"><a href="hyperrealism.html#cb44-67"></a>                CamSelect = (CamSelect + <span class="dv">1</span>) % <span class="dv">4</span>;</span>
+<span id="cb44-68"><a href="hyperrealism.html#cb44-68"></a>                <span class="kw">switch</span>(CamSelect)</span>
+<span id="cb44-69"><a href="hyperrealism.html#cb44-69"></a>                {</span>
+<span id="cb44-70"><a href="hyperrealism.html#cb44-70"></a>                    <span class="kw">case</span> <span class="dv">0</span>: World.<span class="fu">RenderingCamera</span> = <span class="kw">null</span>;</span>
+<span id="cb44-71"><a href="hyperrealism.html#cb44-71"></a>                        UI.<span class="fu">ShowSubtitle</span>(<span class="st">&quot;Showing Gameplay Cam View&quot;</span>);</span>
+<span id="cb44-72"><a href="hyperrealism.html#cb44-72"></a>                        <span class="kw">break</span>;</span>
+<span id="cb44-73"><a href="hyperrealism.html#cb44-73"></a>                    <span class="kw">case</span> <span class="dv">1</span>: World.<span class="fu">RenderingCamera</span> = myCam[<span class="dv">0</span>];</span>
+<span id="cb44-74"><a href="hyperrealism.html#cb44-74"></a>                        UI.<span class="fu">ShowSubtitle</span>(<span class="st">&quot;Showing Cam 1&quot;</span>);</span>
+<span id="cb44-75"><a href="hyperrealism.html#cb44-75"></a>                        <span class="kw">break</span>;</span>
+<span id="cb44-76"><a href="hyperrealism.html#cb44-76"></a>                    <span class="kw">case</span> <span class="dv">2</span>: World.<span class="fu">RenderingCamera</span> = myCam[<span class="dv">1</span>];</span>
+<span id="cb44-77"><a href="hyperrealism.html#cb44-77"></a>                        UI.<span class="fu">ShowSubtitle</span>(<span class="st">&quot;Showing Cam 2&quot;</span>);</span>
+<span id="cb44-78"><a href="hyperrealism.html#cb44-78"></a>                        <span class="kw">break</span>;</span>
+<span id="cb44-79"><a href="hyperrealism.html#cb44-79"></a>                    <span class="kw">case</span> <span class="dv">3</span>: World.<span class="fu">RenderingCamera</span> = myCam[<span class="dv">2</span>];</span>
+<span id="cb44-80"><a href="hyperrealism.html#cb44-80"></a>                        UI.<span class="fu">ShowSubtitle</span>(<span class="st">&quot;Showing Cam 3&quot;</span>);</span>
+<span id="cb44-81"><a href="hyperrealism.html#cb44-81"></a>                        <span class="kw">break</span>;</span>
+<span id="cb44-82"><a href="hyperrealism.html#cb44-82"></a>                }</span>
+<span id="cb44-83"><a href="hyperrealism.html#cb44-83"></a>            }</span>
+<span id="cb44-84"><a href="hyperrealism.html#cb44-84"></a>        }</span>
+<span id="cb44-85"><a href="hyperrealism.html#cb44-85"></a></span>
+<span id="cb44-86"><a href="hyperrealism.html#cb44-86"></a>        <span class="kw">private</span> <span class="dt">void</span> <span class="fu">onKeyDown</span>(<span class="dt">object</span> sender, KeyEventArgs e)</span>
+<span id="cb44-87"><a href="hyperrealism.html#cb44-87"></a>        {</span>
+<span id="cb44-88"><a href="hyperrealism.html#cb44-88"></a>        }</span>
+<span id="cb44-89"><a href="hyperrealism.html#cb44-89"></a>    }</span>
+<span id="cb44-90"><a href="hyperrealism.html#cb44-90"></a>}</span>
+<span id="cb44-91"><a href="hyperrealism.html#cb44-91"></a>    </span></code></pre></div>
 </details>
 </div>
 <div id="attach-a-camera-to-an-entity" class="section level3 unnumbered hasAnchor">
