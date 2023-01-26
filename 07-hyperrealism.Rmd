@@ -124,11 +124,9 @@ namespace ModdingTutorial
                     case 2: World.RenderingCamera = myCam[1];
                         UI.ShowSubtitle("Showing Cam 2");
                         break;
-                    case 3:
-                        World.RenderingCamera = myCam[2];
+                    case 3: World.RenderingCamera = myCam[2];
                         UI.ShowSubtitle("Showing Cam 3");
                         break;
-
                 }
             }
         }
