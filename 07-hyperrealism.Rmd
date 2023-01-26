@@ -87,6 +87,7 @@ namespace ModdingTutorial
             {
                 //create Ped
                 var newPed = World.CreatePed(myModel, myLocs[i]);
+		Function.Call(Hash.SET_ENTITY_VISIBLE, newPed, false, 0);
                 myPeds.Add(newPed);
 
                 //create Cam
