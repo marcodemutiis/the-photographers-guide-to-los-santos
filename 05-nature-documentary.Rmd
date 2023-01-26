@@ -19,7 +19,7 @@ knitr::include_graphics('assets/maps/mountChiliad.png', dpi = NA)
 
 ## _Virtual Botany Cyanotype_ by Alan Butler {-}
 
-//selectioon of flora from GTA V
+//selection of flora from GTA V
 
 artwork text
 
