@@ -42,6 +42,63 @@ Function.Call(Hash.SET_FOLLOW_PED_CAM_VIEW_MODE, 4);
 
 ### Controlling the Game Camera {-}
 
+<details>
+  <summary>Example code</summary>
+
+```cs
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using GTA;
+using GTA.Math;
+using System.Windows.Forms;
+using System.Drawing;
+using GTA.Native;
+
+namespace ModdingTutorial
+{
+    public class ModdingTutorial : Script    
+    {
+	        
+        public ModdingTutorial()
+        {
+            this.Tick += onTick;
+            this.KeyUp += onKeyUp;
+            this.KeyDown += onKeyDown;
+        }    
+	    private void onTick(object sender, EventArgs e)
+	    {
+	    }
+	    private void onKeyUp(object sender, KeyEventArgs e)
+	    {
+	    }
+	    private void onKeyDown(object sender, KeyEventArgs e)
+	    {
+	    	if (e.KeyCode == Keys.U)
+			{
+				//set player invincible
+				Function.Call(Hash.SET_ENTITY_INVINCIBLE, Game.Player.Character, true);
+				//set player invisible
+				Function.Call(Hash.SET_ENTITY_VISIBLE, Game.Player.Character, false, 0);
+				//set zero gravity
+				Function.Call(Hash.SET_ENTITY_HAS_GRAVITY, Game.Player.Character, false);
+				//teleport in the sky
+				Function.Call(Hash.SET_ENTITY_COORDS, Game.Player.Character, Game.Player.Character.Position[0], Game.Player.Character.Position[1], Game.Player.Character.Position[2]+50, 0, 0, 1);
+				Vector3 myPosition = Game.Player.Character.Position;
+	    	}
+	    	if(e.KeyCode == Keys.I)
+	    	{
+				Function.Call(Hash.SET_ENTITY_COORDS, Game.Player.Character, Game.Player.Character.Position[0], Game.Player.Character.Position[1], Game.Player.Character.Position[2]-50, 0, 0, 1);
+	    	}
+		}
+	}
+}
+	
+```
+</details>
+
 ### Create Multiple Cameras {-}
 <details>
   <summary>Example code</summary>
