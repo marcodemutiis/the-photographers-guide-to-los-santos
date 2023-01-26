@@ -1617,6 +1617,63 @@ Switch to first person view:
 \subsection*{Controlling the Game Camera}\label{controlling-the-game-camera}}
 \addcontentsline{toc}{subsection}{Controlling the Game Camera}
 
+Example code
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{using}\NormalTok{ System;}
+\KeywordTok{using}\NormalTok{ System.}\FunctionTok{Collections}\NormalTok{.}\FunctionTok{Generic}\NormalTok{;}
+\KeywordTok{using}\NormalTok{ System.}\FunctionTok{Linq}\NormalTok{;}
+\KeywordTok{using}\NormalTok{ System.}\FunctionTok{Text}\NormalTok{;}
+\KeywordTok{using}\NormalTok{ System.}\FunctionTok{Threading}\NormalTok{.}\FunctionTok{Tasks}\NormalTok{;}
+\KeywordTok{using}\NormalTok{ GTA;}
+\KeywordTok{using}\NormalTok{ GTA.}\FunctionTok{Math}\NormalTok{;}
+\KeywordTok{using}\NormalTok{ System.}\FunctionTok{Windows}\NormalTok{.}\FunctionTok{Forms}\NormalTok{;}
+\KeywordTok{using}\NormalTok{ System.}\FunctionTok{Drawing}\NormalTok{;}
+\KeywordTok{using}\NormalTok{ GTA.}\FunctionTok{Native}\NormalTok{;}
+
+\KeywordTok{namespace}\NormalTok{ ModdingTutorial}
+\NormalTok{\{}
+    \KeywordTok{public} \KeywordTok{class}\NormalTok{ ModdingTutorial : Script    }
+\NormalTok{    \{}
+            
+        \KeywordTok{public} \FunctionTok{ModdingTutorial}\NormalTok{()}
+\NormalTok{        \{}
+            \KeywordTok{this}\NormalTok{.}\FunctionTok{Tick}\NormalTok{ += onTick;}
+            \KeywordTok{this}\NormalTok{.}\FunctionTok{KeyUp}\NormalTok{ += onKeyUp;}
+            \KeywordTok{this}\NormalTok{.}\FunctionTok{KeyDown}\NormalTok{ += onKeyDown;}
+\NormalTok{        \}    }
+        \KeywordTok{private} \DataTypeTok{void} \FunctionTok{onTick}\NormalTok{(}\DataTypeTok{object}\NormalTok{ sender, EventArgs e)}
+\NormalTok{        \{}
+\NormalTok{        \}}
+        \KeywordTok{private} \DataTypeTok{void} \FunctionTok{onKeyUp}\NormalTok{(}\DataTypeTok{object}\NormalTok{ sender, KeyEventArgs e)}
+\NormalTok{        \{}
+\NormalTok{        \}}
+        \KeywordTok{private} \DataTypeTok{void} \FunctionTok{onKeyDown}\NormalTok{(}\DataTypeTok{object}\NormalTok{ sender, KeyEventArgs e)}
+\NormalTok{        \{}
+            \KeywordTok{if}\NormalTok{ (e.}\FunctionTok{KeyCode}\NormalTok{ == Keys.}\FunctionTok{U}\NormalTok{)}
+\NormalTok{            \{}
+                \CommentTok{//set player invincible}
+\NormalTok{                Function.}\FunctionTok{Call}\NormalTok{(Hash.}\FunctionTok{SET_ENTITY_INVINCIBLE}\NormalTok{, Game.}\FunctionTok{Player}\NormalTok{.}\FunctionTok{Character}\NormalTok{, }\KeywordTok{true}\NormalTok{);}
+                \CommentTok{//set player invisible}
+\NormalTok{                Function.}\FunctionTok{Call}\NormalTok{(Hash.}\FunctionTok{SET_ENTITY_VISIBLE}\NormalTok{, Game.}\FunctionTok{Player}\NormalTok{.}\FunctionTok{Character}\NormalTok{, }\KeywordTok{false}\NormalTok{, }\DecValTok{0}\NormalTok{);}
+                \CommentTok{//set zero gravity}
+\NormalTok{                Function.}\FunctionTok{Call}\NormalTok{(Hash.}\FunctionTok{SET_ENTITY_HAS_GRAVITY}\NormalTok{, Game.}\FunctionTok{Player}\NormalTok{.}\FunctionTok{Character}\NormalTok{, }\KeywordTok{false}\NormalTok{);}
+                \CommentTok{//teleport in the sky}
+\NormalTok{                Function.}\FunctionTok{Call}\NormalTok{(Hash.}\FunctionTok{SET_ENTITY_COORDS}\NormalTok{, Game.}\FunctionTok{Player}\NormalTok{.}\FunctionTok{Character}\NormalTok{, Game.}\FunctionTok{Player}\NormalTok{.}\FunctionTok{Character}\NormalTok{.}\FunctionTok{Position}\NormalTok{[}\DecValTok{0}\NormalTok{], Game.}\FunctionTok{Player}\NormalTok{.}\FunctionTok{Character}\NormalTok{.}\FunctionTok{Position}\NormalTok{[}\DecValTok{1}\NormalTok{], Game.}\FunctionTok{Player}\NormalTok{.}\FunctionTok{Character}\NormalTok{.}\FunctionTok{Position}\NormalTok{[}\DecValTok{2}\NormalTok{]+}\DecValTok{50}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{);}
+\NormalTok{                Vector3 myPosition = Game.}\FunctionTok{Player}\NormalTok{.}\FunctionTok{Character}\NormalTok{.}\FunctionTok{Position}\NormalTok{;}
+\NormalTok{            \}}
+            \KeywordTok{if}\NormalTok{(e.}\FunctionTok{KeyCode}\NormalTok{ == Keys.}\FunctionTok{I}\NormalTok{)}
+\NormalTok{            \{}
+\NormalTok{                Function.}\FunctionTok{Call}\NormalTok{(Hash.}\FunctionTok{SET_ENTITY_COORDS}\NormalTok{, Game.}\FunctionTok{Player}\NormalTok{.}\FunctionTok{Character}\NormalTok{, Game.}\FunctionTok{Player}\NormalTok{.}\FunctionTok{Character}\NormalTok{.}\FunctionTok{Position}\NormalTok{[}\DecValTok{0}\NormalTok{], Game.}\FunctionTok{Player}\NormalTok{.}\FunctionTok{Character}\NormalTok{.}\FunctionTok{Position}\NormalTok{[}\DecValTok{1}\NormalTok{], Game.}\FunctionTok{Player}\NormalTok{.}\FunctionTok{Character}\NormalTok{.}\FunctionTok{Position}\NormalTok{[}\DecValTok{2}\NormalTok{]-}\DecValTok{50}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{);}
+\NormalTok{            \}}
+\NormalTok{        \}}
+\NormalTok{    \}}
+\NormalTok{\}}
+    
+\end{Highlighting}
+\end{Shaded}
+
 \hypertarget{create-multiple-cameras}{%
 \subsection*{Create Multiple Cameras}\label{create-multiple-cameras}}
 \addcontentsline{toc}{subsection}{Create Multiple Cameras}

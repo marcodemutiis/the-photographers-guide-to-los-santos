@@ -414,597 +414,597 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </details>
 <details>
 <p><summary>Example code</summary></p>
-<div class="sourceCode" id="cb51"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb51-1"><a href="meta-photography.html#cb51-1"></a><span class="kw">using</span> System;</span>
-<span id="cb51-2"><a href="meta-photography.html#cb51-2"></a><span class="kw">using</span> System.<span class="fu">Collections</span>.<span class="fu">Generic</span>;</span>
-<span id="cb51-3"><a href="meta-photography.html#cb51-3"></a><span class="kw">using</span> System.<span class="fu">Linq</span>;</span>
-<span id="cb51-4"><a href="meta-photography.html#cb51-4"></a><span class="kw">using</span> System.<span class="fu">Text</span>;</span>
-<span id="cb51-5"><a href="meta-photography.html#cb51-5"></a><span class="kw">using</span> System.<span class="fu">Threading</span>.<span class="fu">Tasks</span>;</span>
-<span id="cb51-6"><a href="meta-photography.html#cb51-6"></a></span>
-<span id="cb51-7"><a href="meta-photography.html#cb51-7"></a><span class="kw">using</span> GTA;</span>
-<span id="cb51-8"><a href="meta-photography.html#cb51-8"></a><span class="kw">using</span> GTA.<span class="fu">Math</span>;</span>
-<span id="cb51-9"><a href="meta-photography.html#cb51-9"></a><span class="kw">using</span> System.<span class="fu">Windows</span>.<span class="fu">Forms</span>;</span>
-<span id="cb51-10"><a href="meta-photography.html#cb51-10"></a><span class="kw">using</span> System.<span class="fu">Drawing</span>;</span>
-<span id="cb51-11"><a href="meta-photography.html#cb51-11"></a><span class="kw">using</span> GTA.<span class="fu">Native</span>;</span>
-<span id="cb51-12"><a href="meta-photography.html#cb51-12"></a><span class="kw">using</span> System.<span class="fu">IO</span>;</span>
-<span id="cb51-13"><a href="meta-photography.html#cb51-13"></a><span class="kw">using</span> System.<span class="fu">Runtime</span>.<span class="fu">InteropServices</span>;</span>
-<span id="cb51-14"><a href="meta-photography.html#cb51-14"></a></span>
-<span id="cb51-15"><a href="meta-photography.html#cb51-15"></a><span class="kw">namespace</span> moddingTutorial</span>
-<span id="cb51-16"><a href="meta-photography.html#cb51-16"></a>{</span>
-<span id="cb51-17"><a href="meta-photography.html#cb51-17"></a>    <span class="kw">public</span> <span class="kw">class</span> moddingTutorial : Script</span>
-<span id="cb51-18"><a href="meta-photography.html#cb51-18"></a>    {</span>
-<span id="cb51-19"><a href="meta-photography.html#cb51-19"></a>  </span>
-<span id="cb51-20"><a href="meta-photography.html#cb51-20"></a>        <span class="co">//this bunch of stuff is to control keyboard and mouse</span></span>
-<span id="cb51-21"><a href="meta-photography.html#cb51-21"></a>        [<span class="fu">StructLayout</span>(LayoutKind.<span class="fu">Sequential</span>)]</span>
-<span id="cb51-22"><a href="meta-photography.html#cb51-22"></a>        <span class="kw">public</span> <span class="kw">struct</span> KeyboardInput</span>
-<span id="cb51-23"><a href="meta-photography.html#cb51-23"></a>        {</span>
-<span id="cb51-24"><a href="meta-photography.html#cb51-24"></a>            <span class="kw">public</span> <span class="dt">ushort</span> wVk;</span>
-<span id="cb51-25"><a href="meta-photography.html#cb51-25"></a>            <span class="kw">public</span> <span class="dt">ushort</span> wScan;</span>
-<span id="cb51-26"><a href="meta-photography.html#cb51-26"></a>            <span class="kw">public</span> <span class="dt">uint</span> dwFlags;</span>
-<span id="cb51-27"><a href="meta-photography.html#cb51-27"></a>            <span class="kw">public</span> <span class="dt">uint</span> time;</span>
-<span id="cb51-28"><a href="meta-photography.html#cb51-28"></a>            <span class="kw">public</span> IntPtr dwExtraInfo;</span>
-<span id="cb51-29"><a href="meta-photography.html#cb51-29"></a>        }</span>
-<span id="cb51-30"><a href="meta-photography.html#cb51-30"></a>        [<span class="fu">StructLayout</span>(LayoutKind.<span class="fu">Sequential</span>)]</span>
-<span id="cb51-31"><a href="meta-photography.html#cb51-31"></a>        <span class="kw">public</span> <span class="kw">struct</span> MouseInput</span>
-<span id="cb51-32"><a href="meta-photography.html#cb51-32"></a>        {</span>
-<span id="cb51-33"><a href="meta-photography.html#cb51-33"></a>            <span class="kw">public</span> <span class="dt">int</span> dx;</span>
-<span id="cb51-34"><a href="meta-photography.html#cb51-34"></a>            <span class="kw">public</span> <span class="dt">int</span> dy;</span>
-<span id="cb51-35"><a href="meta-photography.html#cb51-35"></a>            <span class="kw">public</span> <span class="dt">uint</span> mouseData;</span>
-<span id="cb51-36"><a href="meta-photography.html#cb51-36"></a>            <span class="kw">public</span> <span class="dt">uint</span> dwFlags;</span>
-<span id="cb51-37"><a href="meta-photography.html#cb51-37"></a>            <span class="kw">public</span> <span class="dt">uint</span> time;</span>
-<span id="cb51-38"><a href="meta-photography.html#cb51-38"></a>            <span class="kw">public</span> IntPtr dwExtraInfo;</span>
-<span id="cb51-39"><a href="meta-photography.html#cb51-39"></a>        }</span>
-<span id="cb51-40"><a href="meta-photography.html#cb51-40"></a>        [<span class="fu">StructLayout</span>(LayoutKind.<span class="fu">Sequential</span>)]</span>
-<span id="cb51-41"><a href="meta-photography.html#cb51-41"></a>        <span class="kw">public</span> <span class="kw">struct</span> HardwareInput</span>
-<span id="cb51-42"><a href="meta-photography.html#cb51-42"></a>        {</span>
-<span id="cb51-43"><a href="meta-photography.html#cb51-43"></a>            <span class="kw">public</span> <span class="dt">uint</span> uMsg;</span>
-<span id="cb51-44"><a href="meta-photography.html#cb51-44"></a>            <span class="kw">public</span> <span class="dt">ushort</span> wParamL;</span>
-<span id="cb51-45"><a href="meta-photography.html#cb51-45"></a>            <span class="kw">public</span> <span class="dt">ushort</span> wParamH;</span>
-<span id="cb51-46"><a href="meta-photography.html#cb51-46"></a>        }</span>
-<span id="cb51-47"><a href="meta-photography.html#cb51-47"></a>        [<span class="fu">StructLayout</span>(LayoutKind.<span class="fu">Explicit</span>)]</span>
-<span id="cb51-48"><a href="meta-photography.html#cb51-48"></a>        <span class="kw">public</span> <span class="kw">struct</span> InputUnion</span>
-<span id="cb51-49"><a href="meta-photography.html#cb51-49"></a>        {</span>
-<span id="cb51-50"><a href="meta-photography.html#cb51-50"></a>            [<span class="fu">FieldOffset</span>(<span class="dv">0</span>)] <span class="kw">public</span> MouseInput mi;</span>
-<span id="cb51-51"><a href="meta-photography.html#cb51-51"></a>            [<span class="fu">FieldOffset</span>(<span class="dv">0</span>)] <span class="kw">public</span> KeyboardInput ki;</span>
-<span id="cb51-52"><a href="meta-photography.html#cb51-52"></a>            [<span class="fu">FieldOffset</span>(<span class="dv">0</span>)] <span class="kw">public</span> HardwareInput hi;</span>
-<span id="cb51-53"><a href="meta-photography.html#cb51-53"></a>        }</span>
-<span id="cb51-54"><a href="meta-photography.html#cb51-54"></a>        <span class="kw">public</span> <span class="kw">struct</span> Input</span>
-<span id="cb51-55"><a href="meta-photography.html#cb51-55"></a>        {</span>
-<span id="cb51-56"><a href="meta-photography.html#cb51-56"></a>            <span class="kw">public</span> <span class="dt">int</span> type;</span>
-<span id="cb51-57"><a href="meta-photography.html#cb51-57"></a>            <span class="kw">public</span> InputUnion u;</span>
-<span id="cb51-58"><a href="meta-photography.html#cb51-58"></a>        }</span>
-<span id="cb51-59"><a href="meta-photography.html#cb51-59"></a>        [Flags]</span>
-<span id="cb51-60"><a href="meta-photography.html#cb51-60"></a>        <span class="kw">public</span> <span class="kw">enum</span> InputType</span>
-<span id="cb51-61"><a href="meta-photography.html#cb51-61"></a>        {</span>
-<span id="cb51-62"><a href="meta-photography.html#cb51-62"></a>            Mouse = <span class="dv">0</span>,</span>
-<span id="cb51-63"><a href="meta-photography.html#cb51-63"></a>            Keyboard = <span class="dv">1</span>,</span>
-<span id="cb51-64"><a href="meta-photography.html#cb51-64"></a>            Hardware = <span class="dv">2</span></span>
-<span id="cb51-65"><a href="meta-photography.html#cb51-65"></a>        }</span>
-<span id="cb51-66"><a href="meta-photography.html#cb51-66"></a>        [Flags]</span>
-<span id="cb51-67"><a href="meta-photography.html#cb51-67"></a>        <span class="kw">public</span> <span class="kw">enum</span> KeyEventF</span>
-<span id="cb51-68"><a href="meta-photography.html#cb51-68"></a>        {</span>
-<span id="cb51-69"><a href="meta-photography.html#cb51-69"></a>            KeyDown = <span class="bn">0x0000</span>,</span>
-<span id="cb51-70"><a href="meta-photography.html#cb51-70"></a>            ExtendedKey = <span class="bn">0x0001</span>,</span>
-<span id="cb51-71"><a href="meta-photography.html#cb51-71"></a>            KeyUp = <span class="bn">0x0002</span>,</span>
-<span id="cb51-72"><a href="meta-photography.html#cb51-72"></a>            Unicode = <span class="bn">0x0004</span>,</span>
-<span id="cb51-73"><a href="meta-photography.html#cb51-73"></a>            Scancode = <span class="bn">0x0008</span></span>
-<span id="cb51-74"><a href="meta-photography.html#cb51-74"></a>        }</span>
-<span id="cb51-75"><a href="meta-photography.html#cb51-75"></a>        [Flags]</span>
-<span id="cb51-76"><a href="meta-photography.html#cb51-76"></a>        <span class="kw">public</span> <span class="kw">enum</span> MouseEventF</span>
-<span id="cb51-77"><a href="meta-photography.html#cb51-77"></a>        {</span>
-<span id="cb51-78"><a href="meta-photography.html#cb51-78"></a>            Absolute = <span class="bn">0x8000</span>,</span>
-<span id="cb51-79"><a href="meta-photography.html#cb51-79"></a>            HWheel = <span class="bn">0x01000</span>,</span>
-<span id="cb51-80"><a href="meta-photography.html#cb51-80"></a>            Move = <span class="bn">0x0001</span>,</span>
-<span id="cb51-81"><a href="meta-photography.html#cb51-81"></a>            MoveNoCoalesce = <span class="bn">0x2000</span>,</span>
-<span id="cb51-82"><a href="meta-photography.html#cb51-82"></a>            LeftDown = <span class="bn">0x0002</span>,</span>
-<span id="cb51-83"><a href="meta-photography.html#cb51-83"></a>            LeftUp = <span class="bn">0x0004</span>,</span>
-<span id="cb51-84"><a href="meta-photography.html#cb51-84"></a>            RightDown = <span class="bn">0x0008</span>,</span>
-<span id="cb51-85"><a href="meta-photography.html#cb51-85"></a>            RightUp = <span class="bn">0x0010</span>,</span>
-<span id="cb51-86"><a href="meta-photography.html#cb51-86"></a>            MiddleDown = <span class="bn">0x0020</span>,</span>
-<span id="cb51-87"><a href="meta-photography.html#cb51-87"></a>            MiddleUp = <span class="bn">0x0040</span>,</span>
-<span id="cb51-88"><a href="meta-photography.html#cb51-88"></a>            VirtualDesk = <span class="bn">0x4000</span>,</span>
-<span id="cb51-89"><a href="meta-photography.html#cb51-89"></a>            Wheel = <span class="bn">0x0800</span>,</span>
-<span id="cb51-90"><a href="meta-photography.html#cb51-90"></a>            XDown = <span class="bn">0x0080</span>,</span>
-<span id="cb51-91"><a href="meta-photography.html#cb51-91"></a>            XUp = <span class="bn">0x0100</span></span>
-<span id="cb51-92"><a href="meta-photography.html#cb51-92"></a>        }</span>
-<span id="cb51-93"><a href="meta-photography.html#cb51-93"></a></span>
-<span id="cb51-94"><a href="meta-photography.html#cb51-94"></a>        [<span class="fu">DllImport</span>(<span class="st">&quot;user32.dll&quot;</span>, SetLastError = <span class="kw">true</span>)]</span>
-<span id="cb51-95"><a href="meta-photography.html#cb51-95"></a>        <span class="kw">private</span> <span class="kw">static</span> <span class="kw">extern</span> <span class="dt">uint</span> <span class="fu">SendInput</span>(<span class="dt">uint</span> nInputs, Input[] pInputs, <span class="dt">int</span> cbSize);</span>
-<span id="cb51-96"><a href="meta-photography.html#cb51-96"></a>        [<span class="fu">DllImport</span>(<span class="st">&quot;user32.dll&quot;</span>)]</span>
-<span id="cb51-97"><a href="meta-photography.html#cb51-97"></a>        <span class="kw">private</span> <span class="kw">static</span> <span class="kw">extern</span> IntPtr <span class="fu">GetMessageExtraInfo</span>();</span>
-<span id="cb51-98"><a href="meta-photography.html#cb51-98"></a>        <span class="dt">bool</span> pressKey = <span class="kw">false</span>;</span>
-<span id="cb51-99"><a href="meta-photography.html#cb51-99"></a></span>
-<span id="cb51-100"><a href="meta-photography.html#cb51-100"></a>  </span>
-<span id="cb51-101"><a href="meta-photography.html#cb51-101"></a>        <span class="kw">public</span> <span class="fu">moddingTutorial</span>()</span>
-<span id="cb51-102"><a href="meta-photography.html#cb51-102"></a>        {</span>
-<span id="cb51-103"><a href="meta-photography.html#cb51-103"></a>            <span class="kw">this</span>.<span class="fu">Tick</span> += onTick;</span>
-<span id="cb51-104"><a href="meta-photography.html#cb51-104"></a>            <span class="kw">this</span>.<span class="fu">KeyUp</span> += onKeyUp;</span>
-<span id="cb51-105"><a href="meta-photography.html#cb51-105"></a>            <span class="kw">this</span>.<span class="fu">KeyDown</span> += onKeyDown;</span>
-<span id="cb51-106"><a href="meta-photography.html#cb51-106"></a>        }</span>
-<span id="cb51-107"><a href="meta-photography.html#cb51-107"></a></span>
-<span id="cb51-108"><a href="meta-photography.html#cb51-108"></a>        <span class="kw">private</span> <span class="dt">void</span> <span class="fu">onTick</span>(<span class="dt">object</span> sender, EventArgs e) <span class="co">//this function gets executed continuously </span></span>
-<span id="cb51-109"><a href="meta-photography.html#cb51-109"></a>        {</span>
-<span id="cb51-110"><a href="meta-photography.html#cb51-110"></a>        }</span>
-<span id="cb51-111"><a href="meta-photography.html#cb51-111"></a></span>
-<span id="cb51-112"><a href="meta-photography.html#cb51-112"></a>        <span class="kw">private</span> <span class="dt">void</span> <span class="fu">onKeyUp</span>(<span class="dt">object</span> sender, KeyEventArgs e)</span>
-<span id="cb51-113"><a href="meta-photography.html#cb51-113"></a>        {</span>
-<span id="cb51-114"><a href="meta-photography.html#cb51-114"></a>        }</span>
-<span id="cb51-115"><a href="meta-photography.html#cb51-115"></a></span>
-<span id="cb51-116"><a href="meta-photography.html#cb51-116"></a>        <span class="kw">private</span> <span class="dt">void</span> <span class="fu">onKeyDown</span>(<span class="dt">object</span> sender, KeyEventArgs e)</span>
-<span id="cb51-117"><a href="meta-photography.html#cb51-117"></a>        {</span>
-<span id="cb51-118"><a href="meta-photography.html#cb51-118"></a>            </span>
-<span id="cb51-119"><a href="meta-photography.html#cb51-119"></a>            <span class="kw">if</span> (e.<span class="fu">KeyCode</span> == Keys.<span class="fu">H</span>)</span>
-<span id="cb51-120"><a href="meta-photography.html#cb51-120"></a>            {   </span>
-<span id="cb51-121"><a href="meta-photography.html#cb51-121"></a>                <span class="co">//define the pressing of the arrow up key</span></span>
-<span id="cb51-122"><a href="meta-photography.html#cb51-122"></a>                Input[] keyUP_press = <span class="kw">new</span> Input[]</span>
-<span id="cb51-123"><a href="meta-photography.html#cb51-123"></a>                {</span>
-<span id="cb51-124"><a href="meta-photography.html#cb51-124"></a>                  <span class="kw">new</span> Input</span>
-<span id="cb51-125"><a href="meta-photography.html#cb51-125"></a>                  {</span>
-<span id="cb51-126"><a href="meta-photography.html#cb51-126"></a>                    type = (<span class="dt">int</span>)InputType.<span class="fu">Keyboard</span>,</span>
-<span id="cb51-127"><a href="meta-photography.html#cb51-127"></a>                    u = <span class="kw">new</span> InputUnion</span>
-<span id="cb51-128"><a href="meta-photography.html#cb51-128"></a>                    {</span>
-<span id="cb51-129"><a href="meta-photography.html#cb51-129"></a>                      ki = <span class="kw">new</span> KeyboardInput</span>
-<span id="cb51-130"><a href="meta-photography.html#cb51-130"></a>                      {</span>
-<span id="cb51-131"><a href="meta-photography.html#cb51-131"></a>                        wVk = <span class="dv">0</span>,</span>
-<span id="cb51-132"><a href="meta-photography.html#cb51-132"></a>                        wScan = <span class="bn">0xC8</span>, <span class="co">// key ARROW UP</span></span>
-<span id="cb51-133"><a href="meta-photography.html#cb51-133"></a>                        dwFlags = (<span class="dt">uint</span>)(KeyEventF.<span class="fu">KeyDown</span> | KeyEventF.<span class="fu">Scancode</span>), <span class="co">//key press</span></span>
-<span id="cb51-134"><a href="meta-photography.html#cb51-134"></a>                        dwExtraInfo = <span class="fu">GetMessageExtraInfo</span>()</span>
-<span id="cb51-135"><a href="meta-photography.html#cb51-135"></a>                      }</span>
-<span id="cb51-136"><a href="meta-photography.html#cb51-136"></a>                    }</span>
-<span id="cb51-137"><a href="meta-photography.html#cb51-137"></a>                  }</span>
-<span id="cb51-138"><a href="meta-photography.html#cb51-138"></a>                };</span>
-<span id="cb51-139"><a href="meta-photography.html#cb51-139"></a></span>
-<span id="cb51-140"><a href="meta-photography.html#cb51-140"></a>                <span class="co">//define the release of the arrow up key</span></span>
-<span id="cb51-141"><a href="meta-photography.html#cb51-141"></a>                Input[] keyUP_release = <span class="kw">new</span> Input[]</span>
-<span id="cb51-142"><a href="meta-photography.html#cb51-142"></a>                {</span>
-<span id="cb51-143"><a href="meta-photography.html#cb51-143"></a>                  <span class="kw">new</span> Input</span>
-<span id="cb51-144"><a href="meta-photography.html#cb51-144"></a>                  {</span>
-<span id="cb51-145"><a href="meta-photography.html#cb51-145"></a>                    type = (<span class="dt">int</span>)InputType.<span class="fu">Keyboard</span>,</span>
-<span id="cb51-146"><a href="meta-photography.html#cb51-146"></a>                    u = <span class="kw">new</span> InputUnion</span>
-<span id="cb51-147"><a href="meta-photography.html#cb51-147"></a>                    {</span>
-<span id="cb51-148"><a href="meta-photography.html#cb51-148"></a>                      ki = <span class="kw">new</span> KeyboardInput</span>
-<span id="cb51-149"><a href="meta-photography.html#cb51-149"></a>                      {</span>
-<span id="cb51-150"><a href="meta-photography.html#cb51-150"></a>                        wVk = <span class="dv">0</span>,</span>
-<span id="cb51-151"><a href="meta-photography.html#cb51-151"></a>                        wScan = <span class="bn">0xC8</span>, <span class="co">//key ARROW UP</span></span>
-<span id="cb51-152"><a href="meta-photography.html#cb51-152"></a>                        dwFlags = (<span class="dt">uint</span>)(KeyEventF.<span class="fu">KeyUp</span> | KeyEventF.<span class="fu">Scancode</span>), <span class="co">//key release</span></span>
-<span id="cb51-153"><a href="meta-photography.html#cb51-153"></a>                        dwExtraInfo = <span class="fu">GetMessageExtraInfo</span>()</span>
-<span id="cb51-154"><a href="meta-photography.html#cb51-154"></a>                      }</span>
-<span id="cb51-155"><a href="meta-photography.html#cb51-155"></a>                    }</span>
-<span id="cb51-156"><a href="meta-photography.html#cb51-156"></a>                  }</span>
-<span id="cb51-157"><a href="meta-photography.html#cb51-157"></a>                };</span>
-<span id="cb51-158"><a href="meta-photography.html#cb51-158"></a>                </span>
-<span id="cb51-159"><a href="meta-photography.html#cb51-159"></a>                <span class="co">//we need to send a key press and add a delay before releasing it otherwise it&#39;s too fast for the game to register it</span></span>
-<span id="cb51-160"><a href="meta-photography.html#cb51-160"></a>                <span class="co">//send key press of arrow up key</span></span>
-<span id="cb51-161"><a href="meta-photography.html#cb51-161"></a>                <span class="fu">SendInput</span>((<span class="dt">uint</span>)keyUP_press.<span class="fu">Length</span>, keyUP_press, Marshal.<span class="fu">SizeOf</span>(<span class="kw">typeof</span>(Input)));</span>
-<span id="cb51-162"><a href="meta-photography.html#cb51-162"></a>                <span class="co">//delay half a second</span></span>
-<span id="cb51-163"><a href="meta-photography.html#cb51-163"></a>                <span class="fu">Wait</span>(<span class="dv">500</span>);</span>
-<span id="cb51-164"><a href="meta-photography.html#cb51-164"></a>                <span class="co">//send key release of arrow up key</span></span>
-<span id="cb51-165"><a href="meta-photography.html#cb51-165"></a>                <span class="fu">SendInput</span>((<span class="dt">uint</span>)keyUP_release.<span class="fu">Length</span>, keyUP_release, Marshal.<span class="fu">SizeOf</span>(<span class="kw">typeof</span>(Input)));</span>
-<span id="cb51-166"><a href="meta-photography.html#cb51-166"></a>            }</span>
-<span id="cb51-167"><a href="meta-photography.html#cb51-167"></a>        }</span>
-<span id="cb51-168"><a href="meta-photography.html#cb51-168"></a>    }</span>
-<span id="cb51-169"><a href="meta-photography.html#cb51-169"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb52"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb52-1"><a href="meta-photography.html#cb52-1"></a><span class="kw">using</span> System;</span>
+<span id="cb52-2"><a href="meta-photography.html#cb52-2"></a><span class="kw">using</span> System.<span class="fu">Collections</span>.<span class="fu">Generic</span>;</span>
+<span id="cb52-3"><a href="meta-photography.html#cb52-3"></a><span class="kw">using</span> System.<span class="fu">Linq</span>;</span>
+<span id="cb52-4"><a href="meta-photography.html#cb52-4"></a><span class="kw">using</span> System.<span class="fu">Text</span>;</span>
+<span id="cb52-5"><a href="meta-photography.html#cb52-5"></a><span class="kw">using</span> System.<span class="fu">Threading</span>.<span class="fu">Tasks</span>;</span>
+<span id="cb52-6"><a href="meta-photography.html#cb52-6"></a></span>
+<span id="cb52-7"><a href="meta-photography.html#cb52-7"></a><span class="kw">using</span> GTA;</span>
+<span id="cb52-8"><a href="meta-photography.html#cb52-8"></a><span class="kw">using</span> GTA.<span class="fu">Math</span>;</span>
+<span id="cb52-9"><a href="meta-photography.html#cb52-9"></a><span class="kw">using</span> System.<span class="fu">Windows</span>.<span class="fu">Forms</span>;</span>
+<span id="cb52-10"><a href="meta-photography.html#cb52-10"></a><span class="kw">using</span> System.<span class="fu">Drawing</span>;</span>
+<span id="cb52-11"><a href="meta-photography.html#cb52-11"></a><span class="kw">using</span> GTA.<span class="fu">Native</span>;</span>
+<span id="cb52-12"><a href="meta-photography.html#cb52-12"></a><span class="kw">using</span> System.<span class="fu">IO</span>;</span>
+<span id="cb52-13"><a href="meta-photography.html#cb52-13"></a><span class="kw">using</span> System.<span class="fu">Runtime</span>.<span class="fu">InteropServices</span>;</span>
+<span id="cb52-14"><a href="meta-photography.html#cb52-14"></a></span>
+<span id="cb52-15"><a href="meta-photography.html#cb52-15"></a><span class="kw">namespace</span> moddingTutorial</span>
+<span id="cb52-16"><a href="meta-photography.html#cb52-16"></a>{</span>
+<span id="cb52-17"><a href="meta-photography.html#cb52-17"></a>    <span class="kw">public</span> <span class="kw">class</span> moddingTutorial : Script</span>
+<span id="cb52-18"><a href="meta-photography.html#cb52-18"></a>    {</span>
+<span id="cb52-19"><a href="meta-photography.html#cb52-19"></a>  </span>
+<span id="cb52-20"><a href="meta-photography.html#cb52-20"></a>        <span class="co">//this bunch of stuff is to control keyboard and mouse</span></span>
+<span id="cb52-21"><a href="meta-photography.html#cb52-21"></a>        [<span class="fu">StructLayout</span>(LayoutKind.<span class="fu">Sequential</span>)]</span>
+<span id="cb52-22"><a href="meta-photography.html#cb52-22"></a>        <span class="kw">public</span> <span class="kw">struct</span> KeyboardInput</span>
+<span id="cb52-23"><a href="meta-photography.html#cb52-23"></a>        {</span>
+<span id="cb52-24"><a href="meta-photography.html#cb52-24"></a>            <span class="kw">public</span> <span class="dt">ushort</span> wVk;</span>
+<span id="cb52-25"><a href="meta-photography.html#cb52-25"></a>            <span class="kw">public</span> <span class="dt">ushort</span> wScan;</span>
+<span id="cb52-26"><a href="meta-photography.html#cb52-26"></a>            <span class="kw">public</span> <span class="dt">uint</span> dwFlags;</span>
+<span id="cb52-27"><a href="meta-photography.html#cb52-27"></a>            <span class="kw">public</span> <span class="dt">uint</span> time;</span>
+<span id="cb52-28"><a href="meta-photography.html#cb52-28"></a>            <span class="kw">public</span> IntPtr dwExtraInfo;</span>
+<span id="cb52-29"><a href="meta-photography.html#cb52-29"></a>        }</span>
+<span id="cb52-30"><a href="meta-photography.html#cb52-30"></a>        [<span class="fu">StructLayout</span>(LayoutKind.<span class="fu">Sequential</span>)]</span>
+<span id="cb52-31"><a href="meta-photography.html#cb52-31"></a>        <span class="kw">public</span> <span class="kw">struct</span> MouseInput</span>
+<span id="cb52-32"><a href="meta-photography.html#cb52-32"></a>        {</span>
+<span id="cb52-33"><a href="meta-photography.html#cb52-33"></a>            <span class="kw">public</span> <span class="dt">int</span> dx;</span>
+<span id="cb52-34"><a href="meta-photography.html#cb52-34"></a>            <span class="kw">public</span> <span class="dt">int</span> dy;</span>
+<span id="cb52-35"><a href="meta-photography.html#cb52-35"></a>            <span class="kw">public</span> <span class="dt">uint</span> mouseData;</span>
+<span id="cb52-36"><a href="meta-photography.html#cb52-36"></a>            <span class="kw">public</span> <span class="dt">uint</span> dwFlags;</span>
+<span id="cb52-37"><a href="meta-photography.html#cb52-37"></a>            <span class="kw">public</span> <span class="dt">uint</span> time;</span>
+<span id="cb52-38"><a href="meta-photography.html#cb52-38"></a>            <span class="kw">public</span> IntPtr dwExtraInfo;</span>
+<span id="cb52-39"><a href="meta-photography.html#cb52-39"></a>        }</span>
+<span id="cb52-40"><a href="meta-photography.html#cb52-40"></a>        [<span class="fu">StructLayout</span>(LayoutKind.<span class="fu">Sequential</span>)]</span>
+<span id="cb52-41"><a href="meta-photography.html#cb52-41"></a>        <span class="kw">public</span> <span class="kw">struct</span> HardwareInput</span>
+<span id="cb52-42"><a href="meta-photography.html#cb52-42"></a>        {</span>
+<span id="cb52-43"><a href="meta-photography.html#cb52-43"></a>            <span class="kw">public</span> <span class="dt">uint</span> uMsg;</span>
+<span id="cb52-44"><a href="meta-photography.html#cb52-44"></a>            <span class="kw">public</span> <span class="dt">ushort</span> wParamL;</span>
+<span id="cb52-45"><a href="meta-photography.html#cb52-45"></a>            <span class="kw">public</span> <span class="dt">ushort</span> wParamH;</span>
+<span id="cb52-46"><a href="meta-photography.html#cb52-46"></a>        }</span>
+<span id="cb52-47"><a href="meta-photography.html#cb52-47"></a>        [<span class="fu">StructLayout</span>(LayoutKind.<span class="fu">Explicit</span>)]</span>
+<span id="cb52-48"><a href="meta-photography.html#cb52-48"></a>        <span class="kw">public</span> <span class="kw">struct</span> InputUnion</span>
+<span id="cb52-49"><a href="meta-photography.html#cb52-49"></a>        {</span>
+<span id="cb52-50"><a href="meta-photography.html#cb52-50"></a>            [<span class="fu">FieldOffset</span>(<span class="dv">0</span>)] <span class="kw">public</span> MouseInput mi;</span>
+<span id="cb52-51"><a href="meta-photography.html#cb52-51"></a>            [<span class="fu">FieldOffset</span>(<span class="dv">0</span>)] <span class="kw">public</span> KeyboardInput ki;</span>
+<span id="cb52-52"><a href="meta-photography.html#cb52-52"></a>            [<span class="fu">FieldOffset</span>(<span class="dv">0</span>)] <span class="kw">public</span> HardwareInput hi;</span>
+<span id="cb52-53"><a href="meta-photography.html#cb52-53"></a>        }</span>
+<span id="cb52-54"><a href="meta-photography.html#cb52-54"></a>        <span class="kw">public</span> <span class="kw">struct</span> Input</span>
+<span id="cb52-55"><a href="meta-photography.html#cb52-55"></a>        {</span>
+<span id="cb52-56"><a href="meta-photography.html#cb52-56"></a>            <span class="kw">public</span> <span class="dt">int</span> type;</span>
+<span id="cb52-57"><a href="meta-photography.html#cb52-57"></a>            <span class="kw">public</span> InputUnion u;</span>
+<span id="cb52-58"><a href="meta-photography.html#cb52-58"></a>        }</span>
+<span id="cb52-59"><a href="meta-photography.html#cb52-59"></a>        [Flags]</span>
+<span id="cb52-60"><a href="meta-photography.html#cb52-60"></a>        <span class="kw">public</span> <span class="kw">enum</span> InputType</span>
+<span id="cb52-61"><a href="meta-photography.html#cb52-61"></a>        {</span>
+<span id="cb52-62"><a href="meta-photography.html#cb52-62"></a>            Mouse = <span class="dv">0</span>,</span>
+<span id="cb52-63"><a href="meta-photography.html#cb52-63"></a>            Keyboard = <span class="dv">1</span>,</span>
+<span id="cb52-64"><a href="meta-photography.html#cb52-64"></a>            Hardware = <span class="dv">2</span></span>
+<span id="cb52-65"><a href="meta-photography.html#cb52-65"></a>        }</span>
+<span id="cb52-66"><a href="meta-photography.html#cb52-66"></a>        [Flags]</span>
+<span id="cb52-67"><a href="meta-photography.html#cb52-67"></a>        <span class="kw">public</span> <span class="kw">enum</span> KeyEventF</span>
+<span id="cb52-68"><a href="meta-photography.html#cb52-68"></a>        {</span>
+<span id="cb52-69"><a href="meta-photography.html#cb52-69"></a>            KeyDown = <span class="bn">0x0000</span>,</span>
+<span id="cb52-70"><a href="meta-photography.html#cb52-70"></a>            ExtendedKey = <span class="bn">0x0001</span>,</span>
+<span id="cb52-71"><a href="meta-photography.html#cb52-71"></a>            KeyUp = <span class="bn">0x0002</span>,</span>
+<span id="cb52-72"><a href="meta-photography.html#cb52-72"></a>            Unicode = <span class="bn">0x0004</span>,</span>
+<span id="cb52-73"><a href="meta-photography.html#cb52-73"></a>            Scancode = <span class="bn">0x0008</span></span>
+<span id="cb52-74"><a href="meta-photography.html#cb52-74"></a>        }</span>
+<span id="cb52-75"><a href="meta-photography.html#cb52-75"></a>        [Flags]</span>
+<span id="cb52-76"><a href="meta-photography.html#cb52-76"></a>        <span class="kw">public</span> <span class="kw">enum</span> MouseEventF</span>
+<span id="cb52-77"><a href="meta-photography.html#cb52-77"></a>        {</span>
+<span id="cb52-78"><a href="meta-photography.html#cb52-78"></a>            Absolute = <span class="bn">0x8000</span>,</span>
+<span id="cb52-79"><a href="meta-photography.html#cb52-79"></a>            HWheel = <span class="bn">0x01000</span>,</span>
+<span id="cb52-80"><a href="meta-photography.html#cb52-80"></a>            Move = <span class="bn">0x0001</span>,</span>
+<span id="cb52-81"><a href="meta-photography.html#cb52-81"></a>            MoveNoCoalesce = <span class="bn">0x2000</span>,</span>
+<span id="cb52-82"><a href="meta-photography.html#cb52-82"></a>            LeftDown = <span class="bn">0x0002</span>,</span>
+<span id="cb52-83"><a href="meta-photography.html#cb52-83"></a>            LeftUp = <span class="bn">0x0004</span>,</span>
+<span id="cb52-84"><a href="meta-photography.html#cb52-84"></a>            RightDown = <span class="bn">0x0008</span>,</span>
+<span id="cb52-85"><a href="meta-photography.html#cb52-85"></a>            RightUp = <span class="bn">0x0010</span>,</span>
+<span id="cb52-86"><a href="meta-photography.html#cb52-86"></a>            MiddleDown = <span class="bn">0x0020</span>,</span>
+<span id="cb52-87"><a href="meta-photography.html#cb52-87"></a>            MiddleUp = <span class="bn">0x0040</span>,</span>
+<span id="cb52-88"><a href="meta-photography.html#cb52-88"></a>            VirtualDesk = <span class="bn">0x4000</span>,</span>
+<span id="cb52-89"><a href="meta-photography.html#cb52-89"></a>            Wheel = <span class="bn">0x0800</span>,</span>
+<span id="cb52-90"><a href="meta-photography.html#cb52-90"></a>            XDown = <span class="bn">0x0080</span>,</span>
+<span id="cb52-91"><a href="meta-photography.html#cb52-91"></a>            XUp = <span class="bn">0x0100</span></span>
+<span id="cb52-92"><a href="meta-photography.html#cb52-92"></a>        }</span>
+<span id="cb52-93"><a href="meta-photography.html#cb52-93"></a></span>
+<span id="cb52-94"><a href="meta-photography.html#cb52-94"></a>        [<span class="fu">DllImport</span>(<span class="st">&quot;user32.dll&quot;</span>, SetLastError = <span class="kw">true</span>)]</span>
+<span id="cb52-95"><a href="meta-photography.html#cb52-95"></a>        <span class="kw">private</span> <span class="kw">static</span> <span class="kw">extern</span> <span class="dt">uint</span> <span class="fu">SendInput</span>(<span class="dt">uint</span> nInputs, Input[] pInputs, <span class="dt">int</span> cbSize);</span>
+<span id="cb52-96"><a href="meta-photography.html#cb52-96"></a>        [<span class="fu">DllImport</span>(<span class="st">&quot;user32.dll&quot;</span>)]</span>
+<span id="cb52-97"><a href="meta-photography.html#cb52-97"></a>        <span class="kw">private</span> <span class="kw">static</span> <span class="kw">extern</span> IntPtr <span class="fu">GetMessageExtraInfo</span>();</span>
+<span id="cb52-98"><a href="meta-photography.html#cb52-98"></a>        <span class="dt">bool</span> pressKey = <span class="kw">false</span>;</span>
+<span id="cb52-99"><a href="meta-photography.html#cb52-99"></a></span>
+<span id="cb52-100"><a href="meta-photography.html#cb52-100"></a>  </span>
+<span id="cb52-101"><a href="meta-photography.html#cb52-101"></a>        <span class="kw">public</span> <span class="fu">moddingTutorial</span>()</span>
+<span id="cb52-102"><a href="meta-photography.html#cb52-102"></a>        {</span>
+<span id="cb52-103"><a href="meta-photography.html#cb52-103"></a>            <span class="kw">this</span>.<span class="fu">Tick</span> += onTick;</span>
+<span id="cb52-104"><a href="meta-photography.html#cb52-104"></a>            <span class="kw">this</span>.<span class="fu">KeyUp</span> += onKeyUp;</span>
+<span id="cb52-105"><a href="meta-photography.html#cb52-105"></a>            <span class="kw">this</span>.<span class="fu">KeyDown</span> += onKeyDown;</span>
+<span id="cb52-106"><a href="meta-photography.html#cb52-106"></a>        }</span>
+<span id="cb52-107"><a href="meta-photography.html#cb52-107"></a></span>
+<span id="cb52-108"><a href="meta-photography.html#cb52-108"></a>        <span class="kw">private</span> <span class="dt">void</span> <span class="fu">onTick</span>(<span class="dt">object</span> sender, EventArgs e) <span class="co">//this function gets executed continuously </span></span>
+<span id="cb52-109"><a href="meta-photography.html#cb52-109"></a>        {</span>
+<span id="cb52-110"><a href="meta-photography.html#cb52-110"></a>        }</span>
+<span id="cb52-111"><a href="meta-photography.html#cb52-111"></a></span>
+<span id="cb52-112"><a href="meta-photography.html#cb52-112"></a>        <span class="kw">private</span> <span class="dt">void</span> <span class="fu">onKeyUp</span>(<span class="dt">object</span> sender, KeyEventArgs e)</span>
+<span id="cb52-113"><a href="meta-photography.html#cb52-113"></a>        {</span>
+<span id="cb52-114"><a href="meta-photography.html#cb52-114"></a>        }</span>
+<span id="cb52-115"><a href="meta-photography.html#cb52-115"></a></span>
+<span id="cb52-116"><a href="meta-photography.html#cb52-116"></a>        <span class="kw">private</span> <span class="dt">void</span> <span class="fu">onKeyDown</span>(<span class="dt">object</span> sender, KeyEventArgs e)</span>
+<span id="cb52-117"><a href="meta-photography.html#cb52-117"></a>        {</span>
+<span id="cb52-118"><a href="meta-photography.html#cb52-118"></a>            </span>
+<span id="cb52-119"><a href="meta-photography.html#cb52-119"></a>            <span class="kw">if</span> (e.<span class="fu">KeyCode</span> == Keys.<span class="fu">H</span>)</span>
+<span id="cb52-120"><a href="meta-photography.html#cb52-120"></a>            {   </span>
+<span id="cb52-121"><a href="meta-photography.html#cb52-121"></a>                <span class="co">//define the pressing of the arrow up key</span></span>
+<span id="cb52-122"><a href="meta-photography.html#cb52-122"></a>                Input[] keyUP_press = <span class="kw">new</span> Input[]</span>
+<span id="cb52-123"><a href="meta-photography.html#cb52-123"></a>                {</span>
+<span id="cb52-124"><a href="meta-photography.html#cb52-124"></a>                  <span class="kw">new</span> Input</span>
+<span id="cb52-125"><a href="meta-photography.html#cb52-125"></a>                  {</span>
+<span id="cb52-126"><a href="meta-photography.html#cb52-126"></a>                    type = (<span class="dt">int</span>)InputType.<span class="fu">Keyboard</span>,</span>
+<span id="cb52-127"><a href="meta-photography.html#cb52-127"></a>                    u = <span class="kw">new</span> InputUnion</span>
+<span id="cb52-128"><a href="meta-photography.html#cb52-128"></a>                    {</span>
+<span id="cb52-129"><a href="meta-photography.html#cb52-129"></a>                      ki = <span class="kw">new</span> KeyboardInput</span>
+<span id="cb52-130"><a href="meta-photography.html#cb52-130"></a>                      {</span>
+<span id="cb52-131"><a href="meta-photography.html#cb52-131"></a>                        wVk = <span class="dv">0</span>,</span>
+<span id="cb52-132"><a href="meta-photography.html#cb52-132"></a>                        wScan = <span class="bn">0xC8</span>, <span class="co">// key ARROW UP</span></span>
+<span id="cb52-133"><a href="meta-photography.html#cb52-133"></a>                        dwFlags = (<span class="dt">uint</span>)(KeyEventF.<span class="fu">KeyDown</span> | KeyEventF.<span class="fu">Scancode</span>), <span class="co">//key press</span></span>
+<span id="cb52-134"><a href="meta-photography.html#cb52-134"></a>                        dwExtraInfo = <span class="fu">GetMessageExtraInfo</span>()</span>
+<span id="cb52-135"><a href="meta-photography.html#cb52-135"></a>                      }</span>
+<span id="cb52-136"><a href="meta-photography.html#cb52-136"></a>                    }</span>
+<span id="cb52-137"><a href="meta-photography.html#cb52-137"></a>                  }</span>
+<span id="cb52-138"><a href="meta-photography.html#cb52-138"></a>                };</span>
+<span id="cb52-139"><a href="meta-photography.html#cb52-139"></a></span>
+<span id="cb52-140"><a href="meta-photography.html#cb52-140"></a>                <span class="co">//define the release of the arrow up key</span></span>
+<span id="cb52-141"><a href="meta-photography.html#cb52-141"></a>                Input[] keyUP_release = <span class="kw">new</span> Input[]</span>
+<span id="cb52-142"><a href="meta-photography.html#cb52-142"></a>                {</span>
+<span id="cb52-143"><a href="meta-photography.html#cb52-143"></a>                  <span class="kw">new</span> Input</span>
+<span id="cb52-144"><a href="meta-photography.html#cb52-144"></a>                  {</span>
+<span id="cb52-145"><a href="meta-photography.html#cb52-145"></a>                    type = (<span class="dt">int</span>)InputType.<span class="fu">Keyboard</span>,</span>
+<span id="cb52-146"><a href="meta-photography.html#cb52-146"></a>                    u = <span class="kw">new</span> InputUnion</span>
+<span id="cb52-147"><a href="meta-photography.html#cb52-147"></a>                    {</span>
+<span id="cb52-148"><a href="meta-photography.html#cb52-148"></a>                      ki = <span class="kw">new</span> KeyboardInput</span>
+<span id="cb52-149"><a href="meta-photography.html#cb52-149"></a>                      {</span>
+<span id="cb52-150"><a href="meta-photography.html#cb52-150"></a>                        wVk = <span class="dv">0</span>,</span>
+<span id="cb52-151"><a href="meta-photography.html#cb52-151"></a>                        wScan = <span class="bn">0xC8</span>, <span class="co">//key ARROW UP</span></span>
+<span id="cb52-152"><a href="meta-photography.html#cb52-152"></a>                        dwFlags = (<span class="dt">uint</span>)(KeyEventF.<span class="fu">KeyUp</span> | KeyEventF.<span class="fu">Scancode</span>), <span class="co">//key release</span></span>
+<span id="cb52-153"><a href="meta-photography.html#cb52-153"></a>                        dwExtraInfo = <span class="fu">GetMessageExtraInfo</span>()</span>
+<span id="cb52-154"><a href="meta-photography.html#cb52-154"></a>                      }</span>
+<span id="cb52-155"><a href="meta-photography.html#cb52-155"></a>                    }</span>
+<span id="cb52-156"><a href="meta-photography.html#cb52-156"></a>                  }</span>
+<span id="cb52-157"><a href="meta-photography.html#cb52-157"></a>                };</span>
+<span id="cb52-158"><a href="meta-photography.html#cb52-158"></a>                </span>
+<span id="cb52-159"><a href="meta-photography.html#cb52-159"></a>                <span class="co">//we need to send a key press and add a delay before releasing it otherwise it&#39;s too fast for the game to register it</span></span>
+<span id="cb52-160"><a href="meta-photography.html#cb52-160"></a>                <span class="co">//send key press of arrow up key</span></span>
+<span id="cb52-161"><a href="meta-photography.html#cb52-161"></a>                <span class="fu">SendInput</span>((<span class="dt">uint</span>)keyUP_press.<span class="fu">Length</span>, keyUP_press, Marshal.<span class="fu">SizeOf</span>(<span class="kw">typeof</span>(Input)));</span>
+<span id="cb52-162"><a href="meta-photography.html#cb52-162"></a>                <span class="co">//delay half a second</span></span>
+<span id="cb52-163"><a href="meta-photography.html#cb52-163"></a>                <span class="fu">Wait</span>(<span class="dv">500</span>);</span>
+<span id="cb52-164"><a href="meta-photography.html#cb52-164"></a>                <span class="co">//send key release of arrow up key</span></span>
+<span id="cb52-165"><a href="meta-photography.html#cb52-165"></a>                <span class="fu">SendInput</span>((<span class="dt">uint</span>)keyUP_release.<span class="fu">Length</span>, keyUP_release, Marshal.<span class="fu">SizeOf</span>(<span class="kw">typeof</span>(Input)));</span>
+<span id="cb52-166"><a href="meta-photography.html#cb52-166"></a>            }</span>
+<span id="cb52-167"><a href="meta-photography.html#cb52-167"></a>        }</span>
+<span id="cb52-168"><a href="meta-photography.html#cb52-168"></a>    }</span>
+<span id="cb52-169"><a href="meta-photography.html#cb52-169"></a>}</span></code></pre></div>
 </details>
 <details>
 <p><summary>GTA V Photographer Bot Script</summary></p>
-<div class="sourceCode" id="cb52"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb52-1"><a href="meta-photography.html#cb52-1"></a><span class="co">//#define debug</span></span>
-<span id="cb52-2"><a href="meta-photography.html#cb52-2"></a></span>
-<span id="cb52-3"><a href="meta-photography.html#cb52-3"></a></span>
-<span id="cb52-4"><a href="meta-photography.html#cb52-4"></a><span class="kw">using</span> System;</span>
-<span id="cb52-5"><a href="meta-photography.html#cb52-5"></a><span class="kw">using</span> System.<span class="fu">Collections</span>.<span class="fu">Generic</span>;</span>
-<span id="cb52-6"><a href="meta-photography.html#cb52-6"></a><span class="kw">using</span> System.<span class="fu">Linq</span>;</span>
-<span id="cb52-7"><a href="meta-photography.html#cb52-7"></a><span class="kw">using</span> System.<span class="fu">Text</span>;</span>
-<span id="cb52-8"><a href="meta-photography.html#cb52-8"></a><span class="kw">using</span> System.<span class="fu">Threading</span>.<span class="fu">Tasks</span>;</span>
-<span id="cb52-9"><a href="meta-photography.html#cb52-9"></a></span>
-<span id="cb52-10"><a href="meta-photography.html#cb52-10"></a><span class="kw">using</span> GTA;</span>
-<span id="cb52-11"><a href="meta-photography.html#cb52-11"></a><span class="kw">using</span> GTA.<span class="fu">Math</span>;</span>
-<span id="cb52-12"><a href="meta-photography.html#cb52-12"></a><span class="kw">using</span> System.<span class="fu">Windows</span>.<span class="fu">Forms</span>;</span>
-<span id="cb52-13"><a href="meta-photography.html#cb52-13"></a><span class="kw">using</span> System.<span class="fu">Drawing</span>;</span>
-<span id="cb52-14"><a href="meta-photography.html#cb52-14"></a><span class="kw">using</span> GTA.<span class="fu">Native</span>;</span>
-<span id="cb52-15"><a href="meta-photography.html#cb52-15"></a><span class="kw">using</span> System.<span class="fu">IO</span>;</span>
-<span id="cb52-16"><a href="meta-photography.html#cb52-16"></a><span class="kw">using</span> System.<span class="fu">Runtime</span>.<span class="fu">InteropServices</span>;</span>
-<span id="cb52-17"><a href="meta-photography.html#cb52-17"></a></span>
-<span id="cb52-18"><a href="meta-photography.html#cb52-18"></a></span>
-<span id="cb52-19"><a href="meta-photography.html#cb52-19"></a></span>
-<span id="cb52-20"><a href="meta-photography.html#cb52-20"></a><span class="kw">namespace</span> moddingTutorial</span>
-<span id="cb52-21"><a href="meta-photography.html#cb52-21"></a>{</span>
-<span id="cb52-22"><a href="meta-photography.html#cb52-22"></a>    <span class="kw">public</span> <span class="kw">class</span> moddingTutorial : Script</span>
-<span id="cb52-23"><a href="meta-photography.html#cb52-23"></a>    {</span>
-<span id="cb52-24"><a href="meta-photography.html#cb52-24"></a></span>
-<span id="cb52-25"><a href="meta-photography.html#cb52-25"></a>        <span class="dt">bool</span> botOn = <span class="kw">false</span>; <span class="co">//turn the bot ON/OFF</span></span>
-<span id="cb52-26"><a href="meta-photography.html#cb52-26"></a>        List&lt;Vector3&gt; switchLocations = <span class="kw">new</span> List&lt;Vector3&gt;(); <span class="co">//list of locations to teleport the character if in danger</span></span>
-<span id="cb52-27"><a href="meta-photography.html#cb52-27"></a>        <span class="dt">int</span> index;</span>
-<span id="cb52-28"><a href="meta-photography.html#cb52-28"></a></span>
-<span id="cb52-29"><a href="meta-photography.html#cb52-29"></a>        <span class="co">//KEYBOARD AND MOUSE INPUT STUFF</span></span>
-<span id="cb52-30"><a href="meta-photography.html#cb52-30"></a>        [<span class="fu">StructLayout</span>(LayoutKind.<span class="fu">Sequential</span>)]</span>
-<span id="cb52-31"><a href="meta-photography.html#cb52-31"></a>        <span class="kw">public</span> <span class="kw">struct</span> KeyboardInput</span>
-<span id="cb52-32"><a href="meta-photography.html#cb52-32"></a>        {</span>
-<span id="cb52-33"><a href="meta-photography.html#cb52-33"></a>            <span class="kw">public</span> <span class="dt">ushort</span> wVk;</span>
-<span id="cb52-34"><a href="meta-photography.html#cb52-34"></a>            <span class="kw">public</span> <span class="dt">ushort</span> wScan;</span>
-<span id="cb52-35"><a href="meta-photography.html#cb52-35"></a>            <span class="kw">public</span> <span class="dt">uint</span> dwFlags;</span>
-<span id="cb52-36"><a href="meta-photography.html#cb52-36"></a>            <span class="kw">public</span> <span class="dt">uint</span> time;</span>
-<span id="cb52-37"><a href="meta-photography.html#cb52-37"></a>            <span class="kw">public</span> IntPtr dwExtraInfo;</span>
-<span id="cb52-38"><a href="meta-photography.html#cb52-38"></a>        }</span>
-<span id="cb52-39"><a href="meta-photography.html#cb52-39"></a>        [<span class="fu">StructLayout</span>(LayoutKind.<span class="fu">Sequential</span>)]</span>
-<span id="cb52-40"><a href="meta-photography.html#cb52-40"></a>        <span class="kw">public</span> <span class="kw">struct</span> MouseInput</span>
-<span id="cb52-41"><a href="meta-photography.html#cb52-41"></a>        {</span>
-<span id="cb52-42"><a href="meta-photography.html#cb52-42"></a>            <span class="kw">public</span> <span class="dt">int</span> dx;</span>
-<span id="cb52-43"><a href="meta-photography.html#cb52-43"></a>            <span class="kw">public</span> <span class="dt">int</span> dy;</span>
-<span id="cb52-44"><a href="meta-photography.html#cb52-44"></a>            <span class="kw">public</span> <span class="dt">uint</span> mouseData;</span>
-<span id="cb52-45"><a href="meta-photography.html#cb52-45"></a>            <span class="kw">public</span> <span class="dt">uint</span> dwFlags;</span>
-<span id="cb52-46"><a href="meta-photography.html#cb52-46"></a>            <span class="kw">public</span> <span class="dt">uint</span> time;</span>
-<span id="cb52-47"><a href="meta-photography.html#cb52-47"></a>            <span class="kw">public</span> IntPtr dwExtraInfo;</span>
-<span id="cb52-48"><a href="meta-photography.html#cb52-48"></a>        }</span>
-<span id="cb52-49"><a href="meta-photography.html#cb52-49"></a>        [<span class="fu">StructLayout</span>(LayoutKind.<span class="fu">Sequential</span>)]</span>
-<span id="cb52-50"><a href="meta-photography.html#cb52-50"></a>        <span class="kw">public</span> <span class="kw">struct</span> HardwareInput</span>
-<span id="cb52-51"><a href="meta-photography.html#cb52-51"></a>        {</span>
-<span id="cb52-52"><a href="meta-photography.html#cb52-52"></a>            <span class="kw">public</span> <span class="dt">uint</span> uMsg;</span>
-<span id="cb52-53"><a href="meta-photography.html#cb52-53"></a>            <span class="kw">public</span> <span class="dt">ushort</span> wParamL;</span>
-<span id="cb52-54"><a href="meta-photography.html#cb52-54"></a>            <span class="kw">public</span> <span class="dt">ushort</span> wParamH;</span>
-<span id="cb52-55"><a href="meta-photography.html#cb52-55"></a>        }</span>
-<span id="cb52-56"><a href="meta-photography.html#cb52-56"></a>        [<span class="fu">StructLayout</span>(LayoutKind.<span class="fu">Explicit</span>)]</span>
-<span id="cb52-57"><a href="meta-photography.html#cb52-57"></a>        <span class="kw">public</span> <span class="kw">struct</span> InputUnion</span>
-<span id="cb52-58"><a href="meta-photography.html#cb52-58"></a>        {</span>
-<span id="cb52-59"><a href="meta-photography.html#cb52-59"></a>            [<span class="fu">FieldOffset</span>(<span class="dv">0</span>)] <span class="kw">public</span> MouseInput mi;</span>
-<span id="cb52-60"><a href="meta-photography.html#cb52-60"></a>            [<span class="fu">FieldOffset</span>(<span class="dv">0</span>)] <span class="kw">public</span> KeyboardInput ki;</span>
-<span id="cb52-61"><a href="meta-photography.html#cb52-61"></a>            [<span class="fu">FieldOffset</span>(<span class="dv">0</span>)] <span class="kw">public</span> HardwareInput hi;</span>
-<span id="cb52-62"><a href="meta-photography.html#cb52-62"></a>        }</span>
-<span id="cb52-63"><a href="meta-photography.html#cb52-63"></a>        <span class="kw">public</span> <span class="kw">struct</span> Input</span>
-<span id="cb52-64"><a href="meta-photography.html#cb52-64"></a>        {</span>
-<span id="cb52-65"><a href="meta-photography.html#cb52-65"></a>            <span class="kw">public</span> <span class="dt">int</span> type;</span>
-<span id="cb52-66"><a href="meta-photography.html#cb52-66"></a>            <span class="kw">public</span> InputUnion u;</span>
-<span id="cb52-67"><a href="meta-photography.html#cb52-67"></a>        }</span>
-<span id="cb52-68"><a href="meta-photography.html#cb52-68"></a>        [Flags]</span>
-<span id="cb52-69"><a href="meta-photography.html#cb52-69"></a>        <span class="kw">public</span> <span class="kw">enum</span> InputType</span>
-<span id="cb52-70"><a href="meta-photography.html#cb52-70"></a>        {</span>
-<span id="cb52-71"><a href="meta-photography.html#cb52-71"></a>            Mouse = <span class="dv">0</span>,</span>
-<span id="cb52-72"><a href="meta-photography.html#cb52-72"></a>            Keyboard = <span class="dv">1</span>,</span>
-<span id="cb52-73"><a href="meta-photography.html#cb52-73"></a>            Hardware = <span class="dv">2</span></span>
-<span id="cb52-74"><a href="meta-photography.html#cb52-74"></a>        }</span>
-<span id="cb52-75"><a href="meta-photography.html#cb52-75"></a>        [Flags]</span>
-<span id="cb52-76"><a href="meta-photography.html#cb52-76"></a>        <span class="kw">public</span> <span class="kw">enum</span> KeyEventF</span>
-<span id="cb52-77"><a href="meta-photography.html#cb52-77"></a>        {</span>
-<span id="cb52-78"><a href="meta-photography.html#cb52-78"></a>            KeyDown = <span class="bn">0x0000</span>,</span>
-<span id="cb52-79"><a href="meta-photography.html#cb52-79"></a>            ExtendedKey = <span class="bn">0x0001</span>,</span>
-<span id="cb52-80"><a href="meta-photography.html#cb52-80"></a>            KeyUp = <span class="bn">0x0002</span>,</span>
-<span id="cb52-81"><a href="meta-photography.html#cb52-81"></a>            Unicode = <span class="bn">0x0004</span>,</span>
-<span id="cb52-82"><a href="meta-photography.html#cb52-82"></a>            Scancode = <span class="bn">0x0008</span></span>
-<span id="cb52-83"><a href="meta-photography.html#cb52-83"></a>        }</span>
-<span id="cb52-84"><a href="meta-photography.html#cb52-84"></a>        [Flags]</span>
-<span id="cb52-85"><a href="meta-photography.html#cb52-85"></a>        <span class="kw">public</span> <span class="kw">enum</span> MouseEventF</span>
-<span id="cb52-86"><a href="meta-photography.html#cb52-86"></a>        {</span>
-<span id="cb52-87"><a href="meta-photography.html#cb52-87"></a>            Absolute = <span class="bn">0x8000</span>,</span>
-<span id="cb52-88"><a href="meta-photography.html#cb52-88"></a>            HWheel = <span class="bn">0x01000</span>,</span>
-<span id="cb52-89"><a href="meta-photography.html#cb52-89"></a>            Move = <span class="bn">0x0001</span>,</span>
-<span id="cb52-90"><a href="meta-photography.html#cb52-90"></a>            MoveNoCoalesce = <span class="bn">0x2000</span>,</span>
-<span id="cb52-91"><a href="meta-photography.html#cb52-91"></a>            LeftDown = <span class="bn">0x0002</span>,</span>
-<span id="cb52-92"><a href="meta-photography.html#cb52-92"></a>            LeftUp = <span class="bn">0x0004</span>,</span>
-<span id="cb52-93"><a href="meta-photography.html#cb52-93"></a>            RightDown = <span class="bn">0x0008</span>,</span>
-<span id="cb52-94"><a href="meta-photography.html#cb52-94"></a>            RightUp = <span class="bn">0x0010</span>,</span>
-<span id="cb52-95"><a href="meta-photography.html#cb52-95"></a>            MiddleDown = <span class="bn">0x0020</span>,</span>
-<span id="cb52-96"><a href="meta-photography.html#cb52-96"></a>            MiddleUp = <span class="bn">0x0040</span>,</span>
-<span id="cb52-97"><a href="meta-photography.html#cb52-97"></a>            VirtualDesk = <span class="bn">0x4000</span>,</span>
-<span id="cb52-98"><a href="meta-photography.html#cb52-98"></a>            Wheel = <span class="bn">0x0800</span>,</span>
-<span id="cb52-99"><a href="meta-photography.html#cb52-99"></a>            XDown = <span class="bn">0x0080</span>,</span>
-<span id="cb52-100"><a href="meta-photography.html#cb52-100"></a>            XUp = <span class="bn">0x0100</span></span>
-<span id="cb52-101"><a href="meta-photography.html#cb52-101"></a>        }</span>
-<span id="cb52-102"><a href="meta-photography.html#cb52-102"></a></span>
-<span id="cb52-103"><a href="meta-photography.html#cb52-103"></a></span>
-<span id="cb52-104"><a href="meta-photography.html#cb52-104"></a>        [<span class="fu">DllImport</span>(<span class="st">&quot;user32.dll&quot;</span>, SetLastError = <span class="kw">true</span>)]</span>
-<span id="cb52-105"><a href="meta-photography.html#cb52-105"></a>        <span class="kw">private</span> <span class="kw">static</span> <span class="kw">extern</span> <span class="dt">uint</span> <span class="fu">SendInput</span>(<span class="dt">uint</span> nInputs, Input[] pInputs, <span class="dt">int</span> cbSize);</span>
-<span id="cb52-106"><a href="meta-photography.html#cb52-106"></a>        [<span class="fu">DllImport</span>(<span class="st">&quot;user32.dll&quot;</span>)]</span>
-<span id="cb52-107"><a href="meta-photography.html#cb52-107"></a>        <span class="kw">private</span> <span class="kw">static</span> <span class="kw">extern</span> IntPtr <span class="fu">GetMessageExtraInfo</span>();</span>
-<span id="cb52-108"><a href="meta-photography.html#cb52-108"></a>        <span class="dt">bool</span> pressKey = <span class="kw">false</span>;</span>
-<span id="cb52-109"><a href="meta-photography.html#cb52-109"></a></span>
-<span id="cb52-110"><a href="meta-photography.html#cb52-110"></a>        <span class="kw">public</span> <span class="fu">moddingTutorial</span>()</span>
-<span id="cb52-111"><a href="meta-photography.html#cb52-111"></a>        {</span>
-<span id="cb52-112"><a href="meta-photography.html#cb52-112"></a>            <span class="kw">this</span>.<span class="fu">Tick</span> += onTick;</span>
-<span id="cb52-113"><a href="meta-photography.html#cb52-113"></a>            <span class="kw">this</span>.<span class="fu">KeyUp</span> += onKeyUp;</span>
-<span id="cb52-114"><a href="meta-photography.html#cb52-114"></a>            <span class="kw">this</span>.<span class="fu">KeyDown</span> += onKeyDown;</span>
-<span id="cb52-115"><a href="meta-photography.html#cb52-115"></a></span>
-<span id="cb52-116"><a href="meta-photography.html#cb52-116"></a></span>
-<span id="cb52-117"><a href="meta-photography.html#cb52-117"></a>            switchLocations.<span class="fu">Add</span>(<span class="kw">new</span> <span class="fu">Vector3</span>(-<span class="fl">1578.27f</span>, <span class="fl">5155.2f</span>, <span class="fl">19.79865f</span>)); <span class="co">//Submarine pier</span></span>
-<span id="cb52-118"><a href="meta-photography.html#cb52-118"></a>            switchLocations.<span class="fu">Add</span>(<span class="kw">new</span> <span class="fu">Vector3</span>(<span class="fl">82.81281f</span>, <span class="fl">6432.408f</span>, <span class="fl">31.31271f</span>)); <span class="co">//</span></span>
-<span id="cb52-119"><a href="meta-photography.html#cb52-119"></a>            switchLocations.<span class="fu">Add</span>(<span class="kw">new</span> <span class="fu">Vector3</span>(-<span class="fl">237.6f</span>, <span class="fl">5497.5f</span>, <span class="fl">189.6f</span>)); <span class="co">// </span></span>
-<span id="cb52-120"><a href="meta-photography.html#cb52-120"></a></span>
-<span id="cb52-121"><a href="meta-photography.html#cb52-121"></a>            index = <span class="dv">0</span>;</span>
-<span id="cb52-122"><a href="meta-photography.html#cb52-122"></a>        }</span>
-<span id="cb52-123"><a href="meta-photography.html#cb52-123"></a></span>
-<span id="cb52-124"><a href="meta-photography.html#cb52-124"></a>        <span class="kw">private</span> <span class="dt">void</span> <span class="fu">checkDanger</span>()</span>
-<span id="cb52-125"><a href="meta-photography.html#cb52-125"></a>        {</span>
-<span id="cb52-126"><a href="meta-photography.html#cb52-126"></a>            <span class="kw">if</span> (Game.<span class="fu">Player</span>.<span class="fu">Character</span>.<span class="fu">IsSwimming</span> || Game.<span class="fu">Player</span>.<span class="fu">Character</span>.<span class="fu">IsInCombat</span> || Game.<span class="fu">Player</span>.<span class="fu">Character</span>.<span class="fu">IsInMeleeCombat</span> || Game.<span class="fu">Player</span>.<span class="fu">Character</span>.<span class="fu">IsInWater</span>)<span class="co">//(Function.Call&lt;bool&gt;(Hash.IS_PED_SWIMMING, Game.Player.Character))</span></span>
-<span id="cb52-127"><a href="meta-photography.html#cb52-127"></a>            {</span>
-<span id="cb52-128"><a href="meta-photography.html#cb52-128"></a>                <span class="co">//teleport to one of the locations</span></span>
-<span id="cb52-129"><a href="meta-photography.html#cb52-129"></a>                Function.<span class="fu">Call</span>(Hash.<span class="fu">SET_ENTITY_COORDS</span>, Game.<span class="fu">Player</span>.<span class="fu">Character</span>, switchLocations[index].<span class="fu">X</span>, switchLocations[index].<span class="fu">Y</span>, switchLocations[index].<span class="fu">Z</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>);</span>
-<span id="cb52-130"><a href="meta-photography.html#cb52-130"></a></span>
-<span id="cb52-131"><a href="meta-photography.html#cb52-131"></a>                <span class="co">//Move the index to the next location</span></span>
-<span id="cb52-132"><a href="meta-photography.html#cb52-132"></a>                index++;</span>
-<span id="cb52-133"><a href="meta-photography.html#cb52-133"></a>                <span class="kw">if</span> (index &gt;= switchLocations.<span class="fu">Count</span>) index = <span class="dv">0</span>;</span>
-<span id="cb52-134"><a href="meta-photography.html#cb52-134"></a><span class="kw">#if</span> (debug)</span>
-<span id="cb52-135"><a href="meta-photography.html#cb52-135"></a>                UI.<span class="fu">Notify</span>(<span class="st">&quot;Teleport&quot;</span>);</span>
-<span id="cb52-136"><a href="meta-photography.html#cb52-136"></a><span class="kw">#endif</span></span>
-<span id="cb52-137"><a href="meta-photography.html#cb52-137"></a>            }</span>
-<span id="cb52-138"><a href="meta-photography.html#cb52-138"></a>        }</span>
-<span id="cb52-139"><a href="meta-photography.html#cb52-139"></a></span>
-<span id="cb52-140"><a href="meta-photography.html#cb52-140"></a>        <span class="kw">private</span> <span class="dt">void</span> <span class="fu">onTick</span>(<span class="dt">object</span> sender, EventArgs e) <span class="co">//this function gets executed continuously </span></span>
-<span id="cb52-141"><a href="meta-photography.html#cb52-141"></a>        {</span>
-<span id="cb52-142"><a href="meta-photography.html#cb52-142"></a>            <span class="fu">checkDanger</span>();</span>
-<span id="cb52-143"><a href="meta-photography.html#cb52-143"></a></span>
-<span id="cb52-144"><a href="meta-photography.html#cb52-144"></a>            <span class="kw">if</span> (botOn)</span>
-<span id="cb52-145"><a href="meta-photography.html#cb52-145"></a>            {</span>
-<span id="cb52-146"><a href="meta-photography.html#cb52-146"></a>                <span class="co">//SET PLAYER INVINCIBLE</span></span>
-<span id="cb52-147"><a href="meta-photography.html#cb52-147"></a>                Function.<span class="fu">Call</span>(Hash.<span class="fu">SET_PLAYER_INVINCIBLE</span>, Game.<span class="fu">Player</span>, <span class="kw">true</span>);</span>
-<span id="cb52-148"><a href="meta-photography.html#cb52-148"></a></span>
-<span id="cb52-149"><a href="meta-photography.html#cb52-149"></a>                <span class="co">//SET 1st PERSON VIEW</span></span>
-<span id="cb52-150"><a href="meta-photography.html#cb52-150"></a>                Function.<span class="fu">Call</span>(Hash.<span class="fu">SET_FOLLOW_PED_CAM_VIEW_MODE</span>, <span class="dv">4</span>);</span>
-<span id="cb52-151"><a href="meta-photography.html#cb52-151"></a></span>
-<span id="cb52-152"><a href="meta-photography.html#cb52-152"></a>                <span class="co">//TASK SEQUENCE</span></span>
-<span id="cb52-153"><a href="meta-photography.html#cb52-153"></a>                TaskSequence mySeq = <span class="kw">new</span> <span class="fu">TaskSequence</span>();</span>
-<span id="cb52-154"><a href="meta-photography.html#cb52-154"></a></span>
-<span id="cb52-155"><a href="meta-photography.html#cb52-155"></a>                <span class="co">//WALK</span></span>
-<span id="cb52-156"><a href="meta-photography.html#cb52-156"></a>                Random rndWalk = <span class="kw">new</span> <span class="fu">Random</span>();</span>
-<span id="cb52-157"><a href="meta-photography.html#cb52-157"></a>                <span class="dt">int</span> Walk = (<span class="dt">int</span>)rndWalk.<span class="fu">Next</span>(-<span class="dv">10</span>, <span class="dv">10</span>);</span>
-<span id="cb52-158"><a href="meta-photography.html#cb52-158"></a>                <span class="co">//Game.Player.Character.Task.RunTo(Game.Player.Character.GetOffsetInWorldCoords(new Vector3(0, Run, 0)));</span></span>
-<span id="cb52-159"><a href="meta-photography.html#cb52-159"></a>                mySeq.<span class="fu">AddTask</span>.<span class="fu">GoTo</span>(Game.<span class="fu">Player</span>.<span class="fu">Character</span>.<span class="fu">GetOffsetInWorldCoords</span>(<span class="kw">new</span> <span class="fu">Vector3</span>(Walk, <span class="dv">0</span>, <span class="dv">0</span>)));</span>
-<span id="cb52-160"><a href="meta-photography.html#cb52-160"></a></span>
-<span id="cb52-161"><a href="meta-photography.html#cb52-161"></a>                <span class="co">//RUN</span></span>
-<span id="cb52-162"><a href="meta-photography.html#cb52-162"></a>                Random rndRun = <span class="kw">new</span> <span class="fu">Random</span>();</span>
-<span id="cb52-163"><a href="meta-photography.html#cb52-163"></a>                <span class="dt">int</span> Run = (<span class="dt">int</span>)rndRun.<span class="fu">Next</span>(-<span class="dv">10</span>, <span class="dv">10</span>);</span>
-<span id="cb52-164"><a href="meta-photography.html#cb52-164"></a>                <span class="co">//Game.Player.Character.Task.RunTo(Game.Player.Character.GetOffsetInWorldCoords(new Vector3(0, Run, 0)));</span></span>
-<span id="cb52-165"><a href="meta-photography.html#cb52-165"></a>                mySeq.<span class="fu">AddTask</span>.<span class="fu">RunTo</span>(Game.<span class="fu">Player</span>.<span class="fu">Character</span>.<span class="fu">GetOffsetInWorldCoords</span>(<span class="kw">new</span> <span class="fu">Vector3</span>(<span class="dv">0</span>, Run, <span class="dv">0</span>)));</span>
-<span id="cb52-166"><a href="meta-photography.html#cb52-166"></a></span>
-<span id="cb52-167"><a href="meta-photography.html#cb52-167"></a>                <span class="co">//WANDER AROUND</span></span>
-<span id="cb52-168"><a href="meta-photography.html#cb52-168"></a>                <span class="co">//Game.Player.Character.Task.WanderAround();</span></span>
-<span id="cb52-169"><a href="meta-photography.html#cb52-169"></a>                mySeq.<span class="fu">AddTask</span>.<span class="fu">WanderAround</span>();</span>
-<span id="cb52-170"><a href="meta-photography.html#cb52-170"></a>                </span>
-<span id="cb52-171"><a href="meta-photography.html#cb52-171"></a>                mySeq.<span class="fu">Close</span>();</span>
-<span id="cb52-172"><a href="meta-photography.html#cb52-172"></a>                Game.<span class="fu">Player</span>.<span class="fu">Character</span>.<span class="fu">Task</span>.<span class="fu">PerformSequence</span>(mySeq);</span>
-<span id="cb52-173"><a href="meta-photography.html#cb52-173"></a></span>
-<span id="cb52-174"><a href="meta-photography.html#cb52-174"></a>                <span class="co">//LET IT WANDER FOR RANDOM TIME</span></span>
-<span id="cb52-175"><a href="meta-photography.html#cb52-175"></a>                Random rndWandering = <span class="kw">new</span> <span class="fu">Random</span>();</span>
-<span id="cb52-176"><a href="meta-photography.html#cb52-176"></a>                <span class="dt">int</span> Wandering = (<span class="dt">int</span>)rndWandering.<span class="fu">Next</span>(<span class="dv">13</span>, <span class="dv">25</span>);</span>
-<span id="cb52-177"><a href="meta-photography.html#cb52-177"></a>                <span class="fu">Wait</span>(Wandering*<span class="dv">1000</span>);</span>
-<span id="cb52-178"><a href="meta-photography.html#cb52-178"></a>                Game.<span class="fu">Player</span>.<span class="fu">Character</span>.<span class="fu">Task</span>.<span class="fu">ClearAllImmediately</span>();</span>
-<span id="cb52-179"><a href="meta-photography.html#cb52-179"></a>                <span class="fu">checkDanger</span>();</span>
-<span id="cb52-180"><a href="meta-photography.html#cb52-180"></a>                <span class="fu">Wait</span>(<span class="dv">500</span>);</span>
-<span id="cb52-181"><a href="meta-photography.html#cb52-181"></a></span>
-<span id="cb52-182"><a href="meta-photography.html#cb52-182"></a>                <span class="kw">if</span> (Game.<span class="fu">Player</span>.<span class="fu">Character</span>.<span class="fu">IsStopped</span>)</span>
-<span id="cb52-183"><a href="meta-photography.html#cb52-183"></a>                {</span>
-<span id="cb52-184"><a href="meta-photography.html#cb52-184"></a>                    <span class="co">//PHOTO TAKING STUFF (VIRTUAL KEYS)</span></span>
-<span id="cb52-185"><a href="meta-photography.html#cb52-185"></a>                    </span>
-<span id="cb52-186"><a href="meta-photography.html#cb52-186"></a><span class="kw">#if</span> (debug)</span>
-<span id="cb52-187"><a href="meta-photography.html#cb52-187"></a>                    UI.<span class="fu">ShowSubtitle</span>(<span class="st">&quot;take out phone&quot;</span>, <span class="dv">1000</span>); </span>
-<span id="cb52-188"><a href="meta-photography.html#cb52-188"></a><span class="kw">#endif</span></span>
-<span id="cb52-189"><a href="meta-photography.html#cb52-189"></a>                    <span class="fu">keyOut</span>(<span class="bn">0xC8</span>, <span class="dv">1000</span>); <span class="co">//Arrow UP</span></span>
-<span id="cb52-190"><a href="meta-photography.html#cb52-190"></a>                    <span class="fu">Wait</span>(<span class="dv">1000</span>);</span>
-<span id="cb52-191"><a href="meta-photography.html#cb52-191"></a><span class="kw">#if</span> (debug)</span>
-<span id="cb52-192"><a href="meta-photography.html#cb52-192"></a>                    UI.<span class="fu">ShowSubtitle</span>(<span class="st">&quot;move down&quot;</span>, <span class="dv">1000</span>);</span>
-<span id="cb52-193"><a href="meta-photography.html#cb52-193"></a><span class="kw">#endif</span></span>
-<span id="cb52-194"><a href="meta-photography.html#cb52-194"></a>                    <span class="fu">keyOut</span>(<span class="bn">0xD0</span>, <span class="dv">500</span>); <span class="co">//Arrow DOWN</span></span>
-<span id="cb52-195"><a href="meta-photography.html#cb52-195"></a>                    <span class="fu">Wait</span>(<span class="dv">1000</span>);</span>
-<span id="cb52-196"><a href="meta-photography.html#cb52-196"></a><span class="kw">#if</span> (debug)</span>
-<span id="cb52-197"><a href="meta-photography.html#cb52-197"></a>                    UI.<span class="fu">ShowSubtitle</span>(<span class="st">&quot;take left&quot;</span>, <span class="dv">1000</span>); </span>
-<span id="cb52-198"><a href="meta-photography.html#cb52-198"></a><span class="kw">#endif</span></span>
-<span id="cb52-199"><a href="meta-photography.html#cb52-199"></a>                    <span class="fu">keyOut</span>(<span class="bn">0xCB</span>, <span class="dv">500</span>); <span class="co">//Arrow LEFT</span></span>
-<span id="cb52-200"><a href="meta-photography.html#cb52-200"></a>                    <span class="fu">Wait</span>(<span class="dv">1000</span>);</span>
-<span id="cb52-201"><a href="meta-photography.html#cb52-201"></a><span class="kw">#if</span> (debug)</span>
-<span id="cb52-202"><a href="meta-photography.html#cb52-202"></a>                    UI.<span class="fu">ShowSubtitle</span>(<span class="st">&quot;open app&quot;</span>, <span class="dv">1000</span>);</span>
-<span id="cb52-203"><a href="meta-photography.html#cb52-203"></a><span class="kw">#endif</span></span>
-<span id="cb52-204"><a href="meta-photography.html#cb52-204"></a>                    <span class="fu">keyOut</span>(<span class="bn">0x1C</span>, <span class="dv">500</span>); <span class="co">//ENTER</span></span>
-<span id="cb52-205"><a href="meta-photography.html#cb52-205"></a>                    <span class="fu">Wait</span>(<span class="dv">3000</span>);</span>
-<span id="cb52-206"><a href="meta-photography.html#cb52-206"></a></span>
-<span id="cb52-207"><a href="meta-photography.html#cb52-207"></a>                    <span class="co">//RANDOM ZOOM</span></span>
-<span id="cb52-208"><a href="meta-photography.html#cb52-208"></a>                    <span class="co">//ZOOM IN</span></span>
-<span id="cb52-209"><a href="meta-photography.html#cb52-209"></a>                    Random rndZoomIn = <span class="kw">new</span> <span class="fu">Random</span>();</span>
-<span id="cb52-210"><a href="meta-photography.html#cb52-210"></a>                    <span class="dt">int</span> ZoomIn = (<span class="dt">int</span>)rndZoomIn.<span class="fu">Next</span>(<span class="dv">4</span>, <span class="dv">14</span>);</span>
-<span id="cb52-211"><a href="meta-photography.html#cb52-211"></a><span class="kw">#if</span> (debug)</span>
-<span id="cb52-212"><a href="meta-photography.html#cb52-212"></a>                    UI.<span class="fu">ShowSubtitle</span>(<span class="st">&quot;Zooooooming In &quot;</span> + ZoomIn + <span class="st">&quot; times&quot;</span>, <span class="dv">2000</span>);</span>
-<span id="cb52-213"><a href="meta-photography.html#cb52-213"></a><span class="kw">#endif</span></span>
-<span id="cb52-214"><a href="meta-photography.html#cb52-214"></a>                    <span class="kw">for</span> (<span class="dt">int</span> i = <span class="dv">0</span>; i &lt; ZoomIn; i++)</span>
-<span id="cb52-215"><a href="meta-photography.html#cb52-215"></a>                    {</span>
-<span id="cb52-216"><a href="meta-photography.html#cb52-216"></a>                        <span class="fu">mouseWheelOut</span>(<span class="dv">130</span>);</span>
-<span id="cb52-217"><a href="meta-photography.html#cb52-217"></a>                        <span class="fu">Wait</span>(<span class="dv">20</span>);</span>
-<span id="cb52-218"><a href="meta-photography.html#cb52-218"></a>                    }</span>
-<span id="cb52-219"><a href="meta-photography.html#cb52-219"></a>                    <span class="fu">Wait</span>(<span class="dv">1000</span>);</span>
-<span id="cb52-220"><a href="meta-photography.html#cb52-220"></a>                    <span class="co">//ZOOM OUT</span></span>
-<span id="cb52-221"><a href="meta-photography.html#cb52-221"></a>                    Random rndZoomOut = <span class="kw">new</span> <span class="fu">Random</span>();</span>
-<span id="cb52-222"><a href="meta-photography.html#cb52-222"></a>                    <span class="dt">int</span> ZoomOut = (<span class="dt">int</span>)rndZoomOut.<span class="fu">Next</span>(<span class="dv">2</span>, <span class="dv">8</span>);</span>
-<span id="cb52-223"><a href="meta-photography.html#cb52-223"></a><span class="kw">#if</span> (debug)</span>
-<span id="cb52-224"><a href="meta-photography.html#cb52-224"></a>                    UI.<span class="fu">ShowSubtitle</span>(<span class="st">&quot;Zooooooming Out &quot;</span> + ZoomOut + <span class="st">&quot; times&quot;</span>, <span class="dv">2000</span>);</span>
-<span id="cb52-225"><a href="meta-photography.html#cb52-225"></a><span class="kw">#endif</span></span>
-<span id="cb52-226"><a href="meta-photography.html#cb52-226"></a>                    <span class="kw">for</span> (<span class="dt">int</span> i = <span class="dv">0</span>; i &lt; ZoomOut; i++)</span>
-<span id="cb52-227"><a href="meta-photography.html#cb52-227"></a>                    {</span>
-<span id="cb52-228"><a href="meta-photography.html#cb52-228"></a>                        <span class="fu">mouseWheelOut</span>(<span class="kw">unchecked</span>((<span class="dt">uint</span>)-<span class="dv">130</span>));</span>
-<span id="cb52-229"><a href="meta-photography.html#cb52-229"></a>                        <span class="fu">Wait</span>(<span class="dv">20</span>);</span>
-<span id="cb52-230"><a href="meta-photography.html#cb52-230"></a>                    }</span>
-<span id="cb52-231"><a href="meta-photography.html#cb52-231"></a>                    <span class="fu">Wait</span>(<span class="dv">3000</span>);</span>
-<span id="cb52-232"><a href="meta-photography.html#cb52-232"></a></span>
-<span id="cb52-233"><a href="meta-photography.html#cb52-233"></a>                    <span class="co">//TO DO: SMOOTH RANDOM MOUSE XY</span></span>
-<span id="cb52-234"><a href="meta-photography.html#cb52-234"></a>                    <span class="co">/*Random rndCamMove = new Random();</span></span>
-<span id="cb52-235"><a href="meta-photography.html#cb52-235"></a><span class="co">                    int camMove = rndCamMove.Next(5, 10);</span></span>
-<span id="cb52-236"><a href="meta-photography.html#cb52-236"></a><span class="co">                    UI.ShowSubtitle(&quot;find the right framing&quot;, 1000 + (20 * camMove));</span></span>
-<span id="cb52-237"><a href="meta-photography.html#cb52-237"></a><span class="co">                    for (int i = 0; i &lt; camMove; i++)</span></span>
-<span id="cb52-238"><a href="meta-photography.html#cb52-238"></a><span class="co">                    {</span></span>
-<span id="cb52-239"><a href="meta-photography.html#cb52-239"></a><span class="co">                        Random rndX = new Random();</span></span>
-<span id="cb52-240"><a href="meta-photography.html#cb52-240"></a><span class="co">                        Random rndY = new Random();</span></span>
-<span id="cb52-241"><a href="meta-photography.html#cb52-241"></a><span class="co">                        int newX = rndX.Next(-10, 10);</span></span>
-<span id="cb52-242"><a href="meta-photography.html#cb52-242"></a><span class="co">                        int newY = rndY.Next(-10, 10);</span></span>
-<span id="cb52-243"><a href="meta-photography.html#cb52-243"></a><span class="co">                        //mouseOut(newX*2, newY*2); //mouse xy</span></span>
-<span id="cb52-244"><a href="meta-photography.html#cb52-244"></a><span class="co">                        mouseOut(newX * 10, 0); //mouse xy</span></span>
-<span id="cb52-245"><a href="meta-photography.html#cb52-245"></a><span class="co">                        Wait(500);</span></span>
-<span id="cb52-246"><a href="meta-photography.html#cb52-246"></a><span class="co">                    }</span></span>
-<span id="cb52-247"><a href="meta-photography.html#cb52-247"></a><span class="co">                    Wait(2000);*/</span></span>
-<span id="cb52-248"><a href="meta-photography.html#cb52-248"></a></span>
-<span id="cb52-249"><a href="meta-photography.html#cb52-249"></a>                    <span class="co">//CHOOSE A RANDOM FILTER</span></span>
-<span id="cb52-250"><a href="meta-photography.html#cb52-250"></a>                    Random rnd = <span class="kw">new</span> <span class="fu">Random</span>();</span>
-<span id="cb52-251"><a href="meta-photography.html#cb52-251"></a>                    <span class="dt">int</span> filter = rnd.<span class="fu">Next</span>(<span class="dv">14</span>);</span>
-<span id="cb52-252"><a href="meta-photography.html#cb52-252"></a><span class="kw">#if</span> (debug)</span>
-<span id="cb52-253"><a href="meta-photography.html#cb52-253"></a>                    UI.<span class="fu">ShowSubtitle</span>(<span class="st">&quot;choose a random filter&quot;</span>, <span class="dv">1000</span> + (<span class="dv">500</span> * filter));</span>
-<span id="cb52-254"><a href="meta-photography.html#cb52-254"></a><span class="kw">#endif</span></span>
-<span id="cb52-255"><a href="meta-photography.html#cb52-255"></a>                    <span class="kw">for</span> (<span class="dt">int</span> i = <span class="dv">0</span>; i &lt; filter; i++)</span>
-<span id="cb52-256"><a href="meta-photography.html#cb52-256"></a>                    {</span>
-<span id="cb52-257"><a href="meta-photography.html#cb52-257"></a>                        <span class="fu">keyOut</span>(<span class="bn">0xD0</span>, <span class="dv">500</span>); <span class="co">//Arrow DOWN</span></span>
-<span id="cb52-258"><a href="meta-photography.html#cb52-258"></a>                        <span class="fu">Wait</span>(<span class="dv">500</span>);</span>
-<span id="cb52-259"><a href="meta-photography.html#cb52-259"></a>                    }</span>
-<span id="cb52-260"><a href="meta-photography.html#cb52-260"></a>                    <span class="fu">Wait</span>(<span class="dv">1000</span>);</span>
-<span id="cb52-261"><a href="meta-photography.html#cb52-261"></a></span>
-<span id="cb52-262"><a href="meta-photography.html#cb52-262"></a>                    <span class="co">//TAKE PHOTO</span></span>
-<span id="cb52-263"><a href="meta-photography.html#cb52-263"></a><span class="kw">#if</span> (debug)</span>
-<span id="cb52-264"><a href="meta-photography.html#cb52-264"></a>                    UI.<span class="fu">ShowSubtitle</span>(<span class="st">&quot;take photo&quot;</span>, <span class="dv">1000</span>);</span>
-<span id="cb52-265"><a href="meta-photography.html#cb52-265"></a><span class="kw">#endif</span></span>
-<span id="cb52-266"><a href="meta-photography.html#cb52-266"></a>                    <span class="fu">keyOut</span>(<span class="bn">0x1C</span>, <span class="dv">500</span>); <span class="co">//ENTER</span></span>
-<span id="cb52-267"><a href="meta-photography.html#cb52-267"></a>                    <span class="fu">Wait</span>(<span class="dv">5000</span>);</span>
-<span id="cb52-268"><a href="meta-photography.html#cb52-268"></a></span>
-<span id="cb52-269"><a href="meta-photography.html#cb52-269"></a>                    <span class="co">//DELETE PHOTO</span></span>
-<span id="cb52-270"><a href="meta-photography.html#cb52-270"></a><span class="kw">#if</span> (debug)</span>
-<span id="cb52-271"><a href="meta-photography.html#cb52-271"></a>                    UI.<span class="fu">ShowSubtitle</span>(<span class="st">&quot;delete photo&quot;</span>, <span class="dv">1000</span>);</span>
-<span id="cb52-272"><a href="meta-photography.html#cb52-272"></a><span class="kw">#endif</span></span>
-<span id="cb52-273"><a href="meta-photography.html#cb52-273"></a>                    <span class="fu">keyOut</span>(<span class="bn">0xD3</span>, <span class="dv">500</span>); <span class="co">//DELETE</span></span>
-<span id="cb52-274"><a href="meta-photography.html#cb52-274"></a>                    <span class="fu">Wait</span>(<span class="dv">2000</span>);</span>
-<span id="cb52-275"><a href="meta-photography.html#cb52-275"></a></span>
-<span id="cb52-276"><a href="meta-photography.html#cb52-276"></a>                    <span class="co">//CLOSE THE CAMERA APP</span></span>
-<span id="cb52-277"><a href="meta-photography.html#cb52-277"></a><span class="kw">#if</span> (debug)</span>
-<span id="cb52-278"><a href="meta-photography.html#cb52-278"></a>                    UI.<span class="fu">ShowSubtitle</span>(<span class="st">&quot;close app&quot;</span>, <span class="dv">1000</span>);</span>
-<span id="cb52-279"><a href="meta-photography.html#cb52-279"></a><span class="kw">#endif</span></span>
-<span id="cb52-280"><a href="meta-photography.html#cb52-280"></a>                    <span class="fu">keyOut</span>(<span class="bn">0x0E</span>, <span class="dv">500</span>); <span class="co">//BACK SPACE</span></span>
-<span id="cb52-281"><a href="meta-photography.html#cb52-281"></a>                    <span class="fu">Wait</span>(<span class="dv">2000</span>);</span>
-<span id="cb52-282"><a href="meta-photography.html#cb52-282"></a></span>
-<span id="cb52-283"><a href="meta-photography.html#cb52-283"></a>                    <span class="co">//PUT AWAY THE PHONE</span></span>
-<span id="cb52-284"><a href="meta-photography.html#cb52-284"></a><span class="kw">#if</span> (debug)</span>
-<span id="cb52-285"><a href="meta-photography.html#cb52-285"></a>                    UI.<span class="fu">ShowSubtitle</span>(<span class="st">&quot;put away phone&quot;</span>, <span class="dv">1000</span>);</span>
-<span id="cb52-286"><a href="meta-photography.html#cb52-286"></a><span class="kw">#endif</span></span>
-<span id="cb52-287"><a href="meta-photography.html#cb52-287"></a>                    <span class="fu">keyOut</span>(<span class="bn">0x0E</span>, <span class="dv">500</span>); <span class="co">//BACK SPACE</span></span>
-<span id="cb52-288"><a href="meta-photography.html#cb52-288"></a>                    </span>
-<span id="cb52-289"><a href="meta-photography.html#cb52-289"></a>                    <span class="fu">Wait</span>(<span class="dv">2000</span>);</span>
-<span id="cb52-290"><a href="meta-photography.html#cb52-290"></a>                }</span>
-<span id="cb52-291"><a href="meta-photography.html#cb52-291"></a>            }</span>
-<span id="cb52-292"><a href="meta-photography.html#cb52-292"></a>        }</span>
-<span id="cb52-293"><a href="meta-photography.html#cb52-293"></a></span>
-<span id="cb52-294"><a href="meta-photography.html#cb52-294"></a>        </span>
-<span id="cb52-295"><a href="meta-photography.html#cb52-295"></a>        <span class="co">//VIRTUAL MOUSE X AND Y MOVEMENT</span></span>
-<span id="cb52-296"><a href="meta-photography.html#cb52-296"></a>        <span class="kw">public</span> <span class="kw">static</span> <span class="dt">void</span> <span class="fu">mouseOut</span>(<span class="dt">int</span> coordX, <span class="dt">int</span> coordY)</span>
-<span id="cb52-297"><a href="meta-photography.html#cb52-297"></a>        {</span>
-<span id="cb52-298"><a href="meta-photography.html#cb52-298"></a>            <span class="co">//mouse move xy</span></span>
-<span id="cb52-299"><a href="meta-photography.html#cb52-299"></a>            Input[] inputs = <span class="kw">new</span> Input[]</span>
-<span id="cb52-300"><a href="meta-photography.html#cb52-300"></a>            {</span>
-<span id="cb52-301"><a href="meta-photography.html#cb52-301"></a>                <span class="kw">new</span> Input</span>
-<span id="cb52-302"><a href="meta-photography.html#cb52-302"></a>                {</span>
-<span id="cb52-303"><a href="meta-photography.html#cb52-303"></a>                    type = (<span class="dt">int</span>) InputType.<span class="fu">Mouse</span>,</span>
-<span id="cb52-304"><a href="meta-photography.html#cb52-304"></a>                    u = <span class="kw">new</span> InputUnion</span>
-<span id="cb52-305"><a href="meta-photography.html#cb52-305"></a>                    {</span>
-<span id="cb52-306"><a href="meta-photography.html#cb52-306"></a>                        mi = <span class="kw">new</span> MouseInput</span>
-<span id="cb52-307"><a href="meta-photography.html#cb52-307"></a>                        {</span>
-<span id="cb52-308"><a href="meta-photography.html#cb52-308"></a>                            dx = coordX,</span>
-<span id="cb52-309"><a href="meta-photography.html#cb52-309"></a>                            dy = coordY,</span>
-<span id="cb52-310"><a href="meta-photography.html#cb52-310"></a>                            dwFlags = (<span class="dt">uint</span>)(MouseEventF.<span class="fu">Move</span>),</span>
-<span id="cb52-311"><a href="meta-photography.html#cb52-311"></a>                            dwExtraInfo = <span class="fu">GetMessageExtraInfo</span>()</span>
-<span id="cb52-312"><a href="meta-photography.html#cb52-312"></a>                        }</span>
-<span id="cb52-313"><a href="meta-photography.html#cb52-313"></a>                    }</span>
-<span id="cb52-314"><a href="meta-photography.html#cb52-314"></a>                }</span>
-<span id="cb52-315"><a href="meta-photography.html#cb52-315"></a>            };</span>
-<span id="cb52-316"><a href="meta-photography.html#cb52-316"></a>            <span class="fu">SendInput</span>((<span class="dt">uint</span>)inputs.<span class="fu">Length</span>, inputs, Marshal.<span class="fu">SizeOf</span>(<span class="kw">typeof</span>(Input)));</span>
-<span id="cb52-317"><a href="meta-photography.html#cb52-317"></a>        }</span>
-<span id="cb52-318"><a href="meta-photography.html#cb52-318"></a></span>
-<span id="cb52-319"><a href="meta-photography.html#cb52-319"></a>        <span class="co">//VIRTUAL MOUSE WHEEL SCROLLING</span></span>
-<span id="cb52-320"><a href="meta-photography.html#cb52-320"></a>        <span class="kw">public</span> <span class="kw">static</span> <span class="dt">void</span> <span class="fu">mouseWheelOut</span>(<span class="dt">uint</span> duration)</span>
-<span id="cb52-321"><a href="meta-photography.html#cb52-321"></a>        {</span>
-<span id="cb52-322"><a href="meta-photography.html#cb52-322"></a>            <span class="co">//mouse wheel</span></span>
-<span id="cb52-323"><a href="meta-photography.html#cb52-323"></a>            Input[] inputs = <span class="kw">new</span> Input[]</span>
-<span id="cb52-324"><a href="meta-photography.html#cb52-324"></a>            {</span>
-<span id="cb52-325"><a href="meta-photography.html#cb52-325"></a>                <span class="kw">new</span> Input</span>
-<span id="cb52-326"><a href="meta-photography.html#cb52-326"></a>                {</span>
-<span id="cb52-327"><a href="meta-photography.html#cb52-327"></a>                    type = (<span class="dt">int</span>) InputType.<span class="fu">Mouse</span>,</span>
-<span id="cb52-328"><a href="meta-photography.html#cb52-328"></a>                    u = <span class="kw">new</span> InputUnion</span>
-<span id="cb52-329"><a href="meta-photography.html#cb52-329"></a>                    {</span>
-<span id="cb52-330"><a href="meta-photography.html#cb52-330"></a>                        mi = <span class="kw">new</span> MouseInput</span>
-<span id="cb52-331"><a href="meta-photography.html#cb52-331"></a>                        {</span>
-<span id="cb52-332"><a href="meta-photography.html#cb52-332"></a>                            dx = <span class="dv">100</span>,</span>
-<span id="cb52-333"><a href="meta-photography.html#cb52-333"></a>                            dy = <span class="dv">100</span>,</span>
-<span id="cb52-334"><a href="meta-photography.html#cb52-334"></a>                            <span class="co">//time = 0,</span></span>
-<span id="cb52-335"><a href="meta-photography.html#cb52-335"></a>                            mouseData = duration,</span>
-<span id="cb52-336"><a href="meta-photography.html#cb52-336"></a>                            dwFlags = (<span class="dt">uint</span>)(MouseEventF.<span class="fu">Wheel</span>),</span>
-<span id="cb52-337"><a href="meta-photography.html#cb52-337"></a>                            dwExtraInfo = <span class="fu">GetMessageExtraInfo</span>()</span>
-<span id="cb52-338"><a href="meta-photography.html#cb52-338"></a>                        }</span>
-<span id="cb52-339"><a href="meta-photography.html#cb52-339"></a>                    }</span>
-<span id="cb52-340"><a href="meta-photography.html#cb52-340"></a>                }</span>
-<span id="cb52-341"><a href="meta-photography.html#cb52-341"></a>            };</span>
-<span id="cb52-342"><a href="meta-photography.html#cb52-342"></a>            <span class="fu">SendInput</span>((<span class="dt">uint</span>)inputs.<span class="fu">Length</span>, inputs, Marshal.<span class="fu">SizeOf</span>(<span class="kw">typeof</span>(Input)));</span>
-<span id="cb52-343"><a href="meta-photography.html#cb52-343"></a>        }</span>
-<span id="cb52-344"><a href="meta-photography.html#cb52-344"></a>        </span>
-<span id="cb52-345"><a href="meta-photography.html#cb52-345"></a>        <span class="co">//VIRTUAL KEY PRESS AND RELEASE</span></span>
-<span id="cb52-346"><a href="meta-photography.html#cb52-346"></a>        <span class="kw">public</span> <span class="kw">static</span> <span class="dt">void</span> <span class="fu">keyOut</span>(<span class="dt">ushort</span> hexKey, <span class="dt">int</span> delay)</span>
-<span id="cb52-347"><a href="meta-photography.html#cb52-347"></a>        {</span>
-<span id="cb52-348"><a href="meta-photography.html#cb52-348"></a>            <span class="co">//key pressed</span></span>
-<span id="cb52-349"><a href="meta-photography.html#cb52-349"></a>            Input[] inputs = <span class="kw">new</span> Input[]</span>
-<span id="cb52-350"><a href="meta-photography.html#cb52-350"></a>            {</span>
-<span id="cb52-351"><a href="meta-photography.html#cb52-351"></a>                <span class="kw">new</span> Input</span>
-<span id="cb52-352"><a href="meta-photography.html#cb52-352"></a>                {</span>
-<span id="cb52-353"><a href="meta-photography.html#cb52-353"></a>                    type = (<span class="dt">int</span>)InputType.<span class="fu">Keyboard</span>,</span>
-<span id="cb52-354"><a href="meta-photography.html#cb52-354"></a>                    u = <span class="kw">new</span> InputUnion</span>
-<span id="cb52-355"><a href="meta-photography.html#cb52-355"></a>                    {</span>
-<span id="cb52-356"><a href="meta-photography.html#cb52-356"></a>                        ki = <span class="kw">new</span> KeyboardInput</span>
-<span id="cb52-357"><a href="meta-photography.html#cb52-357"></a>                        {</span>
-<span id="cb52-358"><a href="meta-photography.html#cb52-358"></a>                            wVk = <span class="dv">0</span>,</span>
-<span id="cb52-359"><a href="meta-photography.html#cb52-359"></a>                            wScan = hexKey, <span class="co">//0xC8,</span></span>
-<span id="cb52-360"><a href="meta-photography.html#cb52-360"></a>                            dwFlags = (<span class="dt">uint</span>)(KeyEventF.<span class="fu">KeyDown</span> | KeyEventF.<span class="fu">Scancode</span>),</span>
-<span id="cb52-361"><a href="meta-photography.html#cb52-361"></a>                            dwExtraInfo = <span class="fu">GetMessageExtraInfo</span>()</span>
-<span id="cb52-362"><a href="meta-photography.html#cb52-362"></a>                        }</span>
-<span id="cb52-363"><a href="meta-photography.html#cb52-363"></a>                    }</span>
-<span id="cb52-364"><a href="meta-photography.html#cb52-364"></a>                }</span>
-<span id="cb52-365"><a href="meta-photography.html#cb52-365"></a>            };</span>
-<span id="cb52-366"><a href="meta-photography.html#cb52-366"></a></span>
-<span id="cb52-367"><a href="meta-photography.html#cb52-367"></a></span>
-<span id="cb52-368"><a href="meta-photography.html#cb52-368"></a>            <span class="co">//key released</span></span>
-<span id="cb52-369"><a href="meta-photography.html#cb52-369"></a>            Input[] inputs2 = <span class="kw">new</span> Input[]</span>
-<span id="cb52-370"><a href="meta-photography.html#cb52-370"></a>            {</span>
-<span id="cb52-371"><a href="meta-photography.html#cb52-371"></a>                <span class="kw">new</span> Input</span>
-<span id="cb52-372"><a href="meta-photography.html#cb52-372"></a>                {</span>
-<span id="cb52-373"><a href="meta-photography.html#cb52-373"></a>                    type = (<span class="dt">int</span>)InputType.<span class="fu">Keyboard</span>,</span>
-<span id="cb52-374"><a href="meta-photography.html#cb52-374"></a>                    u = <span class="kw">new</span> InputUnion</span>
-<span id="cb52-375"><a href="meta-photography.html#cb52-375"></a>                    {</span>
-<span id="cb52-376"><a href="meta-photography.html#cb52-376"></a>                        ki = <span class="kw">new</span> KeyboardInput</span>
-<span id="cb52-377"><a href="meta-photography.html#cb52-377"></a>                        {</span>
-<span id="cb52-378"><a href="meta-photography.html#cb52-378"></a>                            wVk = <span class="dv">0</span>,</span>
-<span id="cb52-379"><a href="meta-photography.html#cb52-379"></a>                            wScan = hexKey, <span class="co">//0xC8,</span></span>
-<span id="cb52-380"><a href="meta-photography.html#cb52-380"></a>                            dwFlags = (<span class="dt">uint</span>)(KeyEventF.<span class="fu">KeyUp</span> | KeyEventF.<span class="fu">Scancode</span>),</span>
-<span id="cb52-381"><a href="meta-photography.html#cb52-381"></a>                            dwExtraInfo = <span class="fu">GetMessageExtraInfo</span>()</span>
-<span id="cb52-382"><a href="meta-photography.html#cb52-382"></a>                        }</span>
-<span id="cb52-383"><a href="meta-photography.html#cb52-383"></a>                    }</span>
-<span id="cb52-384"><a href="meta-photography.html#cb52-384"></a>                }</span>
-<span id="cb52-385"><a href="meta-photography.html#cb52-385"></a>            };</span>
-<span id="cb52-386"><a href="meta-photography.html#cb52-386"></a></span>
-<span id="cb52-387"><a href="meta-photography.html#cb52-387"></a>            <span class="co">//send key press / delay / release</span></span>
-<span id="cb52-388"><a href="meta-photography.html#cb52-388"></a>            <span class="fu">SendInput</span>((<span class="dt">uint</span>)inputs.<span class="fu">Length</span>, inputs, Marshal.<span class="fu">SizeOf</span>(<span class="kw">typeof</span>(Input)));</span>
-<span id="cb52-389"><a href="meta-photography.html#cb52-389"></a>            <span class="fu">Wait</span>(delay);</span>
-<span id="cb52-390"><a href="meta-photography.html#cb52-390"></a>            <span class="fu">SendInput</span>((<span class="dt">uint</span>)inputs2.<span class="fu">Length</span>, inputs2, Marshal.<span class="fu">SizeOf</span>(<span class="kw">typeof</span>(Input)));</span>
-<span id="cb52-391"><a href="meta-photography.html#cb52-391"></a></span>
-<span id="cb52-392"><a href="meta-photography.html#cb52-392"></a>        }</span>
-<span id="cb52-393"><a href="meta-photography.html#cb52-393"></a></span>
-<span id="cb52-394"><a href="meta-photography.html#cb52-394"></a>        <span class="kw">private</span> <span class="dt">void</span> <span class="fu">onKeyDown</span>(<span class="dt">object</span> sender, KeyEventArgs e)</span>
-<span id="cb52-395"><a href="meta-photography.html#cb52-395"></a>        {</span>
-<span id="cb52-396"><a href="meta-photography.html#cb52-396"></a>           </span>
-<span id="cb52-397"><a href="meta-photography.html#cb52-397"></a>        }</span>
-<span id="cb52-398"><a href="meta-photography.html#cb52-398"></a>        <span class="kw">private</span> <span class="dt">void</span> <span class="fu">onKeyUp</span>(<span class="dt">object</span> sender, KeyEventArgs e)</span>
-<span id="cb52-399"><a href="meta-photography.html#cb52-399"></a>        {</span>
-<span id="cb52-400"><a href="meta-photography.html#cb52-400"></a>           <span class="kw">if</span> (e.<span class="fu">KeyCode</span> == Keys.<span class="fu">H</span>)</span>
-<span id="cb52-401"><a href="meta-photography.html#cb52-401"></a>           {</span>
-<span id="cb52-402"><a href="meta-photography.html#cb52-402"></a>              <span class="co">//SWITCH THE BOT ON/OFF</span></span>
-<span id="cb52-403"><a href="meta-photography.html#cb52-403"></a>              botOn = !botOn;</span>
-<span id="cb52-404"><a href="meta-photography.html#cb52-404"></a>              <span class="kw">if</span>(botOn) UI.<span class="fu">ShowSubtitle</span>(<span class="st">&quot;GTA V Photographer Bot is ON&quot;</span>, <span class="dv">3000</span>);</span>
-<span id="cb52-405"><a href="meta-photography.html#cb52-405"></a>               <span class="kw">else</span> UI.<span class="fu">ShowSubtitle</span>(<span class="st">&quot;GTA V Photographer Bot is OFF&quot;</span>, <span class="dv">3000</span>);</span>
-<span id="cb52-406"><a href="meta-photography.html#cb52-406"></a>  </span>
-<span id="cb52-407"><a href="meta-photography.html#cb52-407"></a>           }</span>
-<span id="cb52-408"><a href="meta-photography.html#cb52-408"></a>           <span class="kw">if</span> (e.<span class="fu">KeyCode</span> == Keys.<span class="fu">J</span>)</span>
-<span id="cb52-409"><a href="meta-photography.html#cb52-409"></a>           {</span>
-<span id="cb52-410"><a href="meta-photography.html#cb52-410"></a>              <span class="co">//TELEPORT MANUALLY</span></span>
-<span id="cb52-411"><a href="meta-photography.html#cb52-411"></a>              Function.<span class="fu">Call</span>(Hash.<span class="fu">SET_ENTITY_COORDS</span>, Game.<span class="fu">Player</span>.<span class="fu">Character</span>, switchLocations[index].<span class="fu">X</span>, switchLocations[index].<span class="fu">Y</span>, switchLocations[index].<span class="fu">Z</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>);</span>
-<span id="cb52-412"><a href="meta-photography.html#cb52-412"></a>              index++;</span>
-<span id="cb52-413"><a href="meta-photography.html#cb52-413"></a>              <span class="kw">if</span> (index &gt;= switchLocations.<span class="fu">Count</span>) index = <span class="dv">0</span>;</span>
-<span id="cb52-414"><a href="meta-photography.html#cb52-414"></a>            }</span>
-<span id="cb52-415"><a href="meta-photography.html#cb52-415"></a>        }</span>
-<span id="cb52-416"><a href="meta-photography.html#cb52-416"></a>    }</span>
-<span id="cb52-417"><a href="meta-photography.html#cb52-417"></a>}</span>
-<span id="cb52-418"><a href="meta-photography.html#cb52-418"></a></span>
-<span id="cb52-419"><a href="meta-photography.html#cb52-419"></a></span></code></pre></div>
+<div class="sourceCode" id="cb53"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb53-1"><a href="meta-photography.html#cb53-1"></a><span class="co">//#define debug</span></span>
+<span id="cb53-2"><a href="meta-photography.html#cb53-2"></a></span>
+<span id="cb53-3"><a href="meta-photography.html#cb53-3"></a></span>
+<span id="cb53-4"><a href="meta-photography.html#cb53-4"></a><span class="kw">using</span> System;</span>
+<span id="cb53-5"><a href="meta-photography.html#cb53-5"></a><span class="kw">using</span> System.<span class="fu">Collections</span>.<span class="fu">Generic</span>;</span>
+<span id="cb53-6"><a href="meta-photography.html#cb53-6"></a><span class="kw">using</span> System.<span class="fu">Linq</span>;</span>
+<span id="cb53-7"><a href="meta-photography.html#cb53-7"></a><span class="kw">using</span> System.<span class="fu">Text</span>;</span>
+<span id="cb53-8"><a href="meta-photography.html#cb53-8"></a><span class="kw">using</span> System.<span class="fu">Threading</span>.<span class="fu">Tasks</span>;</span>
+<span id="cb53-9"><a href="meta-photography.html#cb53-9"></a></span>
+<span id="cb53-10"><a href="meta-photography.html#cb53-10"></a><span class="kw">using</span> GTA;</span>
+<span id="cb53-11"><a href="meta-photography.html#cb53-11"></a><span class="kw">using</span> GTA.<span class="fu">Math</span>;</span>
+<span id="cb53-12"><a href="meta-photography.html#cb53-12"></a><span class="kw">using</span> System.<span class="fu">Windows</span>.<span class="fu">Forms</span>;</span>
+<span id="cb53-13"><a href="meta-photography.html#cb53-13"></a><span class="kw">using</span> System.<span class="fu">Drawing</span>;</span>
+<span id="cb53-14"><a href="meta-photography.html#cb53-14"></a><span class="kw">using</span> GTA.<span class="fu">Native</span>;</span>
+<span id="cb53-15"><a href="meta-photography.html#cb53-15"></a><span class="kw">using</span> System.<span class="fu">IO</span>;</span>
+<span id="cb53-16"><a href="meta-photography.html#cb53-16"></a><span class="kw">using</span> System.<span class="fu">Runtime</span>.<span class="fu">InteropServices</span>;</span>
+<span id="cb53-17"><a href="meta-photography.html#cb53-17"></a></span>
+<span id="cb53-18"><a href="meta-photography.html#cb53-18"></a></span>
+<span id="cb53-19"><a href="meta-photography.html#cb53-19"></a></span>
+<span id="cb53-20"><a href="meta-photography.html#cb53-20"></a><span class="kw">namespace</span> moddingTutorial</span>
+<span id="cb53-21"><a href="meta-photography.html#cb53-21"></a>{</span>
+<span id="cb53-22"><a href="meta-photography.html#cb53-22"></a>    <span class="kw">public</span> <span class="kw">class</span> moddingTutorial : Script</span>
+<span id="cb53-23"><a href="meta-photography.html#cb53-23"></a>    {</span>
+<span id="cb53-24"><a href="meta-photography.html#cb53-24"></a></span>
+<span id="cb53-25"><a href="meta-photography.html#cb53-25"></a>        <span class="dt">bool</span> botOn = <span class="kw">false</span>; <span class="co">//turn the bot ON/OFF</span></span>
+<span id="cb53-26"><a href="meta-photography.html#cb53-26"></a>        List&lt;Vector3&gt; switchLocations = <span class="kw">new</span> List&lt;Vector3&gt;(); <span class="co">//list of locations to teleport the character if in danger</span></span>
+<span id="cb53-27"><a href="meta-photography.html#cb53-27"></a>        <span class="dt">int</span> index;</span>
+<span id="cb53-28"><a href="meta-photography.html#cb53-28"></a></span>
+<span id="cb53-29"><a href="meta-photography.html#cb53-29"></a>        <span class="co">//KEYBOARD AND MOUSE INPUT STUFF</span></span>
+<span id="cb53-30"><a href="meta-photography.html#cb53-30"></a>        [<span class="fu">StructLayout</span>(LayoutKind.<span class="fu">Sequential</span>)]</span>
+<span id="cb53-31"><a href="meta-photography.html#cb53-31"></a>        <span class="kw">public</span> <span class="kw">struct</span> KeyboardInput</span>
+<span id="cb53-32"><a href="meta-photography.html#cb53-32"></a>        {</span>
+<span id="cb53-33"><a href="meta-photography.html#cb53-33"></a>            <span class="kw">public</span> <span class="dt">ushort</span> wVk;</span>
+<span id="cb53-34"><a href="meta-photography.html#cb53-34"></a>            <span class="kw">public</span> <span class="dt">ushort</span> wScan;</span>
+<span id="cb53-35"><a href="meta-photography.html#cb53-35"></a>            <span class="kw">public</span> <span class="dt">uint</span> dwFlags;</span>
+<span id="cb53-36"><a href="meta-photography.html#cb53-36"></a>            <span class="kw">public</span> <span class="dt">uint</span> time;</span>
+<span id="cb53-37"><a href="meta-photography.html#cb53-37"></a>            <span class="kw">public</span> IntPtr dwExtraInfo;</span>
+<span id="cb53-38"><a href="meta-photography.html#cb53-38"></a>        }</span>
+<span id="cb53-39"><a href="meta-photography.html#cb53-39"></a>        [<span class="fu">StructLayout</span>(LayoutKind.<span class="fu">Sequential</span>)]</span>
+<span id="cb53-40"><a href="meta-photography.html#cb53-40"></a>        <span class="kw">public</span> <span class="kw">struct</span> MouseInput</span>
+<span id="cb53-41"><a href="meta-photography.html#cb53-41"></a>        {</span>
+<span id="cb53-42"><a href="meta-photography.html#cb53-42"></a>            <span class="kw">public</span> <span class="dt">int</span> dx;</span>
+<span id="cb53-43"><a href="meta-photography.html#cb53-43"></a>            <span class="kw">public</span> <span class="dt">int</span> dy;</span>
+<span id="cb53-44"><a href="meta-photography.html#cb53-44"></a>            <span class="kw">public</span> <span class="dt">uint</span> mouseData;</span>
+<span id="cb53-45"><a href="meta-photography.html#cb53-45"></a>            <span class="kw">public</span> <span class="dt">uint</span> dwFlags;</span>
+<span id="cb53-46"><a href="meta-photography.html#cb53-46"></a>            <span class="kw">public</span> <span class="dt">uint</span> time;</span>
+<span id="cb53-47"><a href="meta-photography.html#cb53-47"></a>            <span class="kw">public</span> IntPtr dwExtraInfo;</span>
+<span id="cb53-48"><a href="meta-photography.html#cb53-48"></a>        }</span>
+<span id="cb53-49"><a href="meta-photography.html#cb53-49"></a>        [<span class="fu">StructLayout</span>(LayoutKind.<span class="fu">Sequential</span>)]</span>
+<span id="cb53-50"><a href="meta-photography.html#cb53-50"></a>        <span class="kw">public</span> <span class="kw">struct</span> HardwareInput</span>
+<span id="cb53-51"><a href="meta-photography.html#cb53-51"></a>        {</span>
+<span id="cb53-52"><a href="meta-photography.html#cb53-52"></a>            <span class="kw">public</span> <span class="dt">uint</span> uMsg;</span>
+<span id="cb53-53"><a href="meta-photography.html#cb53-53"></a>            <span class="kw">public</span> <span class="dt">ushort</span> wParamL;</span>
+<span id="cb53-54"><a href="meta-photography.html#cb53-54"></a>            <span class="kw">public</span> <span class="dt">ushort</span> wParamH;</span>
+<span id="cb53-55"><a href="meta-photography.html#cb53-55"></a>        }</span>
+<span id="cb53-56"><a href="meta-photography.html#cb53-56"></a>        [<span class="fu">StructLayout</span>(LayoutKind.<span class="fu">Explicit</span>)]</span>
+<span id="cb53-57"><a href="meta-photography.html#cb53-57"></a>        <span class="kw">public</span> <span class="kw">struct</span> InputUnion</span>
+<span id="cb53-58"><a href="meta-photography.html#cb53-58"></a>        {</span>
+<span id="cb53-59"><a href="meta-photography.html#cb53-59"></a>            [<span class="fu">FieldOffset</span>(<span class="dv">0</span>)] <span class="kw">public</span> MouseInput mi;</span>
+<span id="cb53-60"><a href="meta-photography.html#cb53-60"></a>            [<span class="fu">FieldOffset</span>(<span class="dv">0</span>)] <span class="kw">public</span> KeyboardInput ki;</span>
+<span id="cb53-61"><a href="meta-photography.html#cb53-61"></a>            [<span class="fu">FieldOffset</span>(<span class="dv">0</span>)] <span class="kw">public</span> HardwareInput hi;</span>
+<span id="cb53-62"><a href="meta-photography.html#cb53-62"></a>        }</span>
+<span id="cb53-63"><a href="meta-photography.html#cb53-63"></a>        <span class="kw">public</span> <span class="kw">struct</span> Input</span>
+<span id="cb53-64"><a href="meta-photography.html#cb53-64"></a>        {</span>
+<span id="cb53-65"><a href="meta-photography.html#cb53-65"></a>            <span class="kw">public</span> <span class="dt">int</span> type;</span>
+<span id="cb53-66"><a href="meta-photography.html#cb53-66"></a>            <span class="kw">public</span> InputUnion u;</span>
+<span id="cb53-67"><a href="meta-photography.html#cb53-67"></a>        }</span>
+<span id="cb53-68"><a href="meta-photography.html#cb53-68"></a>        [Flags]</span>
+<span id="cb53-69"><a href="meta-photography.html#cb53-69"></a>        <span class="kw">public</span> <span class="kw">enum</span> InputType</span>
+<span id="cb53-70"><a href="meta-photography.html#cb53-70"></a>        {</span>
+<span id="cb53-71"><a href="meta-photography.html#cb53-71"></a>            Mouse = <span class="dv">0</span>,</span>
+<span id="cb53-72"><a href="meta-photography.html#cb53-72"></a>            Keyboard = <span class="dv">1</span>,</span>
+<span id="cb53-73"><a href="meta-photography.html#cb53-73"></a>            Hardware = <span class="dv">2</span></span>
+<span id="cb53-74"><a href="meta-photography.html#cb53-74"></a>        }</span>
+<span id="cb53-75"><a href="meta-photography.html#cb53-75"></a>        [Flags]</span>
+<span id="cb53-76"><a href="meta-photography.html#cb53-76"></a>        <span class="kw">public</span> <span class="kw">enum</span> KeyEventF</span>
+<span id="cb53-77"><a href="meta-photography.html#cb53-77"></a>        {</span>
+<span id="cb53-78"><a href="meta-photography.html#cb53-78"></a>            KeyDown = <span class="bn">0x0000</span>,</span>
+<span id="cb53-79"><a href="meta-photography.html#cb53-79"></a>            ExtendedKey = <span class="bn">0x0001</span>,</span>
+<span id="cb53-80"><a href="meta-photography.html#cb53-80"></a>            KeyUp = <span class="bn">0x0002</span>,</span>
+<span id="cb53-81"><a href="meta-photography.html#cb53-81"></a>            Unicode = <span class="bn">0x0004</span>,</span>
+<span id="cb53-82"><a href="meta-photography.html#cb53-82"></a>            Scancode = <span class="bn">0x0008</span></span>
+<span id="cb53-83"><a href="meta-photography.html#cb53-83"></a>        }</span>
+<span id="cb53-84"><a href="meta-photography.html#cb53-84"></a>        [Flags]</span>
+<span id="cb53-85"><a href="meta-photography.html#cb53-85"></a>        <span class="kw">public</span> <span class="kw">enum</span> MouseEventF</span>
+<span id="cb53-86"><a href="meta-photography.html#cb53-86"></a>        {</span>
+<span id="cb53-87"><a href="meta-photography.html#cb53-87"></a>            Absolute = <span class="bn">0x8000</span>,</span>
+<span id="cb53-88"><a href="meta-photography.html#cb53-88"></a>            HWheel = <span class="bn">0x01000</span>,</span>
+<span id="cb53-89"><a href="meta-photography.html#cb53-89"></a>            Move = <span class="bn">0x0001</span>,</span>
+<span id="cb53-90"><a href="meta-photography.html#cb53-90"></a>            MoveNoCoalesce = <span class="bn">0x2000</span>,</span>
+<span id="cb53-91"><a href="meta-photography.html#cb53-91"></a>            LeftDown = <span class="bn">0x0002</span>,</span>
+<span id="cb53-92"><a href="meta-photography.html#cb53-92"></a>            LeftUp = <span class="bn">0x0004</span>,</span>
+<span id="cb53-93"><a href="meta-photography.html#cb53-93"></a>            RightDown = <span class="bn">0x0008</span>,</span>
+<span id="cb53-94"><a href="meta-photography.html#cb53-94"></a>            RightUp = <span class="bn">0x0010</span>,</span>
+<span id="cb53-95"><a href="meta-photography.html#cb53-95"></a>            MiddleDown = <span class="bn">0x0020</span>,</span>
+<span id="cb53-96"><a href="meta-photography.html#cb53-96"></a>            MiddleUp = <span class="bn">0x0040</span>,</span>
+<span id="cb53-97"><a href="meta-photography.html#cb53-97"></a>            VirtualDesk = <span class="bn">0x4000</span>,</span>
+<span id="cb53-98"><a href="meta-photography.html#cb53-98"></a>            Wheel = <span class="bn">0x0800</span>,</span>
+<span id="cb53-99"><a href="meta-photography.html#cb53-99"></a>            XDown = <span class="bn">0x0080</span>,</span>
+<span id="cb53-100"><a href="meta-photography.html#cb53-100"></a>            XUp = <span class="bn">0x0100</span></span>
+<span id="cb53-101"><a href="meta-photography.html#cb53-101"></a>        }</span>
+<span id="cb53-102"><a href="meta-photography.html#cb53-102"></a></span>
+<span id="cb53-103"><a href="meta-photography.html#cb53-103"></a></span>
+<span id="cb53-104"><a href="meta-photography.html#cb53-104"></a>        [<span class="fu">DllImport</span>(<span class="st">&quot;user32.dll&quot;</span>, SetLastError = <span class="kw">true</span>)]</span>
+<span id="cb53-105"><a href="meta-photography.html#cb53-105"></a>        <span class="kw">private</span> <span class="kw">static</span> <span class="kw">extern</span> <span class="dt">uint</span> <span class="fu">SendInput</span>(<span class="dt">uint</span> nInputs, Input[] pInputs, <span class="dt">int</span> cbSize);</span>
+<span id="cb53-106"><a href="meta-photography.html#cb53-106"></a>        [<span class="fu">DllImport</span>(<span class="st">&quot;user32.dll&quot;</span>)]</span>
+<span id="cb53-107"><a href="meta-photography.html#cb53-107"></a>        <span class="kw">private</span> <span class="kw">static</span> <span class="kw">extern</span> IntPtr <span class="fu">GetMessageExtraInfo</span>();</span>
+<span id="cb53-108"><a href="meta-photography.html#cb53-108"></a>        <span class="dt">bool</span> pressKey = <span class="kw">false</span>;</span>
+<span id="cb53-109"><a href="meta-photography.html#cb53-109"></a></span>
+<span id="cb53-110"><a href="meta-photography.html#cb53-110"></a>        <span class="kw">public</span> <span class="fu">moddingTutorial</span>()</span>
+<span id="cb53-111"><a href="meta-photography.html#cb53-111"></a>        {</span>
+<span id="cb53-112"><a href="meta-photography.html#cb53-112"></a>            <span class="kw">this</span>.<span class="fu">Tick</span> += onTick;</span>
+<span id="cb53-113"><a href="meta-photography.html#cb53-113"></a>            <span class="kw">this</span>.<span class="fu">KeyUp</span> += onKeyUp;</span>
+<span id="cb53-114"><a href="meta-photography.html#cb53-114"></a>            <span class="kw">this</span>.<span class="fu">KeyDown</span> += onKeyDown;</span>
+<span id="cb53-115"><a href="meta-photography.html#cb53-115"></a></span>
+<span id="cb53-116"><a href="meta-photography.html#cb53-116"></a></span>
+<span id="cb53-117"><a href="meta-photography.html#cb53-117"></a>            switchLocations.<span class="fu">Add</span>(<span class="kw">new</span> <span class="fu">Vector3</span>(-<span class="fl">1578.27f</span>, <span class="fl">5155.2f</span>, <span class="fl">19.79865f</span>)); <span class="co">//Submarine pier</span></span>
+<span id="cb53-118"><a href="meta-photography.html#cb53-118"></a>            switchLocations.<span class="fu">Add</span>(<span class="kw">new</span> <span class="fu">Vector3</span>(<span class="fl">82.81281f</span>, <span class="fl">6432.408f</span>, <span class="fl">31.31271f</span>)); <span class="co">//</span></span>
+<span id="cb53-119"><a href="meta-photography.html#cb53-119"></a>            switchLocations.<span class="fu">Add</span>(<span class="kw">new</span> <span class="fu">Vector3</span>(-<span class="fl">237.6f</span>, <span class="fl">5497.5f</span>, <span class="fl">189.6f</span>)); <span class="co">// </span></span>
+<span id="cb53-120"><a href="meta-photography.html#cb53-120"></a></span>
+<span id="cb53-121"><a href="meta-photography.html#cb53-121"></a>            index = <span class="dv">0</span>;</span>
+<span id="cb53-122"><a href="meta-photography.html#cb53-122"></a>        }</span>
+<span id="cb53-123"><a href="meta-photography.html#cb53-123"></a></span>
+<span id="cb53-124"><a href="meta-photography.html#cb53-124"></a>        <span class="kw">private</span> <span class="dt">void</span> <span class="fu">checkDanger</span>()</span>
+<span id="cb53-125"><a href="meta-photography.html#cb53-125"></a>        {</span>
+<span id="cb53-126"><a href="meta-photography.html#cb53-126"></a>            <span class="kw">if</span> (Game.<span class="fu">Player</span>.<span class="fu">Character</span>.<span class="fu">IsSwimming</span> || Game.<span class="fu">Player</span>.<span class="fu">Character</span>.<span class="fu">IsInCombat</span> || Game.<span class="fu">Player</span>.<span class="fu">Character</span>.<span class="fu">IsInMeleeCombat</span> || Game.<span class="fu">Player</span>.<span class="fu">Character</span>.<span class="fu">IsInWater</span>)<span class="co">//(Function.Call&lt;bool&gt;(Hash.IS_PED_SWIMMING, Game.Player.Character))</span></span>
+<span id="cb53-127"><a href="meta-photography.html#cb53-127"></a>            {</span>
+<span id="cb53-128"><a href="meta-photography.html#cb53-128"></a>                <span class="co">//teleport to one of the locations</span></span>
+<span id="cb53-129"><a href="meta-photography.html#cb53-129"></a>                Function.<span class="fu">Call</span>(Hash.<span class="fu">SET_ENTITY_COORDS</span>, Game.<span class="fu">Player</span>.<span class="fu">Character</span>, switchLocations[index].<span class="fu">X</span>, switchLocations[index].<span class="fu">Y</span>, switchLocations[index].<span class="fu">Z</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>);</span>
+<span id="cb53-130"><a href="meta-photography.html#cb53-130"></a></span>
+<span id="cb53-131"><a href="meta-photography.html#cb53-131"></a>                <span class="co">//Move the index to the next location</span></span>
+<span id="cb53-132"><a href="meta-photography.html#cb53-132"></a>                index++;</span>
+<span id="cb53-133"><a href="meta-photography.html#cb53-133"></a>                <span class="kw">if</span> (index &gt;= switchLocations.<span class="fu">Count</span>) index = <span class="dv">0</span>;</span>
+<span id="cb53-134"><a href="meta-photography.html#cb53-134"></a><span class="kw">#if</span> (debug)</span>
+<span id="cb53-135"><a href="meta-photography.html#cb53-135"></a>                UI.<span class="fu">Notify</span>(<span class="st">&quot;Teleport&quot;</span>);</span>
+<span id="cb53-136"><a href="meta-photography.html#cb53-136"></a><span class="kw">#endif</span></span>
+<span id="cb53-137"><a href="meta-photography.html#cb53-137"></a>            }</span>
+<span id="cb53-138"><a href="meta-photography.html#cb53-138"></a>        }</span>
+<span id="cb53-139"><a href="meta-photography.html#cb53-139"></a></span>
+<span id="cb53-140"><a href="meta-photography.html#cb53-140"></a>        <span class="kw">private</span> <span class="dt">void</span> <span class="fu">onTick</span>(<span class="dt">object</span> sender, EventArgs e) <span class="co">//this function gets executed continuously </span></span>
+<span id="cb53-141"><a href="meta-photography.html#cb53-141"></a>        {</span>
+<span id="cb53-142"><a href="meta-photography.html#cb53-142"></a>            <span class="fu">checkDanger</span>();</span>
+<span id="cb53-143"><a href="meta-photography.html#cb53-143"></a></span>
+<span id="cb53-144"><a href="meta-photography.html#cb53-144"></a>            <span class="kw">if</span> (botOn)</span>
+<span id="cb53-145"><a href="meta-photography.html#cb53-145"></a>            {</span>
+<span id="cb53-146"><a href="meta-photography.html#cb53-146"></a>                <span class="co">//SET PLAYER INVINCIBLE</span></span>
+<span id="cb53-147"><a href="meta-photography.html#cb53-147"></a>                Function.<span class="fu">Call</span>(Hash.<span class="fu">SET_PLAYER_INVINCIBLE</span>, Game.<span class="fu">Player</span>, <span class="kw">true</span>);</span>
+<span id="cb53-148"><a href="meta-photography.html#cb53-148"></a></span>
+<span id="cb53-149"><a href="meta-photography.html#cb53-149"></a>                <span class="co">//SET 1st PERSON VIEW</span></span>
+<span id="cb53-150"><a href="meta-photography.html#cb53-150"></a>                Function.<span class="fu">Call</span>(Hash.<span class="fu">SET_FOLLOW_PED_CAM_VIEW_MODE</span>, <span class="dv">4</span>);</span>
+<span id="cb53-151"><a href="meta-photography.html#cb53-151"></a></span>
+<span id="cb53-152"><a href="meta-photography.html#cb53-152"></a>                <span class="co">//TASK SEQUENCE</span></span>
+<span id="cb53-153"><a href="meta-photography.html#cb53-153"></a>                TaskSequence mySeq = <span class="kw">new</span> <span class="fu">TaskSequence</span>();</span>
+<span id="cb53-154"><a href="meta-photography.html#cb53-154"></a></span>
+<span id="cb53-155"><a href="meta-photography.html#cb53-155"></a>                <span class="co">//WALK</span></span>
+<span id="cb53-156"><a href="meta-photography.html#cb53-156"></a>                Random rndWalk = <span class="kw">new</span> <span class="fu">Random</span>();</span>
+<span id="cb53-157"><a href="meta-photography.html#cb53-157"></a>                <span class="dt">int</span> Walk = (<span class="dt">int</span>)rndWalk.<span class="fu">Next</span>(-<span class="dv">10</span>, <span class="dv">10</span>);</span>
+<span id="cb53-158"><a href="meta-photography.html#cb53-158"></a>                <span class="co">//Game.Player.Character.Task.RunTo(Game.Player.Character.GetOffsetInWorldCoords(new Vector3(0, Run, 0)));</span></span>
+<span id="cb53-159"><a href="meta-photography.html#cb53-159"></a>                mySeq.<span class="fu">AddTask</span>.<span class="fu">GoTo</span>(Game.<span class="fu">Player</span>.<span class="fu">Character</span>.<span class="fu">GetOffsetInWorldCoords</span>(<span class="kw">new</span> <span class="fu">Vector3</span>(Walk, <span class="dv">0</span>, <span class="dv">0</span>)));</span>
+<span id="cb53-160"><a href="meta-photography.html#cb53-160"></a></span>
+<span id="cb53-161"><a href="meta-photography.html#cb53-161"></a>                <span class="co">//RUN</span></span>
+<span id="cb53-162"><a href="meta-photography.html#cb53-162"></a>                Random rndRun = <span class="kw">new</span> <span class="fu">Random</span>();</span>
+<span id="cb53-163"><a href="meta-photography.html#cb53-163"></a>                <span class="dt">int</span> Run = (<span class="dt">int</span>)rndRun.<span class="fu">Next</span>(-<span class="dv">10</span>, <span class="dv">10</span>);</span>
+<span id="cb53-164"><a href="meta-photography.html#cb53-164"></a>                <span class="co">//Game.Player.Character.Task.RunTo(Game.Player.Character.GetOffsetInWorldCoords(new Vector3(0, Run, 0)));</span></span>
+<span id="cb53-165"><a href="meta-photography.html#cb53-165"></a>                mySeq.<span class="fu">AddTask</span>.<span class="fu">RunTo</span>(Game.<span class="fu">Player</span>.<span class="fu">Character</span>.<span class="fu">GetOffsetInWorldCoords</span>(<span class="kw">new</span> <span class="fu">Vector3</span>(<span class="dv">0</span>, Run, <span class="dv">0</span>)));</span>
+<span id="cb53-166"><a href="meta-photography.html#cb53-166"></a></span>
+<span id="cb53-167"><a href="meta-photography.html#cb53-167"></a>                <span class="co">//WANDER AROUND</span></span>
+<span id="cb53-168"><a href="meta-photography.html#cb53-168"></a>                <span class="co">//Game.Player.Character.Task.WanderAround();</span></span>
+<span id="cb53-169"><a href="meta-photography.html#cb53-169"></a>                mySeq.<span class="fu">AddTask</span>.<span class="fu">WanderAround</span>();</span>
+<span id="cb53-170"><a href="meta-photography.html#cb53-170"></a>                </span>
+<span id="cb53-171"><a href="meta-photography.html#cb53-171"></a>                mySeq.<span class="fu">Close</span>();</span>
+<span id="cb53-172"><a href="meta-photography.html#cb53-172"></a>                Game.<span class="fu">Player</span>.<span class="fu">Character</span>.<span class="fu">Task</span>.<span class="fu">PerformSequence</span>(mySeq);</span>
+<span id="cb53-173"><a href="meta-photography.html#cb53-173"></a></span>
+<span id="cb53-174"><a href="meta-photography.html#cb53-174"></a>                <span class="co">//LET IT WANDER FOR RANDOM TIME</span></span>
+<span id="cb53-175"><a href="meta-photography.html#cb53-175"></a>                Random rndWandering = <span class="kw">new</span> <span class="fu">Random</span>();</span>
+<span id="cb53-176"><a href="meta-photography.html#cb53-176"></a>                <span class="dt">int</span> Wandering = (<span class="dt">int</span>)rndWandering.<span class="fu">Next</span>(<span class="dv">13</span>, <span class="dv">25</span>);</span>
+<span id="cb53-177"><a href="meta-photography.html#cb53-177"></a>                <span class="fu">Wait</span>(Wandering*<span class="dv">1000</span>);</span>
+<span id="cb53-178"><a href="meta-photography.html#cb53-178"></a>                Game.<span class="fu">Player</span>.<span class="fu">Character</span>.<span class="fu">Task</span>.<span class="fu">ClearAllImmediately</span>();</span>
+<span id="cb53-179"><a href="meta-photography.html#cb53-179"></a>                <span class="fu">checkDanger</span>();</span>
+<span id="cb53-180"><a href="meta-photography.html#cb53-180"></a>                <span class="fu">Wait</span>(<span class="dv">500</span>);</span>
+<span id="cb53-181"><a href="meta-photography.html#cb53-181"></a></span>
+<span id="cb53-182"><a href="meta-photography.html#cb53-182"></a>                <span class="kw">if</span> (Game.<span class="fu">Player</span>.<span class="fu">Character</span>.<span class="fu">IsStopped</span>)</span>
+<span id="cb53-183"><a href="meta-photography.html#cb53-183"></a>                {</span>
+<span id="cb53-184"><a href="meta-photography.html#cb53-184"></a>                    <span class="co">//PHOTO TAKING STUFF (VIRTUAL KEYS)</span></span>
+<span id="cb53-185"><a href="meta-photography.html#cb53-185"></a>                    </span>
+<span id="cb53-186"><a href="meta-photography.html#cb53-186"></a><span class="kw">#if</span> (debug)</span>
+<span id="cb53-187"><a href="meta-photography.html#cb53-187"></a>                    UI.<span class="fu">ShowSubtitle</span>(<span class="st">&quot;take out phone&quot;</span>, <span class="dv">1000</span>); </span>
+<span id="cb53-188"><a href="meta-photography.html#cb53-188"></a><span class="kw">#endif</span></span>
+<span id="cb53-189"><a href="meta-photography.html#cb53-189"></a>                    <span class="fu">keyOut</span>(<span class="bn">0xC8</span>, <span class="dv">1000</span>); <span class="co">//Arrow UP</span></span>
+<span id="cb53-190"><a href="meta-photography.html#cb53-190"></a>                    <span class="fu">Wait</span>(<span class="dv">1000</span>);</span>
+<span id="cb53-191"><a href="meta-photography.html#cb53-191"></a><span class="kw">#if</span> (debug)</span>
+<span id="cb53-192"><a href="meta-photography.html#cb53-192"></a>                    UI.<span class="fu">ShowSubtitle</span>(<span class="st">&quot;move down&quot;</span>, <span class="dv">1000</span>);</span>
+<span id="cb53-193"><a href="meta-photography.html#cb53-193"></a><span class="kw">#endif</span></span>
+<span id="cb53-194"><a href="meta-photography.html#cb53-194"></a>                    <span class="fu">keyOut</span>(<span class="bn">0xD0</span>, <span class="dv">500</span>); <span class="co">//Arrow DOWN</span></span>
+<span id="cb53-195"><a href="meta-photography.html#cb53-195"></a>                    <span class="fu">Wait</span>(<span class="dv">1000</span>);</span>
+<span id="cb53-196"><a href="meta-photography.html#cb53-196"></a><span class="kw">#if</span> (debug)</span>
+<span id="cb53-197"><a href="meta-photography.html#cb53-197"></a>                    UI.<span class="fu">ShowSubtitle</span>(<span class="st">&quot;take left&quot;</span>, <span class="dv">1000</span>); </span>
+<span id="cb53-198"><a href="meta-photography.html#cb53-198"></a><span class="kw">#endif</span></span>
+<span id="cb53-199"><a href="meta-photography.html#cb53-199"></a>                    <span class="fu">keyOut</span>(<span class="bn">0xCB</span>, <span class="dv">500</span>); <span class="co">//Arrow LEFT</span></span>
+<span id="cb53-200"><a href="meta-photography.html#cb53-200"></a>                    <span class="fu">Wait</span>(<span class="dv">1000</span>);</span>
+<span id="cb53-201"><a href="meta-photography.html#cb53-201"></a><span class="kw">#if</span> (debug)</span>
+<span id="cb53-202"><a href="meta-photography.html#cb53-202"></a>                    UI.<span class="fu">ShowSubtitle</span>(<span class="st">&quot;open app&quot;</span>, <span class="dv">1000</span>);</span>
+<span id="cb53-203"><a href="meta-photography.html#cb53-203"></a><span class="kw">#endif</span></span>
+<span id="cb53-204"><a href="meta-photography.html#cb53-204"></a>                    <span class="fu">keyOut</span>(<span class="bn">0x1C</span>, <span class="dv">500</span>); <span class="co">//ENTER</span></span>
+<span id="cb53-205"><a href="meta-photography.html#cb53-205"></a>                    <span class="fu">Wait</span>(<span class="dv">3000</span>);</span>
+<span id="cb53-206"><a href="meta-photography.html#cb53-206"></a></span>
+<span id="cb53-207"><a href="meta-photography.html#cb53-207"></a>                    <span class="co">//RANDOM ZOOM</span></span>
+<span id="cb53-208"><a href="meta-photography.html#cb53-208"></a>                    <span class="co">//ZOOM IN</span></span>
+<span id="cb53-209"><a href="meta-photography.html#cb53-209"></a>                    Random rndZoomIn = <span class="kw">new</span> <span class="fu">Random</span>();</span>
+<span id="cb53-210"><a href="meta-photography.html#cb53-210"></a>                    <span class="dt">int</span> ZoomIn = (<span class="dt">int</span>)rndZoomIn.<span class="fu">Next</span>(<span class="dv">4</span>, <span class="dv">14</span>);</span>
+<span id="cb53-211"><a href="meta-photography.html#cb53-211"></a><span class="kw">#if</span> (debug)</span>
+<span id="cb53-212"><a href="meta-photography.html#cb53-212"></a>                    UI.<span class="fu">ShowSubtitle</span>(<span class="st">&quot;Zooooooming In &quot;</span> + ZoomIn + <span class="st">&quot; times&quot;</span>, <span class="dv">2000</span>);</span>
+<span id="cb53-213"><a href="meta-photography.html#cb53-213"></a><span class="kw">#endif</span></span>
+<span id="cb53-214"><a href="meta-photography.html#cb53-214"></a>                    <span class="kw">for</span> (<span class="dt">int</span> i = <span class="dv">0</span>; i &lt; ZoomIn; i++)</span>
+<span id="cb53-215"><a href="meta-photography.html#cb53-215"></a>                    {</span>
+<span id="cb53-216"><a href="meta-photography.html#cb53-216"></a>                        <span class="fu">mouseWheelOut</span>(<span class="dv">130</span>);</span>
+<span id="cb53-217"><a href="meta-photography.html#cb53-217"></a>                        <span class="fu">Wait</span>(<span class="dv">20</span>);</span>
+<span id="cb53-218"><a href="meta-photography.html#cb53-218"></a>                    }</span>
+<span id="cb53-219"><a href="meta-photography.html#cb53-219"></a>                    <span class="fu">Wait</span>(<span class="dv">1000</span>);</span>
+<span id="cb53-220"><a href="meta-photography.html#cb53-220"></a>                    <span class="co">//ZOOM OUT</span></span>
+<span id="cb53-221"><a href="meta-photography.html#cb53-221"></a>                    Random rndZoomOut = <span class="kw">new</span> <span class="fu">Random</span>();</span>
+<span id="cb53-222"><a href="meta-photography.html#cb53-222"></a>                    <span class="dt">int</span> ZoomOut = (<span class="dt">int</span>)rndZoomOut.<span class="fu">Next</span>(<span class="dv">2</span>, <span class="dv">8</span>);</span>
+<span id="cb53-223"><a href="meta-photography.html#cb53-223"></a><span class="kw">#if</span> (debug)</span>
+<span id="cb53-224"><a href="meta-photography.html#cb53-224"></a>                    UI.<span class="fu">ShowSubtitle</span>(<span class="st">&quot;Zooooooming Out &quot;</span> + ZoomOut + <span class="st">&quot; times&quot;</span>, <span class="dv">2000</span>);</span>
+<span id="cb53-225"><a href="meta-photography.html#cb53-225"></a><span class="kw">#endif</span></span>
+<span id="cb53-226"><a href="meta-photography.html#cb53-226"></a>                    <span class="kw">for</span> (<span class="dt">int</span> i = <span class="dv">0</span>; i &lt; ZoomOut; i++)</span>
+<span id="cb53-227"><a href="meta-photography.html#cb53-227"></a>                    {</span>
+<span id="cb53-228"><a href="meta-photography.html#cb53-228"></a>                        <span class="fu">mouseWheelOut</span>(<span class="kw">unchecked</span>((<span class="dt">uint</span>)-<span class="dv">130</span>));</span>
+<span id="cb53-229"><a href="meta-photography.html#cb53-229"></a>                        <span class="fu">Wait</span>(<span class="dv">20</span>);</span>
+<span id="cb53-230"><a href="meta-photography.html#cb53-230"></a>                    }</span>
+<span id="cb53-231"><a href="meta-photography.html#cb53-231"></a>                    <span class="fu">Wait</span>(<span class="dv">3000</span>);</span>
+<span id="cb53-232"><a href="meta-photography.html#cb53-232"></a></span>
+<span id="cb53-233"><a href="meta-photography.html#cb53-233"></a>                    <span class="co">//TO DO: SMOOTH RANDOM MOUSE XY</span></span>
+<span id="cb53-234"><a href="meta-photography.html#cb53-234"></a>                    <span class="co">/*Random rndCamMove = new Random();</span></span>
+<span id="cb53-235"><a href="meta-photography.html#cb53-235"></a><span class="co">                    int camMove = rndCamMove.Next(5, 10);</span></span>
+<span id="cb53-236"><a href="meta-photography.html#cb53-236"></a><span class="co">                    UI.ShowSubtitle(&quot;find the right framing&quot;, 1000 + (20 * camMove));</span></span>
+<span id="cb53-237"><a href="meta-photography.html#cb53-237"></a><span class="co">                    for (int i = 0; i &lt; camMove; i++)</span></span>
+<span id="cb53-238"><a href="meta-photography.html#cb53-238"></a><span class="co">                    {</span></span>
+<span id="cb53-239"><a href="meta-photography.html#cb53-239"></a><span class="co">                        Random rndX = new Random();</span></span>
+<span id="cb53-240"><a href="meta-photography.html#cb53-240"></a><span class="co">                        Random rndY = new Random();</span></span>
+<span id="cb53-241"><a href="meta-photography.html#cb53-241"></a><span class="co">                        int newX = rndX.Next(-10, 10);</span></span>
+<span id="cb53-242"><a href="meta-photography.html#cb53-242"></a><span class="co">                        int newY = rndY.Next(-10, 10);</span></span>
+<span id="cb53-243"><a href="meta-photography.html#cb53-243"></a><span class="co">                        //mouseOut(newX*2, newY*2); //mouse xy</span></span>
+<span id="cb53-244"><a href="meta-photography.html#cb53-244"></a><span class="co">                        mouseOut(newX * 10, 0); //mouse xy</span></span>
+<span id="cb53-245"><a href="meta-photography.html#cb53-245"></a><span class="co">                        Wait(500);</span></span>
+<span id="cb53-246"><a href="meta-photography.html#cb53-246"></a><span class="co">                    }</span></span>
+<span id="cb53-247"><a href="meta-photography.html#cb53-247"></a><span class="co">                    Wait(2000);*/</span></span>
+<span id="cb53-248"><a href="meta-photography.html#cb53-248"></a></span>
+<span id="cb53-249"><a href="meta-photography.html#cb53-249"></a>                    <span class="co">//CHOOSE A RANDOM FILTER</span></span>
+<span id="cb53-250"><a href="meta-photography.html#cb53-250"></a>                    Random rnd = <span class="kw">new</span> <span class="fu">Random</span>();</span>
+<span id="cb53-251"><a href="meta-photography.html#cb53-251"></a>                    <span class="dt">int</span> filter = rnd.<span class="fu">Next</span>(<span class="dv">14</span>);</span>
+<span id="cb53-252"><a href="meta-photography.html#cb53-252"></a><span class="kw">#if</span> (debug)</span>
+<span id="cb53-253"><a href="meta-photography.html#cb53-253"></a>                    UI.<span class="fu">ShowSubtitle</span>(<span class="st">&quot;choose a random filter&quot;</span>, <span class="dv">1000</span> + (<span class="dv">500</span> * filter));</span>
+<span id="cb53-254"><a href="meta-photography.html#cb53-254"></a><span class="kw">#endif</span></span>
+<span id="cb53-255"><a href="meta-photography.html#cb53-255"></a>                    <span class="kw">for</span> (<span class="dt">int</span> i = <span class="dv">0</span>; i &lt; filter; i++)</span>
+<span id="cb53-256"><a href="meta-photography.html#cb53-256"></a>                    {</span>
+<span id="cb53-257"><a href="meta-photography.html#cb53-257"></a>                        <span class="fu">keyOut</span>(<span class="bn">0xD0</span>, <span class="dv">500</span>); <span class="co">//Arrow DOWN</span></span>
+<span id="cb53-258"><a href="meta-photography.html#cb53-258"></a>                        <span class="fu">Wait</span>(<span class="dv">500</span>);</span>
+<span id="cb53-259"><a href="meta-photography.html#cb53-259"></a>                    }</span>
+<span id="cb53-260"><a href="meta-photography.html#cb53-260"></a>                    <span class="fu">Wait</span>(<span class="dv">1000</span>);</span>
+<span id="cb53-261"><a href="meta-photography.html#cb53-261"></a></span>
+<span id="cb53-262"><a href="meta-photography.html#cb53-262"></a>                    <span class="co">//TAKE PHOTO</span></span>
+<span id="cb53-263"><a href="meta-photography.html#cb53-263"></a><span class="kw">#if</span> (debug)</span>
+<span id="cb53-264"><a href="meta-photography.html#cb53-264"></a>                    UI.<span class="fu">ShowSubtitle</span>(<span class="st">&quot;take photo&quot;</span>, <span class="dv">1000</span>);</span>
+<span id="cb53-265"><a href="meta-photography.html#cb53-265"></a><span class="kw">#endif</span></span>
+<span id="cb53-266"><a href="meta-photography.html#cb53-266"></a>                    <span class="fu">keyOut</span>(<span class="bn">0x1C</span>, <span class="dv">500</span>); <span class="co">//ENTER</span></span>
+<span id="cb53-267"><a href="meta-photography.html#cb53-267"></a>                    <span class="fu">Wait</span>(<span class="dv">5000</span>);</span>
+<span id="cb53-268"><a href="meta-photography.html#cb53-268"></a></span>
+<span id="cb53-269"><a href="meta-photography.html#cb53-269"></a>                    <span class="co">//DELETE PHOTO</span></span>
+<span id="cb53-270"><a href="meta-photography.html#cb53-270"></a><span class="kw">#if</span> (debug)</span>
+<span id="cb53-271"><a href="meta-photography.html#cb53-271"></a>                    UI.<span class="fu">ShowSubtitle</span>(<span class="st">&quot;delete photo&quot;</span>, <span class="dv">1000</span>);</span>
+<span id="cb53-272"><a href="meta-photography.html#cb53-272"></a><span class="kw">#endif</span></span>
+<span id="cb53-273"><a href="meta-photography.html#cb53-273"></a>                    <span class="fu">keyOut</span>(<span class="bn">0xD3</span>, <span class="dv">500</span>); <span class="co">//DELETE</span></span>
+<span id="cb53-274"><a href="meta-photography.html#cb53-274"></a>                    <span class="fu">Wait</span>(<span class="dv">2000</span>);</span>
+<span id="cb53-275"><a href="meta-photography.html#cb53-275"></a></span>
+<span id="cb53-276"><a href="meta-photography.html#cb53-276"></a>                    <span class="co">//CLOSE THE CAMERA APP</span></span>
+<span id="cb53-277"><a href="meta-photography.html#cb53-277"></a><span class="kw">#if</span> (debug)</span>
+<span id="cb53-278"><a href="meta-photography.html#cb53-278"></a>                    UI.<span class="fu">ShowSubtitle</span>(<span class="st">&quot;close app&quot;</span>, <span class="dv">1000</span>);</span>
+<span id="cb53-279"><a href="meta-photography.html#cb53-279"></a><span class="kw">#endif</span></span>
+<span id="cb53-280"><a href="meta-photography.html#cb53-280"></a>                    <span class="fu">keyOut</span>(<span class="bn">0x0E</span>, <span class="dv">500</span>); <span class="co">//BACK SPACE</span></span>
+<span id="cb53-281"><a href="meta-photography.html#cb53-281"></a>                    <span class="fu">Wait</span>(<span class="dv">2000</span>);</span>
+<span id="cb53-282"><a href="meta-photography.html#cb53-282"></a></span>
+<span id="cb53-283"><a href="meta-photography.html#cb53-283"></a>                    <span class="co">//PUT AWAY THE PHONE</span></span>
+<span id="cb53-284"><a href="meta-photography.html#cb53-284"></a><span class="kw">#if</span> (debug)</span>
+<span id="cb53-285"><a href="meta-photography.html#cb53-285"></a>                    UI.<span class="fu">ShowSubtitle</span>(<span class="st">&quot;put away phone&quot;</span>, <span class="dv">1000</span>);</span>
+<span id="cb53-286"><a href="meta-photography.html#cb53-286"></a><span class="kw">#endif</span></span>
+<span id="cb53-287"><a href="meta-photography.html#cb53-287"></a>                    <span class="fu">keyOut</span>(<span class="bn">0x0E</span>, <span class="dv">500</span>); <span class="co">//BACK SPACE</span></span>
+<span id="cb53-288"><a href="meta-photography.html#cb53-288"></a>                    </span>
+<span id="cb53-289"><a href="meta-photography.html#cb53-289"></a>                    <span class="fu">Wait</span>(<span class="dv">2000</span>);</span>
+<span id="cb53-290"><a href="meta-photography.html#cb53-290"></a>                }</span>
+<span id="cb53-291"><a href="meta-photography.html#cb53-291"></a>            }</span>
+<span id="cb53-292"><a href="meta-photography.html#cb53-292"></a>        }</span>
+<span id="cb53-293"><a href="meta-photography.html#cb53-293"></a></span>
+<span id="cb53-294"><a href="meta-photography.html#cb53-294"></a>        </span>
+<span id="cb53-295"><a href="meta-photography.html#cb53-295"></a>        <span class="co">//VIRTUAL MOUSE X AND Y MOVEMENT</span></span>
+<span id="cb53-296"><a href="meta-photography.html#cb53-296"></a>        <span class="kw">public</span> <span class="kw">static</span> <span class="dt">void</span> <span class="fu">mouseOut</span>(<span class="dt">int</span> coordX, <span class="dt">int</span> coordY)</span>
+<span id="cb53-297"><a href="meta-photography.html#cb53-297"></a>        {</span>
+<span id="cb53-298"><a href="meta-photography.html#cb53-298"></a>            <span class="co">//mouse move xy</span></span>
+<span id="cb53-299"><a href="meta-photography.html#cb53-299"></a>            Input[] inputs = <span class="kw">new</span> Input[]</span>
+<span id="cb53-300"><a href="meta-photography.html#cb53-300"></a>            {</span>
+<span id="cb53-301"><a href="meta-photography.html#cb53-301"></a>                <span class="kw">new</span> Input</span>
+<span id="cb53-302"><a href="meta-photography.html#cb53-302"></a>                {</span>
+<span id="cb53-303"><a href="meta-photography.html#cb53-303"></a>                    type = (<span class="dt">int</span>) InputType.<span class="fu">Mouse</span>,</span>
+<span id="cb53-304"><a href="meta-photography.html#cb53-304"></a>                    u = <span class="kw">new</span> InputUnion</span>
+<span id="cb53-305"><a href="meta-photography.html#cb53-305"></a>                    {</span>
+<span id="cb53-306"><a href="meta-photography.html#cb53-306"></a>                        mi = <span class="kw">new</span> MouseInput</span>
+<span id="cb53-307"><a href="meta-photography.html#cb53-307"></a>                        {</span>
+<span id="cb53-308"><a href="meta-photography.html#cb53-308"></a>                            dx = coordX,</span>
+<span id="cb53-309"><a href="meta-photography.html#cb53-309"></a>                            dy = coordY,</span>
+<span id="cb53-310"><a href="meta-photography.html#cb53-310"></a>                            dwFlags = (<span class="dt">uint</span>)(MouseEventF.<span class="fu">Move</span>),</span>
+<span id="cb53-311"><a href="meta-photography.html#cb53-311"></a>                            dwExtraInfo = <span class="fu">GetMessageExtraInfo</span>()</span>
+<span id="cb53-312"><a href="meta-photography.html#cb53-312"></a>                        }</span>
+<span id="cb53-313"><a href="meta-photography.html#cb53-313"></a>                    }</span>
+<span id="cb53-314"><a href="meta-photography.html#cb53-314"></a>                }</span>
+<span id="cb53-315"><a href="meta-photography.html#cb53-315"></a>            };</span>
+<span id="cb53-316"><a href="meta-photography.html#cb53-316"></a>            <span class="fu">SendInput</span>((<span class="dt">uint</span>)inputs.<span class="fu">Length</span>, inputs, Marshal.<span class="fu">SizeOf</span>(<span class="kw">typeof</span>(Input)));</span>
+<span id="cb53-317"><a href="meta-photography.html#cb53-317"></a>        }</span>
+<span id="cb53-318"><a href="meta-photography.html#cb53-318"></a></span>
+<span id="cb53-319"><a href="meta-photography.html#cb53-319"></a>        <span class="co">//VIRTUAL MOUSE WHEEL SCROLLING</span></span>
+<span id="cb53-320"><a href="meta-photography.html#cb53-320"></a>        <span class="kw">public</span> <span class="kw">static</span> <span class="dt">void</span> <span class="fu">mouseWheelOut</span>(<span class="dt">uint</span> duration)</span>
+<span id="cb53-321"><a href="meta-photography.html#cb53-321"></a>        {</span>
+<span id="cb53-322"><a href="meta-photography.html#cb53-322"></a>            <span class="co">//mouse wheel</span></span>
+<span id="cb53-323"><a href="meta-photography.html#cb53-323"></a>            Input[] inputs = <span class="kw">new</span> Input[]</span>
+<span id="cb53-324"><a href="meta-photography.html#cb53-324"></a>            {</span>
+<span id="cb53-325"><a href="meta-photography.html#cb53-325"></a>                <span class="kw">new</span> Input</span>
+<span id="cb53-326"><a href="meta-photography.html#cb53-326"></a>                {</span>
+<span id="cb53-327"><a href="meta-photography.html#cb53-327"></a>                    type = (<span class="dt">int</span>) InputType.<span class="fu">Mouse</span>,</span>
+<span id="cb53-328"><a href="meta-photography.html#cb53-328"></a>                    u = <span class="kw">new</span> InputUnion</span>
+<span id="cb53-329"><a href="meta-photography.html#cb53-329"></a>                    {</span>
+<span id="cb53-330"><a href="meta-photography.html#cb53-330"></a>                        mi = <span class="kw">new</span> MouseInput</span>
+<span id="cb53-331"><a href="meta-photography.html#cb53-331"></a>                        {</span>
+<span id="cb53-332"><a href="meta-photography.html#cb53-332"></a>                            dx = <span class="dv">100</span>,</span>
+<span id="cb53-333"><a href="meta-photography.html#cb53-333"></a>                            dy = <span class="dv">100</span>,</span>
+<span id="cb53-334"><a href="meta-photography.html#cb53-334"></a>                            <span class="co">//time = 0,</span></span>
+<span id="cb53-335"><a href="meta-photography.html#cb53-335"></a>                            mouseData = duration,</span>
+<span id="cb53-336"><a href="meta-photography.html#cb53-336"></a>                            dwFlags = (<span class="dt">uint</span>)(MouseEventF.<span class="fu">Wheel</span>),</span>
+<span id="cb53-337"><a href="meta-photography.html#cb53-337"></a>                            dwExtraInfo = <span class="fu">GetMessageExtraInfo</span>()</span>
+<span id="cb53-338"><a href="meta-photography.html#cb53-338"></a>                        }</span>
+<span id="cb53-339"><a href="meta-photography.html#cb53-339"></a>                    }</span>
+<span id="cb53-340"><a href="meta-photography.html#cb53-340"></a>                }</span>
+<span id="cb53-341"><a href="meta-photography.html#cb53-341"></a>            };</span>
+<span id="cb53-342"><a href="meta-photography.html#cb53-342"></a>            <span class="fu">SendInput</span>((<span class="dt">uint</span>)inputs.<span class="fu">Length</span>, inputs, Marshal.<span class="fu">SizeOf</span>(<span class="kw">typeof</span>(Input)));</span>
+<span id="cb53-343"><a href="meta-photography.html#cb53-343"></a>        }</span>
+<span id="cb53-344"><a href="meta-photography.html#cb53-344"></a>        </span>
+<span id="cb53-345"><a href="meta-photography.html#cb53-345"></a>        <span class="co">//VIRTUAL KEY PRESS AND RELEASE</span></span>
+<span id="cb53-346"><a href="meta-photography.html#cb53-346"></a>        <span class="kw">public</span> <span class="kw">static</span> <span class="dt">void</span> <span class="fu">keyOut</span>(<span class="dt">ushort</span> hexKey, <span class="dt">int</span> delay)</span>
+<span id="cb53-347"><a href="meta-photography.html#cb53-347"></a>        {</span>
+<span id="cb53-348"><a href="meta-photography.html#cb53-348"></a>            <span class="co">//key pressed</span></span>
+<span id="cb53-349"><a href="meta-photography.html#cb53-349"></a>            Input[] inputs = <span class="kw">new</span> Input[]</span>
+<span id="cb53-350"><a href="meta-photography.html#cb53-350"></a>            {</span>
+<span id="cb53-351"><a href="meta-photography.html#cb53-351"></a>                <span class="kw">new</span> Input</span>
+<span id="cb53-352"><a href="meta-photography.html#cb53-352"></a>                {</span>
+<span id="cb53-353"><a href="meta-photography.html#cb53-353"></a>                    type = (<span class="dt">int</span>)InputType.<span class="fu">Keyboard</span>,</span>
+<span id="cb53-354"><a href="meta-photography.html#cb53-354"></a>                    u = <span class="kw">new</span> InputUnion</span>
+<span id="cb53-355"><a href="meta-photography.html#cb53-355"></a>                    {</span>
+<span id="cb53-356"><a href="meta-photography.html#cb53-356"></a>                        ki = <span class="kw">new</span> KeyboardInput</span>
+<span id="cb53-357"><a href="meta-photography.html#cb53-357"></a>                        {</span>
+<span id="cb53-358"><a href="meta-photography.html#cb53-358"></a>                            wVk = <span class="dv">0</span>,</span>
+<span id="cb53-359"><a href="meta-photography.html#cb53-359"></a>                            wScan = hexKey, <span class="co">//0xC8,</span></span>
+<span id="cb53-360"><a href="meta-photography.html#cb53-360"></a>                            dwFlags = (<span class="dt">uint</span>)(KeyEventF.<span class="fu">KeyDown</span> | KeyEventF.<span class="fu">Scancode</span>),</span>
+<span id="cb53-361"><a href="meta-photography.html#cb53-361"></a>                            dwExtraInfo = <span class="fu">GetMessageExtraInfo</span>()</span>
+<span id="cb53-362"><a href="meta-photography.html#cb53-362"></a>                        }</span>
+<span id="cb53-363"><a href="meta-photography.html#cb53-363"></a>                    }</span>
+<span id="cb53-364"><a href="meta-photography.html#cb53-364"></a>                }</span>
+<span id="cb53-365"><a href="meta-photography.html#cb53-365"></a>            };</span>
+<span id="cb53-366"><a href="meta-photography.html#cb53-366"></a></span>
+<span id="cb53-367"><a href="meta-photography.html#cb53-367"></a></span>
+<span id="cb53-368"><a href="meta-photography.html#cb53-368"></a>            <span class="co">//key released</span></span>
+<span id="cb53-369"><a href="meta-photography.html#cb53-369"></a>            Input[] inputs2 = <span class="kw">new</span> Input[]</span>
+<span id="cb53-370"><a href="meta-photography.html#cb53-370"></a>            {</span>
+<span id="cb53-371"><a href="meta-photography.html#cb53-371"></a>                <span class="kw">new</span> Input</span>
+<span id="cb53-372"><a href="meta-photography.html#cb53-372"></a>                {</span>
+<span id="cb53-373"><a href="meta-photography.html#cb53-373"></a>                    type = (<span class="dt">int</span>)InputType.<span class="fu">Keyboard</span>,</span>
+<span id="cb53-374"><a href="meta-photography.html#cb53-374"></a>                    u = <span class="kw">new</span> InputUnion</span>
+<span id="cb53-375"><a href="meta-photography.html#cb53-375"></a>                    {</span>
+<span id="cb53-376"><a href="meta-photography.html#cb53-376"></a>                        ki = <span class="kw">new</span> KeyboardInput</span>
+<span id="cb53-377"><a href="meta-photography.html#cb53-377"></a>                        {</span>
+<span id="cb53-378"><a href="meta-photography.html#cb53-378"></a>                            wVk = <span class="dv">0</span>,</span>
+<span id="cb53-379"><a href="meta-photography.html#cb53-379"></a>                            wScan = hexKey, <span class="co">//0xC8,</span></span>
+<span id="cb53-380"><a href="meta-photography.html#cb53-380"></a>                            dwFlags = (<span class="dt">uint</span>)(KeyEventF.<span class="fu">KeyUp</span> | KeyEventF.<span class="fu">Scancode</span>),</span>
+<span id="cb53-381"><a href="meta-photography.html#cb53-381"></a>                            dwExtraInfo = <span class="fu">GetMessageExtraInfo</span>()</span>
+<span id="cb53-382"><a href="meta-photography.html#cb53-382"></a>                        }</span>
+<span id="cb53-383"><a href="meta-photography.html#cb53-383"></a>                    }</span>
+<span id="cb53-384"><a href="meta-photography.html#cb53-384"></a>                }</span>
+<span id="cb53-385"><a href="meta-photography.html#cb53-385"></a>            };</span>
+<span id="cb53-386"><a href="meta-photography.html#cb53-386"></a></span>
+<span id="cb53-387"><a href="meta-photography.html#cb53-387"></a>            <span class="co">//send key press / delay / release</span></span>
+<span id="cb53-388"><a href="meta-photography.html#cb53-388"></a>            <span class="fu">SendInput</span>((<span class="dt">uint</span>)inputs.<span class="fu">Length</span>, inputs, Marshal.<span class="fu">SizeOf</span>(<span class="kw">typeof</span>(Input)));</span>
+<span id="cb53-389"><a href="meta-photography.html#cb53-389"></a>            <span class="fu">Wait</span>(delay);</span>
+<span id="cb53-390"><a href="meta-photography.html#cb53-390"></a>            <span class="fu">SendInput</span>((<span class="dt">uint</span>)inputs2.<span class="fu">Length</span>, inputs2, Marshal.<span class="fu">SizeOf</span>(<span class="kw">typeof</span>(Input)));</span>
+<span id="cb53-391"><a href="meta-photography.html#cb53-391"></a></span>
+<span id="cb53-392"><a href="meta-photography.html#cb53-392"></a>        }</span>
+<span id="cb53-393"><a href="meta-photography.html#cb53-393"></a></span>
+<span id="cb53-394"><a href="meta-photography.html#cb53-394"></a>        <span class="kw">private</span> <span class="dt">void</span> <span class="fu">onKeyDown</span>(<span class="dt">object</span> sender, KeyEventArgs e)</span>
+<span id="cb53-395"><a href="meta-photography.html#cb53-395"></a>        {</span>
+<span id="cb53-396"><a href="meta-photography.html#cb53-396"></a>           </span>
+<span id="cb53-397"><a href="meta-photography.html#cb53-397"></a>        }</span>
+<span id="cb53-398"><a href="meta-photography.html#cb53-398"></a>        <span class="kw">private</span> <span class="dt">void</span> <span class="fu">onKeyUp</span>(<span class="dt">object</span> sender, KeyEventArgs e)</span>
+<span id="cb53-399"><a href="meta-photography.html#cb53-399"></a>        {</span>
+<span id="cb53-400"><a href="meta-photography.html#cb53-400"></a>           <span class="kw">if</span> (e.<span class="fu">KeyCode</span> == Keys.<span class="fu">H</span>)</span>
+<span id="cb53-401"><a href="meta-photography.html#cb53-401"></a>           {</span>
+<span id="cb53-402"><a href="meta-photography.html#cb53-402"></a>              <span class="co">//SWITCH THE BOT ON/OFF</span></span>
+<span id="cb53-403"><a href="meta-photography.html#cb53-403"></a>              botOn = !botOn;</span>
+<span id="cb53-404"><a href="meta-photography.html#cb53-404"></a>              <span class="kw">if</span>(botOn) UI.<span class="fu">ShowSubtitle</span>(<span class="st">&quot;GTA V Photographer Bot is ON&quot;</span>, <span class="dv">3000</span>);</span>
+<span id="cb53-405"><a href="meta-photography.html#cb53-405"></a>               <span class="kw">else</span> UI.<span class="fu">ShowSubtitle</span>(<span class="st">&quot;GTA V Photographer Bot is OFF&quot;</span>, <span class="dv">3000</span>);</span>
+<span id="cb53-406"><a href="meta-photography.html#cb53-406"></a>  </span>
+<span id="cb53-407"><a href="meta-photography.html#cb53-407"></a>           }</span>
+<span id="cb53-408"><a href="meta-photography.html#cb53-408"></a>           <span class="kw">if</span> (e.<span class="fu">KeyCode</span> == Keys.<span class="fu">J</span>)</span>
+<span id="cb53-409"><a href="meta-photography.html#cb53-409"></a>           {</span>
+<span id="cb53-410"><a href="meta-photography.html#cb53-410"></a>              <span class="co">//TELEPORT MANUALLY</span></span>
+<span id="cb53-411"><a href="meta-photography.html#cb53-411"></a>              Function.<span class="fu">Call</span>(Hash.<span class="fu">SET_ENTITY_COORDS</span>, Game.<span class="fu">Player</span>.<span class="fu">Character</span>, switchLocations[index].<span class="fu">X</span>, switchLocations[index].<span class="fu">Y</span>, switchLocations[index].<span class="fu">Z</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>);</span>
+<span id="cb53-412"><a href="meta-photography.html#cb53-412"></a>              index++;</span>
+<span id="cb53-413"><a href="meta-photography.html#cb53-413"></a>              <span class="kw">if</span> (index &gt;= switchLocations.<span class="fu">Count</span>) index = <span class="dv">0</span>;</span>
+<span id="cb53-414"><a href="meta-photography.html#cb53-414"></a>            }</span>
+<span id="cb53-415"><a href="meta-photography.html#cb53-415"></a>        }</span>
+<span id="cb53-416"><a href="meta-photography.html#cb53-416"></a>    }</span>
+<span id="cb53-417"><a href="meta-photography.html#cb53-417"></a>}</span>
+<span id="cb53-418"><a href="meta-photography.html#cb53-418"></a></span>
+<span id="cb53-419"><a href="meta-photography.html#cb53-419"></a></span></code></pre></div>
 </details>
 </div>
 </div>
