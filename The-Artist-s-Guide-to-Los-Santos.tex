@@ -1622,51 +1622,105 @@ Example code
 \begin{Shaded}
 \begin{Highlighting}[]
 \KeywordTok{using}\NormalTok{ System;}
-\KeywordTok{using}\NormalTok{ System.}\FunctionTok{Collections}\NormalTok{.}\FunctionTok{Generic}\NormalTok{;}
-\KeywordTok{using}\NormalTok{ System.}\FunctionTok{Linq}\NormalTok{;}
-\KeywordTok{using}\NormalTok{ System.}\FunctionTok{Text}\NormalTok{;}
-\KeywordTok{using}\NormalTok{ System.}\FunctionTok{Threading}\NormalTok{.}\FunctionTok{Tasks}\NormalTok{;}
+\KeywordTok{using}\NormalTok{ System.}\FunctionTok{Windows}\NormalTok{.}\FunctionTok{Forms}\NormalTok{;}
+
 \KeywordTok{using}\NormalTok{ GTA;}
 \KeywordTok{using}\NormalTok{ GTA.}\FunctionTok{Math}\NormalTok{;}
-\KeywordTok{using}\NormalTok{ System.}\FunctionTok{Windows}\NormalTok{.}\FunctionTok{Forms}\NormalTok{;}
-\KeywordTok{using}\NormalTok{ System.}\FunctionTok{Drawing}\NormalTok{;}
-\KeywordTok{using}\NormalTok{ GTA.}\FunctionTok{Native}\NormalTok{;}
 
-\KeywordTok{namespace}\NormalTok{ ModdingTutorial}
+\KeywordTok{using}\NormalTok{ Control = GTA.}\FunctionTok{Control}\NormalTok{;}
+
+\KeywordTok{namespace}\NormalTok{ BasicFreeCamTest}
 \NormalTok{\{}
-    \KeywordTok{public} \KeywordTok{class}\NormalTok{ ModdingTutorial : Script    }
+    \KeywordTok{public} \KeywordTok{class}\NormalTok{ cBasicFreeCamTest : Script}
 \NormalTok{    \{}
-            
-        \KeywordTok{public} \FunctionTok{ModdingTutorial}\NormalTok{()}
+        \KeywordTok{private}\NormalTok{ Keys ActivationKey = Keys.}\FunctionTok{NumPad3}\NormalTok{;}
+        \KeywordTok{private} \DataTypeTok{bool}\NormalTok{ FreeCamActive = }\KeywordTok{false}\NormalTok{;}
+        \KeywordTok{private}\NormalTok{ Camera FreeCam;}
+
+        \KeywordTok{public} \FunctionTok{cBasicFreeCamTest}\NormalTok{()}
 \NormalTok{        \{}
-            \KeywordTok{this}\NormalTok{.}\FunctionTok{Tick}\NormalTok{ += onTick;}
-            \KeywordTok{this}\NormalTok{.}\FunctionTok{KeyUp}\NormalTok{ += onKeyUp;}
-            \KeywordTok{this}\NormalTok{.}\FunctionTok{KeyDown}\NormalTok{ += onKeyDown;}
-\NormalTok{        \}    }
+\NormalTok{            Tick += onTick;}
+\NormalTok{            KeyUp += onKeyUp;}
+\NormalTok{            Aborted += onAborted;}
+
+\NormalTok{            Interval = }\DecValTok{0}\NormalTok{;}
+\NormalTok{        \}}
+
         \KeywordTok{private} \DataTypeTok{void} \FunctionTok{onTick}\NormalTok{(}\DataTypeTok{object}\NormalTok{ sender, EventArgs e)}
 \NormalTok{        \{}
+            \CommentTok{// Exits from the loop if the game is loading}
+            \KeywordTok{if}\NormalTok{ (Game.}\FunctionTok{IsLoading}\NormalTok{) }\KeywordTok{return}\NormalTok{;}
+
+            \KeywordTok{if}\NormalTok{ (FreeCamActive) }\FunctionTok{UpdateFreeCam}\NormalTok{();}
 \NormalTok{        \}}
+
+        \KeywordTok{private} \DataTypeTok{void} \FunctionTok{UpdateFreeCam}\NormalTok{()}
+\NormalTok{        \{}
+            \DataTypeTok{float}\NormalTok{ deltaTime = Game.}\FunctionTok{LastFrameTime}\NormalTok{;}
+            \DataTypeTok{float}\NormalTok{ speed = 5f;}
+            \DataTypeTok{float}\NormalTok{ camSpeed = speed * deltaTime;}
+            \DataTypeTok{float}\NormalTok{ rotSpeed = 40f;}
+            \DataTypeTok{float}\NormalTok{ camRotSpeed = rotSpeed * deltaTime;}
+
+\NormalTok{            Game.}\FunctionTok{DisableAllControlsThisFrame}\NormalTok{(}\DecValTok{2}\NormalTok{);}
+
+\NormalTok{            Vector3 camForward = FreeCam.}\FunctionTok{Direction}\NormalTok{.}\FunctionTok{Normalized}\NormalTok{;}
+\NormalTok{            Vector3 camRight = Vector3.}\FunctionTok{Cross}\NormalTok{(Vector3.}\FunctionTok{WorldUp}\NormalTok{, camForward);}
+\NormalTok{            Vector3 camUp = Vector3.}\FunctionTok{Cross}\NormalTok{(camRight, camForward);}
+
+            \KeywordTok{if}\NormalTok{ (Game.}\FunctionTok{IsDisabledControlJustPressed}\NormalTok{(}\DecValTok{2}\NormalTok{, Control.}\FunctionTok{FrontendCancel}\NormalTok{))}
+\NormalTok{            \{}
+\NormalTok{                World.}\FunctionTok{RenderingCamera}\NormalTok{ = }\KeywordTok{null}\NormalTok{;}
+\NormalTok{                FreeCam.}\FunctionTok{Destroy}\NormalTok{();}
+\NormalTok{                FreeCamActive = }\KeywordTok{false}\NormalTok{;}
+                \KeywordTok{return}\NormalTok{;}
+\NormalTok{            \}}
+
+            \DataTypeTok{float}\NormalTok{ fbSpeedMult = Game.}\FunctionTok{GetDisabledControlNormal}\NormalTok{(}\DecValTok{2}\NormalTok{, Control.}\FunctionTok{MoveUpDown}\NormalTok{);}
+            \DataTypeTok{float}\NormalTok{ lrSpeedMult = Game.}\FunctionTok{GetDisabledControlNormal}\NormalTok{(}\DecValTok{2}\NormalTok{, Control.}\FunctionTok{MoveLeftRight}\NormalTok{);}
+            \DataTypeTok{float}\NormalTok{ yawSpeedMult = Game.}\FunctionTok{GetDisabledControlNormal}\NormalTok{(}\DecValTok{2}\NormalTok{, Control.}\FunctionTok{LookLeftRight}\NormalTok{);}
+            \DataTypeTok{float}\NormalTok{ pitchSpeedMult = Game.}\FunctionTok{GetDisabledControlNormal}\NormalTok{(}\DecValTok{2}\NormalTok{, Control.}\FunctionTok{LookUpDown}\NormalTok{);}
+
+            \DataTypeTok{float}\NormalTok{ fbSpeed = camSpeed * fbSpeedMult;}
+            \DataTypeTok{float}\NormalTok{ lrSpeed = camSpeed * lrSpeedMult;}
+            \DataTypeTok{float}\NormalTok{ yawSpeed = camRotSpeed * yawSpeedMult;}
+            \DataTypeTok{float}\NormalTok{ pitchSpeed = camRotSpeed * pitchSpeedMult;}
+
+\NormalTok{            Vector3 camLR = camRight * -lrSpeed;}
+\NormalTok{            Vector3 camFB = camForward * -fbSpeed;}
+\NormalTok{            Vector3 camMove = camLR + camFB;}
+
+\NormalTok{            Vector3 camRot = }\KeywordTok{new} \FunctionTok{Vector3}\NormalTok{(pitchSpeed, }\DecValTok{0}\NormalTok{, -yawSpeed);}
+
+\NormalTok{            FreeCam.}\FunctionTok{Position}\NormalTok{ += camMove;}
+\NormalTok{            FreeCam.}\FunctionTok{Rotation}\NormalTok{ += camRot;}
+\NormalTok{        \}}
+
         \KeywordTok{private} \DataTypeTok{void} \FunctionTok{onKeyUp}\NormalTok{(}\DataTypeTok{object}\NormalTok{ sender, KeyEventArgs e)}
 \NormalTok{        \{}
+            \KeywordTok{if}\NormalTok{ (e.}\FunctionTok{KeyCode}\NormalTok{ == ActivationKey)}
+\NormalTok{            \{}
+                \CommentTok{//toggle the freecam on/off}
+\NormalTok{                FreeCamActive = !FreeCamActive;}
+
+                \KeywordTok{if}\NormalTok{ (FreeCamActive) }\CommentTok{//ON}
+\NormalTok{                \{}
+\NormalTok{                    FreeCam = World.}\FunctionTok{CreateCamera}\NormalTok{(GameplayCamera.}\FunctionTok{Position}\NormalTok{, GameplayCamera.}\FunctionTok{Rotation}\NormalTok{, GameplayCamera.}\FunctionTok{FieldOfView}\NormalTok{);}
+\NormalTok{                    World.}\FunctionTok{RenderingCamera}\NormalTok{ = FreeCam;}
+\NormalTok{                    UI.}\FunctionTok{ShowSubtitle}\NormalTok{(}\StringTok{"FreeCam Active"}\NormalTok{, }\DecValTok{1000}\NormalTok{);}
+\NormalTok{                \}}
+                \KeywordTok{else} \CommentTok{//OFF}
+\NormalTok{                \{}
+\NormalTok{                    World.}\FunctionTok{RenderingCamera}\NormalTok{ = }\KeywordTok{null}\NormalTok{;}
+\NormalTok{                    FreeCam.}\FunctionTok{Destroy}\NormalTok{();}
+\NormalTok{                    UI.}\FunctionTok{ShowSubtitle}\NormalTok{(}\StringTok{"FreeCam Active"}\NormalTok{, }\DecValTok{1000}\NormalTok{);}
+\NormalTok{                \}}
+\NormalTok{            \}}
 \NormalTok{        \}}
-        \KeywordTok{private} \DataTypeTok{void} \FunctionTok{onKeyDown}\NormalTok{(}\DataTypeTok{object}\NormalTok{ sender, KeyEventArgs e)}
+
+        \KeywordTok{private} \DataTypeTok{void} \FunctionTok{onAborted}\NormalTok{(}\DataTypeTok{object}\NormalTok{ sender, EventArgs e)}
 \NormalTok{        \{}
-            \KeywordTok{if}\NormalTok{ (e.}\FunctionTok{KeyCode}\NormalTok{ == Keys.}\FunctionTok{U}\NormalTok{)}
-\NormalTok{            \{}
-                \CommentTok{//set player invincible}
-\NormalTok{                Function.}\FunctionTok{Call}\NormalTok{(Hash.}\FunctionTok{SET_ENTITY_INVINCIBLE}\NormalTok{, Game.}\FunctionTok{Player}\NormalTok{.}\FunctionTok{Character}\NormalTok{, }\KeywordTok{true}\NormalTok{);}
-                \CommentTok{//set player invisible}
-\NormalTok{                Function.}\FunctionTok{Call}\NormalTok{(Hash.}\FunctionTok{SET_ENTITY_VISIBLE}\NormalTok{, Game.}\FunctionTok{Player}\NormalTok{.}\FunctionTok{Character}\NormalTok{, }\KeywordTok{false}\NormalTok{, }\DecValTok{0}\NormalTok{);}
-                \CommentTok{//set zero gravity}
-\NormalTok{                Function.}\FunctionTok{Call}\NormalTok{(Hash.}\FunctionTok{SET_ENTITY_HAS_GRAVITY}\NormalTok{, Game.}\FunctionTok{Player}\NormalTok{.}\FunctionTok{Character}\NormalTok{, }\KeywordTok{false}\NormalTok{);}
-                \CommentTok{//teleport in the sky}
-\NormalTok{                Function.}\FunctionTok{Call}\NormalTok{(Hash.}\FunctionTok{SET_ENTITY_COORDS}\NormalTok{, Game.}\FunctionTok{Player}\NormalTok{.}\FunctionTok{Character}\NormalTok{, Game.}\FunctionTok{Player}\NormalTok{.}\FunctionTok{Character}\NormalTok{.}\FunctionTok{Position}\NormalTok{[}\DecValTok{0}\NormalTok{], Game.}\FunctionTok{Player}\NormalTok{.}\FunctionTok{Character}\NormalTok{.}\FunctionTok{Position}\NormalTok{[}\DecValTok{1}\NormalTok{], Game.}\FunctionTok{Player}\NormalTok{.}\FunctionTok{Character}\NormalTok{.}\FunctionTok{Position}\NormalTok{[}\DecValTok{2}\NormalTok{]+}\DecValTok{50}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{);}
-\NormalTok{                Vector3 myPosition = Game.}\FunctionTok{Player}\NormalTok{.}\FunctionTok{Character}\NormalTok{.}\FunctionTok{Position}\NormalTok{;}
-\NormalTok{            \}}
-            \KeywordTok{if}\NormalTok{(e.}\FunctionTok{KeyCode}\NormalTok{ == Keys.}\FunctionTok{I}\NormalTok{)}
-\NormalTok{            \{}
-\NormalTok{                Function.}\FunctionTok{Call}\NormalTok{(Hash.}\FunctionTok{SET_ENTITY_COORDS}\NormalTok{, Game.}\FunctionTok{Player}\NormalTok{.}\FunctionTok{Character}\NormalTok{, Game.}\FunctionTok{Player}\NormalTok{.}\FunctionTok{Character}\NormalTok{.}\FunctionTok{Position}\NormalTok{[}\DecValTok{0}\NormalTok{], Game.}\FunctionTok{Player}\NormalTok{.}\FunctionTok{Character}\NormalTok{.}\FunctionTok{Position}\NormalTok{[}\DecValTok{1}\NormalTok{], Game.}\FunctionTok{Player}\NormalTok{.}\FunctionTok{Character}\NormalTok{.}\FunctionTok{Position}\NormalTok{[}\DecValTok{2}\NormalTok{]-}\DecValTok{50}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{);}
-\NormalTok{            \}}
+\NormalTok{            World.}\FunctionTok{RenderingCamera}\NormalTok{ = }\KeywordTok{null}\NormalTok{;}
 \NormalTok{        \}}
 \NormalTok{    \}}
 \NormalTok{\}}
