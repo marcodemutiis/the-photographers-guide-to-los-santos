@@ -47,53 +47,107 @@ Function.Call(Hash.SET_FOLLOW_PED_CAM_VIEW_MODE, 4);
 
 ```cs
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Windows.Forms;
+
 using GTA;
 using GTA.Math;
-using System.Windows.Forms;
-using System.Drawing;
-using GTA.Native;
 
-namespace ModdingTutorial
+using Control = GTA.Control;
+
+namespace BasicFreeCamTest
 {
-    public class ModdingTutorial : Script    
+    public class cBasicFreeCamTest : Script
     {
-	        
-        public ModdingTutorial()
+        private Keys ActivationKey = Keys.NumPad3;
+        private bool FreeCamActive = false;
+        private Camera FreeCam;
+
+        public cBasicFreeCamTest()
         {
-            this.Tick += onTick;
-            this.KeyUp += onKeyUp;
-            this.KeyDown += onKeyDown;
-        }    
-	    private void onTick(object sender, EventArgs e)
-	    {
-	    }
-	    private void onKeyUp(object sender, KeyEventArgs e)
-	    {
-	    }
-	    private void onKeyDown(object sender, KeyEventArgs e)
-	    {
-	    	if (e.KeyCode == Keys.U)
-			{
-				//set player invincible
-				Function.Call(Hash.SET_ENTITY_INVINCIBLE, Game.Player.Character, true);
-				//set player invisible
-				Function.Call(Hash.SET_ENTITY_VISIBLE, Game.Player.Character, false, 0);
-				//set zero gravity
-				Function.Call(Hash.SET_ENTITY_HAS_GRAVITY, Game.Player.Character, false);
-				//teleport in the sky
-				Function.Call(Hash.SET_ENTITY_COORDS, Game.Player.Character, Game.Player.Character.Position[0], Game.Player.Character.Position[1], Game.Player.Character.Position[2]+50, 0, 0, 1);
-				Vector3 myPosition = Game.Player.Character.Position;
-	    	}
-	    	if(e.KeyCode == Keys.I)
-	    	{
-				Function.Call(Hash.SET_ENTITY_COORDS, Game.Player.Character, Game.Player.Character.Position[0], Game.Player.Character.Position[1], Game.Player.Character.Position[2]-50, 0, 0, 1);
-	    	}
-		}
-	}
+            Tick += onTick;
+            KeyUp += onKeyUp;
+            Aborted += onAborted;
+
+            Interval = 0;
+        }
+
+        private void onTick(object sender, EventArgs e)
+        {
+            // Exits from the loop if the game is loading
+            if (Game.IsLoading) return;
+
+            if (FreeCamActive) UpdateFreeCam();
+        }
+
+        private void UpdateFreeCam()
+        {
+            float deltaTime = Game.LastFrameTime;
+            float speed = 5f;
+            float camSpeed = speed * deltaTime;
+            float rotSpeed = 40f;
+            float camRotSpeed = rotSpeed * deltaTime;
+
+            Game.DisableAllControlsThisFrame(2);
+
+            Vector3 camForward = FreeCam.Direction.Normalized;
+            Vector3 camRight = Vector3.Cross(Vector3.WorldUp, camForward);
+            Vector3 camUp = Vector3.Cross(camRight, camForward);
+
+            if (Game.IsDisabledControlJustPressed(2, Control.FrontendCancel))
+            {
+                World.RenderingCamera = null;
+                FreeCam.Destroy();
+                FreeCamActive = false;
+                return;
+            }
+
+            float fbSpeedMult = Game.GetDisabledControlNormal(2, Control.MoveUpDown);
+            float lrSpeedMult = Game.GetDisabledControlNormal(2, Control.MoveLeftRight);
+            float yawSpeedMult = Game.GetDisabledControlNormal(2, Control.LookLeftRight);
+            float pitchSpeedMult = Game.GetDisabledControlNormal(2, Control.LookUpDown);
+
+            float fbSpeed = camSpeed * fbSpeedMult;
+            float lrSpeed = camSpeed * lrSpeedMult;
+            float yawSpeed = camRotSpeed * yawSpeedMult;
+            float pitchSpeed = camRotSpeed * pitchSpeedMult;
+
+            Vector3 camLR = camRight * -lrSpeed;
+            Vector3 camFB = camForward * -fbSpeed;
+            Vector3 camMove = camLR + camFB;
+
+            Vector3 camRot = new Vector3(pitchSpeed, 0, -yawSpeed);
+
+            FreeCam.Position += camMove;
+            FreeCam.Rotation += camRot;
+        }
+
+        private void onKeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == ActivationKey)
+            {
+                //toggle the freecam on/off
+                FreeCamActive = !FreeCamActive;
+
+                if (FreeCamActive) //ON
+                {
+                    FreeCam = World.CreateCamera(GameplayCamera.Position, GameplayCamera.Rotation, GameplayCamera.FieldOfView);
+                    World.RenderingCamera = FreeCam;
+                    UI.ShowSubtitle("FreeCam Active", 1000);
+                }
+                else //OFF
+                {
+                    World.RenderingCamera = null;
+                    FreeCam.Destroy();
+                    UI.ShowSubtitle("FreeCam Active", 1000);
+                }
+            }
+        }
+
+        private void onAborted(object sender, EventArgs e)
+        {
+            World.RenderingCamera = null;
+        }
+    }
 }
 	
 ```
