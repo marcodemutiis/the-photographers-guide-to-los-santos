@@ -58,7 +58,7 @@ namespace BasicFreeCamTest
 {
     public class cBasicFreeCamTest : Script
     {
-        private Keys ActivationKey = Keys.NumPad3;
+        private Keys ActivationKey = Keys.O;
         private bool FreeCamActive = false;
         private Camera FreeCam;
 
