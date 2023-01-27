@@ -46,12 +46,12 @@ Function.Call(Hash.SET_FOLLOW_PED_CAM_VIEW_MODE, 4);
   <summary>Example code</summary>
 
 ```cs
+//this code was kindly provided by LeeC22 on https://gtaforums.com/topic/981454-free-cam-mode-in-c/#comment-1072077418
+
 using System;
 using System.Windows.Forms;
-
 using GTA;
 using GTA.Math;
-
 using Control = GTA.Control;
 
 namespace BasicFreeCamTest
