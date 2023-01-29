@@ -1613,6 +1613,118 @@ Switch to first person view:
 \end{Highlighting}
 \end{Shaded}
 
+\hypertarget{scripting-cinematic-fade-out-in}{%
+\subsection*{Scripting Cinematic Fade Out/ In}\label{scripting-cinematic-fade-out-in}}
+\addcontentsline{toc}{subsection}{Scripting Cinematic Fade Out/ In}
+
+Script Hook has native functions to create a fead to/from black. The function hash are \texttt{DO\_SCREEN\_FADE\_OUT} and \texttt{DO\_SCREEN\_FADE\_IN} and they are followed by the number of milliseconds to go from full black to showing the scene and viceversa.
+
+Let's create a fade to black over 3 seconds when we press the letter key `O':
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{if}\NormalTok{ (e.}\FunctionTok{KeyCode}\NormalTok{ == Keys.}\FunctionTok{O}\NormalTok{)}
+\NormalTok{\{}
+\NormalTok{    Function.}\FunctionTok{Call}\NormalTok{(Hash.}\FunctionTok{DO_SCREEN_FADE_OUT}\NormalTok{, }\DecValTok{3000}\NormalTok{);}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+And a fade over 3 seconds when we press the letter key `I':
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{if}\NormalTok{ (e.}\FunctionTok{KeyCode}\NormalTok{ == Keys.}\FunctionTok{I}\NormalTok{)}
+\NormalTok{\{}
+\NormalTok{    Function.}\FunctionTok{Call}\NormalTok{(Hash.}\FunctionTok{DO_SCREEN_FADE_IN}\NormalTok{, }\DecValTok{3000}\NormalTok{);}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+We could also create an automated check in our onTick loop, which keeps seeing if the screen has been faded to black. We can use the native function \texttt{IS\_SCREEN\_FADED\_OUT} which is a boolean data type. This means it will return either true or false. If it returns true, it means the screen has been faded out.
+
+Let's add an If statement in our onTick loop to chek if the screen has been faded to black, and if so we call a fade in over 3 second:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{if}\NormalTok{ (Function.}\FunctionTok{Call}\NormalTok{<}\DataTypeTok{bool}\NormalTok{>(Hash.}\FunctionTok{IS_SCREEN_FADED_OUT}\NormalTok{))}
+\NormalTok{\{}
+    \FunctionTok{Wait}\NormalTok{(}\DecValTok{500}\NormalTok{);}
+\NormalTok{    GTA.}\FunctionTok{Native}\NormalTok{.}\FunctionTok{Function}\NormalTok{.}\FunctionTok{Call}\NormalTok{(Hash.}\FunctionTok{DO_SCREEN_FADE_IN}\NormalTok{, }\DecValTok{3000}\NormalTok{);}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+Now if you try to hit the `O' key, the screen will fade out, and then it will automatically fade in again.
+
+\hypertarget{natural-vision-evolved-mod}{%
+\subsection*{Natural Vision Evolved Mod}\label{natural-vision-evolved-mod}}
+\addcontentsline{toc}{subsection}{Natural Vision Evolved Mod}
+
+Natural Vision Evolved is a graphic mod develped by \href{https://www.razedmods.com/}{Jamal Rashid, aka Razed}. This mod enhances GTA V's lighting, weather effects, ambient colours, world textures, building models, pushing the photo-realism and cinematic looks. While the mod contains settings for different hardware settings, it's recommended to have a relatively powerful PC with a good graphic card. \href{https://www.systemrequirementslab.com/cyri/requirements/gta-5-naturalvision-remastered/16594}{Here} you can find minimum and recommended requirements for Natural Vision Evolved mod.
+
+Setup:
+
+\begin{itemize}
+\item
+  Go to razedmods.com/gta-v and download Natural Vision Evolved (6.2 Gb).
+\item
+  Go to \href{https://openiv.com/}{openiv.com/} and download Open IV, Open `ovisetup' and install Open IV on your computer.
+\item
+  Open the Open IV app and select GTA V Windows. Choose Grand Theft Auto V folder \texttt{C:\textbackslash{}Program\ Files\ (x86)\textbackslash{}Steam\textbackslash{}steamapps\textbackslash{}common\textbackslash{}Grand\ Theft\ Auto\ V}
+\item
+  Once Open IV is open, go to your file window select the \texttt{Tools} menu on top of the window, and select \texttt{ASI\ Manager}. In \texttt{ASI\ Manager} install all options: ASI Loader, OpenIV.ASI and openCamera.
+\item
+  Select \texttt{Tools} again and click \texttt{Options}. Click on the \texttt{"mods"\ folder} tab and select \texttt{Allow\ edit\ mode\ only\ for\ archive\ inside\ "mods"\ folder}. Click \texttt{Close}.
+\item
+  Back in Open IV, select \texttt{Edit\ mode} at the top right of the window. Select \texttt{OK} on the pop up window.
+\item
+  Now you can add your mod to the mods folder.
+\item
+  Open the NVE mod folder and copy the subfolder containing the settings you want (low/medium/ultra graphics) to your GTA V directory folder \texttt{C:\textbackslash{}Program\ Files\ (x86)\textbackslash{}Steam\textbackslash{}steamapps\textbackslash{}common\textbackslash{}Grand\ Theft\ Auto\ V}.
+\item
+  Go back to your downloads and inside the NVE folder select the installation files and open number 1 and 2 with Open IV in the correct order. Always choose to select ``mod'' folder and select install.
+\item
+  Go back to your downloads and inside the NVE folder you can choose some optional addons. Install/Uninstall them with Open IV as above Always choose to select ``mod'' folder and select install.
+\item
+  Open GTA V, press \texttt{ESC} to bring up the menu and go to \texttt{SETTINGS}. Adjust the graphics quality, making sure \texttt{Shader\ Quality}, \texttt{Particle\ Quality} and \texttt{Post\ FX}are set to \texttt{\textless{}Very\ High\textgreater{}}. Restart the game to make change in effect.
+\end{itemize}
+
+\hypertarget{content-replication-assignment-5}{%
+\section*{Content Replication Assignment}\label{content-replication-assignment-5}}
+\addcontentsline{toc}{section}{Content Replication Assignment}
+
+\hypertarget{glitch-art}{%
+\chapter{Glitch Art}\label{glitch-art}}
+
+//intro to error in photography (Clément Chéroux) and glitch art
+
+\hypertarget{captures-by-raphael-brunk}{%
+\subsection*{\texorpdfstring{\emph{Captures} by Raphael Brunk}{Captures by Raphael Brunk}}\label{captures-by-raphael-brunk}}
+\addcontentsline{toc}{subsection}{\emph{Captures} by Raphael Brunk}
+
+Raphael Brunk, \emph{Capture75011.12\_23 }, 2016
+
+\href{http://www.darktaxa-project.net/artists/raphael-brunk/}{More about Captures}
+
+\hypertarget{getting-there-9}{%
+\subsection*{Getting there}\label{getting-there-9}}
+\addcontentsline{toc}{subsection}{Getting there}
+
+\begin{itemize}
+\tightlist
+\item
+  \href{https://grandtheftdata.com/landmarks/\#1672.279,-29.78,4,atlas,name=tataviam_act_dam,Land_Act_Dam,_Tataviam_Mountains}{Land Act Dam, Tataviam Mountains}
+\end{itemize}
+
+\hypertarget{readings-6}{%
+\section*{Readings}\label{readings-6}}
+\addcontentsline{toc}{section}{Readings}
+
+\hypertarget{tutorial-6}{%
+\section*{Tutorial}\label{tutorial-6}}
+\addcontentsline{toc}{section}{Tutorial}
+
 \hypertarget{controlling-the-game-camera}{%
 \subsection*{Controlling the Game Camera}\label{controlling-the-game-camera}}
 \addcontentsline{toc}{subsection}{Controlling the Game Camera}
@@ -1621,106 +1733,52 @@ Example code
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{//this code was kindly provided by LeeC22 on https://gtaforums.com/topic/981454-free-cam-mode-in-c/#comment-1072077418}
-
 \KeywordTok{using}\NormalTok{ System;}
-\KeywordTok{using}\NormalTok{ System.}\FunctionTok{Windows}\NormalTok{.}\FunctionTok{Forms}\NormalTok{;}
+\KeywordTok{using}\NormalTok{ System.}\FunctionTok{Collections}\NormalTok{.}\FunctionTok{Generic}\NormalTok{;}
+\KeywordTok{using}\NormalTok{ System.}\FunctionTok{Linq}\NormalTok{;}
+\KeywordTok{using}\NormalTok{ System.}\FunctionTok{Text}\NormalTok{;}
+\KeywordTok{using}\NormalTok{ System.}\FunctionTok{Threading}\NormalTok{.}\FunctionTok{Tasks}\NormalTok{;}
 \KeywordTok{using}\NormalTok{ GTA;}
 \KeywordTok{using}\NormalTok{ GTA.}\FunctionTok{Math}\NormalTok{;}
-\KeywordTok{using}\NormalTok{ Control = GTA.}\FunctionTok{Control}\NormalTok{;}
+\KeywordTok{using}\NormalTok{ System.}\FunctionTok{Windows}\NormalTok{.}\FunctionTok{Forms}\NormalTok{;}
+\KeywordTok{using}\NormalTok{ System.}\FunctionTok{Drawing}\NormalTok{;}
+\KeywordTok{using}\NormalTok{ GTA.}\FunctionTok{Native}\NormalTok{;}
 
-\KeywordTok{namespace}\NormalTok{ BasicFreeCamTest}
+\KeywordTok{namespace}\NormalTok{ ModdingTutorial}
 \NormalTok{\{}
-    \KeywordTok{public} \KeywordTok{class}\NormalTok{ cBasicFreeCamTest : Script}
+    \KeywordTok{public} \KeywordTok{class}\NormalTok{ ModdingTutorial : Script    }
 \NormalTok{    \{}
-        \KeywordTok{private}\NormalTok{ Keys ActivationKey = Keys.}\FunctionTok{O}\NormalTok{;}
-        \KeywordTok{private} \DataTypeTok{bool}\NormalTok{ FreeCamActive = }\KeywordTok{false}\NormalTok{;}
-        \KeywordTok{private}\NormalTok{ Camera FreeCam;}
-
-        \KeywordTok{public} \FunctionTok{cBasicFreeCamTest}\NormalTok{()}
+            
+        \KeywordTok{public} \FunctionTok{ModdingTutorial}\NormalTok{()}
 \NormalTok{        \{}
-\NormalTok{            Tick += onTick;}
-\NormalTok{            KeyUp += onKeyUp;}
-\NormalTok{            Aborted += onAborted;}
-
-\NormalTok{            Interval = }\DecValTok{0}\NormalTok{;}
-\NormalTok{        \}}
-
+            \KeywordTok{this}\NormalTok{.}\FunctionTok{Tick}\NormalTok{ += onTick;}
+            \KeywordTok{this}\NormalTok{.}\FunctionTok{KeyUp}\NormalTok{ += onKeyUp;}
+            \KeywordTok{this}\NormalTok{.}\FunctionTok{KeyDown}\NormalTok{ += onKeyDown;}
+\NormalTok{        \}    }
         \KeywordTok{private} \DataTypeTok{void} \FunctionTok{onTick}\NormalTok{(}\DataTypeTok{object}\NormalTok{ sender, EventArgs e)}
 \NormalTok{        \{}
-            \CommentTok{// Exits from the loop if the game is loading}
-            \KeywordTok{if}\NormalTok{ (Game.}\FunctionTok{IsLoading}\NormalTok{) }\KeywordTok{return}\NormalTok{;}
-
-            \KeywordTok{if}\NormalTok{ (FreeCamActive) }\FunctionTok{UpdateFreeCam}\NormalTok{();}
 \NormalTok{        \}}
-
-        \KeywordTok{private} \DataTypeTok{void} \FunctionTok{UpdateFreeCam}\NormalTok{()}
-\NormalTok{        \{}
-            \DataTypeTok{float}\NormalTok{ deltaTime = Game.}\FunctionTok{LastFrameTime}\NormalTok{;}
-            \DataTypeTok{float}\NormalTok{ speed = 5f;}
-            \DataTypeTok{float}\NormalTok{ camSpeed = speed * deltaTime;}
-            \DataTypeTok{float}\NormalTok{ rotSpeed = 40f;}
-            \DataTypeTok{float}\NormalTok{ camRotSpeed = rotSpeed * deltaTime;}
-
-\NormalTok{            Game.}\FunctionTok{DisableAllControlsThisFrame}\NormalTok{(}\DecValTok{2}\NormalTok{);}
-
-\NormalTok{            Vector3 camForward = FreeCam.}\FunctionTok{Direction}\NormalTok{.}\FunctionTok{Normalized}\NormalTok{;}
-\NormalTok{            Vector3 camRight = Vector3.}\FunctionTok{Cross}\NormalTok{(Vector3.}\FunctionTok{WorldUp}\NormalTok{, camForward);}
-\NormalTok{            Vector3 camUp = Vector3.}\FunctionTok{Cross}\NormalTok{(camRight, camForward);}
-
-            \KeywordTok{if}\NormalTok{ (Game.}\FunctionTok{IsDisabledControlJustPressed}\NormalTok{(}\DecValTok{2}\NormalTok{, Control.}\FunctionTok{FrontendCancel}\NormalTok{))}
-\NormalTok{            \{}
-\NormalTok{                World.}\FunctionTok{RenderingCamera}\NormalTok{ = }\KeywordTok{null}\NormalTok{;}
-\NormalTok{                FreeCam.}\FunctionTok{Destroy}\NormalTok{();}
-\NormalTok{                FreeCamActive = }\KeywordTok{false}\NormalTok{;}
-                \KeywordTok{return}\NormalTok{;}
-\NormalTok{            \}}
-
-            \DataTypeTok{float}\NormalTok{ fbSpeedMult = Game.}\FunctionTok{GetDisabledControlNormal}\NormalTok{(}\DecValTok{2}\NormalTok{, Control.}\FunctionTok{MoveUpDown}\NormalTok{);}
-            \DataTypeTok{float}\NormalTok{ lrSpeedMult = Game.}\FunctionTok{GetDisabledControlNormal}\NormalTok{(}\DecValTok{2}\NormalTok{, Control.}\FunctionTok{MoveLeftRight}\NormalTok{);}
-            \DataTypeTok{float}\NormalTok{ yawSpeedMult = Game.}\FunctionTok{GetDisabledControlNormal}\NormalTok{(}\DecValTok{2}\NormalTok{, Control.}\FunctionTok{LookLeftRight}\NormalTok{);}
-            \DataTypeTok{float}\NormalTok{ pitchSpeedMult = Game.}\FunctionTok{GetDisabledControlNormal}\NormalTok{(}\DecValTok{2}\NormalTok{, Control.}\FunctionTok{LookUpDown}\NormalTok{);}
-
-            \DataTypeTok{float}\NormalTok{ fbSpeed = camSpeed * fbSpeedMult;}
-            \DataTypeTok{float}\NormalTok{ lrSpeed = camSpeed * lrSpeedMult;}
-            \DataTypeTok{float}\NormalTok{ yawSpeed = camRotSpeed * yawSpeedMult;}
-            \DataTypeTok{float}\NormalTok{ pitchSpeed = camRotSpeed * pitchSpeedMult;}
-
-\NormalTok{            Vector3 camLR = camRight * -lrSpeed;}
-\NormalTok{            Vector3 camFB = camForward * -fbSpeed;}
-\NormalTok{            Vector3 camMove = camLR + camFB;}
-
-\NormalTok{            Vector3 camRot = }\KeywordTok{new} \FunctionTok{Vector3}\NormalTok{(pitchSpeed, }\DecValTok{0}\NormalTok{, -yawSpeed);}
-
-\NormalTok{            FreeCam.}\FunctionTok{Position}\NormalTok{ += camMove;}
-\NormalTok{            FreeCam.}\FunctionTok{Rotation}\NormalTok{ += camRot;}
-\NormalTok{        \}}
-
         \KeywordTok{private} \DataTypeTok{void} \FunctionTok{onKeyUp}\NormalTok{(}\DataTypeTok{object}\NormalTok{ sender, KeyEventArgs e)}
 \NormalTok{        \{}
-            \KeywordTok{if}\NormalTok{ (e.}\FunctionTok{KeyCode}\NormalTok{ == ActivationKey)}
-\NormalTok{            \{}
-                \CommentTok{//toggle the freecam on/off}
-\NormalTok{                FreeCamActive = !FreeCamActive;}
-
-                \KeywordTok{if}\NormalTok{ (FreeCamActive) }\CommentTok{//ON}
-\NormalTok{                \{}
-\NormalTok{                    FreeCam = World.}\FunctionTok{CreateCamera}\NormalTok{(GameplayCamera.}\FunctionTok{Position}\NormalTok{, GameplayCamera.}\FunctionTok{Rotation}\NormalTok{, GameplayCamera.}\FunctionTok{FieldOfView}\NormalTok{);}
-\NormalTok{                    World.}\FunctionTok{RenderingCamera}\NormalTok{ = FreeCam;}
-\NormalTok{                    UI.}\FunctionTok{ShowSubtitle}\NormalTok{(}\StringTok{"FreeCam Active"}\NormalTok{, }\DecValTok{1000}\NormalTok{);}
-\NormalTok{                \}}
-                \KeywordTok{else} \CommentTok{//OFF}
-\NormalTok{                \{}
-\NormalTok{                    World.}\FunctionTok{RenderingCamera}\NormalTok{ = }\KeywordTok{null}\NormalTok{;}
-\NormalTok{                    FreeCam.}\FunctionTok{Destroy}\NormalTok{();}
-\NormalTok{                    UI.}\FunctionTok{ShowSubtitle}\NormalTok{(}\StringTok{"FreeCam Active"}\NormalTok{, }\DecValTok{1000}\NormalTok{);}
-\NormalTok{                \}}
-\NormalTok{            \}}
 \NormalTok{        \}}
-
-        \KeywordTok{private} \DataTypeTok{void} \FunctionTok{onAborted}\NormalTok{(}\DataTypeTok{object}\NormalTok{ sender, EventArgs e)}
+        \KeywordTok{private} \DataTypeTok{void} \FunctionTok{onKeyDown}\NormalTok{(}\DataTypeTok{object}\NormalTok{ sender, KeyEventArgs e)}
 \NormalTok{        \{}
-\NormalTok{            World.}\FunctionTok{RenderingCamera}\NormalTok{ = }\KeywordTok{null}\NormalTok{;}
+            \KeywordTok{if}\NormalTok{ (e.}\FunctionTok{KeyCode}\NormalTok{ == Keys.}\FunctionTok{U}\NormalTok{)}
+\NormalTok{            \{}
+                \CommentTok{//set player invincible}
+\NormalTok{                Function.}\FunctionTok{Call}\NormalTok{(Hash.}\FunctionTok{SET_ENTITY_INVINCIBLE}\NormalTok{, Game.}\FunctionTok{Player}\NormalTok{.}\FunctionTok{Character}\NormalTok{, }\KeywordTok{true}\NormalTok{);}
+                \CommentTok{//set player invisible}
+\NormalTok{                Function.}\FunctionTok{Call}\NormalTok{(Hash.}\FunctionTok{SET_ENTITY_VISIBLE}\NormalTok{, Game.}\FunctionTok{Player}\NormalTok{.}\FunctionTok{Character}\NormalTok{, }\KeywordTok{false}\NormalTok{, }\DecValTok{0}\NormalTok{);}
+                \CommentTok{//set zero gravity}
+\NormalTok{                Function.}\FunctionTok{Call}\NormalTok{(Hash.}\FunctionTok{SET_ENTITY_HAS_GRAVITY}\NormalTok{, Game.}\FunctionTok{Player}\NormalTok{.}\FunctionTok{Character}\NormalTok{, }\KeywordTok{false}\NormalTok{);}
+                \CommentTok{//teleport in the sky}
+\NormalTok{                Function.}\FunctionTok{Call}\NormalTok{(Hash.}\FunctionTok{SET_ENTITY_COORDS}\NormalTok{, Game.}\FunctionTok{Player}\NormalTok{.}\FunctionTok{Character}\NormalTok{, Game.}\FunctionTok{Player}\NormalTok{.}\FunctionTok{Character}\NormalTok{.}\FunctionTok{Position}\NormalTok{[}\DecValTok{0}\NormalTok{], Game.}\FunctionTok{Player}\NormalTok{.}\FunctionTok{Character}\NormalTok{.}\FunctionTok{Position}\NormalTok{[}\DecValTok{1}\NormalTok{], Game.}\FunctionTok{Player}\NormalTok{.}\FunctionTok{Character}\NormalTok{.}\FunctionTok{Position}\NormalTok{[}\DecValTok{2}\NormalTok{]+}\DecValTok{50}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{);}
+\NormalTok{                Vector3 myPosition = Game.}\FunctionTok{Player}\NormalTok{.}\FunctionTok{Character}\NormalTok{.}\FunctionTok{Position}\NormalTok{;}
+\NormalTok{            \}}
+            \KeywordTok{if}\NormalTok{(e.}\FunctionTok{KeyCode}\NormalTok{ == Keys.}\FunctionTok{I}\NormalTok{)}
+\NormalTok{            \{}
+\NormalTok{                Function.}\FunctionTok{Call}\NormalTok{(Hash.}\FunctionTok{SET_ENTITY_COORDS}\NormalTok{, Game.}\FunctionTok{Player}\NormalTok{.}\FunctionTok{Character}\NormalTok{, Game.}\FunctionTok{Player}\NormalTok{.}\FunctionTok{Character}\NormalTok{.}\FunctionTok{Position}\NormalTok{[}\DecValTok{0}\NormalTok{], Game.}\FunctionTok{Player}\NormalTok{.}\FunctionTok{Character}\NormalTok{.}\FunctionTok{Position}\NormalTok{[}\DecValTok{1}\NormalTok{], Game.}\FunctionTok{Player}\NormalTok{.}\FunctionTok{Character}\NormalTok{.}\FunctionTok{Position}\NormalTok{[}\DecValTok{2}\NormalTok{]-}\DecValTok{50}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{);}
+\NormalTok{            \}}
 \NormalTok{        \}}
 \NormalTok{    \}}
 \NormalTok{\}}
@@ -1944,543 +2002,6 @@ Example code
 
 \hypertarget{switching-character-through-satellite-camera-view}{%
 \subsection*{Switching Character through Satellite Camera View}\label{switching-character-through-satellite-camera-view}}
-\addcontentsline{toc}{subsection}{Switching Character through Satellite Camera View}
-
-Example code
-
-\begin{Shaded}
-\begin{Highlighting}[]
-    
-\CommentTok{/*}
-\CommentTok{    this was adapted from code shared by LeeC22 on gtaforums.com}
-\CommentTok{    https://gtaforums.com/topic/951002-c-looking-for-player-switch-sample-solved-by-me/#comment-1071197769}
-\CommentTok{*/}
-    
-\KeywordTok{using}\NormalTok{ System;}
-\KeywordTok{using}\NormalTok{ System.}\FunctionTok{Collections}\NormalTok{.}\FunctionTok{Generic}\NormalTok{;}
-\KeywordTok{using}\NormalTok{ System.}\FunctionTok{Linq}\NormalTok{;}
-\KeywordTok{using}\NormalTok{ System.}\FunctionTok{Text}\NormalTok{;}
-\KeywordTok{using}\NormalTok{ System.}\FunctionTok{Threading}\NormalTok{.}\FunctionTok{Tasks}\NormalTok{;}
-
-\KeywordTok{using}\NormalTok{ GTA;}
-\KeywordTok{using}\NormalTok{ GTA.}\FunctionTok{Math}\NormalTok{;}
-\KeywordTok{using}\NormalTok{ System.}\FunctionTok{Windows}\NormalTok{.}\FunctionTok{Forms}\NormalTok{;}
-\KeywordTok{using}\NormalTok{ System.}\FunctionTok{Drawing}\NormalTok{;}
-\KeywordTok{using}\NormalTok{ GTA.}\FunctionTok{Native}\NormalTok{;}
-\KeywordTok{using}\NormalTok{ System.}\FunctionTok{IO}\NormalTok{;}
-
-
-\KeywordTok{namespace}\NormalTok{ moddingTutorial}
-\NormalTok{\{}
-    \KeywordTok{public} \KeywordTok{class}\NormalTok{ moddingTutorial : Script}
-\NormalTok{    \{}
-\NormalTok{        Ped newPed = }\KeywordTok{null}\NormalTok{;}
-\NormalTok{        Vector3 SwitchLocation2;}
-\NormalTok{        List<Vector3> switchLocations = }\KeywordTok{new}\NormalTok{ List<Vector3>();}
-        \DataTypeTok{int}\NormalTok{ index = }\DecValTok{0}\NormalTok{;}
-\NormalTok{        List<String> models = }\KeywordTok{new}\NormalTok{ List<String>();}
-        \DataTypeTok{int}\NormalTok{ modelIndex = }\DecValTok{0}\NormalTok{;}
-
-        \KeywordTok{public} \FunctionTok{moddingTutorial}\NormalTok{()}
-\NormalTok{        \{}
-            \KeywordTok{this}\NormalTok{.}\FunctionTok{Tick}\NormalTok{ += onTick;}
-            \KeywordTok{this}\NormalTok{.}\FunctionTok{KeyUp}\NormalTok{ += onKeyUp;}
-            \KeywordTok{this}\NormalTok{.}\FunctionTok{KeyDown}\NormalTok{ += onKeyDown;}
-
-        \CommentTok{//add locations to the switchLocations list}
-\NormalTok{            switchLocations.}\FunctionTok{Add}\NormalTok{(}\KeywordTok{new} \FunctionTok{Vector3}\NormalTok{(}\FloatTok{24.775f}\NormalTok{, }\FloatTok{7644.102f}\NormalTok{, }\FloatTok{18.055f}\NormalTok{)); }\CommentTok{//Most Northerly Point}
-\NormalTok{            switchLocations.}\FunctionTok{Add}\NormalTok{(}\KeywordTok{new} \FunctionTok{Vector3}\NormalTok{(-}\FloatTok{595.342f}\NormalTok{, }\FloatTok{2086.008f}\NormalTok{, }\FloatTok{130.412f}\NormalTok{)); }\CommentTok{//Mine}
-\NormalTok{            switchLocations.}\FunctionTok{Add}\NormalTok{(}\KeywordTok{new} \FunctionTok{Vector3}\NormalTok{(}\FloatTok{150.126f}\NormalTok{, }\FloatTok{-754.591f}\NormalTok{, }\FloatTok{261.865f}\NormalTok{)); }\CommentTok{//FIB Roof }
-    
-        \CommentTok{//add models to the models list}
-\NormalTok{            models.}\FunctionTok{Add}\NormalTok{(}\StringTok{"s_m_m_doctor_01"}\NormalTok{);}
-\NormalTok{            models.}\FunctionTok{Add}\NormalTok{(}\StringTok{"s_m_m_migrant_01"}\NormalTok{);}
-\NormalTok{            models.}\FunctionTok{Add}\NormalTok{(}\StringTok{"a_c_cormorant"}\NormalTok{);}
-\NormalTok{            models.}\FunctionTok{Add}\NormalTok{(}\StringTok{"a_c_deer"}\NormalTok{);}
-\NormalTok{            models.}\FunctionTok{Add}\NormalTok{(}\StringTok{"a_c_pug"}\NormalTok{);}
-\NormalTok{        \}}
-
-        \KeywordTok{private} \DataTypeTok{void} \FunctionTok{onTick}\NormalTok{(}\DataTypeTok{object}\NormalTok{ sender, EventArgs e) }\CommentTok{//this function gets executed continuously }
-\NormalTok{        \{}
-            
-            \CommentTok{//If the character switch is in process}
-            \KeywordTok{if}\NormalTok{ (Function.}\FunctionTok{Call}\NormalTok{<}\DataTypeTok{bool}\NormalTok{>(Hash.}\FunctionTok{IS_PLAYER_SWITCH_IN_PROGRESS}\NormalTok{))}
-\NormalTok{            \{}
-                \CommentTok{//If Switch State is 8 – that's the point when it starts dropping to the player }
-                \KeywordTok{if}\NormalTok{ (Function.}\FunctionTok{Call}\NormalTok{<}\DataTypeTok{int}\NormalTok{>(Hash.}\FunctionTok{GET_PLAYER_SWITCH_STATE}\NormalTok{) == }\DecValTok{8}\NormalTok{)}
-\NormalTok{                \{}
-                    \CommentTok{//Set the player to the switch location}
-\NormalTok{                    Game.}\FunctionTok{Player}\NormalTok{.}\FunctionTok{Character}\NormalTok{.}\FunctionTok{Position}\NormalTok{ = switchLocations[index];}
-
-                    \CommentTok{//Generate the hash for the chosen model}
-                    \DataTypeTok{int}\NormalTok{ poshHash = Game.}\FunctionTok{GenerateHash}\NormalTok{(models[modelIndex]);}
-
-                    \CommentTok{//Create the model}
-\NormalTok{                    Model poshModel = }\KeywordTok{new} \FunctionTok{Model}\NormalTok{(poshHash);}
-
-                    \CommentTok{//Check if it is valid}
-                    \KeywordTok{if}\NormalTok{ (poshModel.}\FunctionTok{IsValid}\NormalTok{)}
-\NormalTok{                    \{}
-                        \CommentTok{//Wait for it to load, should be okay because it was used to create the target ped}
-                        \KeywordTok{while}\NormalTok{ (!poshModel.}\FunctionTok{IsLoaded}\NormalTok{)}
-\NormalTok{                        \{}
-                            \FunctionTok{Wait}\NormalTok{(}\DecValTok{100}\NormalTok{);}
-\NormalTok{                        \}}
-
-                        \CommentTok{//Change the player model to the target ped model}
-\NormalTok{                        Function.}\FunctionTok{Call}\NormalTok{(Hash.}\FunctionTok{SET_PLAYER_MODEL}\NormalTok{, Game.}\FunctionTok{Player}\NormalTok{, poshHash);}
-
-                        \CommentTok{//Let the game clean up the created Model}
-\NormalTok{                        poshModel.}\FunctionTok{MarkAsNoLongerNeeded}\NormalTok{();}
-\NormalTok{                    \}}
-                    \KeywordTok{else}
-\NormalTok{                    \{}
-                        \CommentTok{//Falls to here if the model valid check fails}
-\NormalTok{                        Function.}\FunctionTok{Call}\NormalTok{(Hash.}\FunctionTok{SET_PLAYER_MODEL}\NormalTok{, Game.}\FunctionTok{Player}\NormalTok{, (}\DataTypeTok{int}\NormalTok{)PedHash.}\FunctionTok{Tourist01AFY}\NormalTok{);}
-\NormalTok{                    \}}
-
-                    \CommentTok{//Delete the target ped as it's no longer needed}
-\NormalTok{                    newPed.}\FunctionTok{Delete}\NormalTok{();}
-                    
-
-                    \CommentTok{// Set the switch outro based on the gameplay camera position}
-                    \CommentTok{// Function.Call((Hash)0xC208B673CE446B61, camPos.X, camPos.Y, camPos.Z, camRot.X, camRot.Y, camRot.Z, camFOV, camFarClip, p8);}
-
-\NormalTok{                    Function.}\FunctionTok{Call}\NormalTok{((Hash)}\BaseNTok{0xC208B673CE446B61}\NormalTok{, GameplayCamera.}\FunctionTok{Position}\NormalTok{.}\FunctionTok{X}\NormalTok{, GameplayCamera.}\FunctionTok{Position}\NormalTok{.}\FunctionTok{Y}\NormalTok{, GameplayCamera.}\FunctionTok{Position}\NormalTok{.}\FunctionTok{Z}\NormalTok{, GameplayCamera.}\FunctionTok{Rotation}\NormalTok{.}\FunctionTok{X}\NormalTok{, GameplayCamera.}\FunctionTok{Rotation}\NormalTok{.}\FunctionTok{Y}\NormalTok{, GameplayCamera.}\FunctionTok{Rotation}\NormalTok{.}\FunctionTok{Z}\NormalTok{, GameplayCamera.}\FunctionTok{FieldOfView}\NormalTok{, }\DecValTok{500}\NormalTok{, }\DecValTok{2}\NormalTok{);}
-
-                    \CommentTok{//Call this unknown native that seems to finish things off}
-\NormalTok{                    Function.}\FunctionTok{Call}\NormalTok{(Hash._}\BaseNTok{0x74DE2E8739086740}\NormalTok{);}
-
-            \CommentTok{//Make the character wander around autonomously}
-\NormalTok{                    Game.}\FunctionTok{Player}\NormalTok{.}\FunctionTok{Character}\NormalTok{.}\FunctionTok{Task}\NormalTok{.}\FunctionTok{WanderAround}\NormalTok{();}
-\NormalTok{                \}}
-\NormalTok{            \}}
-
-\NormalTok{        \}}
-
-
-        \KeywordTok{private} \DataTypeTok{void} \FunctionTok{onKeyUp}\NormalTok{(}\DataTypeTok{object}\NormalTok{ sender, KeyEventArgs e)}
-\NormalTok{        \{}
-
-\NormalTok{        \}}
-
-        \KeywordTok{private} \DataTypeTok{void} \FunctionTok{onKeyDown}\NormalTok{(}\DataTypeTok{object}\NormalTok{ sender, KeyEventArgs e)}
-\NormalTok{        \{}
-            \KeywordTok{if}\NormalTok{ (e.}\FunctionTok{KeyCode}\NormalTok{ == Keys.}\FunctionTok{G}\NormalTok{)}
-\NormalTok{            \{}
-        \CommentTok{//Stop previous tasks}
-\NormalTok{                Game.}\FunctionTok{Player}\NormalTok{.}\FunctionTok{Character}\NormalTok{.}\FunctionTok{Task}\NormalTok{.}\FunctionTok{ClearAll}\NormalTok{();}
-
-                \CommentTok{//Move the index to the next location}
-\NormalTok{                index++;}
-                \KeywordTok{if}\NormalTok{ (index >= switchLocations.}\FunctionTok{Count}\NormalTok{) index = }\DecValTok{0}\NormalTok{;}
-                
-        \CommentTok{//Move the index to the new ped model}
-\NormalTok{                modelIndex++;}
-                \KeywordTok{if}\NormalTok{ (modelIndex >= models.}\FunctionTok{Count}\NormalTok{) modelIndex = }\DecValTok{0}\NormalTok{;}
-
-                \CommentTok{//Create the ped to switch to}
-\NormalTok{                newPed = World.}\FunctionTok{CreatePed}\NormalTok{(models[modelIndex], switchLocations[index]);}
-
-                \CommentTok{//Native function to initiate the switch Function.Call(Hash.START_PLAYER_SWITCH, fromPed.Handle, toPed.Handle, flags, switchType);}
-\NormalTok{                Function.}\FunctionTok{Call}\NormalTok{(Hash.}\FunctionTok{START_PLAYER_SWITCH}\NormalTok{, Game.}\FunctionTok{Player}\NormalTok{.}\FunctionTok{Character}\NormalTok{.}\FunctionTok{Handle}\NormalTok{, newPed.}\FunctionTok{Handle}\NormalTok{, }\DecValTok{8}\NormalTok{, }\DecValTok{0}\NormalTok{);}
-
-\NormalTok{            \}}
-\NormalTok{        \}}
-\NormalTok{    \}}
-\NormalTok{\}}
-\end{Highlighting}
-\end{Shaded}
-
-\hypertarget{scripting-cinematic-fade-out-in}{%
-\subsection*{Scripting Cinematic Fade Out/ In}\label{scripting-cinematic-fade-out-in}}
-\addcontentsline{toc}{subsection}{Scripting Cinematic Fade Out/ In}
-
-Script Hook has native functions to create a fead to/from black. The function hash are \texttt{DO\_SCREEN\_FADE\_OUT} and \texttt{DO\_SCREEN\_FADE\_IN} and they are followed by the number of milliseconds to go from full black to showing the scene and viceversa.
-
-Let's create a fade to black over 3 seconds when we press the letter key `O':
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\KeywordTok{if}\NormalTok{ (e.}\FunctionTok{KeyCode}\NormalTok{ == Keys.}\FunctionTok{O}\NormalTok{)}
-\NormalTok{\{}
-\NormalTok{    Function.}\FunctionTok{Call}\NormalTok{(Hash.}\FunctionTok{DO_SCREEN_FADE_OUT}\NormalTok{, }\DecValTok{3000}\NormalTok{);}
-\NormalTok{\}}
-\end{Highlighting}
-\end{Shaded}
-
-And a fade over 3 seconds when we press the letter key `I':
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\KeywordTok{if}\NormalTok{ (e.}\FunctionTok{KeyCode}\NormalTok{ == Keys.}\FunctionTok{I}\NormalTok{)}
-\NormalTok{\{}
-\NormalTok{    Function.}\FunctionTok{Call}\NormalTok{(Hash.}\FunctionTok{DO_SCREEN_FADE_IN}\NormalTok{, }\DecValTok{3000}\NormalTok{);}
-\NormalTok{\}}
-\end{Highlighting}
-\end{Shaded}
-
-We could also create an automated check in our onTick loop, which keeps seeing if the screen has been faded to black. We can use the native function \texttt{IS\_SCREEN\_FADED\_OUT} which is a boolean data type. This means it will return either true or false. If it returns true, it means the screen has been faded out.
-
-Let's add an If statement in our onTick loop to chek if the screen has been faded to black, and if so we call a fade in over 3 second:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\KeywordTok{if}\NormalTok{ (Function.}\FunctionTok{Call}\NormalTok{<}\DataTypeTok{bool}\NormalTok{>(Hash.}\FunctionTok{IS_SCREEN_FADED_OUT}\NormalTok{))}
-\NormalTok{\{}
-    \FunctionTok{Wait}\NormalTok{(}\DecValTok{500}\NormalTok{);}
-\NormalTok{    GTA.}\FunctionTok{Native}\NormalTok{.}\FunctionTok{Function}\NormalTok{.}\FunctionTok{Call}\NormalTok{(Hash.}\FunctionTok{DO_SCREEN_FADE_IN}\NormalTok{, }\DecValTok{3000}\NormalTok{);}
-\NormalTok{\}}
-\end{Highlighting}
-\end{Shaded}
-
-Now if you try to hit the `O' key, the screen will fade out, and then it will automatically fade in again.
-
-\hypertarget{natural-vision-evolved-mod}{%
-\subsection*{Natural Vision Evolved Mod}\label{natural-vision-evolved-mod}}
-\addcontentsline{toc}{subsection}{Natural Vision Evolved Mod}
-
-Natural Vision Evolved is a graphic mod develped by \href{https://www.razedmods.com/}{Jamal Rashid, aka Razed}. This mod enhances GTA V's lighting, weather effects, ambient colours, world textures, building models, pushing the photo-realism and cinematic looks. While the mod contains settings for different hardware settings, it's recommended to have a relatively powerful PC with a good graphic card. \href{https://www.systemrequirementslab.com/cyri/requirements/gta-5-naturalvision-remastered/16594}{Here} you can find minimum and recommended requirements for Natural Vision Evolved mod.
-
-Setup:
-
-\begin{itemize}
-\item
-  Go to razedmods.com/gta-v and download Natural Vision Evolved (6.2 Gb).
-\item
-  Go to \href{https://openiv.com/}{openiv.com/} and download Open IV, Open `ovisetup' and install Open IV on your computer.
-\item
-  Open the Open IV app and select GTA V Windows. Choose Grand Theft Auto V folder \texttt{C:\textbackslash{}Program\ Files\ (x86)\textbackslash{}Steam\textbackslash{}steamapps\textbackslash{}common\textbackslash{}Grand\ Theft\ Auto\ V}
-\item
-  Once Open IV is open, go to your file window select the \texttt{Tools} menu on top of the window, and select \texttt{ASI\ Manager}. In \texttt{ASI\ Manager} install all options: ASI Loader, OpenIV.ASI and openCamera.
-\item
-  Select \texttt{Tools} again and click \texttt{Options}. Click on the \texttt{"mods"\ folder} tab and select \texttt{Allow\ edit\ mode\ only\ for\ archive\ inside\ "mods"\ folder}. Click \texttt{Close}.
-\item
-  Back in Open IV, select \texttt{Edit\ mode} at the top right of the window. Select \texttt{OK} on the pop up window.
-\item
-  Now you can add your mod to the mods folder.
-\item
-  Open the NVE mod folder and copy the subfolder containing the settings you want (low/medium/ultra graphics) to your GTA V directory folder \texttt{C:\textbackslash{}Program\ Files\ (x86)\textbackslash{}Steam\textbackslash{}steamapps\textbackslash{}common\textbackslash{}Grand\ Theft\ Auto\ V}.
-\item
-  Go back to your downloads and inside the NVE folder select the installation files and open number 1 and 2 with Open IV in the correct order. Always choose to select ``mod'' folder and select install.
-\item
-  Go back to your downloads and inside the NVE folder you can choose some optional addons. Install/Uninstall them with Open IV as above Always choose to select ``mod'' folder and select install.
-\item
-  Open GTA V, press \texttt{ESC} to bring up the menu and go to \texttt{SETTINGS}. Adjust the graphics quality, making sure \texttt{Shader\ Quality}, \texttt{Particle\ Quality} and \texttt{Post\ FX}are set to \texttt{\textless{}Very\ High\textgreater{}}. Restart the game to make change in effect.
-\end{itemize}
-
-\hypertarget{content-replication-assignment-5}{%
-\section*{Content Replication Assignment}\label{content-replication-assignment-5}}
-\addcontentsline{toc}{section}{Content Replication Assignment}
-
-\hypertarget{glitch-art}{%
-\chapter{Glitch Art}\label{glitch-art}}
-
-//intro to error in photography (Clément Chéroux) and glitch art
-
-\hypertarget{captures-by-raphael-brunk}{%
-\subsection*{\texorpdfstring{\emph{Captures} by Raphael Brunk}{Captures by Raphael Brunk}}\label{captures-by-raphael-brunk}}
-\addcontentsline{toc}{subsection}{\emph{Captures} by Raphael Brunk}
-
-Raphael Brunk, \emph{Capture75011.12\_23 }, 2016
-
-\href{http://www.darktaxa-project.net/artists/raphael-brunk/}{More about Captures}
-
-\hypertarget{getting-there-9}{%
-\subsection*{Getting there}\label{getting-there-9}}
-\addcontentsline{toc}{subsection}{Getting there}
-
-\begin{itemize}
-\tightlist
-\item
-  \href{https://grandtheftdata.com/landmarks/\#1672.279,-29.78,4,atlas,name=tataviam_act_dam,Land_Act_Dam,_Tataviam_Mountains}{Land Act Dam, Tataviam Mountains}
-\end{itemize}
-
-\hypertarget{readings-6}{%
-\section*{Readings}\label{readings-6}}
-\addcontentsline{toc}{section}{Readings}
-
-\hypertarget{tutorial-6}{%
-\section*{Tutorial}\label{tutorial-6}}
-\addcontentsline{toc}{section}{Tutorial}
-
-\hypertarget{controlling-the-game-camera-1}{%
-\subsection*{Controlling the Game Camera}\label{controlling-the-game-camera-1}}
-\addcontentsline{toc}{subsection}{Controlling the Game Camera}
-
-Example code
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\KeywordTok{using}\NormalTok{ System;}
-\KeywordTok{using}\NormalTok{ System.}\FunctionTok{Collections}\NormalTok{.}\FunctionTok{Generic}\NormalTok{;}
-\KeywordTok{using}\NormalTok{ System.}\FunctionTok{Linq}\NormalTok{;}
-\KeywordTok{using}\NormalTok{ System.}\FunctionTok{Text}\NormalTok{;}
-\KeywordTok{using}\NormalTok{ System.}\FunctionTok{Threading}\NormalTok{.}\FunctionTok{Tasks}\NormalTok{;}
-\KeywordTok{using}\NormalTok{ GTA;}
-\KeywordTok{using}\NormalTok{ GTA.}\FunctionTok{Math}\NormalTok{;}
-\KeywordTok{using}\NormalTok{ System.}\FunctionTok{Windows}\NormalTok{.}\FunctionTok{Forms}\NormalTok{;}
-\KeywordTok{using}\NormalTok{ System.}\FunctionTok{Drawing}\NormalTok{;}
-\KeywordTok{using}\NormalTok{ GTA.}\FunctionTok{Native}\NormalTok{;}
-
-\KeywordTok{namespace}\NormalTok{ ModdingTutorial}
-\NormalTok{\{}
-    \KeywordTok{public} \KeywordTok{class}\NormalTok{ ModdingTutorial : Script    }
-\NormalTok{    \{}
-            
-        \KeywordTok{public} \FunctionTok{ModdingTutorial}\NormalTok{()}
-\NormalTok{        \{}
-            \KeywordTok{this}\NormalTok{.}\FunctionTok{Tick}\NormalTok{ += onTick;}
-            \KeywordTok{this}\NormalTok{.}\FunctionTok{KeyUp}\NormalTok{ += onKeyUp;}
-            \KeywordTok{this}\NormalTok{.}\FunctionTok{KeyDown}\NormalTok{ += onKeyDown;}
-\NormalTok{        \}    }
-        \KeywordTok{private} \DataTypeTok{void} \FunctionTok{onTick}\NormalTok{(}\DataTypeTok{object}\NormalTok{ sender, EventArgs e)}
-\NormalTok{        \{}
-\NormalTok{        \}}
-        \KeywordTok{private} \DataTypeTok{void} \FunctionTok{onKeyUp}\NormalTok{(}\DataTypeTok{object}\NormalTok{ sender, KeyEventArgs e)}
-\NormalTok{        \{}
-\NormalTok{        \}}
-        \KeywordTok{private} \DataTypeTok{void} \FunctionTok{onKeyDown}\NormalTok{(}\DataTypeTok{object}\NormalTok{ sender, KeyEventArgs e)}
-\NormalTok{        \{}
-            \KeywordTok{if}\NormalTok{ (e.}\FunctionTok{KeyCode}\NormalTok{ == Keys.}\FunctionTok{U}\NormalTok{)}
-\NormalTok{            \{}
-                \CommentTok{//set player invincible}
-\NormalTok{                Function.}\FunctionTok{Call}\NormalTok{(Hash.}\FunctionTok{SET_ENTITY_INVINCIBLE}\NormalTok{, Game.}\FunctionTok{Player}\NormalTok{.}\FunctionTok{Character}\NormalTok{, }\KeywordTok{true}\NormalTok{);}
-                \CommentTok{//set player invisible}
-\NormalTok{                Function.}\FunctionTok{Call}\NormalTok{(Hash.}\FunctionTok{SET_ENTITY_VISIBLE}\NormalTok{, Game.}\FunctionTok{Player}\NormalTok{.}\FunctionTok{Character}\NormalTok{, }\KeywordTok{false}\NormalTok{, }\DecValTok{0}\NormalTok{);}
-                \CommentTok{//set zero gravity}
-\NormalTok{                Function.}\FunctionTok{Call}\NormalTok{(Hash.}\FunctionTok{SET_ENTITY_HAS_GRAVITY}\NormalTok{, Game.}\FunctionTok{Player}\NormalTok{.}\FunctionTok{Character}\NormalTok{, }\KeywordTok{false}\NormalTok{);}
-                \CommentTok{//teleport in the sky}
-\NormalTok{                Function.}\FunctionTok{Call}\NormalTok{(Hash.}\FunctionTok{SET_ENTITY_COORDS}\NormalTok{, Game.}\FunctionTok{Player}\NormalTok{.}\FunctionTok{Character}\NormalTok{, Game.}\FunctionTok{Player}\NormalTok{.}\FunctionTok{Character}\NormalTok{.}\FunctionTok{Position}\NormalTok{[}\DecValTok{0}\NormalTok{], Game.}\FunctionTok{Player}\NormalTok{.}\FunctionTok{Character}\NormalTok{.}\FunctionTok{Position}\NormalTok{[}\DecValTok{1}\NormalTok{], Game.}\FunctionTok{Player}\NormalTok{.}\FunctionTok{Character}\NormalTok{.}\FunctionTok{Position}\NormalTok{[}\DecValTok{2}\NormalTok{]+}\DecValTok{50}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{);}
-\NormalTok{                Vector3 myPosition = Game.}\FunctionTok{Player}\NormalTok{.}\FunctionTok{Character}\NormalTok{.}\FunctionTok{Position}\NormalTok{;}
-\NormalTok{            \}}
-            \KeywordTok{if}\NormalTok{(e.}\FunctionTok{KeyCode}\NormalTok{ == Keys.}\FunctionTok{I}\NormalTok{)}
-\NormalTok{            \{}
-\NormalTok{                Function.}\FunctionTok{Call}\NormalTok{(Hash.}\FunctionTok{SET_ENTITY_COORDS}\NormalTok{, Game.}\FunctionTok{Player}\NormalTok{.}\FunctionTok{Character}\NormalTok{, Game.}\FunctionTok{Player}\NormalTok{.}\FunctionTok{Character}\NormalTok{.}\FunctionTok{Position}\NormalTok{[}\DecValTok{0}\NormalTok{], Game.}\FunctionTok{Player}\NormalTok{.}\FunctionTok{Character}\NormalTok{.}\FunctionTok{Position}\NormalTok{[}\DecValTok{1}\NormalTok{], Game.}\FunctionTok{Player}\NormalTok{.}\FunctionTok{Character}\NormalTok{.}\FunctionTok{Position}\NormalTok{[}\DecValTok{2}\NormalTok{]-}\DecValTok{50}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{);}
-\NormalTok{            \}}
-\NormalTok{        \}}
-\NormalTok{    \}}
-\NormalTok{\}}
-    
-\end{Highlighting}
-\end{Shaded}
-
-\hypertarget{create-multiple-cameras-1}{%
-\subsection*{Create Multiple Cameras}\label{create-multiple-cameras-1}}
-\addcontentsline{toc}{subsection}{Create Multiple Cameras}
-
-Example code
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\KeywordTok{using}\NormalTok{ System;}
-\KeywordTok{using}\NormalTok{ System.}\FunctionTok{Collections}\NormalTok{.}\FunctionTok{Generic}\NormalTok{;}
-\KeywordTok{using}\NormalTok{ System.}\FunctionTok{Linq}\NormalTok{;}
-\KeywordTok{using}\NormalTok{ System.}\FunctionTok{Text}\NormalTok{;}
-\KeywordTok{using}\NormalTok{ System.}\FunctionTok{Threading}\NormalTok{.}\FunctionTok{Tasks}\NormalTok{;}
-\KeywordTok{using}\NormalTok{ GTA;}
-\KeywordTok{using}\NormalTok{ GTA.}\FunctionTok{Math}\NormalTok{;}
-\KeywordTok{using}\NormalTok{ System.}\FunctionTok{Windows}\NormalTok{.}\FunctionTok{Forms}\NormalTok{;}
-\KeywordTok{using}\NormalTok{ System.}\FunctionTok{Drawing}\NormalTok{;}
-\KeywordTok{using}\NormalTok{ GTA.}\FunctionTok{Native}\NormalTok{;}
-
-\KeywordTok{namespace}\NormalTok{ ModdingTutorial}
-\NormalTok{\{}
-    \KeywordTok{public} \KeywordTok{class}\NormalTok{ ModdingTutorial : Script    }
-\NormalTok{    \{}
-\NormalTok{        Vector3 myCamPos;}
-        \DataTypeTok{int}\NormalTok{ CamSelect = }\DecValTok{0}\NormalTok{;}
-        \DataTypeTok{int}\NormalTok{ CamCount = }\DecValTok{3}\NormalTok{;}
-
-\NormalTok{        List<Ped> myPeds = }\KeywordTok{new}\NormalTok{ List<Ped>();}
-\NormalTok{        Model myModel = PedHash.}\FunctionTok{Abigail}\NormalTok{;}
-\NormalTok{        List<Vector3> myLocs = }\KeywordTok{new}\NormalTok{ List<Vector3>();}
-\NormalTok{        Camera newCam= }\KeywordTok{null}\NormalTok{;}
-\NormalTok{        List<Camera> myCam = }\KeywordTok{new}\NormalTok{ List<Camera>();}
-
-        
-        \KeywordTok{public} \FunctionTok{ModdingTutorial}\NormalTok{()}
-\NormalTok{        \{}
-            \KeywordTok{this}\NormalTok{.}\FunctionTok{Tick}\NormalTok{ += onTick;}
-            \KeywordTok{this}\NormalTok{.}\FunctionTok{KeyUp}\NormalTok{ += onKeyUp;}
-            \KeywordTok{this}\NormalTok{.}\FunctionTok{KeyDown}\NormalTok{ += onKeyDown;}
-
-\NormalTok{            myLocs.}\FunctionTok{Add}\NormalTok{(}\KeywordTok{new} \FunctionTok{Vector3}\NormalTok{(}\FloatTok{450.178f}\NormalTok{, }\FloatTok{5566.614f}\NormalTok{, }\FloatTok{806.183f}\NormalTok{)); }\CommentTok{//Mt.Chiliad}
-\NormalTok{            myLocs.}\FunctionTok{Add}\NormalTok{(}\KeywordTok{new} \FunctionTok{Vector3}\NormalTok{(}\FloatTok{24.775f}\NormalTok{, }\FloatTok{7644.102f}\NormalTok{, }\FloatTok{18.055f}\NormalTok{)); }\CommentTok{//Most Northern Point}
-\NormalTok{            myLocs.}\FunctionTok{Add}\NormalTok{(}\KeywordTok{new} \FunctionTok{Vector3}\NormalTok{(}\FloatTok{150.126f}\NormalTok{, }\FloatTok{-754.591f}\NormalTok{, }\FloatTok{261.865f}\NormalTok{)); }\CommentTok{//FIB Roof}
-
-            \KeywordTok{for}\NormalTok{ (}\DataTypeTok{int}\NormalTok{ i = }\DecValTok{0}\NormalTok{; i < CamCount; i++)}
-\NormalTok{            \{}
-                \CommentTok{//create Ped}
-                \DataTypeTok{var}\NormalTok{ newPed = World.}\FunctionTok{CreatePed}\NormalTok{(myModel, myLocs[i]);}
-\NormalTok{        Function.}\FunctionTok{Call}\NormalTok{(Hash.}\FunctionTok{SET_ENTITY_VISIBLE}\NormalTok{, newPed, }\KeywordTok{false}\NormalTok{, }\DecValTok{0}\NormalTok{);}
-\NormalTok{                myPeds.}\FunctionTok{Add}\NormalTok{(newPed);}
-
-                \CommentTok{//create Cam}
-\NormalTok{                newCam = World.}\FunctionTok{CreateCamera}\NormalTok{(Vector3.}\FunctionTok{Zero}\NormalTok{, myPeds[i].}\FunctionTok{Rotation}\NormalTok{, 50f);}
-\NormalTok{                myCam.}\FunctionTok{Add}\NormalTok{(newCam);}
-\NormalTok{                myCamPos = }\KeywordTok{new} \FunctionTok{Vector3}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{, 1f);}
-\NormalTok{            \}}
-            
-\NormalTok{        \}}
-
-        \KeywordTok{private} \DataTypeTok{void} \FunctionTok{onTick}\NormalTok{(}\DataTypeTok{object}\NormalTok{ sender, EventArgs e)}
-\NormalTok{        \{}
-            \CommentTok{//update Cams}
-            \KeywordTok{for}\NormalTok{ (}\DataTypeTok{int}\NormalTok{ i = }\DecValTok{0}\NormalTok{; i < CamCount; i++)}
-\NormalTok{            \{}
-\NormalTok{                myCam[i].}\FunctionTok{AttachTo}\NormalTok{(myPeds[i], myCamPos);}
-\NormalTok{                myCam[i].}\FunctionTok{Rotation}\NormalTok{ = myPeds[i].}\FunctionTok{Rotation}\NormalTok{;}
-\NormalTok{            \}}
-\NormalTok{        \}}
-
-        \KeywordTok{private} \DataTypeTok{void} \FunctionTok{onKeyUp}\NormalTok{(}\DataTypeTok{object}\NormalTok{ sender, KeyEventArgs e)}
-\NormalTok{        \{}
-            \CommentTok{//switch between cameras when pressing SHIFT + K}
-            \KeywordTok{if}\NormalTok{(e.}\FunctionTok{KeyCode}\NormalTok{ == Keys.}\FunctionTok{K}\NormalTok{ && e.}\FunctionTok{Modifiers}\NormalTok{ == Keys.}\FunctionTok{Shift}\NormalTok{ && myPeds[}\DecValTok{2}\NormalTok{] != }\KeywordTok{null}\NormalTok{)}
-\NormalTok{            \{}
-\NormalTok{                CamSelect = (CamSelect + }\DecValTok{1}\NormalTok{) % }\DecValTok{4}\NormalTok{;}
-                \KeywordTok{switch}\NormalTok{(CamSelect)}
-\NormalTok{                \{}
-                    \KeywordTok{case} \DecValTok{0}\NormalTok{: World.}\FunctionTok{RenderingCamera}\NormalTok{ = }\KeywordTok{null}\NormalTok{;}
-\NormalTok{                        UI.}\FunctionTok{ShowSubtitle}\NormalTok{(}\StringTok{"Showing Gameplay Cam View"}\NormalTok{);}
-                        \KeywordTok{break}\NormalTok{;}
-                    \KeywordTok{case} \DecValTok{1}\NormalTok{: World.}\FunctionTok{RenderingCamera}\NormalTok{ = myCam[}\DecValTok{0}\NormalTok{];}
-\NormalTok{                        UI.}\FunctionTok{ShowSubtitle}\NormalTok{(}\StringTok{"Showing Cam 1"}\NormalTok{);}
-                        \KeywordTok{break}\NormalTok{;}
-                    \KeywordTok{case} \DecValTok{2}\NormalTok{: World.}\FunctionTok{RenderingCamera}\NormalTok{ = myCam[}\DecValTok{1}\NormalTok{];}
-\NormalTok{                        UI.}\FunctionTok{ShowSubtitle}\NormalTok{(}\StringTok{"Showing Cam 2"}\NormalTok{);}
-                        \KeywordTok{break}\NormalTok{;}
-                    \KeywordTok{case} \DecValTok{3}\NormalTok{: World.}\FunctionTok{RenderingCamera}\NormalTok{ = myCam[}\DecValTok{2}\NormalTok{];}
-\NormalTok{                        UI.}\FunctionTok{ShowSubtitle}\NormalTok{(}\StringTok{"Showing Cam 3"}\NormalTok{);}
-                        \KeywordTok{break}\NormalTok{;}
-\NormalTok{                \}}
-\NormalTok{            \}}
-\NormalTok{        \}}
-
-        \KeywordTok{private} \DataTypeTok{void} \FunctionTok{onKeyDown}\NormalTok{(}\DataTypeTok{object}\NormalTok{ sender, KeyEventArgs e)}
-\NormalTok{        \{}
-\NormalTok{        \}}
-\NormalTok{    \}}
-\NormalTok{\}}
-    
-\end{Highlighting}
-\end{Shaded}
-
-\hypertarget{attach-a-camera-to-an-entity-1}{%
-\subsection*{Attach a Camera to an Entity}\label{attach-a-camera-to-an-entity-1}}
-\addcontentsline{toc}{subsection}{Attach a Camera to an Entity}
-
-Example code
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\KeywordTok{using}\NormalTok{ System;}
-\KeywordTok{using}\NormalTok{ System.}\FunctionTok{Collections}\NormalTok{.}\FunctionTok{Generic}\NormalTok{;}
-\KeywordTok{using}\NormalTok{ System.}\FunctionTok{Linq}\NormalTok{;}
-\KeywordTok{using}\NormalTok{ System.}\FunctionTok{Text}\NormalTok{;}
-\KeywordTok{using}\NormalTok{ System.}\FunctionTok{Threading}\NormalTok{.}\FunctionTok{Tasks}\NormalTok{;}
-
-\KeywordTok{using}\NormalTok{ GTA;}
-\KeywordTok{using}\NormalTok{ GTA.}\FunctionTok{Math}\NormalTok{;}
-\KeywordTok{using}\NormalTok{ System.}\FunctionTok{Windows}\NormalTok{.}\FunctionTok{Forms}\NormalTok{;}
-\KeywordTok{using}\NormalTok{ System.}\FunctionTok{Drawing}\NormalTok{;}
-\KeywordTok{using}\NormalTok{ GTA.}\FunctionTok{Native}\NormalTok{;}
-\KeywordTok{using}\NormalTok{ System.}\FunctionTok{IO}\NormalTok{;}
-
-
-\KeywordTok{namespace}\NormalTok{ moddingTutorial}
-\NormalTok{\{}
-    \KeywordTok{public} \KeywordTok{class}\NormalTok{ moddingTutorial : Script}
-\NormalTok{    \{}
-\NormalTok{        Vector3 myCamPos;}
-        \DataTypeTok{int}\NormalTok{ CamSelect = }\DecValTok{0}\NormalTok{;}
-\NormalTok{        Ped newPed = }\KeywordTok{null}\NormalTok{;}
-\NormalTok{        Camera myCam;}
-
-        \KeywordTok{public} \FunctionTok{moddingTutorial}\NormalTok{()}
-\NormalTok{        \{}
-            \KeywordTok{this}\NormalTok{.}\FunctionTok{Tick}\NormalTok{ += onTick;}
-            \KeywordTok{this}\NormalTok{.}\FunctionTok{KeyUp}\NormalTok{ += onKeyUp;}
-            \KeywordTok{this}\NormalTok{.}\FunctionTok{KeyDown}\NormalTok{ += onKeyDown;}
-\NormalTok{        \}}
-
-        \KeywordTok{private} \DataTypeTok{void} \FunctionTok{onTick}\NormalTok{(}\DataTypeTok{object}\NormalTok{ sender, EventArgs e) }\CommentTok{//this function gets executed continuously }
-\NormalTok{        \{}
-            \CommentTok{//exits from the loop if the game is loading}
-            \KeywordTok{if}\NormalTok{ (Game.}\FunctionTok{IsLoading}\NormalTok{) }\KeywordTok{return}\NormalTok{;}
-            
-            \CommentTok{//update the cameras if the ped is spawn}
-            \KeywordTok{if}\NormalTok{ (newPed != }\KeywordTok{null}\NormalTok{)}
-\NormalTok{            \{           }
-                \CommentTok{//create the cameras if none have been created yet.}
-                \KeywordTok{if}\NormalTok{ (myCam == }\KeywordTok{null}\NormalTok{)            }
-\NormalTok{                \{}
-\NormalTok{                    UI.}\FunctionTok{ShowSubtitle}\NormalTok{(}\StringTok{"Set new camera"}\NormalTok{);}
-\NormalTok{                    myCam = World.}\FunctionTok{CreateCamera}\NormalTok{(Vector3.}\FunctionTok{Zero}\NormalTok{, newPed.}\FunctionTok{Rotation}\NormalTok{, 50f);}
-                    \CommentTok{// Set the camera position (relative pos)          }
-\NormalTok{                    myCamPos = }\KeywordTok{new} \FunctionTok{Vector3}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{, 1f);}
-\NormalTok{                \}}
-                \CommentTok{//attach the cameras}
-\NormalTok{                myCam.}\FunctionTok{AttachTo}\NormalTok{(newPed, myCamPos);}
-                \CommentTok{//sync rotation}
-\NormalTok{                myCam.}\FunctionTok{Rotation}\NormalTok{ = newPed.}\FunctionTok{Rotation}\NormalTok{;}
-\NormalTok{            \}}
-\NormalTok{        \}}
-        
-
-        \KeywordTok{private} \DataTypeTok{void} \FunctionTok{onKeyUp}\NormalTok{(}\DataTypeTok{object}\NormalTok{ sender, KeyEventArgs e)}\CommentTok{//everything inside here is executed only when we release a key}
-\NormalTok{        \{}
-            \CommentTok{//press control+K to switch between gameplay default camera and the NPC camera}
-            \KeywordTok{if}\NormalTok{ (e.}\FunctionTok{KeyCode}\NormalTok{ == Keys.}\FunctionTok{K}\NormalTok{ && e.}\FunctionTok{Modifiers}\NormalTok{ == Keys.}\FunctionTok{Shift}\NormalTok{ && newPed != }\KeywordTok{null}\NormalTok{)}
-\NormalTok{            \{}
-\NormalTok{                CamSelect = (CamSelect + }\DecValTok{1}\NormalTok{) % }\DecValTok{2}\NormalTok{;}
-                \KeywordTok{switch}\NormalTok{ (CamSelect)}
-\NormalTok{                \{}
-                    \KeywordTok{case} \DecValTok{0}\NormalTok{: World.}\FunctionTok{RenderingCamera}\NormalTok{ = }\KeywordTok{null}\NormalTok{; }
-\NormalTok{                        UI.}\FunctionTok{ShowSubtitle}\NormalTok{(}\StringTok{"Showing Gameplay Cam View"}\NormalTok{); }
-                        \KeywordTok{break}\NormalTok{;}
-                    \KeywordTok{case} \DecValTok{1}\NormalTok{: World.}\FunctionTok{RenderingCamera}\NormalTok{ = myCam; }
-\NormalTok{                        UI.}\FunctionTok{ShowSubtitle}\NormalTok{(}\StringTok{"Showing NPC Cam View"}\NormalTok{); }
-                        \KeywordTok{break}\NormalTok{;}
-\NormalTok{                \}}
-
-\NormalTok{            \}}
-\NormalTok{        \}}
-
-        \KeywordTok{private} \DataTypeTok{void} \FunctionTok{onKeyDown}\NormalTok{(}\DataTypeTok{object}\NormalTok{ sender, KeyEventArgs e) }\CommentTok{//everything inside here is executed only when we press a key}
-\NormalTok{        \{}
-            \KeywordTok{if}\NormalTok{(e.}\FunctionTok{KeyCode}\NormalTok{ == Keys.}\FunctionTok{G}\NormalTok{)}
-\NormalTok{            \{}
-                \CommentTok{//spawn new Ped}
-\NormalTok{                newPed = World.}\FunctionTok{CreatePed}\NormalTok{(PedHash.}\FunctionTok{Cat}\NormalTok{, Game.}\FunctionTok{Player}\NormalTok{.}\FunctionTok{Character}\NormalTok{.}\FunctionTok{GetOffsetInWorldCoords}\NormalTok{(}\KeywordTok{new} \FunctionTok{Vector3}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{0}\NormalTok{)));}
-\NormalTok{            \}}
-        
-            \KeywordTok{if}\NormalTok{ (e.}\FunctionTok{KeyCode}\NormalTok{ == Keys.}\FunctionTok{H}\NormalTok{)}
-\NormalTok{            \{}
-                \CommentTok{//follow player (persistent)}
-\NormalTok{                Function.}\FunctionTok{Call}\NormalTok{(Hash.}\FunctionTok{TASK_FOLLOW_TO_OFFSET_OF_ENTITY}\NormalTok{, newPed.}\FunctionTok{Handle}\NormalTok{, Game.}\FunctionTok{Player}\NormalTok{.}\FunctionTok{Character}\NormalTok{.}\FunctionTok{Handle}\NormalTok{, 0f, 1f, 0f, }\FloatTok{2.0f}\NormalTok{, }\DecValTok{-1}\NormalTok{, 5f, }\KeywordTok{true}\NormalTok{);}
-                \CommentTok{//look at player}
-\NormalTok{                newPed.}\FunctionTok{Task}\NormalTok{.}\FunctionTok{LookAt}\NormalTok{(Game.}\FunctionTok{Player}\NormalTok{.}\FunctionTok{Character}\NormalTok{);}
-\NormalTok{            \}}
-            \KeywordTok{if}\NormalTok{ (e.}\FunctionTok{KeyCode}\NormalTok{ == Keys.}\FunctionTok{J}\NormalTok{)}
-\NormalTok{            \{}
-                \CommentTok{//stop NPC}
-\NormalTok{                newPed.}\FunctionTok{Task}\NormalTok{.}\FunctionTok{ClearAll}\NormalTok{();}
-\NormalTok{            \}}
-            \KeywordTok{if}\NormalTok{ (e.}\FunctionTok{KeyCode}\NormalTok{ == Keys.}\FunctionTok{L}\NormalTok{)}
-\NormalTok{            \{   }
-                \CommentTok{//delete ped}
-\NormalTok{                newPed.}\FunctionTok{Delete}\NormalTok{();}
-\NormalTok{            \}}
-\NormalTok{        \}}
-\NormalTok{    \}}
-\NormalTok{\}}
-\end{Highlighting}
-\end{Shaded}
-
-\hypertarget{switching-character-through-satellite-camera-view-1}{%
-\subsection*{Switching Character through Satellite Camera View}\label{switching-character-through-satellite-camera-view-1}}
 \addcontentsline{toc}{subsection}{Switching Character through Satellite Camera View}
 
 Example code
