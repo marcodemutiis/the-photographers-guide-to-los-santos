@@ -4,11 +4,11 @@
 
 ## Alexey Andrienko aka HAPP v2 {-}
 
-```{r fig.align='left', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html'), fig.link='https://www.heterotopiaszine.com/'}
+```{r fig.align='left', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html'), fig.link='https://www.gamescenes.org/2018/02/game-art-happ-v2s-in-game-photography.html'}
 knitr::include_graphics('assets/happ_whales.png', dpi = NA)
 ```
 
-```{r fig.align='left', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html'), fig.link='https://www.heterotopiaszine.com/'}
+```{r fig.align='left', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html'), fig.link='https://www.gamescenes.org/2018/02/game-art-happ-v2s-in-game-photography.html'}
 knitr::include_graphics('assets/happ_cars.png', dpi = NA)
 ```
 artwork text
@@ -16,7 +16,7 @@ artwork text
 [More about Happ v2](https://www.gamescenes.org/2018/02/game-art-happ-v2s-in-game-photography.html)
 
 ### Getting There {-}
-```{r fig.align='left', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html'), fig.link='https://www.heterotopiaszine.com/'}
+```{r fig.align='left', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html'), fig.link=''}
 knitr::include_graphics('assets/maps/ChumashBeach.png', dpi = NA)
 ```
 

@@ -3,7 +3,7 @@
 //general introduction about the creation of a synthetic forms of nature, ecological issues, creation of virtual sublime, flora and fauna that are usually props that become the focus of the player's explorations, "virtual world naturalism"...
 
 ## _San Andreas Streaming Deer Cam_ by Brent Watanabe {-}
-```{r fig.align='left', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html'), fig.link='https://www.heterotopiaszine.com/'}
+```{r fig.align='left', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html'), fig.link='https://bwatanabe.com/GTA_V_WanderingDeer.html'}
 knitr::include_graphics('assets/deercam.jpeg', dpi = NA)
 ```
 artwork text
@@ -11,7 +11,7 @@ artwork text
 [More about _Deercam_](https://bwatanabe.com/GTA_V_WanderingDeer.html)
 
 ### Getting There {-}
-```{r fig.align='left', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html'), fig.link='https://www.heterotopiaszine.com/'}
+```{r fig.align='left', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html'), fig.link=''}
 knitr::include_graphics('assets/maps/mountChiliad.png', dpi = NA)
 ```
 [Mount Chiliad](https://grandtheftdata.com/landmarks/#86.534,6158.577,4,atlas,name=mount_chiliad,Mount_Chiliad) is located in the Chiliad Mountain State Wilderness, and it is the tallest mountain in the game at 798m above sea level. The state park is home to lots of wildlife such as deer and mountain lions.
@@ -231,6 +231,7 @@ namespace moddingTutorial
 
 ```
 </details>
+
 
 ```{r fig.align='left', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html'), fig.link='https://wiki.gtanet.work/index.php/Peds'}
 knitr::include_graphics('assets/peds.png', dpi = NA)
