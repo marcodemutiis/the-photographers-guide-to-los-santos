@@ -9,13 +9,19 @@ knitr::include_graphics('assets/RaphaelBrunkCapture7501112_23.jpeg', dpi = NA)
 ```
 Raphael Brunk, _Capture75011.12_23 _, 2016
 
+
+```{r fig.align='left', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html')}
+knitr::include_graphics('assets/RaphaelBrunkCapture553264_19.jpeg', dpi = NA)
+```
+Raphael Brunk, _Capture55326.4_19_, 2016
+
 [More about Captures](http://www.darktaxa-project.net/artists/raphael-brunk/)
 
 ### Getting there {-}
 ```{r fig.align='left', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html')}
-knitr::include_graphics('assets/maps/tataviamMountains.png', dpi = NA)
+knitr::include_graphics('assets/maps/vinewoodHills.png', dpi = NA)
 ```
-* [Land Act Dam, Tataviam Mountains](https://grandtheftdata.com/landmarks/#1672.279,-29.78,4,atlas,name=tataviam_act_dam,Land_Act_Dam,_Tataviam_Mountains)
+* [3668 Wild Oats Dr, Vinewood Hills](https://grandtheftdata.com/landmarks/#-94.207,530.818,5,atlas,name=3668,3668_Wild_Oats_Dr,_Vinewood_Hills)
 
 ## Readings {-}
 
