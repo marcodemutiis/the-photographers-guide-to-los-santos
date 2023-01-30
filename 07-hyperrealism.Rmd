@@ -77,27 +77,27 @@ Now if you try to hit the 'O' key, the screen will fade out, and then it will au
 
 ### Natural Vision Evolved Mod {-}
 
-Natural Vision Evolved is a graphic mod develped by [Jamal Rashid, aka Razed](https://www.razedmods.com/). This mod enhances GTA V's lighting, weather effects, ambient colours, world textures, building models, pushing the photo-realism and cinematic looks. While the mod contains settings for different hardware settings, it's recommended to have a relatively powerful PC with a good graphic card. [Here](https://www.systemrequirementslab.com/cyri/requirements/gta-5-naturalvision-remastered/16594) you can find minimum and recommended requirements for Natural Vision Evolved mod.
+Natural Vision Evolved (NVE) is a graphic mod develped by [Jamal Rashid, aka Razed](https://www.razedmods.com/). This mod enhances GTA V's lighting, weather effects, ambient colours, world textures, building models, pushing the photo-realism and cinematic looks. While the mod contains settings for different hardware settings, it's recommended to have a relatively powerful PC with a good graphic card. [Here](https://www.systemrequirementslab.com/cyri/requirements/gta-5-naturalvision-remastered/16594) you can find minimum and recommended requirements for Natural Vision Evolved mod.
 
 Setup:
 
-+ Go to razedmods.com/gta-v and download Natural Vision Evolved (6.2 Gb).
++ Go to [razedmods.com/gta-v](https://www.razedmods.com/gta-v) and download Natural Vision Evolved (6.2 Gb).
 
 + Go to [openiv.com/](https://openiv.com/) and download Open IV, Open 'ovisetup' and install Open IV on your computer.
 
-+ Open the Open IV app and select GTA V Windows. Choose Grand Theft Auto V folder ```C:\Program Files (x86)\Steam\steamapps\common\Grand Theft Auto V```
++ Select GTA V Windows. Choose Grand Theft Auto V folder ```C:\Program Files (x86)\Steam\steamapps\common\Grand Theft Auto V```
 
 + Once Open IV is open, go to your file window select the ```Tools``` menu on top of the window, and select ```ASI Manager```. In ```ASI Manager``` install all options: ASI Loader, OpenIV.ASI and openCamera.
 
 + Select ```Tools``` again and click ```Options```. Click on the ```"mods" folder``` tab and select ```Allow edit mode only for archive inside "mods" folder```. Click ```Close```.
 
-+ Back in Open IV, select ```Edit mode``` at the top right of the window. Select ```OK``` on the pop up window. 
++ Select ```Edit mode``` at the top right of the window. Select ```OK``` on the pop up window. 
 
 + Now you can add your mod to the mods folder.
 
-+ Open the NVE mod folder and copy the subfolder containing the settings you want (low/medium/ultra graphics) to your GTA V directory folder ```C:\Program Files (x86)\Steam\steamapps\common\Grand Theft Auto V```.
++ Open the NVE mod folder, open ENB (Required) folder, open the subfolder containing the settings you want (low/medium/ultra graphics). Copy all the files inside selected folder to your GTA V directory folder ```C:\Program Files (x86)\Steam\steamapps\common\Grand Theft Auto V```.
 
-+ Go back to your downloads and inside the NVE folder select the installation files and open number 1 and 2 with Open IV in the correct order. Always choose to select "mod" folder and select install.
++ Go back to your root NVE folder, extract and select NaturalVision Installer PART ONE and drag it to Open IV. Install the file and select "mod folder" when asked to choose. After that is complete, extract and select NaturalVision Installer PART TWO and drag it to Open IV. Install the file and select "mod folder" when asked to choose. The Installers have to be executed in order: first do PART ONE, and then do PART TWO.
 
 + Go back to your downloads and inside the NVE folder you can choose some optional addons. Install/Uninstall them with Open IV as above Always choose to select "mod" folder and select install.
 
