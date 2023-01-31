@@ -45,12 +45,17 @@ Function.Call(Hash.SET_FOLLOW_PED_CAM_VIEW_MODE, 4);
 
 ### Setting the Time of the Day {-}
 
-We can control the time and the light for our shots to the second in GTA V. We can specify the exact time of the day with the native function ```SET_CLOCK_TIME```, followed by hour, minute and second.
+We can control the time and the light for our shots to the second in GTA V. We can specify the exact time of the day with the native function ```SET_CLOCK_TIME```, followed by hour, minute and second. Note that the sun sets at 5:30 a.m. and goes down at 8 p.m.
 
 Set the imte of the day to 15:45:
 ```cs
 Function.Call(Hash.SET_CLOCK_TIME, 15, 45, 00);
 ```
+
+```{r fig.align='left', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html'), fig.link=''}
+knitr::include_graphics('assets/scriptingGifs/setTime.gif', dpi = NA)
+```
+
 
 
 ### Controlling the Weather {–}
@@ -73,6 +78,10 @@ We can choose among the following weather options using the native function ```S
 Set the weather to blizzard:
 ```cs
 Function.Call(Hash.SET_WEATHER_TYPE_NOW_PERSIST, "BLIZZARD");
+```
+
+```{r fig.align='left', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html'), fig.link=''}
+knitr::include_graphics('assets/scriptingGifs/setWeather.gif', dpi = NA)
 ```
 
 	
