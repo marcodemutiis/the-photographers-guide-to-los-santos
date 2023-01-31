@@ -1631,9 +1631,49 @@ Switch to first person view:
 \end{Highlighting}
 \end{Shaded}
 
+\hypertarget{setting-the-time-of-the-day}{%
+\subsection*{Setting the Time of the Day}\label{setting-the-time-of-the-day}}
+\addcontentsline{toc}{subsection}{Setting the Time of the Day}
+
+We can control the time and the light for our shots to the second in GTA V. We can specify the exact time of the day with the native function \texttt{SET\_CLOCK\_TIME}, followed by hour, minute and second.
+
+Set the imte of the day to 15:45:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{Function.}\FunctionTok{Call}\NormalTok{(Hash.}\FunctionTok{SET_CLOCK_TIME}\NormalTok{, }\DecValTok{15}\NormalTok{, }\DecValTok{45}\NormalTok{, }\DecValTok{00}\NormalTok{);}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{controlling-the-weather}{%
+\subsection{Controlling the Weather \{--\}}\label{controlling-the-weather}}
+
+We can choose among the following weather options using the native function \texttt{SET\_WEATHER\_TYPE\_NOW\_PERSIST}:
+
+``CLEAR''
+``EXTRASUNNY''
+``CLOUDS''
+``OVERCAST''
+``RAIN''
+``CLEARING''
+``THUNDER''
+``SMOG''
+``FOGGY''
+``XMAS''
+``SNOWLIGHT''
+``BLIZZARD''
+
+Set the weather to blizzard:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{Function.}\FunctionTok{Call}\NormalTok{(Hash.}\FunctionTok{SET_WEATHER_TYPE_NOW_PERSIST}\NormalTok{, }\StringTok{"BLIZZARD"}\NormalTok{);}
+\end{Highlighting}
+\end{Shaded}
+
 \hypertarget{scripting-cinematic-fade-out-in}{%
-\subsection*{Scripting Cinematic Fade Out/ In}\label{scripting-cinematic-fade-out-in}}
-\addcontentsline{toc}{subsection}{Scripting Cinematic Fade Out/ In}
+\subsection*{Scripting Cinematic Fade Out / In}\label{scripting-cinematic-fade-out-in}}
+\addcontentsline{toc}{subsection}{Scripting Cinematic Fade Out / In}
 
 Script Hook has native functions to create a fead to/from black. The function hash are \texttt{DO\_SCREEN\_FADE\_OUT} and \texttt{DO\_SCREEN\_FADE\_IN} and they are followed by the number of milliseconds to go from full black to showing the scene and viceversa.
 
