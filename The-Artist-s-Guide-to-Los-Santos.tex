@@ -1303,9 +1303,9 @@ Peace is restored in the universe. To remove the NPCs use \texttt{Delete()}.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{myPeds[}\DecValTok{0}\NormalTok{].}\FunctionTok{Task}\NormalTok{.}\FunctionTok{Delete}\NormalTok{();}
-\NormalTok{myPeds[}\DecValTok{1}\NormalTok{].}\FunctionTok{Task}\NormalTok{.}\FunctionTok{Delete}\NormalTok{();}
-\NormalTok{myPeds[}\DecValTok{2}\NormalTok{].}\FunctionTok{Task}\NormalTok{.}\FunctionTok{Delete}\NormalTok{();}
+\NormalTok{myPeds[}\DecValTok{0}\NormalTok{].}\FunctionTok{Delete}\NormalTok{();}
+\NormalTok{myPeds[}\DecValTok{1}\NormalTok{].}\FunctionTok{Delete}\NormalTok{();}
+\NormalTok{myPeds[}\DecValTok{2}\NormalTok{].}\FunctionTok{Delete}\NormalTok{();}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1361,19 +1361,19 @@ Once you have requested your animation dictionary and it is loaded, you can play
 \begin{Shaded}
 \begin{Highlighting}[]
 \CommentTok{//request animation dictionary}
-\NormalTok{Function.}\FunctionTok{Call}\NormalTok{(Hash.}\FunctionTok{REQUEST_ANIM_DICT}\NormalTok{, }\StringTok{"combat@chg_stance"}\NormalTok{);}
+\NormalTok{Function.}\FunctionTok{Call}\NormalTok{(Hash.}\FunctionTok{REQUEST_ANIM_DICT}\NormalTok{, }\StringTok{"cmini@strip_club@pole_dance@pole_a_2_stage"}\NormalTok{);}
  
 \CommentTok{//wait 100 ms to load the animation}
 \FunctionTok{Wait}\NormalTok{(}\DecValTok{100}\NormalTok{);}
  
 \CommentTok{//play animation from animation dictionary using the player character}
-\NormalTok{Function.}\FunctionTok{Call}\NormalTok{(Hash.}\FunctionTok{TASK_PLAY_ANIM}\NormalTok{, Game.}\FunctionTok{Player}\NormalTok{.}\FunctionTok{Character}\NormalTok{, }\StringTok{"combat@chg_stance"}\NormalTok{, }\StringTok{"aimb_loop"}\NormalTok{, }\FloatTok{8.0}\NormalTok{, }\FloatTok{8.0}\NormalTok{ * }\DecValTok{-1}\NormalTok{, }\DecValTok{-1}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{, }\KeywordTok{false}\NormalTok{, }\KeywordTok{false}\NormalTok{, }\KeywordTok{false}\NormalTok{);}
+\NormalTok{Function.}\FunctionTok{Call}\NormalTok{(Hash.}\FunctionTok{TASK_PLAY_ANIM}\NormalTok{, Game.}\FunctionTok{Player}\NormalTok{.}\FunctionTok{Character}\NormalTok{, }\StringTok{"mini@strip_club@pole_dance@pole_a_2_stage"}\NormalTok{, }\StringTok{"pole_a_2_stage"}\NormalTok{, }\FloatTok{8.0}\NormalTok{, }\FloatTok{8.0}\NormalTok{ * }\DecValTok{-1}\NormalTok{, }\DecValTok{-1}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{, }\KeywordTok{false}\NormalTok{, }\KeywordTok{false}\NormalTok{, }\KeywordTok{false}\NormalTok{);}
  
 \CommentTok{//wait 5 secs}
 \FunctionTok{Wait}\NormalTok{(}\DecValTok{5000}\NormalTok{);}
  
 \CommentTok{//stop the animation}
-\NormalTok{Function.}\FunctionTok{Call}\NormalTok{(Hash.}\FunctionTok{STOP_ANIM_TASK}\NormalTok{, Game.}\FunctionTok{Player}\NormalTok{.}\FunctionTok{Character}\NormalTok{, }\StringTok{"combat@chg_stance"}\NormalTok{, }\StringTok{"aimb_loop"}\NormalTok{, }\FloatTok{1.0}\NormalTok{);}
+\NormalTok{Function.}\FunctionTok{Call}\NormalTok{(Hash.}\FunctionTok{STOP_ANIM_TASK}\NormalTok{, Game.}\FunctionTok{Player}\NormalTok{.}\FunctionTok{Character}\NormalTok{, }\StringTok{"mini@strip_club@pole_dance@pole_a_2_stage"}\NormalTok{, }\StringTok{"pole_a_2_stage"}\NormalTok{, }\FloatTok{1.0}\NormalTok{);}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1381,6 +1381,8 @@ Most information found for this functions were found \href{Source:\%20http://gta
 
 There are 6645 animation dictionaries and 35460 animation clips. You can see some of the possible animations in GTA V here: \href{https://www.youtube.com/playlist?list=PLFy_1HUkWwEAgPtwtjjLYpKCbBiwXamST}{youtube.com/playlist?list=PLFy\_1HUkWwEAgPtwtjjLYpKCbBiwXamST}.
 Here you can find a \href{https://docs.ragepluginhook.net/html/62951c37-a440-478c-b389-c471230ddfc5.htm}{list of available dictionaries and animations}.
+
+Fun fact: deers seem to be able to do pole dance animations too.
 
 Give animations to nearby peds.
 

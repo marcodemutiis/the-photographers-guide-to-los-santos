@@ -630,9 +630,9 @@ We can give our NPC the task to fight against the player by using the <code>Figh
 <span id="cb40-2"><a href="surrealist-photography.html#cb40-2"></a>myPeds[<span class="dv">1</span>].<span class="fu">Task</span>.<span class="fu">ClearAllImmediately</span>();</span>
 <span id="cb40-3"><a href="surrealist-photography.html#cb40-3"></a>myPeds[<span class="dv">2</span>].<span class="fu">Task</span>.<span class="fu">ClearAllImmediately</span>();</span></code></pre></div>
 <p>Peace is restored in the universe. To remove the NPCs use <code>Delete()</code>.</p>
-<div class="sourceCode" id="cb41"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb41-1"><a href="surrealist-photography.html#cb41-1"></a>myPeds[<span class="dv">0</span>].<span class="fu">Task</span>.<span class="fu">Delete</span>();</span>
-<span id="cb41-2"><a href="surrealist-photography.html#cb41-2"></a>myPeds[<span class="dv">1</span>].<span class="fu">Task</span>.<span class="fu">Delete</span>();</span>
-<span id="cb41-3"><a href="surrealist-photography.html#cb41-3"></a>myPeds[<span class="dv">2</span>].<span class="fu">Task</span>.<span class="fu">Delete</span>();</span></code></pre></div>
+<div class="sourceCode" id="cb41"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb41-1"><a href="surrealist-photography.html#cb41-1"></a>myPeds[<span class="dv">0</span>].<span class="fu">Delete</span>();</span>
+<span id="cb41-2"><a href="surrealist-photography.html#cb41-2"></a>myPeds[<span class="dv">1</span>].<span class="fu">Delete</span>();</span>
+<span id="cb41-3"><a href="surrealist-photography.html#cb41-3"></a>myPeds[<span class="dv">2</span>].<span class="fu">Delete</span>();</span></code></pre></div>
 <p><a href="" target="_blank"><img src="assets/scriptingGifs/3Peds2.gif" style="display: block; margin: auto auto auto 0;" /></a></p>
 </div>
 <div id="animations" class="section level3 unnumbered hasAnchor">
@@ -672,22 +672,25 @@ normal = 0
 After that, wait for the animation to load (or you could check if it’s loaded with the boolean <code>HAS_ANIM_DICT_LOADED</code>), before playing the animation.</p>
 <p>Once you have requested your animation dictionary and it is loaded, you can play and stop the specific animation using <code>TASK_PLAY_ANIM</code> and <code>STOP_ANIM_TASK</code>.</p>
 <div class="sourceCode" id="cb44"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb44-1"><a href="surrealist-photography.html#cb44-1"></a><span class="co">//request animation dictionary</span></span>
-<span id="cb44-2"><a href="surrealist-photography.html#cb44-2"></a>Function.<span class="fu">Call</span>(Hash.<span class="fu">REQUEST_ANIM_DICT</span>, <span class="st">&quot;combat@chg_stance&quot;</span>);</span>
+<span id="cb44-2"><a href="surrealist-photography.html#cb44-2"></a>Function.<span class="fu">Call</span>(Hash.<span class="fu">REQUEST_ANIM_DICT</span>, <span class="st">&quot;cmini@strip_club@pole_dance@pole_a_2_stage&quot;</span>);</span>
 <span id="cb44-3"><a href="surrealist-photography.html#cb44-3"></a> </span>
 <span id="cb44-4"><a href="surrealist-photography.html#cb44-4"></a><span class="co">//wait 100 ms to load the animation</span></span>
 <span id="cb44-5"><a href="surrealist-photography.html#cb44-5"></a><span class="fu">Wait</span>(<span class="dv">100</span>);</span>
 <span id="cb44-6"><a href="surrealist-photography.html#cb44-6"></a> </span>
 <span id="cb44-7"><a href="surrealist-photography.html#cb44-7"></a><span class="co">//play animation from animation dictionary using the player character</span></span>
-<span id="cb44-8"><a href="surrealist-photography.html#cb44-8"></a>Function.<span class="fu">Call</span>(Hash.<span class="fu">TASK_PLAY_ANIM</span>, Game.<span class="fu">Player</span>.<span class="fu">Character</span>, <span class="st">&quot;combat@chg_stance&quot;</span>, <span class="st">&quot;aimb_loop&quot;</span>, <span class="fl">8.0</span>, <span class="fl">8.0</span> * <span class="dv">-1</span>, <span class="dv">-1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="kw">false</span>, <span class="kw">false</span>, <span class="kw">false</span>);</span>
+<span id="cb44-8"><a href="surrealist-photography.html#cb44-8"></a>Function.<span class="fu">Call</span>(Hash.<span class="fu">TASK_PLAY_ANIM</span>, Game.<span class="fu">Player</span>.<span class="fu">Character</span>, <span class="st">&quot;mini@strip_club@pole_dance@pole_a_2_stage&quot;</span>, <span class="st">&quot;pole_a_2_stage&quot;</span>, <span class="fl">8.0</span>, <span class="fl">8.0</span> * <span class="dv">-1</span>, <span class="dv">-1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="kw">false</span>, <span class="kw">false</span>, <span class="kw">false</span>);</span>
 <span id="cb44-9"><a href="surrealist-photography.html#cb44-9"></a> </span>
 <span id="cb44-10"><a href="surrealist-photography.html#cb44-10"></a><span class="co">//wait 5 secs</span></span>
 <span id="cb44-11"><a href="surrealist-photography.html#cb44-11"></a><span class="fu">Wait</span>(<span class="dv">5000</span>);</span>
 <span id="cb44-12"><a href="surrealist-photography.html#cb44-12"></a> </span>
 <span id="cb44-13"><a href="surrealist-photography.html#cb44-13"></a><span class="co">//stop the animation</span></span>
-<span id="cb44-14"><a href="surrealist-photography.html#cb44-14"></a>Function.<span class="fu">Call</span>(Hash.<span class="fu">STOP_ANIM_TASK</span>, Game.<span class="fu">Player</span>.<span class="fu">Character</span>, <span class="st">&quot;combat@chg_stance&quot;</span>, <span class="st">&quot;aimb_loop&quot;</span>, <span class="fl">1.0</span>);</span></code></pre></div>
+<span id="cb44-14"><a href="surrealist-photography.html#cb44-14"></a>Function.<span class="fu">Call</span>(Hash.<span class="fu">STOP_ANIM_TASK</span>, Game.<span class="fu">Player</span>.<span class="fu">Character</span>, <span class="st">&quot;mini@strip_club@pole_dance@pole_a_2_stage&quot;</span>, <span class="st">&quot;pole_a_2_stage&quot;</span>, <span class="fl">1.0</span>);</span></code></pre></div>
 <p>Most information found for this functions were found <a href="Source:%20http://gtaxscripting.blogspot.com/2016/06/tut-gta-v-playing-and-handling.html">here</a>. More example code and information is avaiable there.</p>
 <p>There are 6645 animation dictionaries and 35460 animation clips. You can see some of the possible animations in GTA V here: <a href="https://www.youtube.com/playlist?list=PLFy_1HUkWwEAgPtwtjjLYpKCbBiwXamST">youtube.com/playlist?list=PLFy_1HUkWwEAgPtwtjjLYpKCbBiwXamST</a>.
 Here you can find a <a href="https://docs.ragepluginhook.net/html/62951c37-a440-478c-b389-c471230ddfc5.htm">list of available dictionaries and animations</a>.</p>
+<p><a href="" target="_blank"><img src="assets/scriptingGifs/poleDance.gif" style="display: block; margin: auto auto auto 0;" /></a></p>
+<p>Fun fact: deers seem to be able to do pole dance animations too.</p>
+<p><a href="" target="_blank"><img src="assets/scriptingGifs/poleDanceDeer.gif" style="display: block; margin: auto auto auto 0;" /></a></p>
 <p>Give animations to nearby peds.</p>
 <div class="sourceCode" id="cb45"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb45-1"><a href="surrealist-photography.html#cb45-1"></a><span class="co">//request animation dictionary</span></span>
 <span id="cb45-2"><a href="surrealist-photography.html#cb45-2"></a>Function.<span class="fu">Call</span>(Hash.<span class="fu">REQUEST_ANIM_DICT</span>, <span class="st">&quot;gestures@miss@fbi_5&quot;</span>);</span>
