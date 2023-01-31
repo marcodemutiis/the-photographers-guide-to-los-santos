@@ -107,16 +107,22 @@ if (e.KeyCode == Keys.I)
 
 We could also create an automated check in our onTick loop, which keeps seeing if the screen has been faded to black. We can use the native function ```IS_SCREEN_FADED_OUT``` which is a boolean data type. This means it will return either true or false. If it returns true, it means the screen has been faded out. 
 
-Let's add an If statement in our onTick loop to chek if the screen has been faded to black, and if so we call a fade in over 3 second:
+Let's add an "if" statement in our onTick loop to chek if the screen has been faded to black, and if so we teleport somewhere else and we call a fade in over 3 second:
 ```cs
 if (Function.Call<bool>(Hash.IS_SCREEN_FADED_OUT))
 {
+    Function.Call(Hash.SET_ENTITY_COORDS, Game.Player.Character, -1374.881f, -1398.835f, 6.141f, 0, 0, 1);
     Wait(500);
     GTA.Native.Function.Call(Hash.DO_SCREEN_FADE_IN, 3000);
 }
 ```
 
 Now if you try to hit the 'O' key, the screen will fade out, and then it will automatically fade in again.
+
+
+```{r fig.align='left', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html'), fig.link=''}
+knitr::include_graphics('assets/scriptingGifs/fadeoutin.gif', dpi = NA)
+```
 
 
 ### Natural Vision Evolved Mod {-}
