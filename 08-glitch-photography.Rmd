@@ -241,6 +241,11 @@ namespace ModdingTutorial
 	
 ```
 </details>
+
+
+```{r fig.align='left', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html'), fig.link=''}
+knitr::include_graphics('assets/scriptingGifs/freeCam.gif', dpi = NA)
+```
 	
 
 ### Attach a Camera to an Entity {-}
