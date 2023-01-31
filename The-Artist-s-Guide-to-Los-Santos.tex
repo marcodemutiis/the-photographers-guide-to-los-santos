@@ -989,12 +989,19 @@ Kill the 2nd spawned NPC:
 \end{Highlighting}
 \end{Shaded}
 
-Tell the 3rd and 4th NPCs to fight each other:
+Tell the 3rd NPC to jump:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{myPeds[}\DecValTok{2}\NormalTok{].}\FunctionTok{FightAgainst}\NormalTok{(myPeds[}\DecValTok{3}\NormalTok{]);}
-\NormalTok{myPeds[}\DecValTok{3}\NormalTok{].}\FunctionTok{FightAgainst}\NormalTok{(myPeds[}\DecValTok{2}\NormalTok{]);}
+\NormalTok{myPeds[}\DecValTok{2}\NormalTok{].}\FunctionTok{Jump}\NormalTok{();}
+\end{Highlighting}
+\end{Shaded}
+
+Tell the 4th NPC to walk toward the camera:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{myPeds[}\DecValTok{3}\NormalTok{].}\FunctionTok{GoTo}\NormalTok{(GameplayCamera.}\FunctionTok{Position}\NormalTok{);}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1265,7 +1272,7 @@ You can spawn a group of NPCs and give them individual tasks. You can also make 
 \CommentTok{//manually add models for each ped}
 \NormalTok{myPedModel.}\FunctionTok{Add}\NormalTok{(PedHash.}\FunctionTok{Clown01SMY}\NormalTok{);}
 \NormalTok{myPedModel.}\FunctionTok{Add}\NormalTok{(PedHash.}\FunctionTok{Doctor01SMM}\NormalTok{);}
-\NormalTok{myPedModel.}\FunctionTok{Add}\NormalTok{(PedHash.}\FunctionTok{AviSchwartzman}\NormalTok{);}
+\NormalTok{myPedModel.}\FunctionTok{Add}\NormalTok{(PedHash.}\FunctionTok{Abigail}\NormalTok{);}
 
 
 \KeywordTok{for}\NormalTok{(}\DataTypeTok{int}\NormalTok{ i = }\DecValTok{0}\NormalTok{; i < myPedModel.}\FunctionTok{Count}\NormalTok{; i++)}
@@ -1292,7 +1299,15 @@ To clear a task at any given moment we can use the task \texttt{ClearAllImmediat
 \end{Highlighting}
 \end{Shaded}
 
-Peace is restored in the universe.
+Peace is restored in the universe. To remove the NPCs use \texttt{Delete()}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{myPeds[}\DecValTok{0}\NormalTok{].}\FunctionTok{Task}\NormalTok{.}\FunctionTok{Delete}\NormalTok{();}
+\NormalTok{myPeds[}\DecValTok{1}\NormalTok{].}\FunctionTok{Task}\NormalTok{.}\FunctionTok{Delete}\NormalTok{();}
+\NormalTok{myPeds[}\DecValTok{2}\NormalTok{].}\FunctionTok{Task}\NormalTok{.}\FunctionTok{Delete}\NormalTok{();}
+\end{Highlighting}
+\end{Shaded}
 
 \hypertarget{animations}{%
 \subsection*{Animations}\label{animations}}

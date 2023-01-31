@@ -392,248 +392,254 @@ To make a Ped appear in front of the player we can create a vector3 data type wi
 <div class="sourceCode" id="cb27"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb27-1"><a href="surrealist-photography.html#cb27-1"></a>myPeds[<span class="dv">0</span>].<span class="fu">Task</span>.<span class="fu">WanderAround</span>();</span></code></pre></div>
 <p>Kill the 2nd spawned NPC:</p>
 <div class="sourceCode" id="cb28"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb28-1"><a href="surrealist-photography.html#cb28-1"></a>myPeds[<span class="dv">1</span>].<span class="fu">Kill</span>();</span></code></pre></div>
-<p>Tell the 3rd and 4th NPCs to fight each other:</p>
-<div class="sourceCode" id="cb29"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb29-1"><a href="surrealist-photography.html#cb29-1"></a>myPeds[<span class="dv">2</span>].<span class="fu">FightAgainst</span>(myPeds[<span class="dv">3</span>]);</span>
-<span id="cb29-2"><a href="surrealist-photography.html#cb29-2"></a>myPeds[<span class="dv">3</span>].<span class="fu">FightAgainst</span>(myPeds[<span class="dv">2</span>]);</span></code></pre></div>
+<p>Tell the 3rd NPC to jump:</p>
+<div class="sourceCode" id="cb29"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb29-1"><a href="surrealist-photography.html#cb29-1"></a>myPeds[<span class="dv">2</span>].<span class="fu">Jump</span>();</span></code></pre></div>
+<p>Tell the 4th NPC to walk toward the camera:</p>
+<div class="sourceCode" id="cb30"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb30-1"><a href="surrealist-photography.html#cb30-1"></a>myPeds[<span class="dv">3</span>].<span class="fu">GoTo</span>(GameplayCamera.<span class="fu">Position</span>);</span></code></pre></div>
 <p>Tell the 5th NPC to put their hands up for 3 seconds:</p>
-<div class="sourceCode" id="cb30"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb30-1"><a href="surrealist-photography.html#cb30-1"></a>myPeds[<span class="dv">4</span>].<span class="fu">Task</span>.<span class="fu">HandsUp</span>(<span class="dv">3000</span>);</span></code></pre></div>
+<div class="sourceCode" id="cb31"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb31-1"><a href="surrealist-photography.html#cb31-1"></a>myPeds[<span class="dv">4</span>].<span class="fu">Task</span>.<span class="fu">HandsUp</span>(<span class="dv">3000</span>);</span></code></pre></div>
 <p><a href="" target="_blank"><img src="assets/scriptingGifs/control5Peds.gif" style="display: block; margin: auto auto auto 0;" /></a></p>
 </div>
 <div id="nearby-npcs" class="section level3 unnumbered hasAnchor">
 <h3>Nearby NPCs<a href="surrealist-photography.html#nearby-npcs" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Script Hook V DOt Net provides a function <code>GetNearbyPeds</code>which groups all the <code>Peds</code> within a nearby radius from a character.</p>
 <p>Create a new group that adds <code>Peds</code> which are closer than 20 meters from the player (add that as a global variable in <code>public class moddingTutorial : Script</code>):</p>
-<div class="sourceCode" id="cb31"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb31-1"><a href="surrealist-photography.html#cb31-1"></a>Ped[] NearbyPeds = World.<span class="fu">GetNearbyPeds</span>(Game.<span class="fu">Player</span>.<span class="fu">Character</span>, 20f);</span></code></pre></div>
+<div class="sourceCode" id="cb32"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb32-1"><a href="surrealist-photography.html#cb32-1"></a>Ped[] NearbyPeds = World.<span class="fu">GetNearbyPeds</span>(Game.<span class="fu">Player</span>.<span class="fu">Character</span>, 20f);</span></code></pre></div>
 <p>Use a <a href="https://www.simplilearn.com/tutorials/asp-dot-net-tutorial/csharp-foreach#:~:text=The%20foreach%20loop%20in%20C%23,readable%20alternative%20to%20for%20loop.">Foreach Loop</a> to get every <code>Ped</code> in the group and give them the task to put their hands up for a second:</p>
-<div class="sourceCode" id="cb32"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb32-1"><a href="surrealist-photography.html#cb32-1"></a><span class="kw">foreach</span> (Ped p <span class="kw">in</span> NearbyPeds)</span>
-<span id="cb32-2"><a href="surrealist-photography.html#cb32-2"></a>{</span>
-<span id="cb32-3"><a href="surrealist-photography.html#cb32-3"></a>    p.<span class="fu">Task</span>.<span class="fu">HandsUp</span>(<span class="dv">1000</span>);</span>
-<span id="cb32-4"><a href="surrealist-photography.html#cb32-4"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb33"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb33-1"><a href="surrealist-photography.html#cb33-1"></a><span class="kw">foreach</span> (Ped p <span class="kw">in</span> NearbyPeds)</span>
+<span id="cb33-2"><a href="surrealist-photography.html#cb33-2"></a>{</span>
+<span id="cb33-3"><a href="surrealist-photography.html#cb33-3"></a>    p.<span class="fu">Task</span>.<span class="fu">HandsUp</span>(<span class="dv">1000</span>);</span>
+<span id="cb33-4"><a href="surrealist-photography.html#cb33-4"></a>}</span></code></pre></div>
 <p><code>GetNearbyPeds</code> does not sort out individual <code>Peds</code>in the group based on distance, so we have to do a bit of manual filtering to get the nearest NPC within the chosen radius from the player character.</p>
 <p>Define the global variables in the public class <code>public class moddingTutorial : Script</code>:</p>
-<div class="sourceCode" id="cb33"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb33-1"><a href="surrealist-photography.html#cb33-1"></a><span class="dt">float</span> lastDistance;</span>
-<span id="cb33-2"><a href="surrealist-photography.html#cb33-2"></a>Ped nearestPed = <span class="kw">null</span>;</span>
-<span id="cb33-3"><a href="surrealist-photography.html#cb33-3"></a>Ped oldNearestPed = <span class="kw">null</span>;</span></code></pre></div>
+<div class="sourceCode" id="cb34"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb34-1"><a href="surrealist-photography.html#cb34-1"></a><span class="dt">float</span> lastDistance;</span>
+<span id="cb34-2"><a href="surrealist-photography.html#cb34-2"></a>Ped nearestPed = <span class="kw">null</span>;</span>
+<span id="cb34-3"><a href="surrealist-photography.html#cb34-3"></a>Ped oldNearestPed = <span class="kw">null</span>;</span></code></pre></div>
 <p>Get and parse the nearby NPCs in the OnTick function <code>private void onTick(object sender, EventArgs e)</code>:</p>
-<div class="sourceCode" id="cb34"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb34-1"><a href="surrealist-photography.html#cb34-1"></a><span class="co">//set radius</span></span>
-<span id="cb34-2"><a href="surrealist-photography.html#cb34-2"></a><span class="dt">float</span> maxDistance = 25f;</span>
-<span id="cb34-3"><a href="surrealist-photography.html#cb34-3"></a><span class="co">//get nearest peds      </span></span>
-<span id="cb34-4"><a href="surrealist-photography.html#cb34-4"></a>Ped[] pedsGroup = World.<span class="fu">GetNearbyPeds</span>(Game.<span class="fu">Player</span>.<span class="fu">Character</span>, maxDistance);</span>
-<span id="cb34-5"><a href="surrealist-photography.html#cb34-5"></a> </span>
-<span id="cb34-6"><a href="surrealist-photography.html#cb34-6"></a><span class="dt">float</span> lastDistance = maxDistance;</span>
-<span id="cb34-7"><a href="surrealist-photography.html#cb34-7"></a><span class="kw">foreach</span> (Ped ped <span class="kw">in</span> pedsGroup)</span>
-<span id="cb34-8"><a href="surrealist-photography.html#cb34-8"></a>{</span>
-<span id="cb34-9"><a href="surrealist-photography.html#cb34-9"></a>    <span class="dt">float</span> distance = ped.<span class="fu">Position</span>.<span class="fu">DistanceTo</span>(Game.<span class="fu">Player</span>.<span class="fu">Character</span>.<span class="fu">Position</span>);</span>
-<span id="cb34-10"><a href="surrealist-photography.html#cb34-10"></a>    <span class="kw">if</span> (distance &lt; lastDistance)</span>
-<span id="cb34-11"><a href="surrealist-photography.html#cb34-11"></a>    {</span>
-<span id="cb34-12"><a href="surrealist-photography.html#cb34-12"></a>        nearestPed = ped;</span>
-<span id="cb34-13"><a href="surrealist-photography.html#cb34-13"></a>        lastDistance = distance;</span>
-<span id="cb34-14"><a href="surrealist-photography.html#cb34-14"></a>    }</span>
-<span id="cb34-15"><a href="surrealist-photography.html#cb34-15"></a>}</span>
-<span id="cb34-16"><a href="surrealist-photography.html#cb34-16"></a></span>
-<span id="cb34-17"><a href="surrealist-photography.html#cb34-17"></a>    <span class="kw">if</span> (nearestPed != <span class="kw">null</span> &amp;&amp; oldNearestPed != nearestPed)</span>
-<span id="cb34-18"><a href="surrealist-photography.html#cb34-18"></a>    {</span>
-<span id="cb34-19"><a href="surrealist-photography.html#cb34-19"></a>        nearestPed.<span class="fu">Task</span>.<span class="fu">HandsUp</span>(<span class="dv">1000</span>);</span>
-<span id="cb34-20"><a href="surrealist-photography.html#cb34-20"></a>    }</span>
-<span id="cb34-21"><a href="surrealist-photography.html#cb34-21"></a>oldNearestPed = nearestPed;</span></code></pre></div>
+<div class="sourceCode" id="cb35"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb35-1"><a href="surrealist-photography.html#cb35-1"></a><span class="co">//set radius</span></span>
+<span id="cb35-2"><a href="surrealist-photography.html#cb35-2"></a><span class="dt">float</span> maxDistance = 25f;</span>
+<span id="cb35-3"><a href="surrealist-photography.html#cb35-3"></a><span class="co">//get nearest peds      </span></span>
+<span id="cb35-4"><a href="surrealist-photography.html#cb35-4"></a>Ped[] pedsGroup = World.<span class="fu">GetNearbyPeds</span>(Game.<span class="fu">Player</span>.<span class="fu">Character</span>, maxDistance);</span>
+<span id="cb35-5"><a href="surrealist-photography.html#cb35-5"></a> </span>
+<span id="cb35-6"><a href="surrealist-photography.html#cb35-6"></a><span class="dt">float</span> lastDistance = maxDistance;</span>
+<span id="cb35-7"><a href="surrealist-photography.html#cb35-7"></a><span class="kw">foreach</span> (Ped ped <span class="kw">in</span> pedsGroup)</span>
+<span id="cb35-8"><a href="surrealist-photography.html#cb35-8"></a>{</span>
+<span id="cb35-9"><a href="surrealist-photography.html#cb35-9"></a>    <span class="dt">float</span> distance = ped.<span class="fu">Position</span>.<span class="fu">DistanceTo</span>(Game.<span class="fu">Player</span>.<span class="fu">Character</span>.<span class="fu">Position</span>);</span>
+<span id="cb35-10"><a href="surrealist-photography.html#cb35-10"></a>    <span class="kw">if</span> (distance &lt; lastDistance)</span>
+<span id="cb35-11"><a href="surrealist-photography.html#cb35-11"></a>    {</span>
+<span id="cb35-12"><a href="surrealist-photography.html#cb35-12"></a>        nearestPed = ped;</span>
+<span id="cb35-13"><a href="surrealist-photography.html#cb35-13"></a>        lastDistance = distance;</span>
+<span id="cb35-14"><a href="surrealist-photography.html#cb35-14"></a>    }</span>
+<span id="cb35-15"><a href="surrealist-photography.html#cb35-15"></a>}</span>
+<span id="cb35-16"><a href="surrealist-photography.html#cb35-16"></a></span>
+<span id="cb35-17"><a href="surrealist-photography.html#cb35-17"></a>    <span class="kw">if</span> (nearestPed != <span class="kw">null</span> &amp;&amp; oldNearestPed != nearestPed)</span>
+<span id="cb35-18"><a href="surrealist-photography.html#cb35-18"></a>    {</span>
+<span id="cb35-19"><a href="surrealist-photography.html#cb35-19"></a>        nearestPed.<span class="fu">Task</span>.<span class="fu">HandsUp</span>(<span class="dv">1000</span>);</span>
+<span id="cb35-20"><a href="surrealist-photography.html#cb35-20"></a>    }</span>
+<span id="cb35-21"><a href="surrealist-photography.html#cb35-21"></a>oldNearestPed = nearestPed;</span></code></pre></div>
 <p><a href="" target="_blank"><img src="assets/scriptingGifs/nearbyPeds.gif" style="display: block; margin: auto auto auto 0;" /></a></p>
 </div>
 <div id="give-tasks-to-npcs" class="section level3 unnumbered hasAnchor">
 <h3>Give Tasks to NPCs<a href="surrealist-photography.html#give-tasks-to-npcs" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>A Ped can be given a task using the <code>Task</code> function, just like we did in the previous tutorial for the player character.</p>
-<div class="sourceCode" id="cb35"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb35-1"><a href="surrealist-photography.html#cb35-1"></a>myPed1.<span class="fu">Task</span>.<span class="fu">WanderAround</span>();</span></code></pre></div>
+<div class="sourceCode" id="cb36"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb36-1"><a href="surrealist-photography.html#cb36-1"></a>myPed1.<span class="fu">Task</span>.<span class="fu">WanderAround</span>();</span></code></pre></div>
 <p>Some tasks involve interacting with other characters (Peds or Game.Player.Character) or take different parameters like positions (vector3), duration (in milliseconds), and other data types.
 We can give our NPC the task to fight against the player by using the <code>FightAgainst</code> function, which requires a Ped parameter – which in the case of the player is expressed as <code>Game.Player.Character</code>.</p>
-<div class="sourceCode" id="cb36"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb36-1"><a href="surrealist-photography.html#cb36-1"></a>myPed1.<span class="fu">Task</span>.<span class="fu">FightAgainst</span>(Game.<span class="fu">Player</span>.<span class="fu">Character</span>); <span class="co">//give npc task to fight against player</span></span></code></pre></div>
+<div class="sourceCode" id="cb37"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb37-1"><a href="surrealist-photography.html#cb37-1"></a>myPed1.<span class="fu">Task</span>.<span class="fu">FightAgainst</span>(Game.<span class="fu">Player</span>.<span class="fu">Character</span>); <span class="co">//give npc task to fight against player</span></span></code></pre></div>
 <p>Try to replace the task to “fight against” with “flee from (player)” , “hands up”, “jump”… or some of the other available tasks.</p>
 <p>See the <a href="https://nitanmarcel.github.io/shvdn-docs.github.io/class_g_t_a_1_1_task_invoker.html">TaskInvoker list</a> for possible tasks, or click on the list of available tasks below.</p>
 <details>
 <p><summary>List of Available Tasks</summary></p>
-<div class="sourceCode" id="cb37"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb37-1"><a href="surrealist-photography.html#cb37-1"></a><span class="dt">void</span> <span class="fu">AchieveHeading</span> (<span class="dt">float</span> heading, <span class="dt">int</span> timeout=<span class="dv">0</span>)</span>
-<span id="cb37-2"><a href="surrealist-photography.html#cb37-2"></a> </span>
-<span id="cb37-3"><a href="surrealist-photography.html#cb37-3"></a><span class="dt">void</span> <span class="fu">AimAt</span> (Entity target, <span class="dt">int</span> duration)</span>
-<span id="cb37-4"><a href="surrealist-photography.html#cb37-4"></a> </span>
-<span id="cb37-5"><a href="surrealist-photography.html#cb37-5"></a><span class="dt">void</span> <span class="fu">AimAt</span> (Vector3 target, <span class="dt">int</span> duration)</span>
-<span id="cb37-6"><a href="surrealist-photography.html#cb37-6"></a> </span>
-<span id="cb37-7"><a href="surrealist-photography.html#cb37-7"></a><span class="dt">void</span> <span class="fu">Arrest</span> (Ped ped)</span>
-<span id="cb37-8"><a href="surrealist-photography.html#cb37-8"></a> </span>
-<span id="cb37-9"><a href="surrealist-photography.html#cb37-9"></a><span class="dt">void</span> <span class="fu">ChatTo</span> (Ped ped)</span>
-<span id="cb37-10"><a href="surrealist-photography.html#cb37-10"></a> </span>
-<span id="cb37-11"><a href="surrealist-photography.html#cb37-11"></a><span class="dt">void</span> <span class="fu">Jump</span> ()</span>
-<span id="cb37-12"><a href="surrealist-photography.html#cb37-12"></a> </span>
-<span id="cb37-13"><a href="surrealist-photography.html#cb37-13"></a><span class="dt">void</span> <span class="fu">Climb</span> ()</span>
-<span id="cb37-14"><a href="surrealist-photography.html#cb37-14"></a> </span>
-<span id="cb37-15"><a href="surrealist-photography.html#cb37-15"></a><span class="dt">void</span> <span class="fu">ClimbLadder</span> ()</span>
-<span id="cb37-16"><a href="surrealist-photography.html#cb37-16"></a> </span>
-<span id="cb37-17"><a href="surrealist-photography.html#cb37-17"></a><span class="dt">void</span> <span class="fu">Cower</span> (<span class="dt">int</span> duration)</span>
-<span id="cb37-18"><a href="surrealist-photography.html#cb37-18"></a> </span>
-<span id="cb37-19"><a href="surrealist-photography.html#cb37-19"></a><span class="dt">void</span> <span class="fu">ChaseWithGroundVehicle</span> (Ped target)</span>
-<span id="cb37-20"><a href="surrealist-photography.html#cb37-20"></a> </span>
-<span id="cb37-21"><a href="surrealist-photography.html#cb37-21"></a><span class="dt">void</span> <span class="fu">ChaseWithHelicopter</span> (Ped target, Vector3 offset)</span>
-<span id="cb37-22"><a href="surrealist-photography.html#cb37-22"></a> </span>
-<span id="cb37-23"><a href="surrealist-photography.html#cb37-23"></a><span class="dt">void</span> <span class="fu">ChaseWithPlane</span> (Ped target, Vector3 offset)</span>
-<span id="cb37-24"><a href="surrealist-photography.html#cb37-24"></a> </span>
-<span id="cb37-25"><a href="surrealist-photography.html#cb37-25"></a><span class="dt">void</span> <span class="fu">CruiseWithVehicle</span> (Vehicle vehicle, <span class="dt">float</span> speed, DrivingStyle style=DrivingStyle.<span class="fu">Normal</span>)</span>
-<span id="cb37-26"><a href="surrealist-photography.html#cb37-26"></a> </span>
-<span id="cb37-27"><a href="surrealist-photography.html#cb37-27"></a><span class="dt">void</span> <span class="fu">DriveTo</span> (Vehicle vehicle, Vector3 target, <span class="dt">float</span> radius, <span class="dt">float</span> speed, DrivingStyle style=DrivingStyle.<span class="fu">Normal</span>)</span>
-<span id="cb37-28"><a href="surrealist-photography.html#cb37-28"></a> </span>
-<span id="cb37-29"><a href="surrealist-photography.html#cb37-29"></a><span class="dt">void</span> <span class="fu">EnterAnyVehicle</span> (VehicleSeat seat=VehicleSeat.<span class="fu">Any</span>, <span class="dt">int</span> timeout=-<span class="dv">1</span>, <span class="dt">float</span> speed=1f, EnterVehicleFlags flag=EnterVehicleFlags.<span class="fu">None</span>)</span>
-<span id="cb37-30"><a href="surrealist-photography.html#cb37-30"></a> </span>
-<span id="cb37-31"><a href="surrealist-photography.html#cb37-31"></a><span class="dt">void</span> <span class="fu">EnterVehicle</span> (Vehicle vehicle, VehicleSeat seat=VehicleSeat.<span class="fu">Any</span>, <span class="dt">int</span> timeout=-<span class="dv">1</span>, <span class="dt">float</span> speed=1f, EnterVehicleFlags flag=EnterVehicleFlags.<span class="fu">None</span>)</span>
-<span id="cb37-32"><a href="surrealist-photography.html#cb37-32"></a> </span>
-<span id="cb37-33"><a href="surrealist-photography.html#cb37-33"></a><span class="dt">void</span> <span class="fu">FightAgainst</span> (Ped target)</span>
-<span id="cb37-34"><a href="surrealist-photography.html#cb37-34"></a> </span>
-<span id="cb37-35"><a href="surrealist-photography.html#cb37-35"></a><span class="dt">void</span> <span class="fu">FightAgainst</span> (Ped target, <span class="dt">int</span> duration)</span>
-<span id="cb37-36"><a href="surrealist-photography.html#cb37-36"></a> </span>
-<span id="cb37-37"><a href="surrealist-photography.html#cb37-37"></a><span class="dt">void</span> <span class="fu">FightAgainstHatedTargets</span> (<span class="dt">float</span> radius)</span>
-<span id="cb37-38"><a href="surrealist-photography.html#cb37-38"></a> </span>
-<span id="cb37-39"><a href="surrealist-photography.html#cb37-39"></a><span class="dt">void</span> <span class="fu">FightAgainstHatedTargets</span> (<span class="dt">float</span> radius, <span class="dt">int</span> duration)</span>
-<span id="cb37-40"><a href="surrealist-photography.html#cb37-40"></a> </span>
-<span id="cb37-41"><a href="surrealist-photography.html#cb37-41"></a><span class="dt">void</span> <span class="fu">FleeFrom</span> (Ped ped, <span class="dt">int</span> duration=-<span class="dv">1</span>)</span>
-<span id="cb37-42"><a href="surrealist-photography.html#cb37-42"></a> </span>
-<span id="cb37-43"><a href="surrealist-photography.html#cb37-43"></a><span class="dt">void</span> <span class="fu">FleeFrom</span> (Vector3 position, <span class="dt">int</span> duration=-<span class="dv">1</span>)</span>
-<span id="cb37-44"><a href="surrealist-photography.html#cb37-44"></a> </span>
-<span id="cb37-45"><a href="surrealist-photography.html#cb37-45"></a><span class="dt">void</span> <span class="fu">FollowPointRoute</span> (<span class="kw">params</span> Vector3[] points)</span>
-<span id="cb37-46"><a href="surrealist-photography.html#cb37-46"></a> </span>
-<span id="cb37-47"><a href="surrealist-photography.html#cb37-47"></a><span class="dt">void</span> <span class="fu">FollowPointRoute</span> (<span class="dt">float</span> movementSpeed, <span class="kw">params</span> Vector3[] points)</span>
-<span id="cb37-48"><a href="surrealist-photography.html#cb37-48"></a> </span>
-<span id="cb37-49"><a href="surrealist-photography.html#cb37-49"></a><span class="dt">void</span> <span class="fu">FollowToOffsetFromEntity</span> (Entity target, Vector3 offset, <span class="dt">float</span> movementSpeed, <span class="dt">int</span> timeout=-<span class="dv">1</span>, <span class="dt">float</span> distanceToFollow=10f, <span class="dt">bool</span> persistFollowing=<span class="kw">true</span>)</span>
-<span id="cb37-50"><a href="surrealist-photography.html#cb37-50"></a> </span>
-<span id="cb37-51"><a href="surrealist-photography.html#cb37-51"></a><span class="dt">void</span> <span class="fu">GoTo</span> (Entity target, Vector3 offset=<span class="kw">default</span>(Vector3), <span class="dt">int</span> timeout=-<span class="dv">1</span>)</span>
-<span id="cb37-52"><a href="surrealist-photography.html#cb37-52"></a> </span>
-<span id="cb37-53"><a href="surrealist-photography.html#cb37-53"></a><span class="dt">void</span> <span class="fu">GoTo</span> (Vector3 position, <span class="dt">int</span> timeout=-<span class="dv">1</span>)</span>
-<span id="cb37-54"><a href="surrealist-photography.html#cb37-54"></a> </span>
-<span id="cb37-55"><a href="surrealist-photography.html#cb37-55"></a><span class="dt">void</span> <span class="fu">GoStraightTo</span> (Vector3 position, <span class="dt">int</span> timeout=-<span class="dv">1</span>, <span class="dt">float</span> targetHeading=0f, <span class="dt">float</span> distanceToSlide=0f)</span>
-<span id="cb37-56"><a href="surrealist-photography.html#cb37-56"></a> </span>
-<span id="cb37-57"><a href="surrealist-photography.html#cb37-57"></a><span class="dt">void</span> <span class="fu">GuardCurrentPosition</span> ()</span>
-<span id="cb37-58"><a href="surrealist-photography.html#cb37-58"></a> </span>
-<span id="cb37-59"><a href="surrealist-photography.html#cb37-59"></a><span class="dt">void</span> <span class="fu">HandsUp</span> (<span class="dt">int</span> duration)</span>
-<span id="cb37-60"><a href="surrealist-photography.html#cb37-60"></a> </span>
-<span id="cb37-61"><a href="surrealist-photography.html#cb37-61"></a><span class="dt">void</span> <span class="fu">LandPlane</span> (Vector3 startPosition, Vector3 touchdownPosition, Vehicle plane=<span class="kw">null</span>)</span>
-<span id="cb37-62"><a href="surrealist-photography.html#cb37-62"></a> </span>
-<span id="cb37-63"><a href="surrealist-photography.html#cb37-63"></a><span class="dt">void</span> <span class="fu">LeaveVehicle</span> (LeaveVehicleFlags flags=LeaveVehicleFlags.<span class="fu">None</span>)</span>
-<span id="cb37-64"><a href="surrealist-photography.html#cb37-64"></a> </span>
-<span id="cb37-65"><a href="surrealist-photography.html#cb37-65"></a><span class="dt">void</span> <span class="fu">LeaveVehicle</span> (Vehicle vehicle, <span class="dt">bool</span> closeDoor)</span>
-<span id="cb37-66"><a href="surrealist-photography.html#cb37-66"></a> </span>
-<span id="cb37-67"><a href="surrealist-photography.html#cb37-67"></a><span class="dt">void</span> <span class="fu">LeaveVehicle</span> (Vehicle vehicle, LeaveVehicleFlags flags)</span>
-<span id="cb37-68"><a href="surrealist-photography.html#cb37-68"></a> </span>
-<span id="cb37-69"><a href="surrealist-photography.html#cb37-69"></a><span class="dt">void</span> <span class="fu">LookAt</span> (Entity target, <span class="dt">int</span> duration=-<span class="dv">1</span>)</span>
-<span id="cb37-70"><a href="surrealist-photography.html#cb37-70"></a></span>
-<span id="cb37-71"><a href="surrealist-photography.html#cb37-71"></a><span class="dt">void</span> <span class="fu">LookAt</span> (Vector3 position, <span class="dt">int</span> duration=-<span class="dv">1</span>)</span>
-<span id="cb37-72"><a href="surrealist-photography.html#cb37-72"></a>  </span>
-<span id="cb37-73"><a href="surrealist-photography.html#cb37-73"></a><span class="dt">void</span> <span class="fu">ParachuteTo</span> (Vector3 position)</span>
-<span id="cb37-74"><a href="surrealist-photography.html#cb37-74"></a> </span>
-<span id="cb37-75"><a href="surrealist-photography.html#cb37-75"></a><span class="dt">void</span> <span class="fu">ParkVehicle</span> (Vehicle vehicle, Vector3 position, <span class="dt">float</span> heading, <span class="dt">float</span> radius=<span class="fl">20.0f</span>, <span class="dt">bool</span> keepEngineOn=<span class="kw">false</span>)</span>
-<span id="cb37-76"><a href="surrealist-photography.html#cb37-76"></a> </span>
-<span id="cb37-77"><a href="surrealist-photography.html#cb37-77"></a><span class="dt">void</span> <span class="fu">PerformSequence</span> (TaskSequence sequence)</span>
-<span id="cb37-78"><a href="surrealist-photography.html#cb37-78"></a> </span>
-<span id="cb37-79"><a href="surrealist-photography.html#cb37-79"></a><span class="dt">void</span> <span class="fu">PlayAnimation</span> (<span class="dt">string</span> animDict, <span class="dt">string</span> animName)</span>
-<span id="cb37-80"><a href="surrealist-photography.html#cb37-80"></a> </span>
-<span id="cb37-81"><a href="surrealist-photography.html#cb37-81"></a><span class="dt">void</span> <span class="fu">PlayAnimation</span> (<span class="dt">string</span> animDict, <span class="dt">string</span> animName, <span class="dt">float</span> speed, <span class="dt">int</span> duration, <span class="dt">float</span> playbackRate)</span>
-<span id="cb37-82"><a href="surrealist-photography.html#cb37-82"></a> </span>
-<span id="cb37-83"><a href="surrealist-photography.html#cb37-83"></a><span class="dt">void</span> <span class="fu">PlayAnimation</span> (<span class="dt">string</span> animDict, <span class="dt">string</span> animName, <span class="dt">float</span> blendInSpeed, <span class="dt">int</span> duration, AnimationFlags flags)</span>
-<span id="cb37-84"><a href="surrealist-photography.html#cb37-84"></a> </span>
-<span id="cb37-85"><a href="surrealist-photography.html#cb37-85"></a><span class="dt">void</span> <span class="fu">PlayAnimation</span> (<span class="dt">string</span> animDict, <span class="dt">string</span> animName, <span class="dt">float</span> blendInSpeed, <span class="dt">float</span> blendOutSpeed, <span class="dt">int</span> duration, AnimationFlags flags, <span class="dt">float</span> playbackRate)</span>
-<span id="cb37-86"><a href="surrealist-photography.html#cb37-86"></a> </span>
-<span id="cb37-87"><a href="surrealist-photography.html#cb37-87"></a><span class="dt">void</span> <span class="fu">RappelFromHelicopter</span> ()</span>
-<span id="cb37-88"><a href="surrealist-photography.html#cb37-88"></a> </span>
-<span id="cb37-89"><a href="surrealist-photography.html#cb37-89"></a><span class="dt">void</span> <span class="fu">ReactAndFlee</span> (Ped ped)</span>
-<span id="cb37-90"><a href="surrealist-photography.html#cb37-90"></a> </span>
-<span id="cb37-91"><a href="surrealist-photography.html#cb37-91"></a><span class="dt">void</span> <span class="fu">ReloadWeapon</span> ()</span>
-<span id="cb37-92"><a href="surrealist-photography.html#cb37-92"></a> </span>
-<span id="cb37-93"><a href="surrealist-photography.html#cb37-93"></a><span class="dt">void</span> <span class="fu">RunTo</span> (Vector3 position, <span class="dt">bool</span> ignorePaths=<span class="kw">false</span>, <span class="dt">int</span> timeout=-<span class="dv">1</span>)</span>
-<span id="cb37-94"><a href="surrealist-photography.html#cb37-94"></a> </span>
-<span id="cb37-95"><a href="surrealist-photography.html#cb37-95"></a><span class="dt">void</span> <span class="fu">ShootAt</span> (Ped target, <span class="dt">int</span> duration=-<span class="dv">1</span>, FiringPattern pattern=FiringPattern.<span class="fu">Default</span>)</span>
-<span id="cb37-96"><a href="surrealist-photography.html#cb37-96"></a> </span>
-<span id="cb37-97"><a href="surrealist-photography.html#cb37-97"></a><span class="dt">void</span> <span class="fu">ShootAt</span> (Vector3 position, <span class="dt">int</span> duration=-<span class="dv">1</span>, FiringPattern pattern=FiringPattern.<span class="fu">Default</span>)</span>
-<span id="cb37-98"><a href="surrealist-photography.html#cb37-98"></a> </span>
-<span id="cb37-99"><a href="surrealist-photography.html#cb37-99"></a><span class="dt">void</span> <span class="fu">ShuffleToNextVehicleSeat</span> (Vehicle vehicle=<span class="kw">null</span>)</span>
-<span id="cb37-100"><a href="surrealist-photography.html#cb37-100"></a> </span>
-<span id="cb37-101"><a href="surrealist-photography.html#cb37-101"></a><span class="dt">void</span> <span class="fu">Skydive</span> ()</span>
-<span id="cb37-102"><a href="surrealist-photography.html#cb37-102"></a> </span>
-<span id="cb37-103"><a href="surrealist-photography.html#cb37-103"></a><span class="dt">void</span> <span class="fu">SlideTo</span> (Vector3 position, <span class="dt">float</span> heading)</span>
-<span id="cb37-104"><a href="surrealist-photography.html#cb37-104"></a> </span>
-<span id="cb37-105"><a href="surrealist-photography.html#cb37-105"></a><span class="dt">void</span> <span class="fu">StandStill</span> (<span class="dt">int</span> duration)</span>
-<span id="cb37-106"><a href="surrealist-photography.html#cb37-106"></a> </span>
-<span id="cb37-107"><a href="surrealist-photography.html#cb37-107"></a><span class="dt">void</span> <span class="fu">StartScenario</span> (<span class="dt">string</span> name, <span class="dt">float</span> heading)</span>
-<span id="cb37-108"><a href="surrealist-photography.html#cb37-108"></a> </span>
-<span id="cb37-109"><a href="surrealist-photography.html#cb37-109"></a><span class="dt">void</span> <span class="fu">StartScenario</span> (<span class="dt">string</span> name, Vector3 position, <span class="dt">float</span> heading)</span>
-<span id="cb37-110"><a href="surrealist-photography.html#cb37-110"></a> </span>
-<span id="cb37-111"><a href="surrealist-photography.html#cb37-111"></a><span class="dt">void</span> <span class="fu">SwapWeapon</span> ()</span>
-<span id="cb37-112"><a href="surrealist-photography.html#cb37-112"></a> </span>
-<span id="cb37-113"><a href="surrealist-photography.html#cb37-113"></a><span class="dt">void</span> <span class="fu">TurnTo</span> (Entity target, <span class="dt">int</span> duration=-<span class="dv">1</span>)</span>
-<span id="cb37-114"><a href="surrealist-photography.html#cb37-114"></a> </span>
-<span id="cb37-115"><a href="surrealist-photography.html#cb37-115"></a><span class="dt">void</span> <span class="fu">TurnTo</span> (Vector3 position, <span class="dt">int</span> duration=-<span class="dv">1</span>)</span>
-<span id="cb37-116"><a href="surrealist-photography.html#cb37-116"></a> </span>
-<span id="cb37-117"><a href="surrealist-photography.html#cb37-117"></a><span class="dt">void</span> <span class="fu">UseParachute</span> ()</span>
-<span id="cb37-118"><a href="surrealist-photography.html#cb37-118"></a> </span>
-<span id="cb37-119"><a href="surrealist-photography.html#cb37-119"></a><span class="dt">void</span> <span class="fu">UseMobilePhone</span> ()</span>
-<span id="cb37-120"><a href="surrealist-photography.html#cb37-120"></a> </span>
-<span id="cb37-121"><a href="surrealist-photography.html#cb37-121"></a><span class="dt">void</span> <span class="fu">UseMobilePhone</span> (<span class="dt">int</span> duration)</span>
-<span id="cb37-122"><a href="surrealist-photography.html#cb37-122"></a> </span>
-<span id="cb37-123"><a href="surrealist-photography.html#cb37-123"></a><span class="dt">void</span> <span class="fu">PutAwayParachute</span> ()</span>
-<span id="cb37-124"><a href="surrealist-photography.html#cb37-124"></a> </span>
-<span id="cb37-125"><a href="surrealist-photography.html#cb37-125"></a><span class="dt">void</span> <span class="fu">PutAwayMobilePhone</span> ()</span>
-<span id="cb37-126"><a href="surrealist-photography.html#cb37-126"></a> </span>
-<span id="cb37-127"><a href="surrealist-photography.html#cb37-127"></a><span class="dt">void</span> <span class="fu">VehicleChase</span> (Ped target)</span>
-<span id="cb37-128"><a href="surrealist-photography.html#cb37-128"></a> </span>
-<span id="cb37-129"><a href="surrealist-photography.html#cb37-129"></a><span class="dt">void</span> <span class="fu">VehicleShootAtPed</span> (Ped target)</span>
-<span id="cb37-130"><a href="surrealist-photography.html#cb37-130"></a> </span>
-<span id="cb37-131"><a href="surrealist-photography.html#cb37-131"></a><span class="dt">void</span> <span class="fu">Wait</span> (<span class="dt">int</span> duration)</span>
-<span id="cb37-132"><a href="surrealist-photography.html#cb37-132"></a> </span>
-<span id="cb37-133"><a href="surrealist-photography.html#cb37-133"></a><span class="dt">void</span> <span class="fu">WanderAround</span> ()</span>
-<span id="cb37-134"><a href="surrealist-photography.html#cb37-134"></a> </span>
-<span id="cb37-135"><a href="surrealist-photography.html#cb37-135"></a><span class="dt">void</span> <span class="fu">WanderAround</span> (Vector3 position, <span class="dt">float</span> radius)</span>
-<span id="cb37-136"><a href="surrealist-photography.html#cb37-136"></a> </span>
-<span id="cb37-137"><a href="surrealist-photography.html#cb37-137"></a><span class="dt">void</span> <span class="fu">WarpIntoVehicle</span> (Vehicle vehicle, VehicleSeat seat)</span>
-<span id="cb37-138"><a href="surrealist-photography.html#cb37-138"></a> </span>
-<span id="cb37-139"><a href="surrealist-photography.html#cb37-139"></a><span class="dt">void</span> <span class="fu">WarpOutOfVehicle</span> (Vehicle vehicle)</span>
-<span id="cb37-140"><a href="surrealist-photography.html#cb37-140"></a> </span>
-<span id="cb37-141"><a href="surrealist-photography.html#cb37-141"></a><span class="dt">void</span> <span class="fu">ClearAll</span> ()</span>
-<span id="cb37-142"><a href="surrealist-photography.html#cb37-142"></a> </span>
-<span id="cb37-143"><a href="surrealist-photography.html#cb37-143"></a><span class="dt">void</span> <span class="fu">ClearAllImmediately</span> ()</span>
-<span id="cb37-144"><a href="surrealist-photography.html#cb37-144"></a> </span>
-<span id="cb37-145"><a href="surrealist-photography.html#cb37-145"></a><span class="dt">void</span> <span class="fu">ClearLookAt</span> ()</span>
-<span id="cb37-146"><a href="surrealist-photography.html#cb37-146"></a> </span>
-<span id="cb37-147"><a href="surrealist-photography.html#cb37-147"></a><span class="dt">void</span> <span class="fu">ClearSecondary</span> ()</span>
-<span id="cb37-148"><a href="surrealist-photography.html#cb37-148"></a> </span>
-<span id="cb37-149"><a href="surrealist-photography.html#cb37-149"></a><span class="dt">void</span> <span class="fu">ClearAnimation</span> (<span class="dt">string</span> animSet, <span class="dt">string</span> animName)</span></code></pre></div>
+<div class="sourceCode" id="cb38"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb38-1"><a href="surrealist-photography.html#cb38-1"></a><span class="dt">void</span> <span class="fu">AchieveHeading</span> (<span class="dt">float</span> heading, <span class="dt">int</span> timeout=<span class="dv">0</span>)</span>
+<span id="cb38-2"><a href="surrealist-photography.html#cb38-2"></a> </span>
+<span id="cb38-3"><a href="surrealist-photography.html#cb38-3"></a><span class="dt">void</span> <span class="fu">AimAt</span> (Entity target, <span class="dt">int</span> duration)</span>
+<span id="cb38-4"><a href="surrealist-photography.html#cb38-4"></a> </span>
+<span id="cb38-5"><a href="surrealist-photography.html#cb38-5"></a><span class="dt">void</span> <span class="fu">AimAt</span> (Vector3 target, <span class="dt">int</span> duration)</span>
+<span id="cb38-6"><a href="surrealist-photography.html#cb38-6"></a> </span>
+<span id="cb38-7"><a href="surrealist-photography.html#cb38-7"></a><span class="dt">void</span> <span class="fu">Arrest</span> (Ped ped)</span>
+<span id="cb38-8"><a href="surrealist-photography.html#cb38-8"></a> </span>
+<span id="cb38-9"><a href="surrealist-photography.html#cb38-9"></a><span class="dt">void</span> <span class="fu">ChatTo</span> (Ped ped)</span>
+<span id="cb38-10"><a href="surrealist-photography.html#cb38-10"></a> </span>
+<span id="cb38-11"><a href="surrealist-photography.html#cb38-11"></a><span class="dt">void</span> <span class="fu">Jump</span> ()</span>
+<span id="cb38-12"><a href="surrealist-photography.html#cb38-12"></a> </span>
+<span id="cb38-13"><a href="surrealist-photography.html#cb38-13"></a><span class="dt">void</span> <span class="fu">Climb</span> ()</span>
+<span id="cb38-14"><a href="surrealist-photography.html#cb38-14"></a> </span>
+<span id="cb38-15"><a href="surrealist-photography.html#cb38-15"></a><span class="dt">void</span> <span class="fu">ClimbLadder</span> ()</span>
+<span id="cb38-16"><a href="surrealist-photography.html#cb38-16"></a> </span>
+<span id="cb38-17"><a href="surrealist-photography.html#cb38-17"></a><span class="dt">void</span> <span class="fu">Cower</span> (<span class="dt">int</span> duration)</span>
+<span id="cb38-18"><a href="surrealist-photography.html#cb38-18"></a> </span>
+<span id="cb38-19"><a href="surrealist-photography.html#cb38-19"></a><span class="dt">void</span> <span class="fu">ChaseWithGroundVehicle</span> (Ped target)</span>
+<span id="cb38-20"><a href="surrealist-photography.html#cb38-20"></a> </span>
+<span id="cb38-21"><a href="surrealist-photography.html#cb38-21"></a><span class="dt">void</span> <span class="fu">ChaseWithHelicopter</span> (Ped target, Vector3 offset)</span>
+<span id="cb38-22"><a href="surrealist-photography.html#cb38-22"></a> </span>
+<span id="cb38-23"><a href="surrealist-photography.html#cb38-23"></a><span class="dt">void</span> <span class="fu">ChaseWithPlane</span> (Ped target, Vector3 offset)</span>
+<span id="cb38-24"><a href="surrealist-photography.html#cb38-24"></a> </span>
+<span id="cb38-25"><a href="surrealist-photography.html#cb38-25"></a><span class="dt">void</span> <span class="fu">CruiseWithVehicle</span> (Vehicle vehicle, <span class="dt">float</span> speed, DrivingStyle style=DrivingStyle.<span class="fu">Normal</span>)</span>
+<span id="cb38-26"><a href="surrealist-photography.html#cb38-26"></a> </span>
+<span id="cb38-27"><a href="surrealist-photography.html#cb38-27"></a><span class="dt">void</span> <span class="fu">DriveTo</span> (Vehicle vehicle, Vector3 target, <span class="dt">float</span> radius, <span class="dt">float</span> speed, DrivingStyle style=DrivingStyle.<span class="fu">Normal</span>)</span>
+<span id="cb38-28"><a href="surrealist-photography.html#cb38-28"></a> </span>
+<span id="cb38-29"><a href="surrealist-photography.html#cb38-29"></a><span class="dt">void</span> <span class="fu">EnterAnyVehicle</span> (VehicleSeat seat=VehicleSeat.<span class="fu">Any</span>, <span class="dt">int</span> timeout=-<span class="dv">1</span>, <span class="dt">float</span> speed=1f, EnterVehicleFlags flag=EnterVehicleFlags.<span class="fu">None</span>)</span>
+<span id="cb38-30"><a href="surrealist-photography.html#cb38-30"></a> </span>
+<span id="cb38-31"><a href="surrealist-photography.html#cb38-31"></a><span class="dt">void</span> <span class="fu">EnterVehicle</span> (Vehicle vehicle, VehicleSeat seat=VehicleSeat.<span class="fu">Any</span>, <span class="dt">int</span> timeout=-<span class="dv">1</span>, <span class="dt">float</span> speed=1f, EnterVehicleFlags flag=EnterVehicleFlags.<span class="fu">None</span>)</span>
+<span id="cb38-32"><a href="surrealist-photography.html#cb38-32"></a> </span>
+<span id="cb38-33"><a href="surrealist-photography.html#cb38-33"></a><span class="dt">void</span> <span class="fu">FightAgainst</span> (Ped target)</span>
+<span id="cb38-34"><a href="surrealist-photography.html#cb38-34"></a> </span>
+<span id="cb38-35"><a href="surrealist-photography.html#cb38-35"></a><span class="dt">void</span> <span class="fu">FightAgainst</span> (Ped target, <span class="dt">int</span> duration)</span>
+<span id="cb38-36"><a href="surrealist-photography.html#cb38-36"></a> </span>
+<span id="cb38-37"><a href="surrealist-photography.html#cb38-37"></a><span class="dt">void</span> <span class="fu">FightAgainstHatedTargets</span> (<span class="dt">float</span> radius)</span>
+<span id="cb38-38"><a href="surrealist-photography.html#cb38-38"></a> </span>
+<span id="cb38-39"><a href="surrealist-photography.html#cb38-39"></a><span class="dt">void</span> <span class="fu">FightAgainstHatedTargets</span> (<span class="dt">float</span> radius, <span class="dt">int</span> duration)</span>
+<span id="cb38-40"><a href="surrealist-photography.html#cb38-40"></a> </span>
+<span id="cb38-41"><a href="surrealist-photography.html#cb38-41"></a><span class="dt">void</span> <span class="fu">FleeFrom</span> (Ped ped, <span class="dt">int</span> duration=-<span class="dv">1</span>)</span>
+<span id="cb38-42"><a href="surrealist-photography.html#cb38-42"></a> </span>
+<span id="cb38-43"><a href="surrealist-photography.html#cb38-43"></a><span class="dt">void</span> <span class="fu">FleeFrom</span> (Vector3 position, <span class="dt">int</span> duration=-<span class="dv">1</span>)</span>
+<span id="cb38-44"><a href="surrealist-photography.html#cb38-44"></a> </span>
+<span id="cb38-45"><a href="surrealist-photography.html#cb38-45"></a><span class="dt">void</span> <span class="fu">FollowPointRoute</span> (<span class="kw">params</span> Vector3[] points)</span>
+<span id="cb38-46"><a href="surrealist-photography.html#cb38-46"></a> </span>
+<span id="cb38-47"><a href="surrealist-photography.html#cb38-47"></a><span class="dt">void</span> <span class="fu">FollowPointRoute</span> (<span class="dt">float</span> movementSpeed, <span class="kw">params</span> Vector3[] points)</span>
+<span id="cb38-48"><a href="surrealist-photography.html#cb38-48"></a> </span>
+<span id="cb38-49"><a href="surrealist-photography.html#cb38-49"></a><span class="dt">void</span> <span class="fu">FollowToOffsetFromEntity</span> (Entity target, Vector3 offset, <span class="dt">float</span> movementSpeed, <span class="dt">int</span> timeout=-<span class="dv">1</span>, <span class="dt">float</span> distanceToFollow=10f, <span class="dt">bool</span> persistFollowing=<span class="kw">true</span>)</span>
+<span id="cb38-50"><a href="surrealist-photography.html#cb38-50"></a> </span>
+<span id="cb38-51"><a href="surrealist-photography.html#cb38-51"></a><span class="dt">void</span> <span class="fu">GoTo</span> (Entity target, Vector3 offset=<span class="kw">default</span>(Vector3), <span class="dt">int</span> timeout=-<span class="dv">1</span>)</span>
+<span id="cb38-52"><a href="surrealist-photography.html#cb38-52"></a> </span>
+<span id="cb38-53"><a href="surrealist-photography.html#cb38-53"></a><span class="dt">void</span> <span class="fu">GoTo</span> (Vector3 position, <span class="dt">int</span> timeout=-<span class="dv">1</span>)</span>
+<span id="cb38-54"><a href="surrealist-photography.html#cb38-54"></a> </span>
+<span id="cb38-55"><a href="surrealist-photography.html#cb38-55"></a><span class="dt">void</span> <span class="fu">GoStraightTo</span> (Vector3 position, <span class="dt">int</span> timeout=-<span class="dv">1</span>, <span class="dt">float</span> targetHeading=0f, <span class="dt">float</span> distanceToSlide=0f)</span>
+<span id="cb38-56"><a href="surrealist-photography.html#cb38-56"></a> </span>
+<span id="cb38-57"><a href="surrealist-photography.html#cb38-57"></a><span class="dt">void</span> <span class="fu">GuardCurrentPosition</span> ()</span>
+<span id="cb38-58"><a href="surrealist-photography.html#cb38-58"></a> </span>
+<span id="cb38-59"><a href="surrealist-photography.html#cb38-59"></a><span class="dt">void</span> <span class="fu">HandsUp</span> (<span class="dt">int</span> duration)</span>
+<span id="cb38-60"><a href="surrealist-photography.html#cb38-60"></a> </span>
+<span id="cb38-61"><a href="surrealist-photography.html#cb38-61"></a><span class="dt">void</span> <span class="fu">LandPlane</span> (Vector3 startPosition, Vector3 touchdownPosition, Vehicle plane=<span class="kw">null</span>)</span>
+<span id="cb38-62"><a href="surrealist-photography.html#cb38-62"></a> </span>
+<span id="cb38-63"><a href="surrealist-photography.html#cb38-63"></a><span class="dt">void</span> <span class="fu">LeaveVehicle</span> (LeaveVehicleFlags flags=LeaveVehicleFlags.<span class="fu">None</span>)</span>
+<span id="cb38-64"><a href="surrealist-photography.html#cb38-64"></a> </span>
+<span id="cb38-65"><a href="surrealist-photography.html#cb38-65"></a><span class="dt">void</span> <span class="fu">LeaveVehicle</span> (Vehicle vehicle, <span class="dt">bool</span> closeDoor)</span>
+<span id="cb38-66"><a href="surrealist-photography.html#cb38-66"></a> </span>
+<span id="cb38-67"><a href="surrealist-photography.html#cb38-67"></a><span class="dt">void</span> <span class="fu">LeaveVehicle</span> (Vehicle vehicle, LeaveVehicleFlags flags)</span>
+<span id="cb38-68"><a href="surrealist-photography.html#cb38-68"></a> </span>
+<span id="cb38-69"><a href="surrealist-photography.html#cb38-69"></a><span class="dt">void</span> <span class="fu">LookAt</span> (Entity target, <span class="dt">int</span> duration=-<span class="dv">1</span>)</span>
+<span id="cb38-70"><a href="surrealist-photography.html#cb38-70"></a></span>
+<span id="cb38-71"><a href="surrealist-photography.html#cb38-71"></a><span class="dt">void</span> <span class="fu">LookAt</span> (Vector3 position, <span class="dt">int</span> duration=-<span class="dv">1</span>)</span>
+<span id="cb38-72"><a href="surrealist-photography.html#cb38-72"></a>  </span>
+<span id="cb38-73"><a href="surrealist-photography.html#cb38-73"></a><span class="dt">void</span> <span class="fu">ParachuteTo</span> (Vector3 position)</span>
+<span id="cb38-74"><a href="surrealist-photography.html#cb38-74"></a> </span>
+<span id="cb38-75"><a href="surrealist-photography.html#cb38-75"></a><span class="dt">void</span> <span class="fu">ParkVehicle</span> (Vehicle vehicle, Vector3 position, <span class="dt">float</span> heading, <span class="dt">float</span> radius=<span class="fl">20.0f</span>, <span class="dt">bool</span> keepEngineOn=<span class="kw">false</span>)</span>
+<span id="cb38-76"><a href="surrealist-photography.html#cb38-76"></a> </span>
+<span id="cb38-77"><a href="surrealist-photography.html#cb38-77"></a><span class="dt">void</span> <span class="fu">PerformSequence</span> (TaskSequence sequence)</span>
+<span id="cb38-78"><a href="surrealist-photography.html#cb38-78"></a> </span>
+<span id="cb38-79"><a href="surrealist-photography.html#cb38-79"></a><span class="dt">void</span> <span class="fu">PlayAnimation</span> (<span class="dt">string</span> animDict, <span class="dt">string</span> animName)</span>
+<span id="cb38-80"><a href="surrealist-photography.html#cb38-80"></a> </span>
+<span id="cb38-81"><a href="surrealist-photography.html#cb38-81"></a><span class="dt">void</span> <span class="fu">PlayAnimation</span> (<span class="dt">string</span> animDict, <span class="dt">string</span> animName, <span class="dt">float</span> speed, <span class="dt">int</span> duration, <span class="dt">float</span> playbackRate)</span>
+<span id="cb38-82"><a href="surrealist-photography.html#cb38-82"></a> </span>
+<span id="cb38-83"><a href="surrealist-photography.html#cb38-83"></a><span class="dt">void</span> <span class="fu">PlayAnimation</span> (<span class="dt">string</span> animDict, <span class="dt">string</span> animName, <span class="dt">float</span> blendInSpeed, <span class="dt">int</span> duration, AnimationFlags flags)</span>
+<span id="cb38-84"><a href="surrealist-photography.html#cb38-84"></a> </span>
+<span id="cb38-85"><a href="surrealist-photography.html#cb38-85"></a><span class="dt">void</span> <span class="fu">PlayAnimation</span> (<span class="dt">string</span> animDict, <span class="dt">string</span> animName, <span class="dt">float</span> blendInSpeed, <span class="dt">float</span> blendOutSpeed, <span class="dt">int</span> duration, AnimationFlags flags, <span class="dt">float</span> playbackRate)</span>
+<span id="cb38-86"><a href="surrealist-photography.html#cb38-86"></a> </span>
+<span id="cb38-87"><a href="surrealist-photography.html#cb38-87"></a><span class="dt">void</span> <span class="fu">RappelFromHelicopter</span> ()</span>
+<span id="cb38-88"><a href="surrealist-photography.html#cb38-88"></a> </span>
+<span id="cb38-89"><a href="surrealist-photography.html#cb38-89"></a><span class="dt">void</span> <span class="fu">ReactAndFlee</span> (Ped ped)</span>
+<span id="cb38-90"><a href="surrealist-photography.html#cb38-90"></a> </span>
+<span id="cb38-91"><a href="surrealist-photography.html#cb38-91"></a><span class="dt">void</span> <span class="fu">ReloadWeapon</span> ()</span>
+<span id="cb38-92"><a href="surrealist-photography.html#cb38-92"></a> </span>
+<span id="cb38-93"><a href="surrealist-photography.html#cb38-93"></a><span class="dt">void</span> <span class="fu">RunTo</span> (Vector3 position, <span class="dt">bool</span> ignorePaths=<span class="kw">false</span>, <span class="dt">int</span> timeout=-<span class="dv">1</span>)</span>
+<span id="cb38-94"><a href="surrealist-photography.html#cb38-94"></a> </span>
+<span id="cb38-95"><a href="surrealist-photography.html#cb38-95"></a><span class="dt">void</span> <span class="fu">ShootAt</span> (Ped target, <span class="dt">int</span> duration=-<span class="dv">1</span>, FiringPattern pattern=FiringPattern.<span class="fu">Default</span>)</span>
+<span id="cb38-96"><a href="surrealist-photography.html#cb38-96"></a> </span>
+<span id="cb38-97"><a href="surrealist-photography.html#cb38-97"></a><span class="dt">void</span> <span class="fu">ShootAt</span> (Vector3 position, <span class="dt">int</span> duration=-<span class="dv">1</span>, FiringPattern pattern=FiringPattern.<span class="fu">Default</span>)</span>
+<span id="cb38-98"><a href="surrealist-photography.html#cb38-98"></a> </span>
+<span id="cb38-99"><a href="surrealist-photography.html#cb38-99"></a><span class="dt">void</span> <span class="fu">ShuffleToNextVehicleSeat</span> (Vehicle vehicle=<span class="kw">null</span>)</span>
+<span id="cb38-100"><a href="surrealist-photography.html#cb38-100"></a> </span>
+<span id="cb38-101"><a href="surrealist-photography.html#cb38-101"></a><span class="dt">void</span> <span class="fu">Skydive</span> ()</span>
+<span id="cb38-102"><a href="surrealist-photography.html#cb38-102"></a> </span>
+<span id="cb38-103"><a href="surrealist-photography.html#cb38-103"></a><span class="dt">void</span> <span class="fu">SlideTo</span> (Vector3 position, <span class="dt">float</span> heading)</span>
+<span id="cb38-104"><a href="surrealist-photography.html#cb38-104"></a> </span>
+<span id="cb38-105"><a href="surrealist-photography.html#cb38-105"></a><span class="dt">void</span> <span class="fu">StandStill</span> (<span class="dt">int</span> duration)</span>
+<span id="cb38-106"><a href="surrealist-photography.html#cb38-106"></a> </span>
+<span id="cb38-107"><a href="surrealist-photography.html#cb38-107"></a><span class="dt">void</span> <span class="fu">StartScenario</span> (<span class="dt">string</span> name, <span class="dt">float</span> heading)</span>
+<span id="cb38-108"><a href="surrealist-photography.html#cb38-108"></a> </span>
+<span id="cb38-109"><a href="surrealist-photography.html#cb38-109"></a><span class="dt">void</span> <span class="fu">StartScenario</span> (<span class="dt">string</span> name, Vector3 position, <span class="dt">float</span> heading)</span>
+<span id="cb38-110"><a href="surrealist-photography.html#cb38-110"></a> </span>
+<span id="cb38-111"><a href="surrealist-photography.html#cb38-111"></a><span class="dt">void</span> <span class="fu">SwapWeapon</span> ()</span>
+<span id="cb38-112"><a href="surrealist-photography.html#cb38-112"></a> </span>
+<span id="cb38-113"><a href="surrealist-photography.html#cb38-113"></a><span class="dt">void</span> <span class="fu">TurnTo</span> (Entity target, <span class="dt">int</span> duration=-<span class="dv">1</span>)</span>
+<span id="cb38-114"><a href="surrealist-photography.html#cb38-114"></a> </span>
+<span id="cb38-115"><a href="surrealist-photography.html#cb38-115"></a><span class="dt">void</span> <span class="fu">TurnTo</span> (Vector3 position, <span class="dt">int</span> duration=-<span class="dv">1</span>)</span>
+<span id="cb38-116"><a href="surrealist-photography.html#cb38-116"></a> </span>
+<span id="cb38-117"><a href="surrealist-photography.html#cb38-117"></a><span class="dt">void</span> <span class="fu">UseParachute</span> ()</span>
+<span id="cb38-118"><a href="surrealist-photography.html#cb38-118"></a> </span>
+<span id="cb38-119"><a href="surrealist-photography.html#cb38-119"></a><span class="dt">void</span> <span class="fu">UseMobilePhone</span> ()</span>
+<span id="cb38-120"><a href="surrealist-photography.html#cb38-120"></a> </span>
+<span id="cb38-121"><a href="surrealist-photography.html#cb38-121"></a><span class="dt">void</span> <span class="fu">UseMobilePhone</span> (<span class="dt">int</span> duration)</span>
+<span id="cb38-122"><a href="surrealist-photography.html#cb38-122"></a> </span>
+<span id="cb38-123"><a href="surrealist-photography.html#cb38-123"></a><span class="dt">void</span> <span class="fu">PutAwayParachute</span> ()</span>
+<span id="cb38-124"><a href="surrealist-photography.html#cb38-124"></a> </span>
+<span id="cb38-125"><a href="surrealist-photography.html#cb38-125"></a><span class="dt">void</span> <span class="fu">PutAwayMobilePhone</span> ()</span>
+<span id="cb38-126"><a href="surrealist-photography.html#cb38-126"></a> </span>
+<span id="cb38-127"><a href="surrealist-photography.html#cb38-127"></a><span class="dt">void</span> <span class="fu">VehicleChase</span> (Ped target)</span>
+<span id="cb38-128"><a href="surrealist-photography.html#cb38-128"></a> </span>
+<span id="cb38-129"><a href="surrealist-photography.html#cb38-129"></a><span class="dt">void</span> <span class="fu">VehicleShootAtPed</span> (Ped target)</span>
+<span id="cb38-130"><a href="surrealist-photography.html#cb38-130"></a> </span>
+<span id="cb38-131"><a href="surrealist-photography.html#cb38-131"></a><span class="dt">void</span> <span class="fu">Wait</span> (<span class="dt">int</span> duration)</span>
+<span id="cb38-132"><a href="surrealist-photography.html#cb38-132"></a> </span>
+<span id="cb38-133"><a href="surrealist-photography.html#cb38-133"></a><span class="dt">void</span> <span class="fu">WanderAround</span> ()</span>
+<span id="cb38-134"><a href="surrealist-photography.html#cb38-134"></a> </span>
+<span id="cb38-135"><a href="surrealist-photography.html#cb38-135"></a><span class="dt">void</span> <span class="fu">WanderAround</span> (Vector3 position, <span class="dt">float</span> radius)</span>
+<span id="cb38-136"><a href="surrealist-photography.html#cb38-136"></a> </span>
+<span id="cb38-137"><a href="surrealist-photography.html#cb38-137"></a><span class="dt">void</span> <span class="fu">WarpIntoVehicle</span> (Vehicle vehicle, VehicleSeat seat)</span>
+<span id="cb38-138"><a href="surrealist-photography.html#cb38-138"></a> </span>
+<span id="cb38-139"><a href="surrealist-photography.html#cb38-139"></a><span class="dt">void</span> <span class="fu">WarpOutOfVehicle</span> (Vehicle vehicle)</span>
+<span id="cb38-140"><a href="surrealist-photography.html#cb38-140"></a> </span>
+<span id="cb38-141"><a href="surrealist-photography.html#cb38-141"></a><span class="dt">void</span> <span class="fu">ClearAll</span> ()</span>
+<span id="cb38-142"><a href="surrealist-photography.html#cb38-142"></a> </span>
+<span id="cb38-143"><a href="surrealist-photography.html#cb38-143"></a><span class="dt">void</span> <span class="fu">ClearAllImmediately</span> ()</span>
+<span id="cb38-144"><a href="surrealist-photography.html#cb38-144"></a> </span>
+<span id="cb38-145"><a href="surrealist-photography.html#cb38-145"></a><span class="dt">void</span> <span class="fu">ClearLookAt</span> ()</span>
+<span id="cb38-146"><a href="surrealist-photography.html#cb38-146"></a> </span>
+<span id="cb38-147"><a href="surrealist-photography.html#cb38-147"></a><span class="dt">void</span> <span class="fu">ClearSecondary</span> ()</span>
+<span id="cb38-148"><a href="surrealist-photography.html#cb38-148"></a> </span>
+<span id="cb38-149"><a href="surrealist-photography.html#cb38-149"></a><span class="dt">void</span> <span class="fu">ClearAnimation</span> (<span class="dt">string</span> animSet, <span class="dt">string</span> animName)</span></code></pre></div>
 </details>
 <p>You can spawn a group of NPCs and give them individual tasks. You can also make them interact with each other (or with the player character). Here we spawn 3 NPCs and tell the to fight with each other.</p>
-<div class="sourceCode" id="cb38"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb38-1"><a href="surrealist-photography.html#cb38-1"></a><span class="co">//create a list of Peds</span></span>
-<span id="cb38-2"><a href="surrealist-photography.html#cb38-2"></a>List&lt;Ped&gt; myPeds = <span class="kw">new</span> List&lt;Ped&gt;();</span>
-<span id="cb38-3"><a href="surrealist-photography.html#cb38-3"></a></span>
-<span id="cb38-4"><a href="surrealist-photography.html#cb38-4"></a><span class="co">//create a list of Ped models </span></span>
-<span id="cb38-5"><a href="surrealist-photography.html#cb38-5"></a>List&lt;Model&gt; myPedModel = <span class="kw">new</span> List&lt;Model&gt;();</span>
-<span id="cb38-6"><a href="surrealist-photography.html#cb38-6"></a></span>
-<span id="cb38-7"><a href="surrealist-photography.html#cb38-7"></a><span class="co">//manually add models for each ped</span></span>
-<span id="cb38-8"><a href="surrealist-photography.html#cb38-8"></a>myPedModel.<span class="fu">Add</span>(PedHash.<span class="fu">Clown01SMY</span>);</span>
-<span id="cb38-9"><a href="surrealist-photography.html#cb38-9"></a>myPedModel.<span class="fu">Add</span>(PedHash.<span class="fu">Doctor01SMM</span>);</span>
-<span id="cb38-10"><a href="surrealist-photography.html#cb38-10"></a>myPedModel.<span class="fu">Add</span>(PedHash.<span class="fu">AviSchwartzman</span>);</span>
-<span id="cb38-11"><a href="surrealist-photography.html#cb38-11"></a></span>
-<span id="cb38-12"><a href="surrealist-photography.html#cb38-12"></a></span>
-<span id="cb38-13"><a href="surrealist-photography.html#cb38-13"></a><span class="kw">for</span>(<span class="dt">int</span> i = <span class="dv">0</span>; i &lt; myPedModel.<span class="fu">Count</span>; i++)</span>
-<span id="cb38-14"><a href="surrealist-photography.html#cb38-14"></a>{</span>
-<span id="cb38-15"><a href="surrealist-photography.html#cb38-15"></a>    <span class="co">//spawn a new Ped for each model</span></span>
-<span id="cb38-16"><a href="surrealist-photography.html#cb38-16"></a>    <span class="dt">var</span> newPed = World.<span class="fu">CreatePed</span>(myPedModel[i], Game.<span class="fu">Player</span>.<span class="fu">Character</span>.<span class="fu">GetOffsetInWorldCoords</span>(<span class="kw">new</span> <span class="fu">Vector3</span>(i*<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">0</span>)));</span>
-<span id="cb38-17"><a href="surrealist-photography.html#cb38-17"></a>    <span class="co">//add the new Ped to my list of Peds</span></span>
-<span id="cb38-18"><a href="surrealist-photography.html#cb38-18"></a>    myPeds.<span class="fu">Add</span>(newPed);</span>
-<span id="cb38-19"><a href="surrealist-photography.html#cb38-19"></a>}</span>
-<span id="cb38-20"><a href="surrealist-photography.html#cb38-20"></a></span>
-<span id="cb38-21"><a href="surrealist-photography.html#cb38-21"></a>myPeds[<span class="dv">0</span>].<span class="fu">Task</span>.<span class="fu">FightAgainst</span>(myPeds[<span class="dv">1</span>]);</span>
-<span id="cb38-22"><a href="surrealist-photography.html#cb38-22"></a>myPeds[<span class="dv">1</span>].<span class="fu">Task</span>.<span class="fu">FightAgainst</span>(myPeds[<span class="dv">2</span>]);</span>
-<span id="cb38-23"><a href="surrealist-photography.html#cb38-23"></a>myPeds[<span class="dv">2</span>].<span class="fu">Task</span>.<span class="fu">FightAgainst</span>(myPeds[<span class="dv">0</span>]);</span></code></pre></div>
+<div class="sourceCode" id="cb39"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb39-1"><a href="surrealist-photography.html#cb39-1"></a><span class="co">//create a list of Peds</span></span>
+<span id="cb39-2"><a href="surrealist-photography.html#cb39-2"></a>List&lt;Ped&gt; myPeds = <span class="kw">new</span> List&lt;Ped&gt;();</span>
+<span id="cb39-3"><a href="surrealist-photography.html#cb39-3"></a></span>
+<span id="cb39-4"><a href="surrealist-photography.html#cb39-4"></a><span class="co">//create a list of Ped models </span></span>
+<span id="cb39-5"><a href="surrealist-photography.html#cb39-5"></a>List&lt;Model&gt; myPedModel = <span class="kw">new</span> List&lt;Model&gt;();</span>
+<span id="cb39-6"><a href="surrealist-photography.html#cb39-6"></a></span>
+<span id="cb39-7"><a href="surrealist-photography.html#cb39-7"></a><span class="co">//manually add models for each ped</span></span>
+<span id="cb39-8"><a href="surrealist-photography.html#cb39-8"></a>myPedModel.<span class="fu">Add</span>(PedHash.<span class="fu">Clown01SMY</span>);</span>
+<span id="cb39-9"><a href="surrealist-photography.html#cb39-9"></a>myPedModel.<span class="fu">Add</span>(PedHash.<span class="fu">Doctor01SMM</span>);</span>
+<span id="cb39-10"><a href="surrealist-photography.html#cb39-10"></a>myPedModel.<span class="fu">Add</span>(PedHash.<span class="fu">Abigail</span>);</span>
+<span id="cb39-11"><a href="surrealist-photography.html#cb39-11"></a></span>
+<span id="cb39-12"><a href="surrealist-photography.html#cb39-12"></a></span>
+<span id="cb39-13"><a href="surrealist-photography.html#cb39-13"></a><span class="kw">for</span>(<span class="dt">int</span> i = <span class="dv">0</span>; i &lt; myPedModel.<span class="fu">Count</span>; i++)</span>
+<span id="cb39-14"><a href="surrealist-photography.html#cb39-14"></a>{</span>
+<span id="cb39-15"><a href="surrealist-photography.html#cb39-15"></a>    <span class="co">//spawn a new Ped for each model</span></span>
+<span id="cb39-16"><a href="surrealist-photography.html#cb39-16"></a>    <span class="dt">var</span> newPed = World.<span class="fu">CreatePed</span>(myPedModel[i], Game.<span class="fu">Player</span>.<span class="fu">Character</span>.<span class="fu">GetOffsetInWorldCoords</span>(<span class="kw">new</span> <span class="fu">Vector3</span>(i*<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">0</span>)));</span>
+<span id="cb39-17"><a href="surrealist-photography.html#cb39-17"></a>    <span class="co">//add the new Ped to my list of Peds</span></span>
+<span id="cb39-18"><a href="surrealist-photography.html#cb39-18"></a>    myPeds.<span class="fu">Add</span>(newPed);</span>
+<span id="cb39-19"><a href="surrealist-photography.html#cb39-19"></a>}</span>
+<span id="cb39-20"><a href="surrealist-photography.html#cb39-20"></a></span>
+<span id="cb39-21"><a href="surrealist-photography.html#cb39-21"></a>myPeds[<span class="dv">0</span>].<span class="fu">Task</span>.<span class="fu">FightAgainst</span>(myPeds[<span class="dv">1</span>]);</span>
+<span id="cb39-22"><a href="surrealist-photography.html#cb39-22"></a>myPeds[<span class="dv">1</span>].<span class="fu">Task</span>.<span class="fu">FightAgainst</span>(myPeds[<span class="dv">2</span>]);</span>
+<span id="cb39-23"><a href="surrealist-photography.html#cb39-23"></a>myPeds[<span class="dv">2</span>].<span class="fu">Task</span>.<span class="fu">FightAgainst</span>(myPeds[<span class="dv">0</span>]);</span></code></pre></div>
+<p><a href="" target="_blank"><img src="assets/scriptingGifs/3Peds.gif" style="display: block; margin: auto auto auto 0;" /></a></p>
 <p>To clear a task at any given moment we can use the task <code>ClearAllImmediately();</code>. To stop our 3 NPCs from fighting each other we give them the task to stop everything they are doing immediately.</p>
-<div class="sourceCode" id="cb39"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb39-1"><a href="surrealist-photography.html#cb39-1"></a>myPeds[<span class="dv">0</span>].<span class="fu">Task</span>.<span class="fu">ClearAllImmediately</span>();</span>
-<span id="cb39-2"><a href="surrealist-photography.html#cb39-2"></a>myPeds[<span class="dv">1</span>].<span class="fu">Task</span>.<span class="fu">ClearAllImmediately</span>();</span>
-<span id="cb39-3"><a href="surrealist-photography.html#cb39-3"></a>myPeds[<span class="dv">2</span>].<span class="fu">Task</span>.<span class="fu">ClearAllImmediately</span>();</span></code></pre></div>
-<p>Peace is restored in the universe.</p>
+<div class="sourceCode" id="cb40"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb40-1"><a href="surrealist-photography.html#cb40-1"></a>myPeds[<span class="dv">0</span>].<span class="fu">Task</span>.<span class="fu">ClearAllImmediately</span>();</span>
+<span id="cb40-2"><a href="surrealist-photography.html#cb40-2"></a>myPeds[<span class="dv">1</span>].<span class="fu">Task</span>.<span class="fu">ClearAllImmediately</span>();</span>
+<span id="cb40-3"><a href="surrealist-photography.html#cb40-3"></a>myPeds[<span class="dv">2</span>].<span class="fu">Task</span>.<span class="fu">ClearAllImmediately</span>();</span></code></pre></div>
+<p>Peace is restored in the universe. To remove the NPCs use <code>Delete()</code>.</p>
+<div class="sourceCode" id="cb41"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb41-1"><a href="surrealist-photography.html#cb41-1"></a>myPeds[<span class="dv">0</span>].<span class="fu">Task</span>.<span class="fu">Delete</span>();</span>
+<span id="cb41-2"><a href="surrealist-photography.html#cb41-2"></a>myPeds[<span class="dv">1</span>].<span class="fu">Task</span>.<span class="fu">Delete</span>();</span>
+<span id="cb41-3"><a href="surrealist-photography.html#cb41-3"></a>myPeds[<span class="dv">2</span>].<span class="fu">Task</span>.<span class="fu">Delete</span>();</span></code></pre></div>
+<p><a href="" target="_blank"><img src="assets/scriptingGifs/3Peds2.gif" style="display: block; margin: auto auto auto 0;" /></a></p>
 </div>
 <div id="animations" class="section level3 unnumbered hasAnchor">
 <h3>Animations<a href="surrealist-photography.html#animations" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>We can give Peds a task to play specific animations. To do this we can use the native function <code>TASK_PLAY_ANIM</code>.
 The function takes a lot of parameters (some of them still not exactly know), but here is the full function and a breakdown of each parameters.</p>
-<div class="sourceCode" id="cb40"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb40-1"><a href="surrealist-photography.html#cb40-1"></a>Native.<span class="fu">Function</span>.<span class="fu">Call</span>(Native.<span class="fu">Hash</span>.<span class="fu">TASK_PLAY_ANIM</span>, thePed, sDict, sAnim, speed, speed * <span class="dv">-1</span>, <span class="dv">-1</span>, flags, <span class="dv">0</span>, False, bDisableLegIK, False) </span></code></pre></div>
+<div class="sourceCode" id="cb42"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb42-1"><a href="surrealist-photography.html#cb42-1"></a>Native.<span class="fu">Function</span>.<span class="fu">Call</span>(Native.<span class="fu">Hash</span>.<span class="fu">TASK_PLAY_ANIM</span>, thePed, sDict, sAnim, speed, speed * <span class="dv">-1</span>, <span class="dv">-1</span>, flags, <span class="dv">0</span>, False, bDisableLegIK, False) </span></code></pre></div>
 <p><code>thePed</code> The Ped that will play the animation
 <code>sDict</code> The dictionary where the anim is located
 <code>sAnim</code> The anim name
@@ -665,40 +671,40 @@ normal = 0
 <p>You need to request the animation dictionary before start using it in your script: <code>REQUEST_ANIM_DICT</code>.
 After that, wait for the animation to load (or you could check if it’s loaded with the boolean <code>HAS_ANIM_DICT_LOADED</code>), before playing the animation.</p>
 <p>Once you have requested your animation dictionary and it is loaded, you can play and stop the specific animation using <code>TASK_PLAY_ANIM</code> and <code>STOP_ANIM_TASK</code>.</p>
-<div class="sourceCode" id="cb42"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb42-1"><a href="surrealist-photography.html#cb42-1"></a><span class="co">//request animation dictionary</span></span>
-<span id="cb42-2"><a href="surrealist-photography.html#cb42-2"></a>Function.<span class="fu">Call</span>(Hash.<span class="fu">REQUEST_ANIM_DICT</span>, <span class="st">&quot;combat@chg_stance&quot;</span>);</span>
-<span id="cb42-3"><a href="surrealist-photography.html#cb42-3"></a> </span>
-<span id="cb42-4"><a href="surrealist-photography.html#cb42-4"></a><span class="co">//wait 100 ms to load the animation</span></span>
-<span id="cb42-5"><a href="surrealist-photography.html#cb42-5"></a><span class="fu">Wait</span>(<span class="dv">100</span>);</span>
-<span id="cb42-6"><a href="surrealist-photography.html#cb42-6"></a> </span>
-<span id="cb42-7"><a href="surrealist-photography.html#cb42-7"></a><span class="co">//play animation from animation dictionary using the player character</span></span>
-<span id="cb42-8"><a href="surrealist-photography.html#cb42-8"></a>Function.<span class="fu">Call</span>(Hash.<span class="fu">TASK_PLAY_ANIM</span>, Game.<span class="fu">Player</span>.<span class="fu">Character</span>, <span class="st">&quot;combat@chg_stance&quot;</span>, <span class="st">&quot;aimb_loop&quot;</span>, <span class="fl">8.0</span>, <span class="fl">8.0</span> * <span class="dv">-1</span>, <span class="dv">-1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="kw">false</span>, <span class="kw">false</span>, <span class="kw">false</span>);</span>
-<span id="cb42-9"><a href="surrealist-photography.html#cb42-9"></a> </span>
-<span id="cb42-10"><a href="surrealist-photography.html#cb42-10"></a><span class="co">//wait 5 secs</span></span>
-<span id="cb42-11"><a href="surrealist-photography.html#cb42-11"></a><span class="fu">Wait</span>(<span class="dv">5000</span>);</span>
-<span id="cb42-12"><a href="surrealist-photography.html#cb42-12"></a> </span>
-<span id="cb42-13"><a href="surrealist-photography.html#cb42-13"></a><span class="co">//stop the animation</span></span>
-<span id="cb42-14"><a href="surrealist-photography.html#cb42-14"></a>Function.<span class="fu">Call</span>(Hash.<span class="fu">STOP_ANIM_TASK</span>, Game.<span class="fu">Player</span>.<span class="fu">Character</span>, <span class="st">&quot;combat@chg_stance&quot;</span>, <span class="st">&quot;aimb_loop&quot;</span>, <span class="fl">1.0</span>);</span></code></pre></div>
+<div class="sourceCode" id="cb44"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb44-1"><a href="surrealist-photography.html#cb44-1"></a><span class="co">//request animation dictionary</span></span>
+<span id="cb44-2"><a href="surrealist-photography.html#cb44-2"></a>Function.<span class="fu">Call</span>(Hash.<span class="fu">REQUEST_ANIM_DICT</span>, <span class="st">&quot;combat@chg_stance&quot;</span>);</span>
+<span id="cb44-3"><a href="surrealist-photography.html#cb44-3"></a> </span>
+<span id="cb44-4"><a href="surrealist-photography.html#cb44-4"></a><span class="co">//wait 100 ms to load the animation</span></span>
+<span id="cb44-5"><a href="surrealist-photography.html#cb44-5"></a><span class="fu">Wait</span>(<span class="dv">100</span>);</span>
+<span id="cb44-6"><a href="surrealist-photography.html#cb44-6"></a> </span>
+<span id="cb44-7"><a href="surrealist-photography.html#cb44-7"></a><span class="co">//play animation from animation dictionary using the player character</span></span>
+<span id="cb44-8"><a href="surrealist-photography.html#cb44-8"></a>Function.<span class="fu">Call</span>(Hash.<span class="fu">TASK_PLAY_ANIM</span>, Game.<span class="fu">Player</span>.<span class="fu">Character</span>, <span class="st">&quot;combat@chg_stance&quot;</span>, <span class="st">&quot;aimb_loop&quot;</span>, <span class="fl">8.0</span>, <span class="fl">8.0</span> * <span class="dv">-1</span>, <span class="dv">-1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="kw">false</span>, <span class="kw">false</span>, <span class="kw">false</span>);</span>
+<span id="cb44-9"><a href="surrealist-photography.html#cb44-9"></a> </span>
+<span id="cb44-10"><a href="surrealist-photography.html#cb44-10"></a><span class="co">//wait 5 secs</span></span>
+<span id="cb44-11"><a href="surrealist-photography.html#cb44-11"></a><span class="fu">Wait</span>(<span class="dv">5000</span>);</span>
+<span id="cb44-12"><a href="surrealist-photography.html#cb44-12"></a> </span>
+<span id="cb44-13"><a href="surrealist-photography.html#cb44-13"></a><span class="co">//stop the animation</span></span>
+<span id="cb44-14"><a href="surrealist-photography.html#cb44-14"></a>Function.<span class="fu">Call</span>(Hash.<span class="fu">STOP_ANIM_TASK</span>, Game.<span class="fu">Player</span>.<span class="fu">Character</span>, <span class="st">&quot;combat@chg_stance&quot;</span>, <span class="st">&quot;aimb_loop&quot;</span>, <span class="fl">1.0</span>);</span></code></pre></div>
 <p>Most information found for this functions were found <a href="Source:%20http://gtaxscripting.blogspot.com/2016/06/tut-gta-v-playing-and-handling.html">here</a>. More example code and information is avaiable there.</p>
 <p>There are 6645 animation dictionaries and 35460 animation clips. You can see some of the possible animations in GTA V here: <a href="https://www.youtube.com/playlist?list=PLFy_1HUkWwEAgPtwtjjLYpKCbBiwXamST">youtube.com/playlist?list=PLFy_1HUkWwEAgPtwtjjLYpKCbBiwXamST</a>.
 Here you can find a <a href="https://docs.ragepluginhook.net/html/62951c37-a440-478c-b389-c471230ddfc5.htm">list of available dictionaries and animations</a>.</p>
 <p>Give animations to nearby peds.</p>
-<div class="sourceCode" id="cb43"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb43-1"><a href="surrealist-photography.html#cb43-1"></a><span class="co">//request animation dictionary</span></span>
-<span id="cb43-2"><a href="surrealist-photography.html#cb43-2"></a>Function.<span class="fu">Call</span>(Hash.<span class="fu">REQUEST_ANIM_DICT</span>, <span class="st">&quot;gestures@miss@fbi_5&quot;</span>);</span>
-<span id="cb43-3"><a href="surrealist-photography.html#cb43-3"></a></span>
-<span id="cb43-4"><a href="surrealist-photography.html#cb43-4"></a><span class="co">//wait for it to load</span></span>
-<span id="cb43-5"><a href="surrealist-photography.html#cb43-5"></a><span class="fu">Wait</span>(<span class="dv">50</span>);</span>
-<span id="cb43-6"><a href="surrealist-photography.html#cb43-6"></a></span>
-<span id="cb43-7"><a href="surrealist-photography.html#cb43-7"></a><span class="co">//get nearby ped</span></span>
-<span id="cb43-8"><a href="surrealist-photography.html#cb43-8"></a>Ped[] NearbyPeds = World.<span class="fu">GetNearbyPeds</span>(Game.<span class="fu">Player</span>.<span class="fu">Character</span>, 20f);</span>
-<span id="cb43-9"><a href="surrealist-photography.html#cb43-9"></a></span>
-<span id="cb43-10"><a href="surrealist-photography.html#cb43-10"></a><span class="kw">foreach</span> (Ped p <span class="kw">in</span> NearbyPeds)</span>
-<span id="cb43-11"><a href="surrealist-photography.html#cb43-11"></a>{   </span>
-<span id="cb43-12"><a href="surrealist-photography.html#cb43-12"></a>    <span class="co">//clear the peds of any tasks they might have</span></span>
-<span id="cb43-13"><a href="surrealist-photography.html#cb43-13"></a>    p.<span class="fu">Task</span>.<span class="fu">ClearAllImmediately</span>();</span>
-<span id="cb43-14"><a href="surrealist-photography.html#cb43-14"></a>    <span class="co">//play animation from animation dictionary</span></span>
-<span id="cb43-15"><a href="surrealist-photography.html#cb43-15"></a>    Function.<span class="fu">Call</span>(Hash.<span class="fu">TASK_PLAY_ANIM</span>, p, <span class="st">&quot;missfbi5ig_2&quot;</span>, <span class="st">&quot;crying_trevor&quot;</span>, <span class="fl">8.0</span>, <span class="fl">8.0</span> * <span class="dv">-1</span>, <span class="dv">-1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="kw">false</span>, <span class="kw">false</span>, <span class="kw">false</span>);</span>
-<span id="cb43-16"><a href="surrealist-photography.html#cb43-16"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb45"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb45-1"><a href="surrealist-photography.html#cb45-1"></a><span class="co">//request animation dictionary</span></span>
+<span id="cb45-2"><a href="surrealist-photography.html#cb45-2"></a>Function.<span class="fu">Call</span>(Hash.<span class="fu">REQUEST_ANIM_DICT</span>, <span class="st">&quot;gestures@miss@fbi_5&quot;</span>);</span>
+<span id="cb45-3"><a href="surrealist-photography.html#cb45-3"></a></span>
+<span id="cb45-4"><a href="surrealist-photography.html#cb45-4"></a><span class="co">//wait for it to load</span></span>
+<span id="cb45-5"><a href="surrealist-photography.html#cb45-5"></a><span class="fu">Wait</span>(<span class="dv">50</span>);</span>
+<span id="cb45-6"><a href="surrealist-photography.html#cb45-6"></a></span>
+<span id="cb45-7"><a href="surrealist-photography.html#cb45-7"></a><span class="co">//get nearby ped</span></span>
+<span id="cb45-8"><a href="surrealist-photography.html#cb45-8"></a>Ped[] NearbyPeds = World.<span class="fu">GetNearbyPeds</span>(Game.<span class="fu">Player</span>.<span class="fu">Character</span>, 20f);</span>
+<span id="cb45-9"><a href="surrealist-photography.html#cb45-9"></a></span>
+<span id="cb45-10"><a href="surrealist-photography.html#cb45-10"></a><span class="kw">foreach</span> (Ped p <span class="kw">in</span> NearbyPeds)</span>
+<span id="cb45-11"><a href="surrealist-photography.html#cb45-11"></a>{   </span>
+<span id="cb45-12"><a href="surrealist-photography.html#cb45-12"></a>    <span class="co">//clear the peds of any tasks they might have</span></span>
+<span id="cb45-13"><a href="surrealist-photography.html#cb45-13"></a>    p.<span class="fu">Task</span>.<span class="fu">ClearAllImmediately</span>();</span>
+<span id="cb45-14"><a href="surrealist-photography.html#cb45-14"></a>    <span class="co">//play animation from animation dictionary</span></span>
+<span id="cb45-15"><a href="surrealist-photography.html#cb45-15"></a>    Function.<span class="fu">Call</span>(Hash.<span class="fu">TASK_PLAY_ANIM</span>, p, <span class="st">&quot;missfbi5ig_2&quot;</span>, <span class="st">&quot;crying_trevor&quot;</span>, <span class="fl">8.0</span>, <span class="fl">8.0</span> * <span class="dv">-1</span>, <span class="dv">-1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="kw">false</span>, <span class="kw">false</span>, <span class="kw">false</span>);</span>
+<span id="cb45-16"><a href="surrealist-photography.html#cb45-16"></a>}</span></code></pre></div>
 </div>
 <div id="teleporting" class="section level3 unnumbered hasAnchor">
 <h3>Teleporting<a href="surrealist-photography.html#teleporting" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -708,11 +714,11 @@ We need to know the exact coordinates of the locations we want to teleport to, b
 COORDINATES: X:450.718 Y:5566.614 Z:806.183</code></pre>
 <p>To create a teleport function we will use a native function. Script Hook V Dot Net is a wrapper for the C++ ScriptHook, calling the functions in Scripthook to do things in the game. However, there are some functions that are not in Script Hook V Dot Net and in order to use these, we have to use the native calling from Script Hook.</p>
 <p><a href="https://nitanmarcel.github.io/shvdn-docs.github.io/namespace_g_t_a_1_1_native.html#a84977424e1cb7b6f1c2902770bf9ad2d">Native functions</a> are called with <code>Function.Call</code> followed by their corresponding hash name and parameters. They use this structure:</p>
-<div class="sourceCode" id="cb45"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb45-1"><a href="surrealist-photography.html#cb45-1"></a>Function.<span class="fu">Call</span>(Hash.<span class="fu">HASH_NAME</span>, input_params);</span></code></pre></div>
+<div class="sourceCode" id="cb47"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb47-1"><a href="surrealist-photography.html#cb47-1"></a>Function.<span class="fu">Call</span>(Hash.<span class="fu">HASH_NAME</span>, input_params);</span></code></pre></div>
 <p>The native function for teleporting expects the hash <code>SET_ENTITY_COORDS</code>, the <code>ped</code> entity to teleport, and the X, Y and Z coordinates to teleport the character to. <code>Function.Call(Hash.SET_ENTITY_COORDS, Ped ped, X, Y, Z, 0, 0, 1);</code></p>
 <p>The function to teleport the player character to the top of Moutn Chiliad is:</p>
-<div class="sourceCode" id="cb46"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb46-1"><a href="surrealist-photography.html#cb46-1"></a><span class="co">//Teleport to the top of Mount Chiliad</span></span>
-<span id="cb46-2"><a href="surrealist-photography.html#cb46-2"></a>Function.<span class="fu">Call</span>(Hash.<span class="fu">SET_ENTITY_COORDS</span>, Game.<span class="fu">Player</span>.<span class="fu">Character</span>, <span class="fl">450.718f</span>, <span class="fl">5566.614f</span>, <span class="fl">806.183f</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>);</span></code></pre></div>
+<div class="sourceCode" id="cb48"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb48-1"><a href="surrealist-photography.html#cb48-1"></a><span class="co">//Teleport to the top of Mount Chiliad</span></span>
+<span id="cb48-2"><a href="surrealist-photography.html#cb48-2"></a>Function.<span class="fu">Call</span>(Hash.<span class="fu">SET_ENTITY_COORDS</span>, Game.<span class="fu">Player</span>.<span class="fu">Character</span>, <span class="fl">450.718f</span>, <span class="fl">5566.614f</span>, <span class="fl">806.183f</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>);</span></code></pre></div>
 <p>See this <a href="https://gtaforums.com/topic/792877-list-of-over-100-coordinates-more-comming/">list of locations</a> to find their respective coordinates or click on the list below</p>
 <details>
 <p><summary>List of Locations with Coordinates</summary></p>
