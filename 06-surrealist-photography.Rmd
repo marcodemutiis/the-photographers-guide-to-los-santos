@@ -173,10 +173,14 @@ Kill the 2nd spawned NPC:
 myPeds[1].Kill();
 ```
 
-Tell the 3rd and 4th NPCs to fight each other:
+Tell the 3rd NPC to jump:
 ```cs
-myPeds[2].FightAgainst(myPeds[3]);
-myPeds[3].FightAgainst(myPeds[2]);
+myPeds[2].Jump();
+``` 
+
+Tell the 4th NPC to walk toward the camera:
+```cs
+myPeds[3].GoTo(GameplayCamera.Position);
 ``` 
 
 Tell the 5th NPC to put their hands up for 3 seconds:
@@ -430,7 +434,7 @@ List<Model> myPedModel = new List<Model>();
 //manually add models for each ped
 myPedModel.Add(PedHash.Clown01SMY);
 myPedModel.Add(PedHash.Doctor01SMM);
-myPedModel.Add(PedHash.AviSchwartzman);
+myPedModel.Add(PedHash.Abigail);
 
 
 for(int i = 0; i < myPedModel.Count; i++)
@@ -447,6 +451,11 @@ myPeds[2].Task.FightAgainst(myPeds[0]);
 
 ```
 
+```{r fig.align='left', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html'), fig.link=''}
+knitr::include_graphics('assets/scriptingGifs/3Peds.gif', dpi = NA)
+```
+
+
 To clear a task at any given moment we can use the task ```ClearAllImmediately();```. To stop our 3 NPCs from fighting each other we give them the task to stop everything they are doing immediately.
 
 ```cs
@@ -455,7 +464,18 @@ myPeds[1].Task.ClearAllImmediately();
 myPeds[2].Task.ClearAllImmediately();
 ```
 
-Peace is restored in the universe.
+Peace is restored in the universe. To remove the NPCs use ```Delete()```.
+
+```cs
+myPeds[0].Task.Delete();
+myPeds[1].Task.Delete();
+myPeds[2].Task.Delete();
+```
+
+
+```{r fig.align='left', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html'), fig.link=''}
+knitr::include_graphics('assets/scriptingGifs/3Peds2.gif', dpi = NA)
+```
 
 
 
