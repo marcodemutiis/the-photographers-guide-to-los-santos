@@ -604,13 +604,13 @@ The function needs a model ID, in order to load the model file of our game chara
 You can browse through this list of models to find the one you want to try: \url{https://wiki.gtanet.work/index.php/Peds}
 
 These models are all PedHashes, basically ID numbers within the PedHash group. Copy the name of the model below the image and add it to PedHash.
-For example if you choose the model Cat, you'll need to write \texttt{PedHash.Cat}.
+For example if you choose the model Poodle, you'll need to write \texttt{PedHash.Poodle}.
 
-To change the model of your player character into a cat you can write the following function:
+To change the model of your player character into a poodle you can write the following function:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{Game.}\FunctionTok{Player}\NormalTok{.}\FunctionTok{ChangeModel}\NormalTok{(PedHash.}\FunctionTok{Cat}\NormalTok{);}
+\NormalTok{Game.}\FunctionTok{Player}\NormalTok{.}\FunctionTok{ChangeModel}\NormalTok{(PedHash.}\FunctionTok{Poodle}\NormalTok{);}
 \end{Highlighting}
 \end{Shaded}
 
@@ -658,13 +658,15 @@ Example code
             \KeywordTok{if}\NormalTok{(e.}\FunctionTok{KeyCode}\NormalTok{ == Keys.}\FunctionTok{H}\NormalTok{)}
 \NormalTok{            \{}
                 \CommentTok{//change player char into a different model}
-\NormalTok{                Game.}\FunctionTok{Player}\NormalTok{.}\FunctionTok{ChangeModel}\NormalTok{(PedHash.}\FunctionTok{Cat}\NormalTok{); }
+\NormalTok{                Game.}\FunctionTok{Player}\NormalTok{.}\FunctionTok{ChangeModel}\NormalTok{(PedHash.}\FunctionTok{Poodle}\NormalTok{); }
 \NormalTok{            \}}
 \NormalTok{        \}}
 \NormalTok{    \}}
 \NormalTok{\}}
 \end{Highlighting}
 \end{Shaded}
+
+Try to select different models and assign them to different keys to change the model of your character. Use keys that are not already implemented in the game controls to avoid clashes with built in operations.
 
 \hypertarget{tasks}{%
 \subsection*{Tasks}\label{tasks}}

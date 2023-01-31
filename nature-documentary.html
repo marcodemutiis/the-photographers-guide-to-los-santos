@@ -372,7 +372,10 @@ artwork text</p>
 <li><p>Go to Documents &gt; Visual Studio &gt; Project &gt; moddingTutorial &gt; moddingTutorial &gt; <code>moddingTutorial.cs</code></p></li>
 <li><p>Copy the .cs file in the GTA V directory inside the scripts folder</p></li>
 <li><p>Open GTA V, run the game in Story Mode (mods are only allowed in single player mode, not in GTA Online) and press ‘H’ to see if the game turns your avatar into a cat</p></li>
-<li><p>Note: every time you make changes to your .cs file in the scripts folder you can hit <code>F4</code> to open the console, type <code>Reload()</code> in the console for the program to reload the script and test again the changes.</p></li>
+</ul>
+<p><a href="" target="_blank"><img src="assets/scriptingGifs/pressHtoCat.gif" style="display: block; margin: auto auto auto 0;" /></a></p>
+<ul>
+<li>Note: every time you make changes to your .cs file in the scripts folder you can hit <code>F4</code> to open the console, type <code>Reload()</code> in the console for the program to reload the script and test again the changes.</li>
 </ul>
 </div>
 <div id="ontick-onkeyup-and-onkeydown" class="section level4 unnumbered hasAnchor">
@@ -409,10 +412,11 @@ artwork text</p>
 <p>Change the 3D model of your character by using the <code>ChangeModel</code> function.
 The function needs a model ID, in order to load the model file of our game character.
 You can browse through this list of models to find the one you want to try: <a href="https://wiki.gtanet.work/index.php/Peds" class="uri">https://wiki.gtanet.work/index.php/Peds</a></p>
+<p><a href="https://wiki.gtanet.work/index.php/Peds" target="_blank"><img src="assets/peds.png" style="display: block; margin: auto auto auto 0;" /></a></p>
 <p>These models are all PedHashes, basically ID numbers within the PedHash group. Copy the name of the model below the image and add it to PedHash.
-For example if you choose the model Cat, you’ll need to write <code>PedHash.Cat</code>.</p>
-<p>To change the model of your player character into a cat you can write the following function:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb6-1"><a href="nature-documentary.html#cb6-1"></a>Game.<span class="fu">Player</span>.<span class="fu">ChangeModel</span>(PedHash.<span class="fu">Cat</span>);</span></code></pre></div>
+For example if you choose the model Poodle, you’ll need to write <code>PedHash.Poodle</code>.</p>
+<p>To change the model of your player character into a poodle you can write the following function:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb6-1"><a href="nature-documentary.html#cb6-1"></a>Game.<span class="fu">Player</span>.<span class="fu">ChangeModel</span>(PedHash.<span class="fu">Poodle</span>);</span></code></pre></div>
 <p>add it in your .cs file in the onKeyDown event, triggered by the pressing of the ‘h’ key:</p>
 <details>
 <p><summary>Example code</summary></p>
@@ -454,13 +458,14 @@ For example if you choose the model Cat, you’ll need to write <code>PedHash.Ca
 <span id="cb7-36"><a href="nature-documentary.html#cb7-36"></a>            <span class="kw">if</span>(e.<span class="fu">KeyCode</span> == Keys.<span class="fu">H</span>)</span>
 <span id="cb7-37"><a href="nature-documentary.html#cb7-37"></a>            {</span>
 <span id="cb7-38"><a href="nature-documentary.html#cb7-38"></a>                <span class="co">//change player char into a different model</span></span>
-<span id="cb7-39"><a href="nature-documentary.html#cb7-39"></a>                Game.<span class="fu">Player</span>.<span class="fu">ChangeModel</span>(PedHash.<span class="fu">Cat</span>); </span>
+<span id="cb7-39"><a href="nature-documentary.html#cb7-39"></a>                Game.<span class="fu">Player</span>.<span class="fu">ChangeModel</span>(PedHash.<span class="fu">Poodle</span>); </span>
 <span id="cb7-40"><a href="nature-documentary.html#cb7-40"></a>            }</span>
 <span id="cb7-41"><a href="nature-documentary.html#cb7-41"></a>        }</span>
 <span id="cb7-42"><a href="nature-documentary.html#cb7-42"></a>    }</span>
 <span id="cb7-43"><a href="nature-documentary.html#cb7-43"></a>}</span></code></pre></div>
 </details>
-<p><a href="https://wiki.gtanet.work/index.php/Peds" target="_blank"><img src="assets/peds.png" style="display: block; margin: auto auto auto 0;" /></a></p>
+<p>Try to select different models and assign them to different keys to change the model of your character. Use keys that are not already implemented in the game controls to avoid clashes with built in operations.</p>
+<p><a href="" target="_blank"><img src="assets/scriptingGifs/changeCharModel.gif" style="display: block; margin: auto auto auto 0;" /></a></p>
 </div>
 <div id="tasks" class="section level3 unnumbered hasAnchor">
 <h3>Tasks<a href="nature-documentary.html#tasks" class="anchor-section" aria-label="Anchor link to header"></a></h3>
