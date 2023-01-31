@@ -702,6 +702,22 @@ Hands up for 3000 milliseconds:
 \end{Highlighting}
 \end{Shaded}
 
+Turn towards the camera:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{Game.}\FunctionTok{Player}\NormalTok{.}\FunctionTok{Character}\NormalTok{.}\FunctionTok{Task}\NormalTok{.}\FunctionTok{TurnTo}\NormalTok{(GameplayCamera.}\FunctionTok{Position}\NormalTok{);}
+\end{Highlighting}
+\end{Shaded}
+
+Some of the tasks are temporary and accept a time parameter (in milliseconds). Others are persistent, meaning they will keep being executed until the task is actively stopped. To stop a task you can use the \texttt{ClearAllImmediately();} command:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{Game.}\FunctionTok{Player}\NormalTok{.}\FunctionTok{Task}\NormalTok{.}\FunctionTok{ClearAllImmediately}\NormalTok{();}
+\end{Highlighting}
+\end{Shaded}
+
 \hypertarget{task-sequences}{%
 \subsection*{Task Sequences}\label{task-sequences}}
 \addcontentsline{toc}{subsection}{Task Sequences}

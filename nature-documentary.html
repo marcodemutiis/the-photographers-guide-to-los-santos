@@ -474,40 +474,48 @@ For example if you choose the model Poodle, you’ll need to write <code>PedHash
 <p>Finally we can specify what task to give the character by choosing a task from <a href="https://nitanmarcel.github.io/shvdn-docs.github.io/class_g_t_a_1_1_task_invoker.html">TaskInvoker list</a> of possible actions.</p>
 <p>Jump:</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb8-1"><a href="nature-documentary.html#cb8-1"></a>Game.<span class="fu">Player</span>.<span class="fu">Character</span>.<span class="fu">Task</span>.<span class="fu">Jump</span>();</span></code></pre></div>
+<p><a href="" target="_blank"><img src="assets/scriptingGifs/jump.gif" style="display: block; margin: auto auto auto 0;" /></a></p>
 <p>Wander around:</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb9-1"><a href="nature-documentary.html#cb9-1"></a>Game.<span class="fu">Player</span>.<span class="fu">Character</span>.<span class="fu">Task</span>.<span class="fu">WanderAround</span>();</span></code></pre></div>
+<p><a href="" target="_blank"><img src="assets/scriptingGifs/wanderAround.gif" style="display: block; margin: auto auto auto 0;" /></a></p>
 <p>Hands up for 3000 milliseconds:</p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb10-1"><a href="nature-documentary.html#cb10-1"></a>Game.<span class="fu">Player</span>.<span class="fu">Character</span>.<span class="fu">Task</span>.<span class="fu">HandsUp</span>(<span class="dv">3000</span>);</span></code></pre></div>
+<p><a href="" target="_blank"><img src="assets/scriptingGifs/handsUp.gif" style="display: block; margin: auto auto auto 0;" /></a></p>
+<p>Turn towards the camera:</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb11-1"><a href="nature-documentary.html#cb11-1"></a>Game.<span class="fu">Player</span>.<span class="fu">Character</span>.<span class="fu">Task</span>.<span class="fu">TurnTo</span>(GameplayCamera.<span class="fu">Position</span>);</span></code></pre></div>
+<p><a href="" target="_blank"><img src="assets/scriptingGifs/turnTo.gif" style="display: block; margin: auto auto auto 0;" /></a></p>
+<p>Some of the tasks are temporary and accept a time parameter (in milliseconds). Others are persistent, meaning they will keep being executed until the task is actively stopped. To stop a task you can use the <code>ClearAllImmediately();</code> command:</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb12-1"><a href="nature-documentary.html#cb12-1"></a>Game.<span class="fu">Player</span>.<span class="fu">Task</span>.<span class="fu">ClearAllImmediately</span>();</span></code></pre></div>
 </div>
 <div id="task-sequences" class="section level3 unnumbered hasAnchor">
 <h3>Task Sequences<a href="nature-documentary.html#task-sequences" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>You can create sequence of multiple tasks by using <code>TaskSequence</code> and the <code>PerformSequence</code> function.
 Create a new <code>TaskSequence</code> with a custom name, add tasks to it with <code>AddTask</code>, close the sequence with <code>Close</code> and then call <code>Task.PerformSequence</code> to perform the sequence.</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb11-1"><a href="nature-documentary.html#cb11-1"></a>TaskSequence mySeq = <span class="kw">new</span> <span class="fu">TaskSequence</span>();</span>
-<span id="cb11-2"><a href="nature-documentary.html#cb11-2"></a>mySeq.<span class="fu">AddTask</span>.<span class="fu">Jump</span>();</span>
-<span id="cb11-3"><a href="nature-documentary.html#cb11-3"></a>mySeq.<span class="fu">AddTask</span>.<span class="fu">HandsUp</span>(<span class="dv">3000</span>);</span>
-<span id="cb11-4"><a href="nature-documentary.html#cb11-4"></a>mySeq.<span class="fu">Close</span>();</span>
-<span id="cb11-5"><a href="nature-documentary.html#cb11-5"></a>                </span>
-<span id="cb11-6"><a href="nature-documentary.html#cb11-6"></a>Game.<span class="fu">Player</span>.<span class="fu">Character</span>.<span class="fu">Task</span>.<span class="fu">PerformSequence</span>(mySeq);</span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb13-1"><a href="nature-documentary.html#cb13-1"></a>TaskSequence mySeq = <span class="kw">new</span> <span class="fu">TaskSequence</span>();</span>
+<span id="cb13-2"><a href="nature-documentary.html#cb13-2"></a>mySeq.<span class="fu">AddTask</span>.<span class="fu">Jump</span>();</span>
+<span id="cb13-3"><a href="nature-documentary.html#cb13-3"></a>mySeq.<span class="fu">AddTask</span>.<span class="fu">HandsUp</span>(<span class="dv">3000</span>);</span>
+<span id="cb13-4"><a href="nature-documentary.html#cb13-4"></a>mySeq.<span class="fu">Close</span>();</span>
+<span id="cb13-5"><a href="nature-documentary.html#cb13-5"></a>                </span>
+<span id="cb13-6"><a href="nature-documentary.html#cb13-6"></a>Game.<span class="fu">Player</span>.<span class="fu">Character</span>.<span class="fu">Task</span>.<span class="fu">PerformSequence</span>(mySeq);</span></code></pre></div>
 </div>
 <div id="random" class="section level3 unnumbered hasAnchor">
 <h3>Random<a href="nature-documentary.html#random" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>We can add randomness by using a randomly generated number, which makes things outside of thepredefined programme controlled by us and introduces more autonomous behaviours. We use the <code>Random</code>function to create a randomly generated number between our minimum and maximum parameter (if only one parameter is inserted, the minimum is 0).</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb12-1"><a href="nature-documentary.html#cb12-1"></a>Random rnd = <span class="kw">new</span> <span class="fu">Random</span>(); </span>
-<span id="cb12-2"><a href="nature-documentary.html#cb12-2"></a><span class="dt">int</span> month = rnd.<span class="fu">Next</span>(<span class="dv">1</span>, <span class="dv">13</span>); <span class="co">// creates a number between 1 and 12 </span></span>
-<span id="cb12-3"><a href="nature-documentary.html#cb12-3"></a><span class="dt">int</span> dice = rnd.<span class="fu">Next</span>(<span class="dv">1</span>, <span class="dv">7</span>); <span class="co">// creates a number between 1 and 6 </span></span>
-<span id="cb12-4"><a href="nature-documentary.html#cb12-4"></a><span class="dt">int</span> card = rnd.<span class="fu">Next</span>(<span class="dv">52</span>); <span class="co">// creates a number between 0 and 51</span></span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb14-1"><a href="nature-documentary.html#cb14-1"></a>Random rnd = <span class="kw">new</span> <span class="fu">Random</span>(); </span>
+<span id="cb14-2"><a href="nature-documentary.html#cb14-2"></a><span class="dt">int</span> month = rnd.<span class="fu">Next</span>(<span class="dv">1</span>, <span class="dv">13</span>); <span class="co">// creates a number between 1 and 12 </span></span>
+<span id="cb14-3"><a href="nature-documentary.html#cb14-3"></a><span class="dt">int</span> dice = rnd.<span class="fu">Next</span>(<span class="dv">1</span>, <span class="dv">7</span>); <span class="co">// creates a number between 1 and 6 </span></span>
+<span id="cb14-4"><a href="nature-documentary.html#cb14-4"></a><span class="dt">int</span> card = rnd.<span class="fu">Next</span>(<span class="dv">52</span>); <span class="co">// creates a number between 0 and 51</span></span></code></pre></div>
 <p>Let’s create a number to generate a random duration between 1 and 6 seconds, for the <code>HandsUp</code> task.</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb13-1"><a href="nature-documentary.html#cb13-1"></a>Random rnd = <span class="kw">new</span> <span class="fu">Random</span>(); </span>
-<span id="cb13-2"><a href="nature-documentary.html#cb13-2"></a><span class="dt">int</span> waitingTime = rnd.<span class="fu">Next</span>(<span class="dv">1</span>, <span class="dv">7</span>);</span>
-<span id="cb13-3"><a href="nature-documentary.html#cb13-3"></a>Game.<span class="fu">Player</span>.<span class="fu">Character</span>.<span class="fu">Task</span>.<span class="fu">HandsUp</span>(waitingTime * <span class="dv">1000</span>);</span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb15-1"><a href="nature-documentary.html#cb15-1"></a>Random rnd = <span class="kw">new</span> <span class="fu">Random</span>(); </span>
+<span id="cb15-2"><a href="nature-documentary.html#cb15-2"></a><span class="dt">int</span> waitingTime = rnd.<span class="fu">Next</span>(<span class="dv">1</span>, <span class="dv">7</span>);</span>
+<span id="cb15-3"><a href="nature-documentary.html#cb15-3"></a>Game.<span class="fu">Player</span>.<span class="fu">Character</span>.<span class="fu">Task</span>.<span class="fu">HandsUp</span>(waitingTime * <span class="dv">1000</span>);</span></code></pre></div>
 </div>
 <div id="subtitles-and-notifications" class="section level3 unnumbered hasAnchor">
 <h3>Subtitles and Notifications<a href="nature-documentary.html#subtitles-and-notifications" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Generate subtitles with a custom text string and duration (in milliseconds):</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb14-1"><a href="nature-documentary.html#cb14-1"></a>UI.<span class="fu">ShowSubtitle</span>(<span class="st">&quot;Hello World&quot;</span>, <span class="dv">3000</span>);</span></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb16-1"><a href="nature-documentary.html#cb16-1"></a>UI.<span class="fu">ShowSubtitle</span>(<span class="st">&quot;Hello World&quot;</span>, <span class="dv">3000</span>);</span></code></pre></div>
 <p>Generate a notification with a custom text string:</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb15-1"><a href="nature-documentary.html#cb15-1"></a>UI.<span class="fu">Notify</span>(<span class="st">&quot;Hello World&quot;</span>);</span></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb17-1"><a href="nature-documentary.html#cb17-1"></a>UI.<span class="fu">Notify</span>(<span class="st">&quot;Hello World&quot;</span>);</span></code></pre></div>
 </div>
 </div>
 <div id="content-replication-assignment-3" class="section level2 unnumbered hasAnchor">
