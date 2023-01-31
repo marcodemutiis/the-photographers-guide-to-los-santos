@@ -543,14 +543,14 @@ Wait(5000);
 Function.Call(Hash.STOP_ANIM_TASK, Game.Player.Character, "mini@strip_club@pole_dance@pole_a_2_stage", "pole_a_2_stage", 1.0);
 ```
 
+```{r fig.align='left', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html'), fig.link=''}
+knitr::include_graphics('assets/scriptingGifs/poleDance.gif', dpi = NA)
+```
+
 Most information found for this functions were found [here](Source: http://gtaxscripting.blogspot.com/2016/06/tut-gta-v-playing-and-handling.html). More example code and information is avaiable there.
 
 There are 6645 animation dictionaries and 35460 animation clips. You can see some of the possible animations in GTA V here: [youtube.com/playlist?list=PLFy_1HUkWwEAgPtwtjjLYpKCbBiwXamST](https://www.youtube.com/playlist?list=PLFy_1HUkWwEAgPtwtjjLYpKCbBiwXamST).
 Here you can find a [list of available dictionaries and animations](https://docs.ragepluginhook.net/html/62951c37-a440-478c-b389-c471230ddfc5.htm).
-
-```{r fig.align='left', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html'), fig.link=''}
-knitr::include_graphics('assets/scriptingGifs/poleDance.gif', dpi = NA)
-```
 
 Fun fact: deers seem to be able to do pole dance animations too.
 
