@@ -150,17 +150,42 @@ In the onKeyDown function ```private void onKeyDown(object sender, KeyEventArgs 
 for (int i = 0; i < 5; i++)
 {
 	//spawn a new Ped called newPed
-	var newPed = World.CreatePed(PedHash.AviSchwartzman, Game.Player.Character.GetOffsetInWorldCoords(new Vector3(i, 3, 0)));
+	var newPed = World.CreatePed(PedHash.Clown01SMY, Game.Player.Character.GetOffsetInWorldCoords(new Vector3(i-2.5f, 8, 0)));
 	//add the new Ped to my list of Peds myPeds
 	myPeds.Add(newPed);
 }
 ```
 
+```{r fig.align='left', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html'), fig.link=''}
+knitr::include_graphics('assets/scriptingGifs/spawn5Peds.gif', dpi = NA)
+```
+
+
 Now all the 5 ```Peds``` are part of the myPeds[] ```List```. You can control each Ped individually by calling their individual number ID in the group. The first spawn ```Ped``` is myPed[0], the last one is myPeds[4].
 
-Kill the 3rd spawned NPC:
+Tell the 1st spawned NPC to start wandering around:
 ```cs
-myPeds[2].Kill();
+myPeds[0].WanderAround();
+```
+
+Kill the 2nd spawned NPC:
+```cs
+myPeds[1].Kill();
+```
+
+Tell the 3rd and 4th NPCs to fight each other:
+```cs
+myPeds[2].FightAgainst(myPeds[3]);
+myPeds[3].FightAgainst(myPeds[2]);
+``` 
+
+Tell the 5th NPC to put their hands up for 3 seconds:
+```cs
+myPeds[4].Task.HandsUp(3000);
+```
+
+```{r fig.align='left', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html'), fig.link=''}
+knitr::include_graphics('assets/scriptingGifs/control5Peds.gif', dpi = NA)
 ```
 
 ### Nearby NPCs {-}
