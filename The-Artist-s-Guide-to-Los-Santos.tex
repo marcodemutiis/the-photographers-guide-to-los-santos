@@ -904,13 +904,13 @@ Example code
             \KeywordTok{if}\NormalTok{(e.}\FunctionTok{KeyCode}\NormalTok{ == Keys.}\FunctionTok{K}\NormalTok{)}
 \NormalTok{            \{}
                 \CommentTok{//select a model and store it in a variable}
-\NormalTok{                Models myPedModel = }\StringTok{"PedHash.AviSchwartzman"}\NormalTok{;}
+\NormalTok{                Model myPedModel = PedHash.}\FunctionTok{AviSchwartzman}\NormalTok{;}
     
-                    \CommentTok{//create a position relative to the player}
-\NormalTok{                    Vector3 myPedSpawnPosition = Game.}\FunctionTok{Player}\NormalTok{.}\FunctionTok{Character}\NormalTok{.}\FunctionTok{GetOffsetInWorldCoords}\NormalTok{(}\KeywordTok{new} \FunctionTok{Vector3}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{5}\NormalTok{, }\DecValTok{0}\NormalTok{));}
+        \CommentTok{//create a position relative to the player}
+\NormalTok{        Vector3 myPedSpawnPosition = Game.}\FunctionTok{Player}\NormalTok{.}\FunctionTok{Character}\NormalTok{.}\FunctionTok{GetOffsetInWorldCoords}\NormalTok{(}\KeywordTok{new} \FunctionTok{Vector3}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{5}\NormalTok{, }\DecValTok{0}\NormalTok{));}
     
-                    \CommentTok{//create a Ped with the chosen model, spawning at the chosen position}
-                    \DataTypeTok{var}\NormalTok{ myPed1 = World.}\FunctionTok{CreatePed}\NormalTok{(myPedModel, myPedSpawnPosition); }
+        \CommentTok{//create a Ped with the chosen model, spawning at the chosen position}
+        \DataTypeTok{var}\NormalTok{ myPed1 = World.}\FunctionTok{CreatePed}\NormalTok{(myPedModel, myPedSpawnPosition); }
 \NormalTok{            \}}
 \NormalTok{        \}}
 \NormalTok{    \}}

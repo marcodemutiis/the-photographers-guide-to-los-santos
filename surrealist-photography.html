@@ -352,18 +352,19 @@ To make a Ped appear in front of the player we can create a vector3 data type wi
 <span id="cb21-36"><a href="surrealist-photography.html#cb21-36"></a>            <span class="kw">if</span>(e.<span class="fu">KeyCode</span> == Keys.<span class="fu">K</span>)</span>
 <span id="cb21-37"><a href="surrealist-photography.html#cb21-37"></a>            {</span>
 <span id="cb21-38"><a href="surrealist-photography.html#cb21-38"></a>                <span class="co">//select a model and store it in a variable</span></span>
-<span id="cb21-39"><a href="surrealist-photography.html#cb21-39"></a>                Models myPedModel = <span class="st">&quot;PedHash.AviSchwartzman&quot;</span>;</span>
+<span id="cb21-39"><a href="surrealist-photography.html#cb21-39"></a>                Model myPedModel = PedHash.<span class="fu">AviSchwartzman</span>;</span>
 <span id="cb21-40"><a href="surrealist-photography.html#cb21-40"></a>    </span>
-<span id="cb21-41"><a href="surrealist-photography.html#cb21-41"></a>                    <span class="co">//create a position relative to the player</span></span>
-<span id="cb21-42"><a href="surrealist-photography.html#cb21-42"></a>                    Vector3 myPedSpawnPosition = Game.<span class="fu">Player</span>.<span class="fu">Character</span>.<span class="fu">GetOffsetInWorldCoords</span>(<span class="kw">new</span> <span class="fu">Vector3</span>(<span class="dv">0</span>, <span class="dv">5</span>, <span class="dv">0</span>));</span>
+<span id="cb21-41"><a href="surrealist-photography.html#cb21-41"></a>        <span class="co">//create a position relative to the player</span></span>
+<span id="cb21-42"><a href="surrealist-photography.html#cb21-42"></a>        Vector3 myPedSpawnPosition = Game.<span class="fu">Player</span>.<span class="fu">Character</span>.<span class="fu">GetOffsetInWorldCoords</span>(<span class="kw">new</span> <span class="fu">Vector3</span>(<span class="dv">0</span>, <span class="dv">5</span>, <span class="dv">0</span>));</span>
 <span id="cb21-43"><a href="surrealist-photography.html#cb21-43"></a>    </span>
-<span id="cb21-44"><a href="surrealist-photography.html#cb21-44"></a>                    <span class="co">//create a Ped with the chosen model, spawning at the chosen position</span></span>
-<span id="cb21-45"><a href="surrealist-photography.html#cb21-45"></a>                    <span class="dt">var</span> myPed1 = World.<span class="fu">CreatePed</span>(myPedModel, myPedSpawnPosition); </span>
+<span id="cb21-44"><a href="surrealist-photography.html#cb21-44"></a>        <span class="co">//create a Ped with the chosen model, spawning at the chosen position</span></span>
+<span id="cb21-45"><a href="surrealist-photography.html#cb21-45"></a>        <span class="dt">var</span> myPed1 = World.<span class="fu">CreatePed</span>(myPedModel, myPedSpawnPosition); </span>
 <span id="cb21-46"><a href="surrealist-photography.html#cb21-46"></a>            }</span>
 <span id="cb21-47"><a href="surrealist-photography.html#cb21-47"></a>        }</span>
 <span id="cb21-48"><a href="surrealist-photography.html#cb21-48"></a>    }</span>
 <span id="cb21-49"><a href="surrealist-photography.html#cb21-49"></a>}</span></code></pre></div>
 </details>
+<p><a href="" target="_blank"><img src="assets/scriptingGifs/spawnNPC.gif" style="display: block; margin: auto auto auto 0;" /></a></p>
 </div>
 <div id="control-multiple-npcs" class="section level3 unnumbered hasAnchor">
 <h3>Control Multiple NPCs<a href="surrealist-photography.html#control-multiple-npcs" class="anchor-section" aria-label="Anchor link to header"></a></h3>
