@@ -98,19 +98,24 @@ namespace moddingTutorial
 			if(e.KeyCode == Keys.K)
 			{
 				//select a model and store it in a variable
-				Models myPedModel = "PedHash.AviSchwartzman";
+				Model myPedModel = PedHash.AviSchwartzman;
 	
-        			//create a position relative to the player
-       				Vector3 myPedSpawnPosition = Game.Player.Character.GetOffsetInWorldCoords(new Vector3(0, 5, 0));
+        //create a position relative to the player
+       	Vector3 myPedSpawnPosition = Game.Player.Character.GetOffsetInWorldCoords(new Vector3(0, 5, 0));
 	
-      				//create a Ped with the chosen model, spawning at the chosen position
-       				var myPed1 = World.CreatePed(myPedModel, myPedSpawnPosition); 
+      	//create a Ped with the chosen model, spawning at the chosen position
+       	var myPed1 = World.CreatePed(myPedModel, myPedSpawnPosition); 
 			}
 		}
 	}
 }
 ```
 </details>
+
+```{r fig.align='left', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html'), fig.link=''}
+knitr::include_graphics('assets/scriptingGifs/spawnNPC.gif', dpi = NA)
+```
+
 
 ### Control Multiple NPCs {-}
 
