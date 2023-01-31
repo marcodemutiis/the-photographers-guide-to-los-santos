@@ -402,12 +402,12 @@ To make a Ped appear in front of the player we can create a vector3 data type wi
 <div id="nearby-npcs" class="section level3 unnumbered hasAnchor">
 <h3>Nearby NPCs<a href="surrealist-photography.html#nearby-npcs" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Script Hook V DOt Net provides a function <code>GetNearbyPeds</code>which groups all the <code>Peds</code> within a nearby radius from a character.</p>
-<p>Create a new group that adds <code>Peds</code> which are closer than 20 meters from the player:</p>
+<p>Create a new group that adds <code>Peds</code> which are closer than 20 meters from the player (add that as a global variable in <code>public class moddingTutorial : Script</code>):</p>
 <div class="sourceCode" id="cb31"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb31-1"><a href="surrealist-photography.html#cb31-1"></a>Ped[] NearbyPeds = World.<span class="fu">GetNearbyPeds</span>(Game.<span class="fu">Player</span>.<span class="fu">Character</span>, 20f);</span></code></pre></div>
-<p>Use a <a href="https://www.simplilearn.com/tutorials/asp-dot-net-tutorial/csharp-foreach#:~:text=The%20foreach%20loop%20in%20C%23,readable%20alternative%20to%20for%20loop.">Foreach Loop</a> to get every <code>Ped</code> in the group and kill them:</p>
+<p>Use a <a href="https://www.simplilearn.com/tutorials/asp-dot-net-tutorial/csharp-foreach#:~:text=The%20foreach%20loop%20in%20C%23,readable%20alternative%20to%20for%20loop.">Foreach Loop</a> to get every <code>Ped</code> in the group and give them the task to put their hands up for a second:</p>
 <div class="sourceCode" id="cb32"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb32-1"><a href="surrealist-photography.html#cb32-1"></a><span class="kw">foreach</span> (Ped p <span class="kw">in</span> NearbyPeds)</span>
 <span id="cb32-2"><a href="surrealist-photography.html#cb32-2"></a>{</span>
-<span id="cb32-3"><a href="surrealist-photography.html#cb32-3"></a>    p.<span class="fu">Kill</span>();</span>
+<span id="cb32-3"><a href="surrealist-photography.html#cb32-3"></a>    p.<span class="fu">Task</span>.<span class="fu">HandsUp</span>(<span class="dv">1000</span>);</span>
 <span id="cb32-4"><a href="surrealist-photography.html#cb32-4"></a>}</span></code></pre></div>
 <p><code>GetNearbyPeds</code> does not sort out individual <code>Peds</code>in the group based on distance, so we have to do a bit of manual filtering to get the nearest NPC within the chosen radius from the player character.</p>
 <p>Define the global variables in the public class <code>public class moddingTutorial : Script</code>:</p>
@@ -433,9 +433,10 @@ To make a Ped appear in front of the player we can create a vector3 data type wi
 <span id="cb34-16"><a href="surrealist-photography.html#cb34-16"></a></span>
 <span id="cb34-17"><a href="surrealist-photography.html#cb34-17"></a>    <span class="kw">if</span> (nearestPed != <span class="kw">null</span> &amp;&amp; oldNearestPed != nearestPed)</span>
 <span id="cb34-18"><a href="surrealist-photography.html#cb34-18"></a>    {</span>
-<span id="cb34-19"><a href="surrealist-photography.html#cb34-19"></a>        nearestPed.<span class="fu">Kill</span>();</span>
+<span id="cb34-19"><a href="surrealist-photography.html#cb34-19"></a>        nearestPed.<span class="fu">Task</span>.<span class="fu">HandsUp</span>(<span class="dv">1000</span>);</span>
 <span id="cb34-20"><a href="surrealist-photography.html#cb34-20"></a>    }</span>
 <span id="cb34-21"><a href="surrealist-photography.html#cb34-21"></a>oldNearestPed = nearestPed;</span></code></pre></div>
+<p><a href="" target="_blank"><img src="assets/scriptingGifs/nearbyPeds.gif" style="display: block; margin: auto auto auto 0;" /></a></p>
 </div>
 <div id="give-tasks-to-npcs" class="section level3 unnumbered hasAnchor">
 <h3>Give Tasks to NPCs<a href="surrealist-photography.html#give-tasks-to-npcs" class="anchor-section" aria-label="Anchor link to header"></a></h3>

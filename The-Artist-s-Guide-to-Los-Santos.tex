@@ -1012,7 +1012,7 @@ Tell the 5th NPC to put their hands up for 3 seconds:
 
 Script Hook V DOt Net provides a function \texttt{GetNearbyPeds}which groups all the \texttt{Peds} within a nearby radius from a character.
 
-Create a new group that adds \texttt{Peds} which are closer than 20 meters from the player:
+Create a new group that adds \texttt{Peds} which are closer than 20 meters from the player (add that as a global variable in \texttt{public\ class\ moddingTutorial\ :\ Script}):
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1020,13 +1020,13 @@ Create a new group that adds \texttt{Peds} which are closer than 20 meters from 
 \end{Highlighting}
 \end{Shaded}
 
-Use a \href{https://www.simplilearn.com/tutorials/asp-dot-net-tutorial/csharp-foreach\#:~:text=The\%20foreach\%20loop\%20in\%20C\%23,readable\%20alternative\%20to\%20for\%20loop.}{Foreach Loop} to get every \texttt{Ped} in the group and kill them:
+Use a \href{https://www.simplilearn.com/tutorials/asp-dot-net-tutorial/csharp-foreach\#:~:text=The\%20foreach\%20loop\%20in\%20C\%23,readable\%20alternative\%20to\%20for\%20loop.}{Foreach Loop} to get every \texttt{Ped} in the group and give them the task to put their hands up for a second:
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \KeywordTok{foreach}\NormalTok{ (Ped p }\KeywordTok{in}\NormalTok{ NearbyPeds)}
 \NormalTok{\{}
-\NormalTok{    p.}\FunctionTok{Kill}\NormalTok{();}
+\NormalTok{    p.}\FunctionTok{Task}\NormalTok{.}\FunctionTok{HandsUp}\NormalTok{(}\DecValTok{1000}\NormalTok{);}
 \NormalTok{\}}
 \end{Highlighting}
 \end{Shaded}
@@ -1065,7 +1065,7 @@ Get and parse the nearby NPCs in the OnTick function \texttt{private\ void\ onTi
 
     \KeywordTok{if}\NormalTok{ (nearestPed != }\KeywordTok{null}\NormalTok{ && oldNearestPed != nearestPed)}
 \NormalTok{    \{}
-\NormalTok{        nearestPed.}\FunctionTok{Kill}\NormalTok{();}
+\NormalTok{        nearestPed.}\FunctionTok{Task}\NormalTok{.}\FunctionTok{HandsUp}\NormalTok{(}\DecValTok{1000}\NormalTok{);}
 \NormalTok{    \}}
 \NormalTok{oldNearestPed = nearestPed;}
 \end{Highlighting}
