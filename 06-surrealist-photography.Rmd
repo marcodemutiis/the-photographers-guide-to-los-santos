@@ -467,9 +467,9 @@ myPeds[2].Task.ClearAllImmediately();
 Peace is restored in the universe. To remove the NPCs use ```Delete()```.
 
 ```cs
-myPeds[0].Task.Delete();
-myPeds[1].Task.Delete();
-myPeds[2].Task.Delete();
+myPeds[0].Delete();
+myPeds[1].Delete();
+myPeds[2].Delete();
 ```
 
 
@@ -528,25 +528,35 @@ Once you have requested your animation dictionary and it is loaded, you can play
 
 ```cs
 //request animation dictionary
-Function.Call(Hash.REQUEST_ANIM_DICT, "combat@chg_stance");
+Function.Call(Hash.REQUEST_ANIM_DICT, "cmini@strip_club@pole_dance@pole_a_2_stage");
  
 //wait 100 ms to load the animation
 Wait(100);
  
 //play animation from animation dictionary using the player character
-Function.Call(Hash.TASK_PLAY_ANIM, Game.Player.Character, "combat@chg_stance", "aimb_loop", 8.0, 8.0 * -1, -1, 0, 0, false, false, false);
+Function.Call(Hash.TASK_PLAY_ANIM, Game.Player.Character, "mini@strip_club@pole_dance@pole_a_2_stage", "pole_a_2_stage", 8.0, 8.0 * -1, -1, 0, 0, false, false, false);
  
 //wait 5 secs
 Wait(5000);
  
 //stop the animation
-Function.Call(Hash.STOP_ANIM_TASK, Game.Player.Character, "combat@chg_stance", "aimb_loop", 1.0);
+Function.Call(Hash.STOP_ANIM_TASK, Game.Player.Character, "mini@strip_club@pole_dance@pole_a_2_stage", "pole_a_2_stage", 1.0);
 ```
 
 Most information found for this functions were found [here](Source: http://gtaxscripting.blogspot.com/2016/06/tut-gta-v-playing-and-handling.html). More example code and information is avaiable there.
 
 There are 6645 animation dictionaries and 35460 animation clips. You can see some of the possible animations in GTA V here: [youtube.com/playlist?list=PLFy_1HUkWwEAgPtwtjjLYpKCbBiwXamST](https://www.youtube.com/playlist?list=PLFy_1HUkWwEAgPtwtjjLYpKCbBiwXamST).
 Here you can find a [list of available dictionaries and animations](https://docs.ragepluginhook.net/html/62951c37-a440-478c-b389-c471230ddfc5.htm).
+
+```{r fig.align='left', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html'), fig.link=''}
+knitr::include_graphics('assets/scriptingGifs/poleDance.gif', dpi = NA)
+```
+
+Fun fact: deers seem to be able to do pole dance animations too.
+
+```{r fig.align='left', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html'), fig.link=''}
+knitr::include_graphics('assets/scriptingGifs/poleDanceDeer.gif', dpi = NA)
+```
 
 
 Give animations to nearby peds.
