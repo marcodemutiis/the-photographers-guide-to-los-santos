@@ -267,15 +267,45 @@ Jump:
 Game.Player.Character.Task.Jump();
 ```
 
+```{r fig.align='left', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html'), fig.link=''}
+knitr::include_graphics('assets/scriptingGifs/jump.gif', dpi = NA)
+```
+
+
 Wander around:
 ```cs
 Game.Player.Character.Task.WanderAround();
 ```
 
+```{r fig.align='left', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html'), fig.link=''}
+knitr::include_graphics('assets/scriptingGifs/wanderAround.gif', dpi = NA)
+```
+
+
 Hands up for 3000 milliseconds:
 ```cs
 Game.Player.Character.Task.HandsUp(3000);
 ```
+
+```{r fig.align='left', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html'), fig.link=''}
+knitr::include_graphics('assets/scriptingGifs/handsUp.gif', dpi = NA)
+```
+
+Turn towards the camera:
+```cs
+Game.Player.Character.Task.TurnTo(GameplayCamera.Position);
+```
+
+```{r fig.align='left', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html'), fig.link=''}
+knitr::include_graphics('assets/scriptingGifs/turnTo.gif', dpi = NA)
+```
+
+Some of the tasks are temporary and accept a time parameter (in milliseconds). Others are persistent, meaning they will keep being executed until the task is actively stopped. To stop a task you can use the ```ClearAllImmediately();``` command:
+
+```cs
+Game.Player.Task.ClearAllImmediately();
+```
+
 
 ### Task Sequences {-}
 
