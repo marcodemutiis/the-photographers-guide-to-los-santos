@@ -309,9 +309,10 @@ To set a specific camera view we can use the native function <code>SET_FOLLOW_PE
 </div>
 <div id="setting-the-time-of-the-day" class="section level3 unnumbered hasAnchor">
 <h3>Setting the Time of the Day<a href="hyperrealism.html#setting-the-time-of-the-day" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>We can control the time and the light for our shots to the second in GTA V. We can specify the exact time of the day with the native function <code>SET_CLOCK_TIME</code>, followed by hour, minute and second.</p>
+<p>We can control the time and the light for our shots to the second in GTA V. We can specify the exact time of the day with the native function <code>SET_CLOCK_TIME</code>, followed by hour, minute and second. Note that the sun sets at 5:30 a.m. and goes down at 8 p.m.</p>
 <p>Set the imte of the day to 15:45:</p>
 <div class="sourceCode" id="cb49"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb49-1"><a href="hyperrealism.html#cb49-1"></a>Function.<span class="fu">Call</span>(Hash.<span class="fu">SET_CLOCK_TIME</span>, <span class="dv">15</span>, <span class="dv">45</span>, <span class="dv">00</span>);</span></code></pre></div>
+<p><a href="" target="_blank"><img src="assets/scriptingGifs/setTime.gif" style="display: block; margin: auto auto auto 0;" /></a></p>
 </div>
 <div id="controlling-the-weather" class="section level3 hasAnchor">
 <h3><span class="header-section-number">7.0.1</span> Controlling the Weather {–}<a href="hyperrealism.html#controlling-the-weather" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -330,6 +331,7 @@ To set a specific camera view we can use the native function <code>SET_FOLLOW_PE
 “BLIZZARD”</p>
 <p>Set the weather to blizzard:</p>
 <div class="sourceCode" id="cb50"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb50-1"><a href="hyperrealism.html#cb50-1"></a>Function.<span class="fu">Call</span>(Hash.<span class="fu">SET_WEATHER_TYPE_NOW_PERSIST</span>, <span class="st">&quot;BLIZZARD&quot;</span>);</span></code></pre></div>
+<p><a href="" target="_blank"><img src="assets/scriptingGifs/setWeather.gif" style="display: block; margin: auto auto auto 0;" /></a></p>
 </div>
 <div id="scripting-cinematic-fade-out-in" class="section level3 unnumbered hasAnchor">
 <h3>Scripting Cinematic Fade Out / In<a href="hyperrealism.html#scripting-cinematic-fade-out-in" class="anchor-section" aria-label="Anchor link to header"></a></h3>
