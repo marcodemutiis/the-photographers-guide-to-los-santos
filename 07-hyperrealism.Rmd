@@ -2,6 +2,7 @@
 
 //intro to the artistic current of photorealism and hyperrealism in painting and drawing, connected to the idea of photorealism and simulation in games (attempt to simulate life itself, not just photography), relationship between the game and the physical world, the way virtual spaces influence and shape society (training self driving cars in GTA V, CGI shaping architecture of buildings and object...), the blurrying of the lines between virtual and physical...
 
+
 ### _8k_ by Aram Bartholl {-}
 
 ```{r fig.align='left', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html')}
@@ -27,6 +28,7 @@ knitr::include_graphics('assets/maps/tataviamMountains.png', dpi = NA)
 ## Tutorial {-}
 
 ### Setting Camera Views {-}
+
 GTA V has 4 default camera views, which can be switched by pressing the ```V``` key on PC.
 To set a specific camera view we can use the native function ```SET_FOLLOW_PED_CAM_VIEW_MOD```, followed by number 0, 1, 2 or 4 to establish the desired point of view:
 
@@ -40,8 +42,41 @@ Switch to first person view:
 Function.Call(Hash.SET_FOLLOW_PED_CAM_VIEW_MODE, 4); 
 ```
 
+
+### Setting the Time of the Day {-}
+
+We can control the time and the light for our shots to the second in GTA V. We can specify the exact time of the day with the native function ```SET_CLOCK_TIME```, followed by hour, minute and second.
+
+Set the imte of the day to 15:45:
+```cs
+Function.Call(Hash.SET_CLOCK_TIME, 15, 45, 00);
+```
+
+
+### Controlling the Weather {–}
+
+We can choose among the following weather options using the native function ```SET_WEATHER_TYPE_NOW_PERSIST```:
+
+"CLEAR"
+"EXTRASUNNY"
+"CLOUDS"
+"OVERCAST"
+"RAIN"
+"CLEARING"
+"THUNDER"
+"SMOG"
+"FOGGY"
+"XMAS"
+"SNOWLIGHT"
+"BLIZZARD"
+
+Set the weather to blizzard:
+```cs
+Function.Call(Hash.SET_WEATHER_TYPE_NOW_PERSIST, "BLIZZARD");
+```
+
 	
-### Scripting Cinematic Fade Out/ In {-}
+### Scripting Cinematic Fade Out / In {-}
 
 Script Hook has native functions to create a fead to/from black. The function hash are ```DO_SCREEN_FADE_OUT``` and ```DO_SCREEN_FADE_IN``` and they are followed by the number of milliseconds to go from full black to showing the scene and viceversa.
 
