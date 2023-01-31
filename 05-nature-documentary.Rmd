@@ -48,7 +48,7 @@ artwork text
 
 + Download and install [Visual Studio Community](https://visualstudio.microsoft.com/vs/community/) (free version of VS). Open Visual Studio and check the .NET desktop development package and install it
 
-+ Run GTA V and test if Script Hook V is working by pressing ```F4```. This should toggle the console view.
++ Run GTA V and test if Script Hook V is working by pressing ```F4```. This should toggle the console view. Try to type Help() and press ``ÈNTER``` to get a list of available commands.
 
 ```{r fig.align='left', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html'), fig.link=''}
 knitr::include_graphics('assets/scriptingGifs/console.gif', dpi = NA)
