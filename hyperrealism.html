@@ -347,13 +347,15 @@ To set a specific camera view we can use the native function <code>SET_FOLLOW_PE
 <span id="cb54-3"><a href="hyperrealism.html#cb54-3"></a>    Function.<span class="fu">Call</span>(Hash.<span class="fu">DO_SCREEN_FADE_IN</span>, <span class="dv">3000</span>);</span>
 <span id="cb54-4"><a href="hyperrealism.html#cb54-4"></a>}</span></code></pre></div>
 <p>We could also create an automated check in our onTick loop, which keeps seeing if the screen has been faded to black. We can use the native function <code>IS_SCREEN_FADED_OUT</code> which is a boolean data type. This means it will return either true or false. If it returns true, it means the screen has been faded out.</p>
-<p>Let’s add an If statement in our onTick loop to chek if the screen has been faded to black, and if so we call a fade in over 3 second:</p>
+<p>Let’s add an “if” statement in our onTick loop to chek if the screen has been faded to black, and if so we teleport somewhere else and we call a fade in over 3 second:</p>
 <div class="sourceCode" id="cb55"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb55-1"><a href="hyperrealism.html#cb55-1"></a><span class="kw">if</span> (Function.<span class="fu">Call</span>&lt;<span class="dt">bool</span>&gt;(Hash.<span class="fu">IS_SCREEN_FADED_OUT</span>))</span>
 <span id="cb55-2"><a href="hyperrealism.html#cb55-2"></a>{</span>
-<span id="cb55-3"><a href="hyperrealism.html#cb55-3"></a>    <span class="fu">Wait</span>(<span class="dv">500</span>);</span>
-<span id="cb55-4"><a href="hyperrealism.html#cb55-4"></a>    GTA.<span class="fu">Native</span>.<span class="fu">Function</span>.<span class="fu">Call</span>(Hash.<span class="fu">DO_SCREEN_FADE_IN</span>, <span class="dv">3000</span>);</span>
-<span id="cb55-5"><a href="hyperrealism.html#cb55-5"></a>}</span></code></pre></div>
+<span id="cb55-3"><a href="hyperrealism.html#cb55-3"></a>    Function.<span class="fu">Call</span>(Hash.<span class="fu">SET_ENTITY_COORDS</span>, Game.<span class="fu">Player</span>.<span class="fu">Character</span>, <span class="fl">-1374.881f</span>, <span class="fl">-1398.835f</span>, <span class="fl">6.141f</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>);</span>
+<span id="cb55-4"><a href="hyperrealism.html#cb55-4"></a>    <span class="fu">Wait</span>(<span class="dv">500</span>);</span>
+<span id="cb55-5"><a href="hyperrealism.html#cb55-5"></a>    GTA.<span class="fu">Native</span>.<span class="fu">Function</span>.<span class="fu">Call</span>(Hash.<span class="fu">DO_SCREEN_FADE_IN</span>, <span class="dv">3000</span>);</span>
+<span id="cb55-6"><a href="hyperrealism.html#cb55-6"></a>}</span></code></pre></div>
 <p>Now if you try to hit the ‘O’ key, the screen will fade out, and then it will automatically fade in again.</p>
+<p><a href="" target="_blank"><img src="assets/scriptingGifs/fadeoutin.gif" style="display: block; margin: auto auto auto 0;" /></a></p>
 </div>
 <div id="natural-vision-evolved-mod" class="section level3 unnumbered hasAnchor">
 <h3>Natural Vision Evolved Mod<a href="hyperrealism.html#natural-vision-evolved-mod" class="anchor-section" aria-label="Anchor link to header"></a></h3>

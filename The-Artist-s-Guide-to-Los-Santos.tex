@@ -1743,12 +1743,13 @@ And a fade over 3 seconds when we press the letter key `I':
 
 We could also create an automated check in our onTick loop, which keeps seeing if the screen has been faded to black. We can use the native function \texttt{IS\_SCREEN\_FADED\_OUT} which is a boolean data type. This means it will return either true or false. If it returns true, it means the screen has been faded out.
 
-Let's add an If statement in our onTick loop to chek if the screen has been faded to black, and if so we call a fade in over 3 second:
+Let's add an ``if'' statement in our onTick loop to chek if the screen has been faded to black, and if so we teleport somewhere else and we call a fade in over 3 second:
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \KeywordTok{if}\NormalTok{ (Function.}\FunctionTok{Call}\NormalTok{<}\DataTypeTok{bool}\NormalTok{>(Hash.}\FunctionTok{IS_SCREEN_FADED_OUT}\NormalTok{))}
 \NormalTok{\{}
+\NormalTok{    Function.}\FunctionTok{Call}\NormalTok{(Hash.}\FunctionTok{SET_ENTITY_COORDS}\NormalTok{, Game.}\FunctionTok{Player}\NormalTok{.}\FunctionTok{Character}\NormalTok{, }\FloatTok{-1374.881f}\NormalTok{, }\FloatTok{-1398.835f}\NormalTok{, }\FloatTok{6.141f}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{);}
     \FunctionTok{Wait}\NormalTok{(}\DecValTok{500}\NormalTok{);}
 \NormalTok{    GTA.}\FunctionTok{Native}\NormalTok{.}\FunctionTok{Function}\NormalTok{.}\FunctionTok{Call}\NormalTok{(Hash.}\FunctionTok{DO_SCREEN_FADE_IN}\NormalTok{, }\DecValTok{3000}\NormalTok{);}
 \NormalTok{\}}
