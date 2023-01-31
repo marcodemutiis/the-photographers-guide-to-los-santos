@@ -389,7 +389,7 @@ To make a Ped appear in front of the player we can create a vector3 data type wi
 <p><a href="" target="_blank"><img src="assets/scriptingGifs/spawn5Peds.gif" style="display: block; margin: auto auto auto 0;" /></a></p>
 <p>Now all the 5 <code>Peds</code> are part of the myPeds[] <code>List</code>. You can control each Ped individually by calling their individual number ID in the group. The first spawn <code>Ped</code> is myPed[0], the last one is myPeds[4].</p>
 <p>Tell the 1st spawned NPC to start wandering around:</p>
-<div class="sourceCode" id="cb27"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb27-1"><a href="surrealist-photography.html#cb27-1"></a>myPeds[<span class="dv">0</span>].<span class="fu">WanderAround</span>();</span></code></pre></div>
+<div class="sourceCode" id="cb27"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb27-1"><a href="surrealist-photography.html#cb27-1"></a>myPeds[<span class="dv">0</span>].<span class="fu">Task</span>.<span class="fu">WanderAround</span>();</span></code></pre></div>
 <p>Kill the 2nd spawned NPC:</p>
 <div class="sourceCode" id="cb28"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb28-1"><a href="surrealist-photography.html#cb28-1"></a>myPeds[<span class="dv">1</span>].<span class="fu">Kill</span>();</span></code></pre></div>
 <p>Tell the 3rd and 4th NPCs to fight each other:</p>
