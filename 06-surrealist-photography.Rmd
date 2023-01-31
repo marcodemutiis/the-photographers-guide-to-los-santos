@@ -774,6 +774,7 @@ El Gordo Lighthouse X:3430.155 Y:5174.196 Z:41.280
 ```
 </details>
 
+
 ```{r fig.align='left', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html'), fig.link=''}
 knitr::include_graphics('assets/scriptingGifs/teleport.gif', dpi = NA)
 ```
