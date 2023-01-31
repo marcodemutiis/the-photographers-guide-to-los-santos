@@ -165,7 +165,7 @@ Now all the 5 ```Peds``` are part of the myPeds[] ```List```. You can control ea
 
 Tell the 1st spawned NPC to start wandering around:
 ```cs
-myPeds[0].WanderAround();
+myPeds[0].Task.WanderAround();
 ```
 
 Kill the 2nd spawned NPC:
