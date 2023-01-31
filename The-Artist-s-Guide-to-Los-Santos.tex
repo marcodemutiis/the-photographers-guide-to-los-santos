@@ -964,7 +964,7 @@ In the onKeyDown function \texttt{private\ void\ onKeyDown(object\ sender,\ KeyE
 \KeywordTok{for}\NormalTok{ (}\DataTypeTok{int}\NormalTok{ i = }\DecValTok{0}\NormalTok{; i < }\DecValTok{5}\NormalTok{; i++)}
 \NormalTok{\{}
     \CommentTok{//spawn a new Ped called newPed}
-    \DataTypeTok{var}\NormalTok{ newPed = World.}\FunctionTok{CreatePed}\NormalTok{(PedHash.}\FunctionTok{AviSchwartzman}\NormalTok{, Game.}\FunctionTok{Player}\NormalTok{.}\FunctionTok{Character}\NormalTok{.}\FunctionTok{GetOffsetInWorldCoords}\NormalTok{(}\KeywordTok{new} \FunctionTok{Vector3}\NormalTok{(i, }\DecValTok{3}\NormalTok{, }\DecValTok{0}\NormalTok{)));}
+    \DataTypeTok{var}\NormalTok{ newPed = World.}\FunctionTok{CreatePed}\NormalTok{(PedHash.}\FunctionTok{Clown01SMY}\NormalTok{, Game.}\FunctionTok{Player}\NormalTok{.}\FunctionTok{Character}\NormalTok{.}\FunctionTok{GetOffsetInWorldCoords}\NormalTok{(}\KeywordTok{new} \FunctionTok{Vector3}\NormalTok{(i}\FloatTok{-2.5f}\NormalTok{, }\DecValTok{8}\NormalTok{, }\DecValTok{0}\NormalTok{)));}
     \CommentTok{//add the new Ped to my list of Peds myPeds}
 \NormalTok{    myPeds.}\FunctionTok{Add}\NormalTok{(newPed);}
 \NormalTok{\}}
@@ -973,11 +973,36 @@ In the onKeyDown function \texttt{private\ void\ onKeyDown(object\ sender,\ KeyE
 
 Now all the 5 \texttt{Peds} are part of the myPeds{[}{]} \texttt{List}. You can control each Ped individually by calling their individual number ID in the group. The first spawn \texttt{Ped} is myPed{[}0{]}, the last one is myPeds{[}4{]}.
 
-Kill the 3rd spawned NPC:
+Tell the 1st spawned NPC to start wandering around:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{myPeds[}\DecValTok{2}\NormalTok{].}\FunctionTok{Kill}\NormalTok{();}
+\NormalTok{myPeds[}\DecValTok{0}\NormalTok{].}\FunctionTok{WanderAround}\NormalTok{();}
+\end{Highlighting}
+\end{Shaded}
+
+Kill the 2nd spawned NPC:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{myPeds[}\DecValTok{1}\NormalTok{].}\FunctionTok{Kill}\NormalTok{();}
+\end{Highlighting}
+\end{Shaded}
+
+Tell the 3rd and 4th NPCs to fight each other:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{myPeds[}\DecValTok{2}\NormalTok{].}\FunctionTok{FightAgainst}\NormalTok{(myPeds[}\DecValTok{3}\NormalTok{]);}
+\NormalTok{myPeds[}\DecValTok{3}\NormalTok{].}\FunctionTok{FightAgainst}\NormalTok{(myPeds[}\DecValTok{2}\NormalTok{]);}
+\end{Highlighting}
+\end{Shaded}
+
+Tell the 5th NPC to put their hands up for 3 seconds:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{myPeds[}\DecValTok{4}\NormalTok{].}\FunctionTok{Task}\NormalTok{.}\FunctionTok{HandsUp}\NormalTok{(}\DecValTok{3000}\NormalTok{);}
 \end{Highlighting}
 \end{Shaded}
 
