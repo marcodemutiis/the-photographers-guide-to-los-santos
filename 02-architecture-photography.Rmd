@@ -57,7 +57,7 @@ On windows 10 and 11 you can use the Game bar to take game screenshots and start
 + Click on "See my captures" to access the image and video files.
 
 ```{r fig.align='left', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html'), fig.link='https://www.heterotopiaszine.com/'}
-knitr::include_graphics('assets/maps/gameBar.png', dpi = NA)
+knitr::include_graphics('assets/gameBar.png', dpi = NA)
 ```
 
 
