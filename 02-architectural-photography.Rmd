@@ -1,4 +1,4 @@
-# Architecture Photography
+# Architectural Photography
 
 //general intro on architecture in game spaces, the contruction of virtual cities, architecture photography and how it relates to the game environment, the player as a photographer documenting urban spaces...
 
@@ -7,7 +7,8 @@
 
 
 "Pictures speak a language of their own. They offer a discourse that is unlike the physical experience of architecture. They transform volume into surface; distil matter into forms and signs. Photography shapes architecture, enlarging and reducing it, heightening and shortening it, accentuating it, yet largely leaving it to its own devices."
-– Urs Stahel, Foreword to Concrete - _Photography and Architecture_ exhibition catalogue, 2013
+– Urs Stahel, Foreword to Concrete - _Photography and Architecture_ exhibition catalogue, 2013 
+Hello world.^[Hello world footnote.]
 
 Architecture photography was born with the invention of heliographs, daguerrotypes and large format cameras in the first half of the 19th century. Due to the long exposure times, buildings were the ideal subjects for the early scientific experiments of oseph Nicéphore Niépce, Louis-Jacques-Mandé Daguerre and William Talbot. 
 
