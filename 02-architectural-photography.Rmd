@@ -2,7 +2,7 @@
 
 //general intro on architecture in game spaces, the contruction of virtual cities, architecture photography and how it relates to the game environment, the player as a photographer documenting urban spaces...
 
-> ### “I saw it as the end of architecture... by pushing the concept to its limit and primarily by using the photograph as a point of departure. This is reflected in the idea that the great majority of images are no longer the expression of a subject, or the reality of an object, but almost exclusively the technical fulfilment of all its intrinsic possibilities. It’s the photographic medium that does all the work. People think they’re photographing a scene, but they’re only technical operators of the device’s infinite virtuality. The virtual is the device that wants nothing more than to function, that demands to function.” {–}
+> ## “I saw it as the end of architecture... by pushing the concept to its limit and primarily by using the photograph as a point of departure. This is reflected in the idea that the great majority of images are no longer the expression of a subject, or the reality of an object, but almost exclusively the technical fulfilment of all its intrinsic possibilities. It’s the photographic medium that does all the work. People think they’re photographing a scene, but they’re only technical operators of the device’s infinite virtuality. The virtual is the device that wants nothing more than to function, that demands to function.”{–}
 > – Jean Baudrillard - _The Singular Objects of Architecture and Philosophy_, 2000
 
 
