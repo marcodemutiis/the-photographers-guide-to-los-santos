@@ -64,7 +64,7 @@ knitr::include_graphics('assets/scriptingGifs/snapmatic1.gif', dpi = NA)
 + Zoom in and out with the ```Mouse Wheel``` on PC, or ```LEFT STICK``` on Playstation.
 
 ```{r fig.align='center', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html')}
-knitr::include_graphics('assets/scriptingGifs/snapmatic3.gif', dpi = NA)
+knitr::include_graphics('assets/scriptingGifs/snapmatic2.gif', dpi = NA)
 ```
 
 + You can shuffle through filters with ```DOWN``` or borders with ```UP```.
