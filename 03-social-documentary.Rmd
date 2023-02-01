@@ -47,24 +47,26 @@ artwork text
 
 Snapmatic is the photo app on your simulated mobile phone in GTA V.
 
-+ Press ```UP``` on the d-pad to bring up your phone.
++ Press ```UP``` on the on the keyboard (PC) or d-pad (Playstation) to bring up your phone.
 
 + Select the Snapmatic app - it's on the bottom left of the homescreen.
 
-+ You can shuffle through filters with ```DOWN``` on the d-pad or borders with ```UP``` on the d-pad.
++ You can shuffle through filters with ```DOWN``` or borders with ```UP```.
 
-+ Move the camera with the ```RIGHT STICK``` and zoom in and out with the ```LEFT STICK```.
++ Move the camera with the ```Mouse``` on PC, or with the ```RIGHT STICK``` on Playstation. Zoom in and out with the ```Mouse Wheel``` on PC, or ```LEFT STICK``` on Playstation.
 
-+ You're also able to concentrate focus and depth of field.
-
-+ To take selfie press the ```R3 STICK``` to turn the camera on yourself.
++ To take selfie press the ```Mouse Wheel Button``` on PC or ```R3 STICK``` on Playstation to turn the camera on yourself.
 
 + ```L3``` will let you pull different facial expressions.
 
 + ```LEFT``` on the d-pad will let you strike more of a pose (this changes depending on the character).
 
-+ Once you're happy, take the photo with ```X``` on the PS4 and ```A``` on the Xbox One and save it to the Gallery
++ Once you're happy, take the photo with ``Ènter``` on pc or ```X``` on the Playstation save it to the Gallery.
 
++ You can upload your picture to your Rockstar Game sSocial Club profile by going to the gallery and pressing the "Left Ctrl" key on PC. Your photos will be published on socialclub.rockstargames.com/member/USERNAME/photos, where USERNAME is replaced by your actual username.
 
+```{r fig.align='center', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html')}
+knitr::include_graphics('assets/scriptingGifs/snapmatic.gif', dpi = NA)
+```
 
 ## Content Replication Assignment {-}

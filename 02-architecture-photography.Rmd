@@ -2,6 +2,68 @@
 
 //general intro on architecture in game spaces, the contruction of virtual cities, architecture photography and how it relates to the game environment, the player as a photographer documenting urban spaces...
 
+“I saw it as the end of architecture... by pushing the concept to its limit and primarily by using the photograph as a point of departure. This is reflected in the idea that the great majority of images are no longer the expression of a subject, or the reality of an object, but almost exclusively the technical fulfilment of all its intrinsic possibilities. It’s the photographic medium that does all the work. People think they’re photographing a scene, but they’re only technical operators of the device’s infinite virtuality. The virtual is the device that wants nothing more than to function, that demands to function.”
+– Jean Baudrillard - _The Singular Objects of Architecture and Philosophy_, 2000
+
+
+"Pictures speak a language of their own. They offer a discourse that is unlike the physical experience of architecture. They transform volume into surface; distil matter into forms and signs. Photography shapes architecture, enlarging and reducing it, heightening and shortening it, accentuating it, yet largely leaving it to its own devices."
+– Urs Stahel, Foreword to Concrete - _Photography and Architecture_ exhibition catalogue, 2013
+
+Architecture photography was born with the invention of heliographs, daguerrotypes and large format cameras in the first half of the 19th century. Due to the long exposure times, buildings were the ideal subjects for the early scientific experiments of oseph Nicéphore Niépce, Louis-Jacques-Mandé Daguerre and William Talbot. 
+
+```{r fig.align='left', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html'), fig.link=''}
+knitr::include_graphics('assets/architecture_photography/niepce.jpeg', dpi = NA)
+```
+_View from the Window at Le Gras_ by Joseph Nicéphore Niépce, 1826-27 
+
+
+```{r fig.align='left', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html'), fig.link=''}
+knitr::include_graphics('assets/architecture_photography/daguerre.jpeg', dpi = NA)
+```
+_Paris’ Boulevard du Temple_ by Louis-Jacques-Mandé Daguerre, 1839
+
+
+While the relationship between architecture and photography has been part of the medium from its birth for technical reasons, this form of image making has evolved to visually explore the connection with material spaces and forms, as well as the relation between human perception and architectural bodies. "An image of a certain building is, in fact, _part_ of its architecture". - Lorenzo Rocha
+
+The first architectural photographer is considered to be Joseph-Philibert Girault de Prangey (1804 – 1892), who started to take daguerrotypes of iconic buildings like the Parthenon in Athens and Notre Dame in Paris from 1841. Architectural photography evolved in two distinct approaches, namely Elevation and Perspective. The Elevation Approach focuses on representing a structure as a two-dimensional image, obtaining a viewpoint that is parallel to the building and aimed at showing as many details as possible. The Perspective Approach aims at depicting the structure within the space, focusing on the third dimension and often taken at an angle or from a vantage point from a corner.
+
+
+```{r fig.align='left', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html'), fig.link=''}
+knitr::include_graphics('assets/architecture_photography/prangey.jpeg', dpi = NA)
+```
+_Cathédrale Notre-Dame de Paris_ by Joseph-Philibert Girault Prangey, 1841
+
+//Architecture photography and the modernist project
+//Modern architecture started to flourish with photographs in about the 1920s when urban photographers like Eugène Atget, Berenice Abbott, Walker Evans, and T. Lux Feiningercame into play. 
+
+//Eugène Atget(12 February 1857 – 4 August 1927), a French photographer known for his documentation of the streets of Paris before it entered Modernization. His works were published by Berenice Abbott after his death. 
+
+//Berenice Abbott(July 17, 1898 – December 9, 1991), an American Photographer is known for New York and urban design photographs in the 1930s and also for her portraits of between-the-wars 20th century cultural figures. 
+
+//"Modernist architecture and photography have been ideologically interconnected" Lorenzo Rocha
+//close connection between photographer and architect:
+//Armando Salas Portugal for Luis Barragán, 
+//Bill Engdahl for Mies van der Rohe, 
+//Julius Shulman for Richard Neutra
+
+
+//Bernhard Becher and Hilla Becher, a German conceptual artist and photographer also known as Bernd and Hilla Becher. They worked on Duo in projects which include photography of industrial buildings and structures and they were often organized in grids. They wrote several books and their works are for public display in the Art Institute of Chicago, Chicago, Tate Gallery, London, Museum of Modern Art, New York, and several other famous museums.
+
+//Michael Wesely, a German Architectural photographer known for his ultra-long exposure shots //Potsdamer Platz, Berlin (1997-99) by Michael Wesely 
+
+//Hélène Binet postmodern architecture
+
+
+//CGI
+//Into the universe of rendered architectural images - Joel McKim
+//Rendering the Desert of The Real – Tobias Revell
+//The Entasis of Elon Musk – Tamar Shafrir
+
+//Game Urbanism
+https://www.youandpea.com/atlas
+heterotopias
+
+
 ## _The Continuous City_, by Gareth Damian Martin {-}
 
 ```{r fig.align='left', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html'), fig.link='https://www.heterotopiaszine.com/'}
