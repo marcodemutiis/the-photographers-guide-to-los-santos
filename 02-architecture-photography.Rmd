@@ -45,6 +45,22 @@ Mark D Teo, The Urban Architecture of Los Angeles and Grand Theft Auto, 2015. ht
 
 #### Screenshotting {-}
 
+On windows there are several ways to take a screenshot. To capture your entire screen and automatically save the screenshot, press the ```Windows logo key``` + ```PrtScn key```. The screenshot will be saved to the ```Pictures > Screenshots folder```.
+
+
+On windows 10 and 11 you can use the Game bar to take game screenshots and start/stop game screen recordings. Press the ```Windows logo key```  + ```G``` on your keyboard to open Game Bar.
+
++ Press the camera icon to take a screenshot of the game screen.
+
++ Press the circle icon to start a clip, then the square icon to stop recording the game screen.
+
++ Click on "See my captures" to access the image and video files.
+
+```{r fig.align='left', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html'), fig.link='https://www.heterotopiaszine.com/'}
+knitr::include_graphics('assets/maps/gameBar.png', dpi = NA)
+```
+
+
 ## Content Replication Assignment {-}
 
 
