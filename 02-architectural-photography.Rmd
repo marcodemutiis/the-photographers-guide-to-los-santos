@@ -3,12 +3,8 @@
 //general intro on architecture in game spaces, the contruction of virtual cities, architecture photography and how it relates to the game environment, the player as a photographer documenting urban spaces...
 
 > ### “I saw it as the end of architecture... by pushing the concept to its limit and primarily by using the photograph as a point of departure. This is reflected in the idea that the great majority of images are no longer the expression of a subject, or the reality of an object, but almost exclusively the technical fulfilment of all its intrinsic possibilities. It’s the photographic medium that does all the work. People think they’re photographing a scene, but they’re only technical operators of the device’s infinite virtuality. The virtual is the device that wants nothing more than to function, that demands to function.”
-> > – Jean Baudrillard - _The Singular Objects of Architecture and Philosophy_, 2000
+> – Jean Baudrillard - _The Singular Objects of Architecture and Philosophy_, 2000
 
-
-"Pictures speak a language of their own. They offer a discourse that is unlike the physical experience of architecture. They transform volume into surface; distil matter into forms and signs. Photography shapes architecture, enlarging and reducing it, heightening and shortening it, accentuating it, yet largely leaving it to its own devices."
-– Urs Stahel, Foreword to Concrete - _Photography and Architecture_ exhibition catalogue, 2013 
-Hello world.^[Hello world footnote.]
 
 Architecture photography was born with the invention of heliographs, daguerrotypes and large format cameras in the first half of the 19th century. Due to the long exposure times, buildings were the ideal subjects for the early scientific experiments of oseph Nicéphore Niépce, Louis-Jacques-Mandé Daguerre and William Talbot. 
 
@@ -24,7 +20,7 @@ knitr::include_graphics('assets/architecture_photography/daguerre.jpeg', dpi = N
 _Paris’ Boulevard du Temple_ by Louis-Jacques-Mandé Daguerre, 1839
 
 
-While the relationship between architecture and photography has been part of the medium from its birth for technical reasons, this form of image making has evolved to visually explore the connection with material spaces and forms, as well as the relation between human perception and architectural bodies. "An image of a certain building is, in fact, _part_ of its architecture". - Lorenzo Rocha
+While the relationship between architecture and photography has been part of the medium from its birth for technical reasons, this form of image making has evolved to visually explore the connection with material spaces and forms, as well as the relation between human perception and architectural bodies. The photographic image is not simply a document of a structure, but "is, in fact, _part_ of its architecture".^[Lorenzo Rocha, _Photography and Modern Architecture_ ,"Concrete - Photography and Architecture", Scheidegger & Spiess, 2013] Curator Urs Stahel wrote that "pictures [...] offer a discourse that is unlike the physical experience of architecture. They transform volume into surface; distil matter into forms and signs. Photography shapes architecture, enlarging and reducing it, heightening and shortening it, accentuating it, yet largely leaving it to its own devices."^[Urs Stahel, Foreword to "Concrete - Photography and Architecture", Scheidegger & Spiess, 2013] 
 
 The first architectural photographer is considered to be Joseph-Philibert Girault de Prangey (1804 – 1892), who started to take daguerrotypes of iconic buildings like the Parthenon in Athens and Notre Dame in Paris from 1841. Architectural photography evolved in two distinct approaches, namely Elevation and Perspective. The Elevation Approach focuses on representing a structure as a two-dimensional image, obtaining a viewpoint that is parallel to the building and aimed at showing as many details as possible. The Perspective Approach aims at depicting the structure within the space, focusing on the third dimension and often taken at an angle or from a vantage point from a corner.
 
