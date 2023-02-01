@@ -7,9 +7,17 @@ The Photographer's Guide to Los Santos is an ongoing project that builds on top 
 
 The idea of a guide refers to in-game photography as a form of 'virtual tourism' ([Book, 2003](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=538182)), which was also the premise of an actual tourist guide published by Rough Guides in their 2019 [_Rough Guide to XBOX_](https://www.roughguides.com/articles/introduction-to-the-rough-guide-to-xbox/). Yet this guide project also understands the game world as a site for image production and artistic creation, turning the game into a destination for a 'game art tourist'. The Photographer's Guide to Los Santos presents the game environment of Grand Theft Auto V both as a space to explore and in which to create images, as well as a place to navigate and learn about some of the most important artworks that it has enabled to create. 
 
+```{r fig.align='center', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html'), fig.link='https://grandtheftdata.com/landmarks/#0,0,2,satellite'}
+knitr::include_graphics('assets/xbox-rough-guide-1.jpeg', dpi = NA)
+```
+
 The project also brings together several experiences from teaching in-game photography as an artistic practice in different educational settings and institutions, compiling materials and tools for students and artists interested in engaging with the field. The tourist guide of the game world doubles as a photography manual for the in-game photography age, featuring tutorials ranging from game screenshotting to computer programming for creative modding. Through the practical exercises, the project invites to rethink the game object as a space for creative, subversive and critical endeavours, which can be played differently, documented, reclaimed or modified through an artistic approach. 
 
 Finally, the project draws inspiration from the works of artists who have explored the 'metaplay' of photographing game words instead of following the game rules and attempt to reach the goal of winning. The Photographer's Guide to Los Santos is indebted to all the artists it features, but was particularly inspired by Gareth Damian Martin's live streamed workshop [_Photography Tour of No Man’s Sky_](https://www.twitch.tv/videos/591840067) (realized for [Now Play This Festival 2020](https://www.somersethouse.org.uk/whats-on/now-play-this-2020)), Total Refusal & Ismaël Joffroy Chandoutis's 2021 in-game lecture performance and guided tour [_Everyday Daylight_](https://vimeo.com/506064357) (realized for the [CCS Paris](https://ccsparis.com/en/events/total-refusal-digital-disarmament-movement-a-la-gaite-lyrique/)), and Alan Butler's epic 2020 live endurance performance [_Witness to a Changing West_](https://www.youtube.com/watch?v=R4Q2G6tOQ_Q) (realized for [Screen Walks](https://screenwalks.com/)) and his 'Content Replication Assignments'. 
+
+```{r fig.align='center', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html'), fig.link='https://grandtheftdata.com/landmarks/#0,0,2,satellite'}
+knitr::include_graphics('assets/witnessToAChangingWest_screen.png', dpi = NA)
+```
 
 
 ## Grand Theft Auto V Studies {-}
@@ -31,6 +39,10 @@ The themes explore different approaches and practices connected to established a
 
 The game environment thus becomes the space for possible 'art tours', getting insights into the artworks made in GTA V. This form of game tourism allows the player to see the behind the scenes, and experience the making of the works in its place of origin. While the complex algorithms of GTA V produce unexpected interactions and scenes, Los Santos is also stuck in the same time forever. Gas stations, shops, palm trees remain in the same state and location forever, allowing the tourist to witness the exact scene that was first encountered by the artists.
 
+```{r fig.align='center', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html'), fig.link='https://grandtheftdata.com/landmarks/#0,0,2,satellite'}
+knitr::include_graphics('assets/touristMap2.jpeg', dpi = NA)
+```
+
 
 ## Grand Theft Auto V Art Education {-}
 This project is also an attempt to introduce a video game as a space for artistic intervention, and an invitation to use its mechanics, its code and its environment as a creative tool itself. The game can be played, documented and captured through a form of artistic play, that differs from normative gameplay and does not focus on advancinf and winning but rather engages with the game object critically. Furthermore, the game software can also be manipulated, modified and used as an apparatus to create new images and interactions. The goal of this guide is to combine a curatorial approach that leads the viewer to discover the artworks made in GTA V with a hands on approach that teaches the player the tools for possible artistic interventions in this space.
@@ -39,3 +51,7 @@ Games are often seen as producing specific cultures and shaping identities throu
 
 The Photographer's Guide to Los Santos can be employed as a resource to accompany workshops for students and artists approaching computer games and interested in learning how to engage with it. Each thematic chapter features a tutorial section that introduces different techniques and strategies to capture images within Grand Theft Auto V, connected to the examples and locations of each section. The chapters are thought to be experienced in order, as the tutorials at times rely on knowledge that is built on top of previous lessons. Each tutorial is accompanied by content replication assignments, in which the readers is invited to use the skills learnd from each chapter to recreate a work presented in that section. Tutorials are intended for anyone who might be playing GTA V for the first time in their life and do not assume any previous experience, although some basic idea of programming is helpful when dealing with scripting and modding the game. 
 
+
+```{r fig.align='center', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html'), fig.link='https://grandtheftdata.com/landmarks/#0,0,2,satellite'}
+knitr::include_graphics('assets/CA_workshop20230123.jpg', dpi = NA)
+```
