@@ -51,22 +51,44 @@ Snapmatic is the photo app on your simulated mobile phone in GTA V.
 
 + Select the Snapmatic app - it's on the bottom left of the homescreen.
 
+```{r fig.align='center', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html')}
+knitr::include_graphics('assets/scriptingGifs/snapmatic0.gif', dpi = NA)
+```
+
++ Move the camera with the ```Mouse``` on PC, or with the ```RIGHT STICK``` on Playstation. 
+
+```{r fig.align='center', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html')}
+knitr::include_graphics('assets/scriptingGifs/snapmatic1.gif', dpi = NA)
+```
+
++ Zoom in and out with the ```Mouse Wheel``` on PC, or ```LEFT STICK``` on Playstation.
+
+```{r fig.align='center', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html')}
+knitr::include_graphics('assets/scriptingGifs/snapmatic3.gif', dpi = NA)
+```
+
 + You can shuffle through filters with ```DOWN``` or borders with ```UP```.
 
-+ Move the camera with the ```Mouse``` on PC, or with the ```RIGHT STICK``` on Playstation. Zoom in and out with the ```Mouse Wheel``` on PC, or ```LEFT STICK``` on Playstation.
+```{r fig.align='center', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html')}
+knitr::include_graphics('assets/scriptingGifs/snapmatic3.gif', dpi = NA)
+```
 
 + To take selfie press the ```Mouse Wheel Button``` on PC or ```R3 STICK``` on Playstation to turn the camera on yourself.
 
-+ ```L3``` will let you pull different facial expressions.
+```{r fig.align='center', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html')}
+knitr::include_graphics('assets/scriptingGifs/snapmatic4.gif', dpi = NA)
+```
 
-+ ```LEFT``` on the d-pad will let you strike more of a pose (this changes depending on the character).
++ Once you're happy, take the photo with ``Ènter``` on pc or ```X``` on the Playstation. Press it again to save it to the Gallery.
 
-+ Once you're happy, take the photo with ``Ènter``` on pc or ```X``` on the Playstation save it to the Gallery.
+```{r fig.align='center', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html')}
+knitr::include_graphics('assets/scriptingGifs/snapmatic5.gif', dpi = NA)
+```
 
 + You can upload your picture to your Rockstar Game sSocial Club profile by going to the gallery and pressing the "Left Ctrl" key on PC. Your photos will be published on socialclub.rockstargames.com/member/USERNAME/photos, where USERNAME is replaced by your actual username.
 
 ```{r fig.align='center', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html')}
-knitr::include_graphics('assets/scriptingGifs/snapmatic.gif', dpi = NA)
+knitr::include_graphics('assets/scriptingGifs/snapmatic6.gif', dpi = NA)
 ```
 
 ## Content Replication Assignment {-}
