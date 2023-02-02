@@ -85,10 +85,17 @@ knitr::include_graphics('assets/scriptingGifs/snapmatic4.gif', dpi = NA)
 knitr::include_graphics('assets/scriptingGifs/snapmatic5.gif', dpi = NA)
 ```
 
-+ You can upload your picture to your Rockstar Game sSocial Club profile by going to the gallery and pressing the "Left Ctrl" key on PC. Your photos will be published on socialclub.rockstargames.com/member/USERNAME/photos, where USERNAME is replaced by your actual username.
++ You can upload your picture to your Rockstar Game sSocial Club profile by going to the gallery and pressing the "Left Ctrl" key on PC.
 
 ```{r fig.align='center', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html')}
 knitr::include_graphics('assets/scriptingGifs/snapmatic6.gif', dpi = NA)
 ```
+
++ Your photos will be published on socialclub.rockstargames.com/member/USERNAME/photos, where USERNAME is replaced by your actual username.
+
+```{r fig.align='center', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html')}
+knitr::include_graphics('assets/rockstarSocialClub.png', dpi = NA)
+```
+
 
 ## Content Replication Assignment {-}
