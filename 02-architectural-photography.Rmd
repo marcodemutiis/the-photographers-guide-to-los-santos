@@ -60,6 +60,9 @@ _Cathédrale Notre-Dame de Paris_ by Joseph-Philibert Girault Prangey, 1841
 https://www.youandpea.com/atlas
 heterotopias
 
+"We are outnumbered by virtual worlds, overwhelmed by virtual architecture. Videogames and digital art have furnished us with a hundred thousand matterless forms--landscapes where no rock or earth has ever been present, cities founded on depthless skins of image and texture, expanses that will never see the light of a true sun.
+And yet, somehow there is material here, a new kind of matter. Some of it is borrowed—photographs, texture references, photogrammetry. Other parts are inherent properties of digital worlds— their obsession with surface, the logic of their light, their base particles; pixels, voxels, polygons."^[Gareth Damian Martin, _Represented , Contested, Inverted_, in "Heterotopias 001", 2017]
+
 
 ## _The Continuous City_, by Gareth Damian Martin {-}
 
@@ -101,6 +104,8 @@ Mark D Teo, The Urban Architecture of Los Angeles and Grand Theft Auto, 2015. ht
 ### Photographing the Game Screen {-}
 
 #### Analogue Game Photography {-}
+
+//Photographs of a TV screen taken with a digital camera often exhibit moiré patterns. Since both the TV screen and the digital camera use a scanning technique to produce or to capture pictures with horizontal scan lines, the conflicting sets of lines cause the moiré patterns. To avoid the effect, the digital camera can be aimed at an angle of 30 degrees to the TV screen.
 
 #### Screenshotting {-}
 
