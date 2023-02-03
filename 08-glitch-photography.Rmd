@@ -511,3 +511,18 @@ namespace moddingTutorial
 }
 ```
 	</details>
+
+### CodeWalker {–}
+//https://www.youtube.com/watch?v=VDoAjV3kv2g&list=PL3KgAhmoIEOU540c5hydM5KaVXeJcYiPF&ab_channel=Tobii
+
+//Downlaod and setup https://github.com/dexyfex/CodeWalker
+
+//move objects
+
+//add objects
+
+//delete objects (note: if Max LOD > LOD shows the object, you should not delete it, just move it but dont delete it)
+
+//replace textures with custom images
+
+## Content Replication Assignment

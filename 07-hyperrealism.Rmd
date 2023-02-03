@@ -152,6 +152,9 @@ Setup:
 + Go back to your downloads and inside the NVE folder you can choose some optional addons. Install/Uninstall them with Open IV as above Always choose to select "mod" folder and select install.
 
 + Open GTA V, press ```ESC``` to bring up the menu and go to ```SETTINGS```. Adjust the graphics quality, making sure ```Shader Quality```, ```Particle Quality``` and ```Post FX```are set to ```<Very High>```. Restart the game to make change in effect.
-  
+
+
+### ReShade {–}
+//install reshade + presets tutorial  
 
 ## Content Replication Assignment {-}
