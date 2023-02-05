@@ -60,6 +60,7 @@ knitr::include_graphics('assets/scriptingGifs/console.gif', dpi = NA)
 knitr::include_graphics('assets/loadSaveGame.png', dpi = NA)
 ```
 
+
 #### Creating a Mod File {-}
 
 + Open Visual Studio
