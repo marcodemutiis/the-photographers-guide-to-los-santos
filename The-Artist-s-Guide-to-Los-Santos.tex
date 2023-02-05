@@ -1676,4 +1676,1320 @@ El Gordo Lighthouse X:3430.155 Y:5174.196 Z:41.280
 
 Teleport the player to a beach, spawn ten whales on the shore and generate an NPC wandering aroud them and take a screenshot in the style of HAPP V2.
 
+\hypertarget{glitch-art}{%
+\chapter{Glitch Art}\label{glitch-art}}
+
+//intro to error in photography (Clément Chéroux) and glitch art
+
+\hypertarget{captures-by-raphael-brunk}{%
+\subsection*{\texorpdfstring{\emph{Captures} by Raphael Brunk}{Captures by Raphael Brunk}}\label{captures-by-raphael-brunk}}
+\addcontentsline{toc}{subsection}{\emph{Captures} by Raphael Brunk}
+
+Raphael Brunk, \emph{Capture75011.12\_23 }, 2016
+
+Raphael Brunk, \emph{Capture55326.4\_19}, 2016
+
+\href{http://www.darktaxa-project.net/artists/raphael-brunk/}{More about Captures}
+
+\hypertarget{getting-there-8}{%
+\subsection*{Getting there}\label{getting-there-8}}
+\addcontentsline{toc}{subsection}{Getting there}
+
+\begin{itemize}
+\tightlist
+\item
+  \href{https://grandtheftdata.com/landmarks/\#-94.207,530.818,5,atlas,name=3668,3668_Wild_Oats_Dr,_Vinewood_Hills}{3668 Wild Oats Dr, Vinewood Hills}
+\end{itemize}
+
+\hypertarget{readings-5}{%
+\section*{Readings}\label{readings-5}}
+\addcontentsline{toc}{section}{Readings}
+
+\hypertarget{tutorial-5}{%
+\section*{Tutorial}\label{tutorial-5}}
+\addcontentsline{toc}{section}{Tutorial}
+
+\hypertarget{controlling-the-game-camera}{%
+\subsection*{Controlling the Game Camera}\label{controlling-the-game-camera}}
+\addcontentsline{toc}{subsection}{Controlling the Game Camera}
+
+Example code
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{//this code was kindly provided by LeeC22 on https://gtaforums.com/topic/981454-free-cam-mode-in-c/#comment-1072077418}
+
+\KeywordTok{using}\NormalTok{ System;}
+\KeywordTok{using}\NormalTok{ System.}\FunctionTok{Windows}\NormalTok{.}\FunctionTok{Forms}\NormalTok{;}
+
+\KeywordTok{using}\NormalTok{ GTA;}
+\KeywordTok{using}\NormalTok{ GTA.}\FunctionTok{Math}\NormalTok{;}
+
+\KeywordTok{using}\NormalTok{ Control = GTA.}\FunctionTok{Control}\NormalTok{;}
+
+\KeywordTok{namespace}\NormalTok{ BasicFreeCamTest}
+\NormalTok{\{}
+    \KeywordTok{public} \KeywordTok{class}\NormalTok{ cBasicFreeCamTest : Script}
+\NormalTok{    \{}
+        \KeywordTok{private}\NormalTok{ Keys ActivationKey = Keys.}\FunctionTok{O}\NormalTok{;}
+        \KeywordTok{private} \DataTypeTok{bool}\NormalTok{ FreeCamActive = }\KeywordTok{false}\NormalTok{;}
+        \KeywordTok{private}\NormalTok{ Camera FreeCam;}
+
+        \KeywordTok{public} \FunctionTok{cBasicFreeCamTest}\NormalTok{()}
+\NormalTok{        \{}
+\NormalTok{            Tick += onTick;}
+\NormalTok{            KeyUp += onKeyUp;}
+\NormalTok{            Aborted += onAborted;}
+
+\NormalTok{            Interval = }\DecValTok{0}\NormalTok{;}
+\NormalTok{        \}}
+
+        \KeywordTok{private} \DataTypeTok{void} \FunctionTok{onTick}\NormalTok{(}\DataTypeTok{object}\NormalTok{ sender, EventArgs e)}
+\NormalTok{        \{}
+            \CommentTok{// Exits from the loop if the game is loading}
+            \KeywordTok{if}\NormalTok{ (Game.}\FunctionTok{IsLoading}\NormalTok{) }\KeywordTok{return}\NormalTok{;}
+
+            \KeywordTok{if}\NormalTok{ (FreeCamActive) }\FunctionTok{UpdateFreeCam}\NormalTok{();}
+\NormalTok{        \}}
+
+        \KeywordTok{private} \DataTypeTok{void} \FunctionTok{UpdateFreeCam}\NormalTok{()}
+\NormalTok{        \{}
+            \DataTypeTok{float}\NormalTok{ deltaTime = Game.}\FunctionTok{LastFrameTime}\NormalTok{;}
+            \DataTypeTok{float}\NormalTok{ speed = 5f;}
+            \DataTypeTok{float}\NormalTok{ camSpeed = speed * deltaTime;}
+            \DataTypeTok{float}\NormalTok{ rotSpeed = 40f;}
+            \DataTypeTok{float}\NormalTok{ camRotSpeed = rotSpeed * deltaTime;}
+
+\NormalTok{            Game.}\FunctionTok{DisableAllControlsThisFrame}\NormalTok{(}\DecValTok{2}\NormalTok{);}
+
+\NormalTok{            Vector3 camForward = FreeCam.}\FunctionTok{Direction}\NormalTok{.}\FunctionTok{Normalized}\NormalTok{; }\CommentTok{//FreeCam.ForwardVector}
+\NormalTok{            Vector3 camRight = Vector3.}\FunctionTok{Cross}\NormalTok{(Vector3.}\FunctionTok{WorldUp}\NormalTok{, camForward); }\CommentTok{//FreeCam.RightVector}
+\NormalTok{            Vector3 camUp = Vector3.}\FunctionTok{Cross}\NormalTok{(camRight, camForward); }\CommentTok{//FreeCam.UpVector?}
+
+                \KeywordTok{if}\NormalTok{ (Game.}\FunctionTok{IsDisabledControlJustPressed}\NormalTok{(}\DecValTok{2}\NormalTok{, Control.}\FunctionTok{FrontendCancel}\NormalTok{))}
+\NormalTok{            \{}
+\NormalTok{                World.}\FunctionTok{RenderingCamera}\NormalTok{ = }\KeywordTok{null}\NormalTok{;}
+\NormalTok{                FreeCam.}\FunctionTok{Destroy}\NormalTok{();}
+\NormalTok{                FreeCamActive = }\KeywordTok{false}\NormalTok{;}
+                \KeywordTok{return}\NormalTok{;}
+\NormalTok{            \}}
+
+            \DataTypeTok{float}\NormalTok{ fbSpeedMult = Game.}\FunctionTok{GetDisabledControlNormal}\NormalTok{(}\DecValTok{2}\NormalTok{, Control.}\FunctionTok{MoveUpDown}\NormalTok{);}
+            \DataTypeTok{float}\NormalTok{ lrSpeedMult = Game.}\FunctionTok{GetDisabledControlNormal}\NormalTok{(}\DecValTok{2}\NormalTok{, Control.}\FunctionTok{MoveLeftRight}\NormalTok{);}
+            \DataTypeTok{float}\NormalTok{ yawSpeedMult = Game.}\FunctionTok{GetDisabledControlNormal}\NormalTok{(}\DecValTok{2}\NormalTok{, Control.}\FunctionTok{LookLeftRight}\NormalTok{);}
+            \DataTypeTok{float}\NormalTok{ pitchSpeedMult = Game.}\FunctionTok{GetDisabledControlNormal}\NormalTok{(}\DecValTok{2}\NormalTok{, Control.}\FunctionTok{LookUpDown}\NormalTok{);}
+
+            \DataTypeTok{float}\NormalTok{ fbSpeed = camSpeed * fbSpeedMult;}
+            \DataTypeTok{float}\NormalTok{ lrSpeed = camSpeed * lrSpeedMult;}
+            \DataTypeTok{float}\NormalTok{ yawSpeed = camRotSpeed * yawSpeedMult;}
+            \DataTypeTok{float}\NormalTok{ pitchSpeed = camRotSpeed * pitchSpeedMult;}
+
+\NormalTok{            Vector3 camLR = camRight * -lrSpeed;}
+\NormalTok{            Vector3 camFB = camForward * -fbSpeed;}
+\NormalTok{            Vector3 camMove = camLR + camFB;}
+
+\NormalTok{            Vector3 camRot = }\KeywordTok{new} \FunctionTok{Vector3}\NormalTok{(pitchSpeed, }\DecValTok{0}\NormalTok{, -yawSpeed);}
+
+\NormalTok{            FreeCam.}\FunctionTok{Position}\NormalTok{ += camMove;}
+\NormalTok{            FreeCam.}\FunctionTok{Rotation}\NormalTok{ += camRot;}
+\NormalTok{        \}}
+
+        \KeywordTok{private} \DataTypeTok{void} \FunctionTok{onKeyUp}\NormalTok{(}\DataTypeTok{object}\NormalTok{ sender, KeyEventArgs e)}
+\NormalTok{        \{}
+            \KeywordTok{if}\NormalTok{ (e.}\FunctionTok{KeyCode}\NormalTok{ == ActivationKey)}
+\NormalTok{            \{}
+                \CommentTok{//toggle the freecam on/off}
+\NormalTok{                FreeCamActive = !FreeCamActive;}
+
+                \KeywordTok{if}\NormalTok{ (FreeCamActive) }\CommentTok{//ON}
+\NormalTok{                \{}
+\NormalTok{                    FreeCam = World.}\FunctionTok{CreateCamera}\NormalTok{(GameplayCamera.}\FunctionTok{Position}\NormalTok{, GameplayCamera.}\FunctionTok{Rotation}\NormalTok{, GameplayCamera.}\FunctionTok{FieldOfView}\NormalTok{);}
+\NormalTok{                    World.}\FunctionTok{RenderingCamera}\NormalTok{ = FreeCam;}
+\NormalTok{                    UI.}\FunctionTok{ShowSubtitle}\NormalTok{(}\StringTok{"FreeCam ON"}\NormalTok{, }\DecValTok{1000}\NormalTok{);}
+\NormalTok{                \}}
+                \KeywordTok{else} \CommentTok{//OFF}
+\NormalTok{                \{}
+\NormalTok{                    World.}\FunctionTok{RenderingCamera}\NormalTok{ = }\KeywordTok{null}\NormalTok{;}
+\NormalTok{                    FreeCam.}\FunctionTok{Destroy}\NormalTok{();}
+\NormalTok{                    UI.}\FunctionTok{ShowSubtitle}\NormalTok{(}\StringTok{"FreeCam OFF"}\NormalTok{, }\DecValTok{1000}\NormalTok{);}
+\NormalTok{                \}}
+\NormalTok{            \}}
+\NormalTok{        \}}
+
+        \KeywordTok{private} \DataTypeTok{void} \FunctionTok{onAborted}\NormalTok{(}\DataTypeTok{object}\NormalTok{ sender, EventArgs e)}
+\NormalTok{        \{}
+\NormalTok{            World.}\FunctionTok{RenderingCamera}\NormalTok{ = }\KeywordTok{null}\NormalTok{;}
+\NormalTok{        \}}
+\NormalTok{    \}}
+\NormalTok{\}}
+    
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{create-multiple-cameras}{%
+\subsection*{Create Multiple Cameras}\label{create-multiple-cameras}}
+\addcontentsline{toc}{subsection}{Create Multiple Cameras}
+
+Example code
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{using}\NormalTok{ System;}
+\KeywordTok{using}\NormalTok{ System.}\FunctionTok{Collections}\NormalTok{.}\FunctionTok{Generic}\NormalTok{;}
+\KeywordTok{using}\NormalTok{ System.}\FunctionTok{Linq}\NormalTok{;}
+\KeywordTok{using}\NormalTok{ System.}\FunctionTok{Text}\NormalTok{;}
+\KeywordTok{using}\NormalTok{ System.}\FunctionTok{Threading}\NormalTok{.}\FunctionTok{Tasks}\NormalTok{;}
+\KeywordTok{using}\NormalTok{ GTA;}
+\KeywordTok{using}\NormalTok{ GTA.}\FunctionTok{Math}\NormalTok{;}
+\KeywordTok{using}\NormalTok{ System.}\FunctionTok{Windows}\NormalTok{.}\FunctionTok{Forms}\NormalTok{;}
+\KeywordTok{using}\NormalTok{ System.}\FunctionTok{Drawing}\NormalTok{;}
+\KeywordTok{using}\NormalTok{ GTA.}\FunctionTok{Native}\NormalTok{;}
+
+\KeywordTok{namespace}\NormalTok{ ModdingTutorial}
+\NormalTok{\{}
+    \KeywordTok{public} \KeywordTok{class}\NormalTok{ ModdingTutorial : Script    }
+\NormalTok{    \{}
+\NormalTok{        Vector3 myCamPos;}
+        \DataTypeTok{int}\NormalTok{ CamSelect = }\DecValTok{0}\NormalTok{;}
+        \DataTypeTok{int}\NormalTok{ CamCount = }\DecValTok{3}\NormalTok{;}
+
+\NormalTok{        List<Ped> myPeds = }\KeywordTok{new}\NormalTok{ List<Ped>();}
+\NormalTok{        Model myModel = PedHash.}\FunctionTok{Abigail}\NormalTok{;}
+\NormalTok{        List<Vector3> myLocs = }\KeywordTok{new}\NormalTok{ List<Vector3>();}
+\NormalTok{        Camera newCam= }\KeywordTok{null}\NormalTok{;}
+\NormalTok{        List<Camera> myCam = }\KeywordTok{new}\NormalTok{ List<Camera>();}
+
+        
+        \KeywordTok{public} \FunctionTok{ModdingTutorial}\NormalTok{()}
+\NormalTok{        \{}
+            \KeywordTok{this}\NormalTok{.}\FunctionTok{Tick}\NormalTok{ += onTick;}
+            \KeywordTok{this}\NormalTok{.}\FunctionTok{KeyUp}\NormalTok{ += onKeyUp;}
+            \KeywordTok{this}\NormalTok{.}\FunctionTok{KeyDown}\NormalTok{ += onKeyDown;}
+
+\NormalTok{            myLocs.}\FunctionTok{Add}\NormalTok{(}\KeywordTok{new} \FunctionTok{Vector3}\NormalTok{(}\FloatTok{450.178f}\NormalTok{, }\FloatTok{5566.614f}\NormalTok{, }\FloatTok{806.183f}\NormalTok{)); }\CommentTok{//Mt.Chiliad}
+\NormalTok{            myLocs.}\FunctionTok{Add}\NormalTok{(}\KeywordTok{new} \FunctionTok{Vector3}\NormalTok{(}\FloatTok{24.775f}\NormalTok{, }\FloatTok{7644.102f}\NormalTok{, }\FloatTok{18.055f}\NormalTok{)); }\CommentTok{//Most Northern Point}
+\NormalTok{            myLocs.}\FunctionTok{Add}\NormalTok{(}\KeywordTok{new} \FunctionTok{Vector3}\NormalTok{(}\FloatTok{150.126f}\NormalTok{, }\FloatTok{-754.591f}\NormalTok{, }\FloatTok{261.865f}\NormalTok{)); }\CommentTok{//FIB Roof}
+
+            \KeywordTok{for}\NormalTok{ (}\DataTypeTok{int}\NormalTok{ i = }\DecValTok{0}\NormalTok{; i < CamCount; i++)}
+\NormalTok{            \{}
+                \CommentTok{//create Ped}
+                \DataTypeTok{var}\NormalTok{ newPed = World.}\FunctionTok{CreatePed}\NormalTok{(myModel, myLocs[i]);}
+\NormalTok{        Function.}\FunctionTok{Call}\NormalTok{(Hash.}\FunctionTok{SET_ENTITY_VISIBLE}\NormalTok{, newPed, }\KeywordTok{false}\NormalTok{, }\DecValTok{0}\NormalTok{);}
+\NormalTok{                myPeds.}\FunctionTok{Add}\NormalTok{(newPed);}
+
+                \CommentTok{//create Cam}
+\NormalTok{                newCam = World.}\FunctionTok{CreateCamera}\NormalTok{(Vector3.}\FunctionTok{Zero}\NormalTok{, myPeds[i].}\FunctionTok{Rotation}\NormalTok{, 50f);}
+\NormalTok{                myCam.}\FunctionTok{Add}\NormalTok{(newCam);}
+\NormalTok{                myCamPos = }\KeywordTok{new} \FunctionTok{Vector3}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{, 1f);}
+\NormalTok{            \}}
+            
+\NormalTok{        \}}
+
+        \KeywordTok{private} \DataTypeTok{void} \FunctionTok{onTick}\NormalTok{(}\DataTypeTok{object}\NormalTok{ sender, EventArgs e)}
+\NormalTok{        \{}
+            \CommentTok{//update Cams}
+            \KeywordTok{for}\NormalTok{ (}\DataTypeTok{int}\NormalTok{ i = }\DecValTok{0}\NormalTok{; i < CamCount; i++)}
+\NormalTok{            \{}
+\NormalTok{                myCam[i].}\FunctionTok{AttachTo}\NormalTok{(myPeds[i], myCamPos);}
+\NormalTok{                myCam[i].}\FunctionTok{Rotation}\NormalTok{ = myPeds[i].}\FunctionTok{Rotation}\NormalTok{;}
+\NormalTok{            \}}
+\NormalTok{        \}}
+
+        \KeywordTok{private} \DataTypeTok{void} \FunctionTok{onKeyUp}\NormalTok{(}\DataTypeTok{object}\NormalTok{ sender, KeyEventArgs e)}
+\NormalTok{        \{}
+            \CommentTok{//switch between cameras when pressing SHIFT + K}
+            \KeywordTok{if}\NormalTok{(e.}\FunctionTok{KeyCode}\NormalTok{ == Keys.}\FunctionTok{K}\NormalTok{ && e.}\FunctionTok{Modifiers}\NormalTok{ == Keys.}\FunctionTok{Shift}\NormalTok{ && myPeds[}\DecValTok{2}\NormalTok{] != }\KeywordTok{null}\NormalTok{)}
+\NormalTok{            \{}
+\NormalTok{                CamSelect = (CamSelect + }\DecValTok{1}\NormalTok{) % }\DecValTok{4}\NormalTok{;}
+                \KeywordTok{switch}\NormalTok{(CamSelect)}
+\NormalTok{                \{}
+                    \KeywordTok{case} \DecValTok{0}\NormalTok{: World.}\FunctionTok{RenderingCamera}\NormalTok{ = }\KeywordTok{null}\NormalTok{;}
+\NormalTok{                        UI.}\FunctionTok{ShowSubtitle}\NormalTok{(}\StringTok{"Showing Gameplay Cam View"}\NormalTok{);}
+                        \KeywordTok{break}\NormalTok{;}
+                    \KeywordTok{case} \DecValTok{1}\NormalTok{: World.}\FunctionTok{RenderingCamera}\NormalTok{ = myCam[}\DecValTok{0}\NormalTok{];}
+\NormalTok{                        UI.}\FunctionTok{ShowSubtitle}\NormalTok{(}\StringTok{"Showing Cam 1"}\NormalTok{);}
+                        \KeywordTok{break}\NormalTok{;}
+                    \KeywordTok{case} \DecValTok{2}\NormalTok{: World.}\FunctionTok{RenderingCamera}\NormalTok{ = myCam[}\DecValTok{1}\NormalTok{];}
+\NormalTok{                        UI.}\FunctionTok{ShowSubtitle}\NormalTok{(}\StringTok{"Showing Cam 2"}\NormalTok{);}
+                        \KeywordTok{break}\NormalTok{;}
+                    \KeywordTok{case} \DecValTok{3}\NormalTok{: World.}\FunctionTok{RenderingCamera}\NormalTok{ = myCam[}\DecValTok{2}\NormalTok{];}
+\NormalTok{                        UI.}\FunctionTok{ShowSubtitle}\NormalTok{(}\StringTok{"Showing Cam 3"}\NormalTok{);}
+                        \KeywordTok{break}\NormalTok{;}
+\NormalTok{                \}}
+\NormalTok{            \}}
+\NormalTok{        \}}
+
+        \KeywordTok{private} \DataTypeTok{void} \FunctionTok{onKeyDown}\NormalTok{(}\DataTypeTok{object}\NormalTok{ sender, KeyEventArgs e)}
+\NormalTok{        \{}
+\NormalTok{        \}}
+\NormalTok{    \}}
+\NormalTok{\}}
+    
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{attach-a-camera-to-an-entity}{%
+\subsection*{Attach a Camera to an Entity}\label{attach-a-camera-to-an-entity}}
+\addcontentsline{toc}{subsection}{Attach a Camera to an Entity}
+
+Example code
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{using}\NormalTok{ System;}
+\KeywordTok{using}\NormalTok{ System.}\FunctionTok{Collections}\NormalTok{.}\FunctionTok{Generic}\NormalTok{;}
+\KeywordTok{using}\NormalTok{ System.}\FunctionTok{Linq}\NormalTok{;}
+\KeywordTok{using}\NormalTok{ System.}\FunctionTok{Text}\NormalTok{;}
+\KeywordTok{using}\NormalTok{ System.}\FunctionTok{Threading}\NormalTok{.}\FunctionTok{Tasks}\NormalTok{;}
+
+\KeywordTok{using}\NormalTok{ GTA;}
+\KeywordTok{using}\NormalTok{ GTA.}\FunctionTok{Math}\NormalTok{;}
+\KeywordTok{using}\NormalTok{ System.}\FunctionTok{Windows}\NormalTok{.}\FunctionTok{Forms}\NormalTok{;}
+\KeywordTok{using}\NormalTok{ System.}\FunctionTok{Drawing}\NormalTok{;}
+\KeywordTok{using}\NormalTok{ GTA.}\FunctionTok{Native}\NormalTok{;}
+\KeywordTok{using}\NormalTok{ System.}\FunctionTok{IO}\NormalTok{;}
+
+
+\KeywordTok{namespace}\NormalTok{ moddingTutorial}
+\NormalTok{\{}
+    \KeywordTok{public} \KeywordTok{class}\NormalTok{ moddingTutorial : Script}
+\NormalTok{    \{}
+\NormalTok{        Vector3 myCamPos;}
+        \DataTypeTok{int}\NormalTok{ CamSelect = }\DecValTok{0}\NormalTok{;}
+\NormalTok{        Ped newPed = }\KeywordTok{null}\NormalTok{;}
+\NormalTok{        Camera myCam;}
+
+        \KeywordTok{public} \FunctionTok{moddingTutorial}\NormalTok{()}
+\NormalTok{        \{}
+            \KeywordTok{this}\NormalTok{.}\FunctionTok{Tick}\NormalTok{ += onTick;}
+            \KeywordTok{this}\NormalTok{.}\FunctionTok{KeyUp}\NormalTok{ += onKeyUp;}
+            \KeywordTok{this}\NormalTok{.}\FunctionTok{KeyDown}\NormalTok{ += onKeyDown;}
+\NormalTok{        \}}
+
+        \KeywordTok{private} \DataTypeTok{void} \FunctionTok{onTick}\NormalTok{(}\DataTypeTok{object}\NormalTok{ sender, EventArgs e) }\CommentTok{//this function gets executed continuously }
+\NormalTok{        \{}
+            \CommentTok{//exits from the loop if the game is loading}
+            \KeywordTok{if}\NormalTok{ (Game.}\FunctionTok{IsLoading}\NormalTok{) }\KeywordTok{return}\NormalTok{;}
+            
+            \CommentTok{//update the cameras if the ped is spawn}
+            \KeywordTok{if}\NormalTok{ (newPed != }\KeywordTok{null}\NormalTok{)}
+\NormalTok{            \{           }
+                \CommentTok{//create the cameras if none have been created yet.}
+                \KeywordTok{if}\NormalTok{ (myCam == }\KeywordTok{null}\NormalTok{)            }
+\NormalTok{                \{}
+\NormalTok{                    UI.}\FunctionTok{ShowSubtitle}\NormalTok{(}\StringTok{"Set new camera"}\NormalTok{);}
+\NormalTok{                    myCam = World.}\FunctionTok{CreateCamera}\NormalTok{(Vector3.}\FunctionTok{Zero}\NormalTok{, newPed.}\FunctionTok{Rotation}\NormalTok{, 50f);}
+                    \CommentTok{// Set the camera position (relative pos)          }
+\NormalTok{                    myCamPos = }\KeywordTok{new} \FunctionTok{Vector3}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{, 1f);}
+\NormalTok{                \}}
+                \CommentTok{//attach the cameras}
+\NormalTok{                myCam.}\FunctionTok{AttachTo}\NormalTok{(newPed, myCamPos);}
+                \CommentTok{//sync rotation}
+\NormalTok{                myCam.}\FunctionTok{Rotation}\NormalTok{ = newPed.}\FunctionTok{Rotation}\NormalTok{;}
+\NormalTok{            \}}
+\NormalTok{        \}}
+        
+
+        \KeywordTok{private} \DataTypeTok{void} \FunctionTok{onKeyUp}\NormalTok{(}\DataTypeTok{object}\NormalTok{ sender, KeyEventArgs e)}\CommentTok{//everything inside here is executed only when we release a key}
+\NormalTok{        \{}
+            \CommentTok{//press control+K to switch between gameplay default camera and the NPC camera}
+            \KeywordTok{if}\NormalTok{ (e.}\FunctionTok{KeyCode}\NormalTok{ == Keys.}\FunctionTok{K}\NormalTok{ && e.}\FunctionTok{Modifiers}\NormalTok{ == Keys.}\FunctionTok{Shift}\NormalTok{ && newPed != }\KeywordTok{null}\NormalTok{)}
+\NormalTok{            \{}
+\NormalTok{                CamSelect = (CamSelect + }\DecValTok{1}\NormalTok{) % }\DecValTok{2}\NormalTok{;}
+                \KeywordTok{switch}\NormalTok{ (CamSelect)}
+\NormalTok{                \{}
+                    \KeywordTok{case} \DecValTok{0}\NormalTok{: World.}\FunctionTok{RenderingCamera}\NormalTok{ = }\KeywordTok{null}\NormalTok{; }
+\NormalTok{                        UI.}\FunctionTok{ShowSubtitle}\NormalTok{(}\StringTok{"Showing Gameplay Cam View"}\NormalTok{); }
+                        \KeywordTok{break}\NormalTok{;}
+                    \KeywordTok{case} \DecValTok{1}\NormalTok{: World.}\FunctionTok{RenderingCamera}\NormalTok{ = myCam; }
+\NormalTok{                        UI.}\FunctionTok{ShowSubtitle}\NormalTok{(}\StringTok{"Showing NPC Cam View"}\NormalTok{); }
+                        \KeywordTok{break}\NormalTok{;}
+\NormalTok{                \}}
+
+\NormalTok{            \}}
+\NormalTok{        \}}
+
+        \KeywordTok{private} \DataTypeTok{void} \FunctionTok{onKeyDown}\NormalTok{(}\DataTypeTok{object}\NormalTok{ sender, KeyEventArgs e) }\CommentTok{//everything inside here is executed only when we press a key}
+\NormalTok{        \{}
+            \KeywordTok{if}\NormalTok{(e.}\FunctionTok{KeyCode}\NormalTok{ == Keys.}\FunctionTok{G}\NormalTok{)}
+\NormalTok{            \{}
+                \CommentTok{//spawn new Ped}
+\NormalTok{                newPed = World.}\FunctionTok{CreatePed}\NormalTok{(PedHash.}\FunctionTok{Cat}\NormalTok{, Game.}\FunctionTok{Player}\NormalTok{.}\FunctionTok{Character}\NormalTok{.}\FunctionTok{GetOffsetInWorldCoords}\NormalTok{(}\KeywordTok{new} \FunctionTok{Vector3}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{0}\NormalTok{)));}
+\NormalTok{            \}}
+        
+            \KeywordTok{if}\NormalTok{ (e.}\FunctionTok{KeyCode}\NormalTok{ == Keys.}\FunctionTok{H}\NormalTok{)}
+\NormalTok{            \{}
+                \CommentTok{//follow player (persistent)}
+\NormalTok{                Function.}\FunctionTok{Call}\NormalTok{(Hash.}\FunctionTok{TASK_FOLLOW_TO_OFFSET_OF_ENTITY}\NormalTok{, newPed.}\FunctionTok{Handle}\NormalTok{, Game.}\FunctionTok{Player}\NormalTok{.}\FunctionTok{Character}\NormalTok{.}\FunctionTok{Handle}\NormalTok{, 0f, 1f, 0f, }\FloatTok{2.0f}\NormalTok{, }\DecValTok{-1}\NormalTok{, 5f, }\KeywordTok{true}\NormalTok{);}
+                \CommentTok{//look at player}
+\NormalTok{                newPed.}\FunctionTok{Task}\NormalTok{.}\FunctionTok{LookAt}\NormalTok{(Game.}\FunctionTok{Player}\NormalTok{.}\FunctionTok{Character}\NormalTok{);}
+\NormalTok{            \}}
+            \KeywordTok{if}\NormalTok{ (e.}\FunctionTok{KeyCode}\NormalTok{ == Keys.}\FunctionTok{J}\NormalTok{)}
+\NormalTok{            \{}
+                \CommentTok{//stop NPC}
+\NormalTok{                newPed.}\FunctionTok{Task}\NormalTok{.}\FunctionTok{ClearAll}\NormalTok{();}
+\NormalTok{            \}}
+            \KeywordTok{if}\NormalTok{ (e.}\FunctionTok{KeyCode}\NormalTok{ == Keys.}\FunctionTok{L}\NormalTok{)}
+\NormalTok{            \{   }
+                \CommentTok{//delete ped}
+\NormalTok{                newPed.}\FunctionTok{Delete}\NormalTok{();}
+\NormalTok{            \}}
+\NormalTok{        \}}
+\NormalTok{    \}}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{switching-character-through-satellite-camera-view}{%
+\subsection*{Switching Character through Satellite Camera View}\label{switching-character-through-satellite-camera-view}}
+\addcontentsline{toc}{subsection}{Switching Character through Satellite Camera View}
+
+Example code
+
+\begin{Shaded}
+\begin{Highlighting}[]
+    
+\CommentTok{/*}
+\CommentTok{    this was adapted from code shared by LeeC22 on gtaforums.com}
+\CommentTok{    https://gtaforums.com/topic/951002-c-looking-for-player-switch-sample-solved-by-me/#comment-1071197769}
+\CommentTok{*/}
+    
+\KeywordTok{using}\NormalTok{ System;}
+\KeywordTok{using}\NormalTok{ System.}\FunctionTok{Collections}\NormalTok{.}\FunctionTok{Generic}\NormalTok{;}
+\KeywordTok{using}\NormalTok{ System.}\FunctionTok{Linq}\NormalTok{;}
+\KeywordTok{using}\NormalTok{ System.}\FunctionTok{Text}\NormalTok{;}
+\KeywordTok{using}\NormalTok{ System.}\FunctionTok{Threading}\NormalTok{.}\FunctionTok{Tasks}\NormalTok{;}
+
+\KeywordTok{using}\NormalTok{ GTA;}
+\KeywordTok{using}\NormalTok{ GTA.}\FunctionTok{Math}\NormalTok{;}
+\KeywordTok{using}\NormalTok{ System.}\FunctionTok{Windows}\NormalTok{.}\FunctionTok{Forms}\NormalTok{;}
+\KeywordTok{using}\NormalTok{ System.}\FunctionTok{Drawing}\NormalTok{;}
+\KeywordTok{using}\NormalTok{ GTA.}\FunctionTok{Native}\NormalTok{;}
+\KeywordTok{using}\NormalTok{ System.}\FunctionTok{IO}\NormalTok{;}
+
+
+\KeywordTok{namespace}\NormalTok{ moddingTutorial}
+\NormalTok{\{}
+    \KeywordTok{public} \KeywordTok{class}\NormalTok{ moddingTutorial : Script}
+\NormalTok{    \{}
+\NormalTok{        Ped newPed = }\KeywordTok{null}\NormalTok{;}
+\NormalTok{        Vector3 SwitchLocation2;}
+\NormalTok{        List<Vector3> switchLocations = }\KeywordTok{new}\NormalTok{ List<Vector3>();}
+        \DataTypeTok{int}\NormalTok{ index = }\DecValTok{0}\NormalTok{;}
+\NormalTok{        List<String> models = }\KeywordTok{new}\NormalTok{ List<String>();}
+        \DataTypeTok{int}\NormalTok{ modelIndex = }\DecValTok{0}\NormalTok{;}
+
+        \KeywordTok{public} \FunctionTok{moddingTutorial}\NormalTok{()}
+\NormalTok{        \{}
+            \KeywordTok{this}\NormalTok{.}\FunctionTok{Tick}\NormalTok{ += onTick;}
+            \KeywordTok{this}\NormalTok{.}\FunctionTok{KeyUp}\NormalTok{ += onKeyUp;}
+            \KeywordTok{this}\NormalTok{.}\FunctionTok{KeyDown}\NormalTok{ += onKeyDown;}
+
+        \CommentTok{//add locations to the switchLocations list}
+\NormalTok{            switchLocations.}\FunctionTok{Add}\NormalTok{(}\KeywordTok{new} \FunctionTok{Vector3}\NormalTok{(}\FloatTok{24.775f}\NormalTok{, }\FloatTok{7644.102f}\NormalTok{, }\FloatTok{18.055f}\NormalTok{)); }\CommentTok{//Most Northerly Point}
+\NormalTok{            switchLocations.}\FunctionTok{Add}\NormalTok{(}\KeywordTok{new} \FunctionTok{Vector3}\NormalTok{(-}\FloatTok{595.342f}\NormalTok{, }\FloatTok{2086.008f}\NormalTok{, }\FloatTok{130.412f}\NormalTok{)); }\CommentTok{//Mine}
+\NormalTok{            switchLocations.}\FunctionTok{Add}\NormalTok{(}\KeywordTok{new} \FunctionTok{Vector3}\NormalTok{(}\FloatTok{150.126f}\NormalTok{, }\FloatTok{-754.591f}\NormalTok{, }\FloatTok{261.865f}\NormalTok{)); }\CommentTok{//FIB Roof }
+    
+        \CommentTok{//add models to the models list}
+\NormalTok{            models.}\FunctionTok{Add}\NormalTok{(}\StringTok{"s_m_m_doctor_01"}\NormalTok{);}
+\NormalTok{            models.}\FunctionTok{Add}\NormalTok{(}\StringTok{"s_m_m_migrant_01"}\NormalTok{);}
+\NormalTok{            models.}\FunctionTok{Add}\NormalTok{(}\StringTok{"a_c_cormorant"}\NormalTok{);}
+\NormalTok{            models.}\FunctionTok{Add}\NormalTok{(}\StringTok{"a_c_deer"}\NormalTok{);}
+\NormalTok{            models.}\FunctionTok{Add}\NormalTok{(}\StringTok{"a_c_pug"}\NormalTok{);}
+\NormalTok{        \}}
+
+        \KeywordTok{private} \DataTypeTok{void} \FunctionTok{onTick}\NormalTok{(}\DataTypeTok{object}\NormalTok{ sender, EventArgs e) }\CommentTok{//this function gets executed continuously }
+\NormalTok{        \{}
+            
+            \CommentTok{//If the character switch is in process}
+            \KeywordTok{if}\NormalTok{ (Function.}\FunctionTok{Call}\NormalTok{<}\DataTypeTok{bool}\NormalTok{>(Hash.}\FunctionTok{IS_PLAYER_SWITCH_IN_PROGRESS}\NormalTok{))}
+\NormalTok{            \{}
+                \CommentTok{//If Switch State is 8 – that's the point when it starts dropping to the player }
+                \KeywordTok{if}\NormalTok{ (Function.}\FunctionTok{Call}\NormalTok{<}\DataTypeTok{int}\NormalTok{>(Hash.}\FunctionTok{GET_PLAYER_SWITCH_STATE}\NormalTok{) == }\DecValTok{8}\NormalTok{)}
+\NormalTok{                \{}
+                    \CommentTok{//Set the player to the switch location}
+\NormalTok{                    Game.}\FunctionTok{Player}\NormalTok{.}\FunctionTok{Character}\NormalTok{.}\FunctionTok{Position}\NormalTok{ = switchLocations[index];}
+
+                    \CommentTok{//Generate the hash for the chosen model}
+                    \DataTypeTok{int}\NormalTok{ poshHash = Game.}\FunctionTok{GenerateHash}\NormalTok{(models[modelIndex]);}
+
+                    \CommentTok{//Create the model}
+\NormalTok{                    Model poshModel = }\KeywordTok{new} \FunctionTok{Model}\NormalTok{(poshHash);}
+
+                    \CommentTok{//Check if it is valid}
+                    \KeywordTok{if}\NormalTok{ (poshModel.}\FunctionTok{IsValid}\NormalTok{)}
+\NormalTok{                    \{}
+                        \CommentTok{//Wait for it to load, should be okay because it was used to create the target ped}
+                        \KeywordTok{while}\NormalTok{ (!poshModel.}\FunctionTok{IsLoaded}\NormalTok{)}
+\NormalTok{                        \{}
+                            \FunctionTok{Wait}\NormalTok{(}\DecValTok{100}\NormalTok{);}
+\NormalTok{                        \}}
+
+                        \CommentTok{//Change the player model to the target ped model}
+\NormalTok{                        Function.}\FunctionTok{Call}\NormalTok{(Hash.}\FunctionTok{SET_PLAYER_MODEL}\NormalTok{, Game.}\FunctionTok{Player}\NormalTok{, poshHash);}
+
+                        \CommentTok{//Let the game clean up the created Model}
+\NormalTok{                        poshModel.}\FunctionTok{MarkAsNoLongerNeeded}\NormalTok{();}
+\NormalTok{                    \}}
+                    \KeywordTok{else}
+\NormalTok{                    \{}
+                        \CommentTok{//Falls to here if the model valid check fails}
+\NormalTok{                        Function.}\FunctionTok{Call}\NormalTok{(Hash.}\FunctionTok{SET_PLAYER_MODEL}\NormalTok{, Game.}\FunctionTok{Player}\NormalTok{, (}\DataTypeTok{int}\NormalTok{)PedHash.}\FunctionTok{Tourist01AFY}\NormalTok{);}
+\NormalTok{                    \}}
+
+                    \CommentTok{//Delete the target ped as it's no longer needed}
+\NormalTok{                    newPed.}\FunctionTok{Delete}\NormalTok{();}
+                    
+
+                    \CommentTok{// Set the switch outro based on the gameplay camera position}
+                    \CommentTok{// Function.Call((Hash)0xC208B673CE446B61, camPos.X, camPos.Y, camPos.Z, camRot.X, camRot.Y, camRot.Z, camFOV, camFarClip, p8);}
+
+\NormalTok{                    Function.}\FunctionTok{Call}\NormalTok{((Hash)}\BaseNTok{0xC208B673CE446B61}\NormalTok{, GameplayCamera.}\FunctionTok{Position}\NormalTok{.}\FunctionTok{X}\NormalTok{, GameplayCamera.}\FunctionTok{Position}\NormalTok{.}\FunctionTok{Y}\NormalTok{, GameplayCamera.}\FunctionTok{Position}\NormalTok{.}\FunctionTok{Z}\NormalTok{, GameplayCamera.}\FunctionTok{Rotation}\NormalTok{.}\FunctionTok{X}\NormalTok{, GameplayCamera.}\FunctionTok{Rotation}\NormalTok{.}\FunctionTok{Y}\NormalTok{, GameplayCamera.}\FunctionTok{Rotation}\NormalTok{.}\FunctionTok{Z}\NormalTok{, GameplayCamera.}\FunctionTok{FieldOfView}\NormalTok{, }\DecValTok{500}\NormalTok{, }\DecValTok{2}\NormalTok{);}
+
+                    \CommentTok{//Call this unknown native that seems to finish things off}
+\NormalTok{                    Function.}\FunctionTok{Call}\NormalTok{(Hash._}\BaseNTok{0x74DE2E8739086740}\NormalTok{);}
+
+            \CommentTok{//Make the character wander around autonomously}
+\NormalTok{                    Game.}\FunctionTok{Player}\NormalTok{.}\FunctionTok{Character}\NormalTok{.}\FunctionTok{Task}\NormalTok{.}\FunctionTok{WanderAround}\NormalTok{();}
+\NormalTok{                \}}
+\NormalTok{            \}}
+
+\NormalTok{        \}}
+
+
+        \KeywordTok{private} \DataTypeTok{void} \FunctionTok{onKeyUp}\NormalTok{(}\DataTypeTok{object}\NormalTok{ sender, KeyEventArgs e)}
+\NormalTok{        \{}
+
+\NormalTok{        \}}
+
+        \KeywordTok{private} \DataTypeTok{void} \FunctionTok{onKeyDown}\NormalTok{(}\DataTypeTok{object}\NormalTok{ sender, KeyEventArgs e)}
+\NormalTok{        \{}
+            \KeywordTok{if}\NormalTok{ (e.}\FunctionTok{KeyCode}\NormalTok{ == Keys.}\FunctionTok{G}\NormalTok{)}
+\NormalTok{            \{}
+        \CommentTok{//Stop previous tasks}
+\NormalTok{                Game.}\FunctionTok{Player}\NormalTok{.}\FunctionTok{Character}\NormalTok{.}\FunctionTok{Task}\NormalTok{.}\FunctionTok{ClearAll}\NormalTok{();}
+
+                \CommentTok{//Move the index to the next location}
+\NormalTok{                index++;}
+                \KeywordTok{if}\NormalTok{ (index >= switchLocations.}\FunctionTok{Count}\NormalTok{) index = }\DecValTok{0}\NormalTok{;}
+                
+        \CommentTok{//Move the index to the new ped model}
+\NormalTok{                modelIndex++;}
+                \KeywordTok{if}\NormalTok{ (modelIndex >= models.}\FunctionTok{Count}\NormalTok{) modelIndex = }\DecValTok{0}\NormalTok{;}
+
+                \CommentTok{//Create the ped to switch to}
+\NormalTok{                newPed = World.}\FunctionTok{CreatePed}\NormalTok{(models[modelIndex], switchLocations[index]);}
+
+                \CommentTok{//Native function to initiate the switch Function.Call(Hash.START_PLAYER_SWITCH, fromPed.Handle, toPed.Handle, flags, switchType);}
+\NormalTok{                Function.}\FunctionTok{Call}\NormalTok{(Hash.}\FunctionTok{START_PLAYER_SWITCH}\NormalTok{, Game.}\FunctionTok{Player}\NormalTok{.}\FunctionTok{Character}\NormalTok{.}\FunctionTok{Handle}\NormalTok{, newPed.}\FunctionTok{Handle}\NormalTok{, }\DecValTok{8}\NormalTok{, }\DecValTok{0}\NormalTok{);}
+
+\NormalTok{            \}}
+\NormalTok{        \}}
+\NormalTok{    \}}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{menyoo-mod-trainer}{%
+\subsection{Menyoo Mod Trainer \{--\}}\label{menyoo-mod-trainer}}
+
+\hypertarget{codewalker}{%
+\subsection{CodeWalker \{--\}}\label{codewalker}}
+
+//\url{https://www.gta5-mods.com/tools/codewalker-gtav-interactive-3d-map}
+//\url{https://www.youtube.com/watch?v=VDoAjV3kv2g\&list=PL3KgAhmoIEOU540c5hydM5KaVXeJcYiPF\&ab_channel=Tobii}
+
+//Downlaod and setup \url{https://github.com/dexyfex/CodeWalker}
+
+//move objects
+
+//duplicate object \texttt{SHIFT\ +\ Mouse\ Drag}
+
+//new object (select Project Explorer \textgreater{} YMap \textgreater{} map1.ymap and click on YMap \textgreater{} New Entity)(in Archetype replace the model name with the object model you want) (search object and view models, copy model name to use in new entity archetype)
+entities archetypes index: \url{https://mwojtasik.dev/tools/gtav/objects/}
+
+//delete objects (note: if Max LOD \textgreater{} LOD shows the object, you should not delete it, just move it but dont delete it)
+
+//generate and save manifestNAME.ymf // copy ymf and ymap files to server
+
+//replace textures with custom images
+
+\hypertarget{content-replication-assignment-5}{%
+\section*{Content Replication Assignment}\label{content-replication-assignment-5}}
+\addcontentsline{toc}{section}{Content Replication Assignment}
+
+\hypertarget{meta-photography}{%
+\chapter{Meta-Photography}\label{meta-photography}}
+
+// General intro on the artistic reflection on the photographic medium itself, the tradition of conceptual photography and the connection to the simulation of the camera and the act of photographing virtual worlds
+
+\hypertarget{gta-v-photography-bot}{%
+\subsection*{GTA V Photography Bot}\label{gta-v-photography-bot}}
+\addcontentsline{toc}{subsection}{GTA V Photography Bot}
+
+\hypertarget{crossroad-of-realities-by-benoit-pailluxe9}{%
+\subsection*{Crossroad of Realities by Benoit Paillé}\label{crossroad-of-realities-by-benoit-pailluxe9}}
+\addcontentsline{toc}{subsection}{Crossroad of Realities by Benoit Paillé}
+
+\hypertarget{readings-6}{%
+\section*{Readings}\label{readings-6}}
+\addcontentsline{toc}{section}{Readings}
+
+\hypertarget{tutorial-6}{%
+\section*{Tutorial}\label{tutorial-6}}
+\addcontentsline{toc}{section}{Tutorial}
+
+\hypertarget{virtual-keys}{%
+\subsection*{Virtual Keys}\label{virtual-keys}}
+\addcontentsline{toc}{subsection}{Virtual Keys}
+
+The most reliable way to send keyboard and mouse input is the SendInput function in user32.dll.
+
+The SendInput function takes three parameters: the number of inputs, an array of INPUT for the inputs we want to send, and the size of our INPUT struct. The INPUT struct includes an integer that indicates the type of input and a union for the inputs that will be passed.
+
+Keys are mapped to Direct Input Keyboard hex codes. You can find a list of all hex codes for each key \href{http://www.flint.jp/misc/?q=dik\&lang=en}{here} or below.
+
+List of DirectX key mappings
+
+\begin{verbatim}
+Value   Macro         Symbol
+------------------------
+0x01    DIK_ESCAPE  Esc 
+0x02    DIK_1         1 
+0x03    DIK_2         2 
+0x04    DIK_3         3 
+0x05    DIK_4         4 
+0x06    DIK_5         5 
+0x07    DIK_6         6 
+0x08    DIK_7         7 
+0x09    DIK_8         8 
+0x0A    DIK_9         9 
+0x0B    DIK_0         0 
+0x0C    DIK_MINUS     - 
+0x0D    DIK_EQUALS  =   
+0x0E    DIK_BACK      Back Space    
+0x0F    DIK_TAB     Tab 
+0x10    DIK_Q         Q 
+0x11    DIK_W         W 
+0x12    DIK_E         E 
+0x13    DIK_R         R 
+0x14    DIK_T         T 
+0x15    DIK_Y         Y 
+0x16    DIK_U         U 
+0x17    DIK_I         I 
+0x18    DIK_O         O 
+0x19    DIK_P         P 
+0x1A    DIK_LBRACKET  [ 
+0x1B    DIK_RBRACKET  ] 
+0x1C    DIK_RETURN  Enter   
+0x1D    DIK_LContol Ctrl (Left) 
+0x1E    DIK_A         A 
+0x1F    DIK_S         S 
+0x20    DIK_D         D 
+0x21    DIK_F         F 
+0x22    DIK_G         G 
+0x23    DIK_H         H 
+0x24    DIK_J         J 
+0x25    DIK_K         K 
+0x26    DIK_L         L 
+0x27    DIK_SEMICOLON   ;   
+0x28    DIK_APOSTROPHE  '   
+0x29    DIK_GRAVE     ` 
+0x2A    DIK_LSHIFT  Shift (Left)    
+0x2B    DIK_BACKSLASH   \   
+0x2C    DIK_Z         Z 
+0x2D    DIK_X         X 
+0x2E    DIK_C         C 
+0x2F    DIK_V         V 
+0x30    DIK_B         B 
+0x31    DIK_N         N 
+0x32    DIK_M         M 
+0x33    DIK_COMMA     , 
+0x34    DIK_PERIOD  .   
+0x35    DIK_SLASH     / 
+0x36    DIK_RSHIFT  Shift (Right)   
+0x37    DIK_MULTIPLY    * (Numpad)  
+0x38    DIK_LMENU     Alt (Left)    
+0x39    DIK_SPACE     Space 
+0x3A    DIK_CAPITAL Caps Lock
+0x3B    DIK_F1      F1  
+0x3C    DIK_F2      F2  
+0x3D    DIK_F3      F3  
+0x3E    DIK_F4      F4  
+0x3F    DIK_F5      F5  
+0x40    DIK_F6      F6  
+0x41    DIK_F7      F7  
+0x42    DIK_F8      F8  
+0x43    DIK_F9      F9  
+0x44    DIK_F10     F10 
+0x45    DIK_NUMLOCK Num Lock    
+0x46    DIK_SCROLL  Scroll Lock 
+0x47    DIK_NUMPAD7 7 (Numpad)  
+0x48    DIK_NUMPAD8 8 (Numpad)  
+0x49    DIK_NUMPAD9 9 (Numpad)  
+0x4A    DIK_SUBTRACT  - (Numpad)    
+0x4B    DIK_NUMPAD4 4 (Numpad)  
+0x4C    DIK_NUMPAD5 5 (Numpad)  
+0x4D    DIK_NUMPAD6 6 (Numpad)  
+0x4E    DIK_ADD     + (Numpad)  
+0x4F    DIK_NUMPAD1 1 (Numpad)  
+0x50    DIK_NUMPAD2 2 (Numpad)  
+0x51    DIK_NUMPAD3 3 (Numpad)  
+0x52    DIK_NUMPAD0 0 (Numpad)  
+0x53    DIK_DECIMAL . (Numpad)  
+0x57    DIK_F11     F11 
+0x58    DIK_F12     F12 
+0x64    DIK_F13     F13 (NEC PC-98)
+0x65    DIK_F14     F14 (NEC PC-98)
+0x66    DIK_F15     F15 (NEC PC-98)
+0x70    DIK_KANA      Kana  Japenese Keyboard
+0x79    DIK_CONVERT Convert Japenese Keyboard
+0x7B    DIK_NOCONVERT   No Convert  Japenese Keyboard
+0x7D    DIK_YEN     ¥     Japenese Keyboard
+0x8D    DIK_NUMPADEQUALS    =   NEC PC-98
+0x90    DIK_CIRCUMFLEX  ^   Japenese Keyboard
+0x91    DIK_AT      @   NEC PC-98
+0x92    DIK_COLON     : NEC PC-98
+0x93    DIK_UNDERLINE   _   NEC PC-98
+0x94    DIK_KANJI     Kanji Japenese Keyboard
+0x95    DIK_STOP      Stop  NEC PC-98
+0x96    DIK_AX      (Japan AX)  
+0x97    DIK_UNLABELED   (J3100) 
+0x9C    DIK_NUMPADENTER Enter (Numpad)  
+0x9D    DIK_RCONTROL    Ctrl (Right)    
+0xB3    DIK_NUMPADCOMMA , (Numpad)  NEC PC-98
+0xB5    DIK_DIVIDE    / (Numpad)    
+0xB7    DIK_SYSRQ       Sys Rq  
+0xB8    DIK_RMENU       Alt (Right) 
+0xC5    DIK_PAUSE       Pause   
+0xC7    DIK_HOME        Home    
+0xC8    DIK_UP        ↑ (Arrow up)
+0xC9    DIK_PRIOR       Page Up 
+0xCB    DIK_LEFT        ←   (Arrow left)
+0xCD    DIK_RIGHT       →   (Arrow right)
+0xCF    DIK_END       End   
+0xD0    DIK_DOWN        ↓   (Arrow down)
+0xD1    DIK_NEXT        Page Down   
+0xD2    DIK_INSERT    Insert    
+0xD3    DIK_DELETE    Delete    
+0xDB    DIK_LWIN        Windows 
+0xDC    DIK_RWIN        Windows 
+0xDD    DIK_APPS        Menu    
+0xDE    DIK_POWER       Power   
+0xDF    DIK_SLEEP       Windows
+\end{verbatim}
+
+Example code
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{using}\NormalTok{ System;}
+\KeywordTok{using}\NormalTok{ System.}\FunctionTok{Collections}\NormalTok{.}\FunctionTok{Generic}\NormalTok{;}
+\KeywordTok{using}\NormalTok{ System.}\FunctionTok{Linq}\NormalTok{;}
+\KeywordTok{using}\NormalTok{ System.}\FunctionTok{Text}\NormalTok{;}
+\KeywordTok{using}\NormalTok{ System.}\FunctionTok{Threading}\NormalTok{.}\FunctionTok{Tasks}\NormalTok{;}
+
+\KeywordTok{using}\NormalTok{ GTA;}
+\KeywordTok{using}\NormalTok{ GTA.}\FunctionTok{Math}\NormalTok{;}
+\KeywordTok{using}\NormalTok{ System.}\FunctionTok{Windows}\NormalTok{.}\FunctionTok{Forms}\NormalTok{;}
+\KeywordTok{using}\NormalTok{ System.}\FunctionTok{Drawing}\NormalTok{;}
+\KeywordTok{using}\NormalTok{ GTA.}\FunctionTok{Native}\NormalTok{;}
+\KeywordTok{using}\NormalTok{ System.}\FunctionTok{IO}\NormalTok{;}
+\KeywordTok{using}\NormalTok{ System.}\FunctionTok{Runtime}\NormalTok{.}\FunctionTok{InteropServices}\NormalTok{;}
+
+\KeywordTok{namespace}\NormalTok{ moddingTutorial}
+\NormalTok{\{}
+    \KeywordTok{public} \KeywordTok{class}\NormalTok{ moddingTutorial : Script}
+\NormalTok{    \{}
+  
+        \CommentTok{//this bunch of stuff is to control keyboard and mouse}
+\NormalTok{        [}\FunctionTok{StructLayout}\NormalTok{(LayoutKind.}\FunctionTok{Sequential}\NormalTok{)]}
+        \KeywordTok{public} \KeywordTok{struct}\NormalTok{ KeyboardInput}
+\NormalTok{        \{}
+            \KeywordTok{public} \DataTypeTok{ushort}\NormalTok{ wVk;}
+            \KeywordTok{public} \DataTypeTok{ushort}\NormalTok{ wScan;}
+            \KeywordTok{public} \DataTypeTok{uint}\NormalTok{ dwFlags;}
+            \KeywordTok{public} \DataTypeTok{uint}\NormalTok{ time;}
+            \KeywordTok{public}\NormalTok{ IntPtr dwExtraInfo;}
+\NormalTok{        \}}
+\NormalTok{        [}\FunctionTok{StructLayout}\NormalTok{(LayoutKind.}\FunctionTok{Sequential}\NormalTok{)]}
+        \KeywordTok{public} \KeywordTok{struct}\NormalTok{ MouseInput}
+\NormalTok{        \{}
+            \KeywordTok{public} \DataTypeTok{int}\NormalTok{ dx;}
+            \KeywordTok{public} \DataTypeTok{int}\NormalTok{ dy;}
+            \KeywordTok{public} \DataTypeTok{uint}\NormalTok{ mouseData;}
+            \KeywordTok{public} \DataTypeTok{uint}\NormalTok{ dwFlags;}
+            \KeywordTok{public} \DataTypeTok{uint}\NormalTok{ time;}
+            \KeywordTok{public}\NormalTok{ IntPtr dwExtraInfo;}
+\NormalTok{        \}}
+\NormalTok{        [}\FunctionTok{StructLayout}\NormalTok{(LayoutKind.}\FunctionTok{Sequential}\NormalTok{)]}
+        \KeywordTok{public} \KeywordTok{struct}\NormalTok{ HardwareInput}
+\NormalTok{        \{}
+            \KeywordTok{public} \DataTypeTok{uint}\NormalTok{ uMsg;}
+            \KeywordTok{public} \DataTypeTok{ushort}\NormalTok{ wParamL;}
+            \KeywordTok{public} \DataTypeTok{ushort}\NormalTok{ wParamH;}
+\NormalTok{        \}}
+\NormalTok{        [}\FunctionTok{StructLayout}\NormalTok{(LayoutKind.}\FunctionTok{Explicit}\NormalTok{)]}
+        \KeywordTok{public} \KeywordTok{struct}\NormalTok{ InputUnion}
+\NormalTok{        \{}
+\NormalTok{            [}\FunctionTok{FieldOffset}\NormalTok{(}\DecValTok{0}\NormalTok{)] }\KeywordTok{public}\NormalTok{ MouseInput mi;}
+\NormalTok{            [}\FunctionTok{FieldOffset}\NormalTok{(}\DecValTok{0}\NormalTok{)] }\KeywordTok{public}\NormalTok{ KeyboardInput ki;}
+\NormalTok{            [}\FunctionTok{FieldOffset}\NormalTok{(}\DecValTok{0}\NormalTok{)] }\KeywordTok{public}\NormalTok{ HardwareInput hi;}
+\NormalTok{        \}}
+        \KeywordTok{public} \KeywordTok{struct}\NormalTok{ Input}
+\NormalTok{        \{}
+            \KeywordTok{public} \DataTypeTok{int}\NormalTok{ type;}
+            \KeywordTok{public}\NormalTok{ InputUnion u;}
+\NormalTok{        \}}
+\NormalTok{        [Flags]}
+        \KeywordTok{public} \KeywordTok{enum}\NormalTok{ InputType}
+\NormalTok{        \{}
+\NormalTok{            Mouse = }\DecValTok{0}\NormalTok{,}
+\NormalTok{            Keyboard = }\DecValTok{1}\NormalTok{,}
+\NormalTok{            Hardware = }\DecValTok{2}
+\NormalTok{        \}}
+\NormalTok{        [Flags]}
+        \KeywordTok{public} \KeywordTok{enum}\NormalTok{ KeyEventF}
+\NormalTok{        \{}
+\NormalTok{            KeyDown = }\BaseNTok{0x0000}\NormalTok{,}
+\NormalTok{            ExtendedKey = }\BaseNTok{0x0001}\NormalTok{,}
+\NormalTok{            KeyUp = }\BaseNTok{0x0002}\NormalTok{,}
+\NormalTok{            Unicode = }\BaseNTok{0x0004}\NormalTok{,}
+\NormalTok{            Scancode = }\BaseNTok{0x0008}
+\NormalTok{        \}}
+\NormalTok{        [Flags]}
+        \KeywordTok{public} \KeywordTok{enum}\NormalTok{ MouseEventF}
+\NormalTok{        \{}
+\NormalTok{            Absolute = }\BaseNTok{0x8000}\NormalTok{,}
+\NormalTok{            HWheel = }\BaseNTok{0x01000}\NormalTok{,}
+\NormalTok{            Move = }\BaseNTok{0x0001}\NormalTok{,}
+\NormalTok{            MoveNoCoalesce = }\BaseNTok{0x2000}\NormalTok{,}
+\NormalTok{            LeftDown = }\BaseNTok{0x0002}\NormalTok{,}
+\NormalTok{            LeftUp = }\BaseNTok{0x0004}\NormalTok{,}
+\NormalTok{            RightDown = }\BaseNTok{0x0008}\NormalTok{,}
+\NormalTok{            RightUp = }\BaseNTok{0x0010}\NormalTok{,}
+\NormalTok{            MiddleDown = }\BaseNTok{0x0020}\NormalTok{,}
+\NormalTok{            MiddleUp = }\BaseNTok{0x0040}\NormalTok{,}
+\NormalTok{            VirtualDesk = }\BaseNTok{0x4000}\NormalTok{,}
+\NormalTok{            Wheel = }\BaseNTok{0x0800}\NormalTok{,}
+\NormalTok{            XDown = }\BaseNTok{0x0080}\NormalTok{,}
+\NormalTok{            XUp = }\BaseNTok{0x0100}
+\NormalTok{        \}}
+
+\NormalTok{        [}\FunctionTok{DllImport}\NormalTok{(}\StringTok{"user32.dll"}\NormalTok{, SetLastError = }\KeywordTok{true}\NormalTok{)]}
+        \KeywordTok{private} \KeywordTok{static} \KeywordTok{extern} \DataTypeTok{uint} \FunctionTok{SendInput}\NormalTok{(}\DataTypeTok{uint}\NormalTok{ nInputs, Input[] pInputs, }\DataTypeTok{int}\NormalTok{ cbSize);}
+\NormalTok{        [}\FunctionTok{DllImport}\NormalTok{(}\StringTok{"user32.dll"}\NormalTok{)]}
+        \KeywordTok{private} \KeywordTok{static} \KeywordTok{extern}\NormalTok{ IntPtr }\FunctionTok{GetMessageExtraInfo}\NormalTok{();}
+        \DataTypeTok{bool}\NormalTok{ pressKey = }\KeywordTok{false}\NormalTok{;}
+
+  
+        \KeywordTok{public} \FunctionTok{moddingTutorial}\NormalTok{()}
+\NormalTok{        \{}
+            \KeywordTok{this}\NormalTok{.}\FunctionTok{Tick}\NormalTok{ += onTick;}
+            \KeywordTok{this}\NormalTok{.}\FunctionTok{KeyUp}\NormalTok{ += onKeyUp;}
+            \KeywordTok{this}\NormalTok{.}\FunctionTok{KeyDown}\NormalTok{ += onKeyDown;}
+\NormalTok{        \}}
+
+        \KeywordTok{private} \DataTypeTok{void} \FunctionTok{onTick}\NormalTok{(}\DataTypeTok{object}\NormalTok{ sender, EventArgs e) }\CommentTok{//this function gets executed continuously }
+\NormalTok{        \{}
+\NormalTok{        \}}
+
+        \KeywordTok{private} \DataTypeTok{void} \FunctionTok{onKeyUp}\NormalTok{(}\DataTypeTok{object}\NormalTok{ sender, KeyEventArgs e)}
+\NormalTok{        \{}
+\NormalTok{        \}}
+
+        \KeywordTok{private} \DataTypeTok{void} \FunctionTok{onKeyDown}\NormalTok{(}\DataTypeTok{object}\NormalTok{ sender, KeyEventArgs e)}
+\NormalTok{        \{}
+            
+            \KeywordTok{if}\NormalTok{ (e.}\FunctionTok{KeyCode}\NormalTok{ == Keys.}\FunctionTok{H}\NormalTok{)}
+\NormalTok{            \{   }
+                \CommentTok{//define the pressing of the arrow up key}
+\NormalTok{                Input[] keyUP_press = }\KeywordTok{new}\NormalTok{ Input[]}
+\NormalTok{                \{}
+                  \KeywordTok{new}\NormalTok{ Input}
+\NormalTok{                  \{}
+\NormalTok{                    type = (}\DataTypeTok{int}\NormalTok{)InputType.}\FunctionTok{Keyboard}\NormalTok{,}
+\NormalTok{                    u = }\KeywordTok{new}\NormalTok{ InputUnion}
+\NormalTok{                    \{}
+\NormalTok{                      ki = }\KeywordTok{new}\NormalTok{ KeyboardInput}
+\NormalTok{                      \{}
+\NormalTok{                        wVk = }\DecValTok{0}\NormalTok{,}
+\NormalTok{                        wScan = }\BaseNTok{0xC8}\NormalTok{, }\CommentTok{// key ARROW UP}
+\NormalTok{                        dwFlags = (}\DataTypeTok{uint}\NormalTok{)(KeyEventF.}\FunctionTok{KeyDown}\NormalTok{ | KeyEventF.}\FunctionTok{Scancode}\NormalTok{), }\CommentTok{//key press}
+\NormalTok{                        dwExtraInfo = }\FunctionTok{GetMessageExtraInfo}\NormalTok{()}
+\NormalTok{                      \}}
+\NormalTok{                    \}}
+\NormalTok{                  \}}
+\NormalTok{                \};}
+
+                \CommentTok{//define the release of the arrow up key}
+\NormalTok{                Input[] keyUP_release = }\KeywordTok{new}\NormalTok{ Input[]}
+\NormalTok{                \{}
+                  \KeywordTok{new}\NormalTok{ Input}
+\NormalTok{                  \{}
+\NormalTok{                    type = (}\DataTypeTok{int}\NormalTok{)InputType.}\FunctionTok{Keyboard}\NormalTok{,}
+\NormalTok{                    u = }\KeywordTok{new}\NormalTok{ InputUnion}
+\NormalTok{                    \{}
+\NormalTok{                      ki = }\KeywordTok{new}\NormalTok{ KeyboardInput}
+\NormalTok{                      \{}
+\NormalTok{                        wVk = }\DecValTok{0}\NormalTok{,}
+\NormalTok{                        wScan = }\BaseNTok{0xC8}\NormalTok{, }\CommentTok{//key ARROW UP}
+\NormalTok{                        dwFlags = (}\DataTypeTok{uint}\NormalTok{)(KeyEventF.}\FunctionTok{KeyUp}\NormalTok{ | KeyEventF.}\FunctionTok{Scancode}\NormalTok{), }\CommentTok{//key release}
+\NormalTok{                        dwExtraInfo = }\FunctionTok{GetMessageExtraInfo}\NormalTok{()}
+\NormalTok{                      \}}
+\NormalTok{                    \}}
+\NormalTok{                  \}}
+\NormalTok{                \};}
+                
+                \CommentTok{//we need to send a key press and add a delay before releasing it otherwise it's too fast for the game to register it}
+                \CommentTok{//send key press of arrow up key}
+                \FunctionTok{SendInput}\NormalTok{((}\DataTypeTok{uint}\NormalTok{)keyUP_press.}\FunctionTok{Length}\NormalTok{, keyUP_press, Marshal.}\FunctionTok{SizeOf}\NormalTok{(}\KeywordTok{typeof}\NormalTok{(Input)));}
+                \CommentTok{//delay half a second}
+                \FunctionTok{Wait}\NormalTok{(}\DecValTok{500}\NormalTok{);}
+                \CommentTok{//send key release of arrow up key}
+                \FunctionTok{SendInput}\NormalTok{((}\DataTypeTok{uint}\NormalTok{)keyUP_release.}\FunctionTok{Length}\NormalTok{, keyUP_release, Marshal.}\FunctionTok{SizeOf}\NormalTok{(}\KeywordTok{typeof}\NormalTok{(Input)));}
+\NormalTok{            \}}
+\NormalTok{        \}}
+\NormalTok{    \}}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+GTA V Photographer Bot Script
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{//#define debug}
+
+
+\KeywordTok{using}\NormalTok{ System;}
+\KeywordTok{using}\NormalTok{ System.}\FunctionTok{Collections}\NormalTok{.}\FunctionTok{Generic}\NormalTok{;}
+\KeywordTok{using}\NormalTok{ System.}\FunctionTok{Linq}\NormalTok{;}
+\KeywordTok{using}\NormalTok{ System.}\FunctionTok{Text}\NormalTok{;}
+\KeywordTok{using}\NormalTok{ System.}\FunctionTok{Threading}\NormalTok{.}\FunctionTok{Tasks}\NormalTok{;}
+
+\KeywordTok{using}\NormalTok{ GTA;}
+\KeywordTok{using}\NormalTok{ GTA.}\FunctionTok{Math}\NormalTok{;}
+\KeywordTok{using}\NormalTok{ System.}\FunctionTok{Windows}\NormalTok{.}\FunctionTok{Forms}\NormalTok{;}
+\KeywordTok{using}\NormalTok{ System.}\FunctionTok{Drawing}\NormalTok{;}
+\KeywordTok{using}\NormalTok{ GTA.}\FunctionTok{Native}\NormalTok{;}
+\KeywordTok{using}\NormalTok{ System.}\FunctionTok{IO}\NormalTok{;}
+\KeywordTok{using}\NormalTok{ System.}\FunctionTok{Runtime}\NormalTok{.}\FunctionTok{InteropServices}\NormalTok{;}
+
+
+
+\KeywordTok{namespace}\NormalTok{ moddingTutorial}
+\NormalTok{\{}
+    \KeywordTok{public} \KeywordTok{class}\NormalTok{ moddingTutorial : Script}
+\NormalTok{    \{}
+
+        \DataTypeTok{bool}\NormalTok{ botOn = }\KeywordTok{false}\NormalTok{; }\CommentTok{//turn the bot ON/OFF}
+\NormalTok{        List<Vector3> switchLocations = }\KeywordTok{new}\NormalTok{ List<Vector3>(); }\CommentTok{//list of locations to teleport the character if in danger}
+        \DataTypeTok{int}\NormalTok{ index;}
+
+        \CommentTok{//KEYBOARD AND MOUSE INPUT STUFF}
+\NormalTok{        [}\FunctionTok{StructLayout}\NormalTok{(LayoutKind.}\FunctionTok{Sequential}\NormalTok{)]}
+        \KeywordTok{public} \KeywordTok{struct}\NormalTok{ KeyboardInput}
+\NormalTok{        \{}
+            \KeywordTok{public} \DataTypeTok{ushort}\NormalTok{ wVk;}
+            \KeywordTok{public} \DataTypeTok{ushort}\NormalTok{ wScan;}
+            \KeywordTok{public} \DataTypeTok{uint}\NormalTok{ dwFlags;}
+            \KeywordTok{public} \DataTypeTok{uint}\NormalTok{ time;}
+            \KeywordTok{public}\NormalTok{ IntPtr dwExtraInfo;}
+\NormalTok{        \}}
+\NormalTok{        [}\FunctionTok{StructLayout}\NormalTok{(LayoutKind.}\FunctionTok{Sequential}\NormalTok{)]}
+        \KeywordTok{public} \KeywordTok{struct}\NormalTok{ MouseInput}
+\NormalTok{        \{}
+            \KeywordTok{public} \DataTypeTok{int}\NormalTok{ dx;}
+            \KeywordTok{public} \DataTypeTok{int}\NormalTok{ dy;}
+            \KeywordTok{public} \DataTypeTok{uint}\NormalTok{ mouseData;}
+            \KeywordTok{public} \DataTypeTok{uint}\NormalTok{ dwFlags;}
+            \KeywordTok{public} \DataTypeTok{uint}\NormalTok{ time;}
+            \KeywordTok{public}\NormalTok{ IntPtr dwExtraInfo;}
+\NormalTok{        \}}
+\NormalTok{        [}\FunctionTok{StructLayout}\NormalTok{(LayoutKind.}\FunctionTok{Sequential}\NormalTok{)]}
+        \KeywordTok{public} \KeywordTok{struct}\NormalTok{ HardwareInput}
+\NormalTok{        \{}
+            \KeywordTok{public} \DataTypeTok{uint}\NormalTok{ uMsg;}
+            \KeywordTok{public} \DataTypeTok{ushort}\NormalTok{ wParamL;}
+            \KeywordTok{public} \DataTypeTok{ushort}\NormalTok{ wParamH;}
+\NormalTok{        \}}
+\NormalTok{        [}\FunctionTok{StructLayout}\NormalTok{(LayoutKind.}\FunctionTok{Explicit}\NormalTok{)]}
+        \KeywordTok{public} \KeywordTok{struct}\NormalTok{ InputUnion}
+\NormalTok{        \{}
+\NormalTok{            [}\FunctionTok{FieldOffset}\NormalTok{(}\DecValTok{0}\NormalTok{)] }\KeywordTok{public}\NormalTok{ MouseInput mi;}
+\NormalTok{            [}\FunctionTok{FieldOffset}\NormalTok{(}\DecValTok{0}\NormalTok{)] }\KeywordTok{public}\NormalTok{ KeyboardInput ki;}
+\NormalTok{            [}\FunctionTok{FieldOffset}\NormalTok{(}\DecValTok{0}\NormalTok{)] }\KeywordTok{public}\NormalTok{ HardwareInput hi;}
+\NormalTok{        \}}
+        \KeywordTok{public} \KeywordTok{struct}\NormalTok{ Input}
+\NormalTok{        \{}
+            \KeywordTok{public} \DataTypeTok{int}\NormalTok{ type;}
+            \KeywordTok{public}\NormalTok{ InputUnion u;}
+\NormalTok{        \}}
+\NormalTok{        [Flags]}
+        \KeywordTok{public} \KeywordTok{enum}\NormalTok{ InputType}
+\NormalTok{        \{}
+\NormalTok{            Mouse = }\DecValTok{0}\NormalTok{,}
+\NormalTok{            Keyboard = }\DecValTok{1}\NormalTok{,}
+\NormalTok{            Hardware = }\DecValTok{2}
+\NormalTok{        \}}
+\NormalTok{        [Flags]}
+        \KeywordTok{public} \KeywordTok{enum}\NormalTok{ KeyEventF}
+\NormalTok{        \{}
+\NormalTok{            KeyDown = }\BaseNTok{0x0000}\NormalTok{,}
+\NormalTok{            ExtendedKey = }\BaseNTok{0x0001}\NormalTok{,}
+\NormalTok{            KeyUp = }\BaseNTok{0x0002}\NormalTok{,}
+\NormalTok{            Unicode = }\BaseNTok{0x0004}\NormalTok{,}
+\NormalTok{            Scancode = }\BaseNTok{0x0008}
+\NormalTok{        \}}
+\NormalTok{        [Flags]}
+        \KeywordTok{public} \KeywordTok{enum}\NormalTok{ MouseEventF}
+\NormalTok{        \{}
+\NormalTok{            Absolute = }\BaseNTok{0x8000}\NormalTok{,}
+\NormalTok{            HWheel = }\BaseNTok{0x01000}\NormalTok{,}
+\NormalTok{            Move = }\BaseNTok{0x0001}\NormalTok{,}
+\NormalTok{            MoveNoCoalesce = }\BaseNTok{0x2000}\NormalTok{,}
+\NormalTok{            LeftDown = }\BaseNTok{0x0002}\NormalTok{,}
+\NormalTok{            LeftUp = }\BaseNTok{0x0004}\NormalTok{,}
+\NormalTok{            RightDown = }\BaseNTok{0x0008}\NormalTok{,}
+\NormalTok{            RightUp = }\BaseNTok{0x0010}\NormalTok{,}
+\NormalTok{            MiddleDown = }\BaseNTok{0x0020}\NormalTok{,}
+\NormalTok{            MiddleUp = }\BaseNTok{0x0040}\NormalTok{,}
+\NormalTok{            VirtualDesk = }\BaseNTok{0x4000}\NormalTok{,}
+\NormalTok{            Wheel = }\BaseNTok{0x0800}\NormalTok{,}
+\NormalTok{            XDown = }\BaseNTok{0x0080}\NormalTok{,}
+\NormalTok{            XUp = }\BaseNTok{0x0100}
+\NormalTok{        \}}
+
+
+\NormalTok{        [}\FunctionTok{DllImport}\NormalTok{(}\StringTok{"user32.dll"}\NormalTok{, SetLastError = }\KeywordTok{true}\NormalTok{)]}
+        \KeywordTok{private} \KeywordTok{static} \KeywordTok{extern} \DataTypeTok{uint} \FunctionTok{SendInput}\NormalTok{(}\DataTypeTok{uint}\NormalTok{ nInputs, Input[] pInputs, }\DataTypeTok{int}\NormalTok{ cbSize);}
+\NormalTok{        [}\FunctionTok{DllImport}\NormalTok{(}\StringTok{"user32.dll"}\NormalTok{)]}
+        \KeywordTok{private} \KeywordTok{static} \KeywordTok{extern}\NormalTok{ IntPtr }\FunctionTok{GetMessageExtraInfo}\NormalTok{();}
+        \DataTypeTok{bool}\NormalTok{ pressKey = }\KeywordTok{false}\NormalTok{;}
+
+        \KeywordTok{public} \FunctionTok{moddingTutorial}\NormalTok{()}
+\NormalTok{        \{}
+            \KeywordTok{this}\NormalTok{.}\FunctionTok{Tick}\NormalTok{ += onTick;}
+            \KeywordTok{this}\NormalTok{.}\FunctionTok{KeyUp}\NormalTok{ += onKeyUp;}
+            \KeywordTok{this}\NormalTok{.}\FunctionTok{KeyDown}\NormalTok{ += onKeyDown;}
+
+
+\NormalTok{            switchLocations.}\FunctionTok{Add}\NormalTok{(}\KeywordTok{new} \FunctionTok{Vector3}\NormalTok{(-}\FloatTok{1578.27f}\NormalTok{, }\FloatTok{5155.2f}\NormalTok{, }\FloatTok{19.79865f}\NormalTok{)); }\CommentTok{//Submarine pier}
+\NormalTok{            switchLocations.}\FunctionTok{Add}\NormalTok{(}\KeywordTok{new} \FunctionTok{Vector3}\NormalTok{(}\FloatTok{82.81281f}\NormalTok{, }\FloatTok{6432.408f}\NormalTok{, }\FloatTok{31.31271f}\NormalTok{)); }\CommentTok{//}
+\NormalTok{            switchLocations.}\FunctionTok{Add}\NormalTok{(}\KeywordTok{new} \FunctionTok{Vector3}\NormalTok{(-}\FloatTok{237.6f}\NormalTok{, }\FloatTok{5497.5f}\NormalTok{, }\FloatTok{189.6f}\NormalTok{)); }\CommentTok{// }
+
+\NormalTok{            index = }\DecValTok{0}\NormalTok{;}
+\NormalTok{        \}}
+
+        \KeywordTok{private} \DataTypeTok{void} \FunctionTok{checkDanger}\NormalTok{()}
+\NormalTok{        \{}
+            \KeywordTok{if}\NormalTok{ (Game.}\FunctionTok{Player}\NormalTok{.}\FunctionTok{Character}\NormalTok{.}\FunctionTok{IsSwimming}\NormalTok{ || Game.}\FunctionTok{Player}\NormalTok{.}\FunctionTok{Character}\NormalTok{.}\FunctionTok{IsInCombat}\NormalTok{ || Game.}\FunctionTok{Player}\NormalTok{.}\FunctionTok{Character}\NormalTok{.}\FunctionTok{IsInMeleeCombat}\NormalTok{ || Game.}\FunctionTok{Player}\NormalTok{.}\FunctionTok{Character}\NormalTok{.}\FunctionTok{IsInWater}\NormalTok{)}\CommentTok{//(Function.Call<bool>(Hash.IS_PED_SWIMMING, Game.Player.Character))}
+\NormalTok{            \{}
+                \CommentTok{//teleport to one of the locations}
+\NormalTok{                Function.}\FunctionTok{Call}\NormalTok{(Hash.}\FunctionTok{SET_ENTITY_COORDS}\NormalTok{, Game.}\FunctionTok{Player}\NormalTok{.}\FunctionTok{Character}\NormalTok{, switchLocations[index].}\FunctionTok{X}\NormalTok{, switchLocations[index].}\FunctionTok{Y}\NormalTok{, switchLocations[index].}\FunctionTok{Z}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{);}
+
+                \CommentTok{//Move the index to the next location}
+\NormalTok{                index++;}
+                \KeywordTok{if}\NormalTok{ (index >= switchLocations.}\FunctionTok{Count}\NormalTok{) index = }\DecValTok{0}\NormalTok{;}
+\KeywordTok{#if}\NormalTok{ (debug)}
+\NormalTok{                UI.}\FunctionTok{Notify}\NormalTok{(}\StringTok{"Teleport"}\NormalTok{);}
+\KeywordTok{#endif}
+\NormalTok{            \}}
+\NormalTok{        \}}
+
+        \KeywordTok{private} \DataTypeTok{void} \FunctionTok{onTick}\NormalTok{(}\DataTypeTok{object}\NormalTok{ sender, EventArgs e) }\CommentTok{//this function gets executed continuously }
+\NormalTok{        \{}
+            \FunctionTok{checkDanger}\NormalTok{();}
+
+            \KeywordTok{if}\NormalTok{ (botOn)}
+\NormalTok{            \{}
+                \CommentTok{//SET PLAYER INVINCIBLE}
+\NormalTok{                Function.}\FunctionTok{Call}\NormalTok{(Hash.}\FunctionTok{SET_PLAYER_INVINCIBLE}\NormalTok{, Game.}\FunctionTok{Player}\NormalTok{, }\KeywordTok{true}\NormalTok{);}
+
+                \CommentTok{//SET 1st PERSON VIEW}
+\NormalTok{                Function.}\FunctionTok{Call}\NormalTok{(Hash.}\FunctionTok{SET_FOLLOW_PED_CAM_VIEW_MODE}\NormalTok{, }\DecValTok{4}\NormalTok{);}
+
+                \CommentTok{//TASK SEQUENCE}
+\NormalTok{                TaskSequence mySeq = }\KeywordTok{new} \FunctionTok{TaskSequence}\NormalTok{();}
+
+                \CommentTok{//WALK}
+\NormalTok{                Random rndWalk = }\KeywordTok{new} \FunctionTok{Random}\NormalTok{();}
+                \DataTypeTok{int}\NormalTok{ Walk = (}\DataTypeTok{int}\NormalTok{)rndWalk.}\FunctionTok{Next}\NormalTok{(-}\DecValTok{10}\NormalTok{, }\DecValTok{10}\NormalTok{);}
+                \CommentTok{//Game.Player.Character.Task.RunTo(Game.Player.Character.GetOffsetInWorldCoords(new Vector3(0, Run, 0)));}
+\NormalTok{                mySeq.}\FunctionTok{AddTask}\NormalTok{.}\FunctionTok{GoTo}\NormalTok{(Game.}\FunctionTok{Player}\NormalTok{.}\FunctionTok{Character}\NormalTok{.}\FunctionTok{GetOffsetInWorldCoords}\NormalTok{(}\KeywordTok{new} \FunctionTok{Vector3}\NormalTok{(Walk, }\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{)));}
+
+                \CommentTok{//RUN}
+\NormalTok{                Random rndRun = }\KeywordTok{new} \FunctionTok{Random}\NormalTok{();}
+                \DataTypeTok{int}\NormalTok{ Run = (}\DataTypeTok{int}\NormalTok{)rndRun.}\FunctionTok{Next}\NormalTok{(-}\DecValTok{10}\NormalTok{, }\DecValTok{10}\NormalTok{);}
+                \CommentTok{//Game.Player.Character.Task.RunTo(Game.Player.Character.GetOffsetInWorldCoords(new Vector3(0, Run, 0)));}
+\NormalTok{                mySeq.}\FunctionTok{AddTask}\NormalTok{.}\FunctionTok{RunTo}\NormalTok{(Game.}\FunctionTok{Player}\NormalTok{.}\FunctionTok{Character}\NormalTok{.}\FunctionTok{GetOffsetInWorldCoords}\NormalTok{(}\KeywordTok{new} \FunctionTok{Vector3}\NormalTok{(}\DecValTok{0}\NormalTok{, Run, }\DecValTok{0}\NormalTok{)));}
+
+                \CommentTok{//WANDER AROUND}
+                \CommentTok{//Game.Player.Character.Task.WanderAround();}
+\NormalTok{                mySeq.}\FunctionTok{AddTask}\NormalTok{.}\FunctionTok{WanderAround}\NormalTok{();}
+                
+\NormalTok{                mySeq.}\FunctionTok{Close}\NormalTok{();}
+\NormalTok{                Game.}\FunctionTok{Player}\NormalTok{.}\FunctionTok{Character}\NormalTok{.}\FunctionTok{Task}\NormalTok{.}\FunctionTok{PerformSequence}\NormalTok{(mySeq);}
+
+                \CommentTok{//LET IT WANDER FOR RANDOM TIME}
+\NormalTok{                Random rndWandering = }\KeywordTok{new} \FunctionTok{Random}\NormalTok{();}
+                \DataTypeTok{int}\NormalTok{ Wandering = (}\DataTypeTok{int}\NormalTok{)rndWandering.}\FunctionTok{Next}\NormalTok{(}\DecValTok{13}\NormalTok{, }\DecValTok{25}\NormalTok{);}
+                \FunctionTok{Wait}\NormalTok{(Wandering*}\DecValTok{1000}\NormalTok{);}
+\NormalTok{                Game.}\FunctionTok{Player}\NormalTok{.}\FunctionTok{Character}\NormalTok{.}\FunctionTok{Task}\NormalTok{.}\FunctionTok{ClearAllImmediately}\NormalTok{();}
+                \FunctionTok{checkDanger}\NormalTok{();}
+                \FunctionTok{Wait}\NormalTok{(}\DecValTok{500}\NormalTok{);}
+
+                \KeywordTok{if}\NormalTok{ (Game.}\FunctionTok{Player}\NormalTok{.}\FunctionTok{Character}\NormalTok{.}\FunctionTok{IsStopped}\NormalTok{)}
+\NormalTok{                \{}
+                    \CommentTok{//PHOTO TAKING STUFF (VIRTUAL KEYS)}
+                    
+\KeywordTok{#if}\NormalTok{ (debug)}
+\NormalTok{                    UI.}\FunctionTok{ShowSubtitle}\NormalTok{(}\StringTok{"take out phone"}\NormalTok{, }\DecValTok{1000}\NormalTok{); }
+\KeywordTok{#endif}
+                    \FunctionTok{keyOut}\NormalTok{(}\BaseNTok{0xC8}\NormalTok{, }\DecValTok{1000}\NormalTok{); }\CommentTok{//Arrow UP}
+                    \FunctionTok{Wait}\NormalTok{(}\DecValTok{1000}\NormalTok{);}
+\KeywordTok{#if}\NormalTok{ (debug)}
+\NormalTok{                    UI.}\FunctionTok{ShowSubtitle}\NormalTok{(}\StringTok{"move down"}\NormalTok{, }\DecValTok{1000}\NormalTok{);}
+\KeywordTok{#endif}
+                    \FunctionTok{keyOut}\NormalTok{(}\BaseNTok{0xD0}\NormalTok{, }\DecValTok{500}\NormalTok{); }\CommentTok{//Arrow DOWN}
+                    \FunctionTok{Wait}\NormalTok{(}\DecValTok{1000}\NormalTok{);}
+\KeywordTok{#if}\NormalTok{ (debug)}
+\NormalTok{                    UI.}\FunctionTok{ShowSubtitle}\NormalTok{(}\StringTok{"take left"}\NormalTok{, }\DecValTok{1000}\NormalTok{); }
+\KeywordTok{#endif}
+                    \FunctionTok{keyOut}\NormalTok{(}\BaseNTok{0xCB}\NormalTok{, }\DecValTok{500}\NormalTok{); }\CommentTok{//Arrow LEFT}
+                    \FunctionTok{Wait}\NormalTok{(}\DecValTok{1000}\NormalTok{);}
+\KeywordTok{#if}\NormalTok{ (debug)}
+\NormalTok{                    UI.}\FunctionTok{ShowSubtitle}\NormalTok{(}\StringTok{"open app"}\NormalTok{, }\DecValTok{1000}\NormalTok{);}
+\KeywordTok{#endif}
+                    \FunctionTok{keyOut}\NormalTok{(}\BaseNTok{0x1C}\NormalTok{, }\DecValTok{500}\NormalTok{); }\CommentTok{//ENTER}
+                    \FunctionTok{Wait}\NormalTok{(}\DecValTok{3000}\NormalTok{);}
+
+                    \CommentTok{//RANDOM ZOOM}
+                    \CommentTok{//ZOOM IN}
+\NormalTok{                    Random rndZoomIn = }\KeywordTok{new} \FunctionTok{Random}\NormalTok{();}
+                    \DataTypeTok{int}\NormalTok{ ZoomIn = (}\DataTypeTok{int}\NormalTok{)rndZoomIn.}\FunctionTok{Next}\NormalTok{(}\DecValTok{4}\NormalTok{, }\DecValTok{14}\NormalTok{);}
+\KeywordTok{#if}\NormalTok{ (debug)}
+\NormalTok{                    UI.}\FunctionTok{ShowSubtitle}\NormalTok{(}\StringTok{"Zooooooming In "}\NormalTok{ + ZoomIn + }\StringTok{" times"}\NormalTok{, }\DecValTok{2000}\NormalTok{);}
+\KeywordTok{#endif}
+                    \KeywordTok{for}\NormalTok{ (}\DataTypeTok{int}\NormalTok{ i = }\DecValTok{0}\NormalTok{; i < ZoomIn; i++)}
+\NormalTok{                    \{}
+                        \FunctionTok{mouseWheelOut}\NormalTok{(}\DecValTok{130}\NormalTok{);}
+                        \FunctionTok{Wait}\NormalTok{(}\DecValTok{20}\NormalTok{);}
+\NormalTok{                    \}}
+                    \FunctionTok{Wait}\NormalTok{(}\DecValTok{1000}\NormalTok{);}
+                    \CommentTok{//ZOOM OUT}
+\NormalTok{                    Random rndZoomOut = }\KeywordTok{new} \FunctionTok{Random}\NormalTok{();}
+                    \DataTypeTok{int}\NormalTok{ ZoomOut = (}\DataTypeTok{int}\NormalTok{)rndZoomOut.}\FunctionTok{Next}\NormalTok{(}\DecValTok{2}\NormalTok{, }\DecValTok{8}\NormalTok{);}
+\KeywordTok{#if}\NormalTok{ (debug)}
+\NormalTok{                    UI.}\FunctionTok{ShowSubtitle}\NormalTok{(}\StringTok{"Zooooooming Out "}\NormalTok{ + ZoomOut + }\StringTok{" times"}\NormalTok{, }\DecValTok{2000}\NormalTok{);}
+\KeywordTok{#endif}
+                    \KeywordTok{for}\NormalTok{ (}\DataTypeTok{int}\NormalTok{ i = }\DecValTok{0}\NormalTok{; i < ZoomOut; i++)}
+\NormalTok{                    \{}
+                        \FunctionTok{mouseWheelOut}\NormalTok{(}\KeywordTok{unchecked}\NormalTok{((}\DataTypeTok{uint}\NormalTok{)-}\DecValTok{130}\NormalTok{));}
+                        \FunctionTok{Wait}\NormalTok{(}\DecValTok{20}\NormalTok{);}
+\NormalTok{                    \}}
+                    \FunctionTok{Wait}\NormalTok{(}\DecValTok{3000}\NormalTok{);}
+
+                    \CommentTok{//TO DO: SMOOTH RANDOM MOUSE XY}
+                    \CommentTok{/*Random rndCamMove = new Random();}
+\CommentTok{                    int camMove = rndCamMove.Next(5, 10);}
+\CommentTok{                    UI.ShowSubtitle("find the right framing", 1000 + (20 * camMove));}
+\CommentTok{                    for (int i = 0; i < camMove; i++)}
+\CommentTok{                    \{}
+\CommentTok{                        Random rndX = new Random();}
+\CommentTok{                        Random rndY = new Random();}
+\CommentTok{                        int newX = rndX.Next(-10, 10);}
+\CommentTok{                        int newY = rndY.Next(-10, 10);}
+\CommentTok{                        //mouseOut(newX*2, newY*2); //mouse xy}
+\CommentTok{                        mouseOut(newX * 10, 0); //mouse xy}
+\CommentTok{                        Wait(500);}
+\CommentTok{                    \}}
+\CommentTok{                    Wait(2000);*/}
+
+                    \CommentTok{//CHOOSE A RANDOM FILTER}
+\NormalTok{                    Random rnd = }\KeywordTok{new} \FunctionTok{Random}\NormalTok{();}
+                    \DataTypeTok{int}\NormalTok{ filter = rnd.}\FunctionTok{Next}\NormalTok{(}\DecValTok{14}\NormalTok{);}
+\KeywordTok{#if}\NormalTok{ (debug)}
+\NormalTok{                    UI.}\FunctionTok{ShowSubtitle}\NormalTok{(}\StringTok{"choose a random filter"}\NormalTok{, }\DecValTok{1000}\NormalTok{ + (}\DecValTok{500}\NormalTok{ * filter));}
+\KeywordTok{#endif}
+                    \KeywordTok{for}\NormalTok{ (}\DataTypeTok{int}\NormalTok{ i = }\DecValTok{0}\NormalTok{; i < filter; i++)}
+\NormalTok{                    \{}
+                        \FunctionTok{keyOut}\NormalTok{(}\BaseNTok{0xD0}\NormalTok{, }\DecValTok{500}\NormalTok{); }\CommentTok{//Arrow DOWN}
+                        \FunctionTok{Wait}\NormalTok{(}\DecValTok{500}\NormalTok{);}
+\NormalTok{                    \}}
+                    \FunctionTok{Wait}\NormalTok{(}\DecValTok{1000}\NormalTok{);}
+
+                    \CommentTok{//TAKE PHOTO}
+\KeywordTok{#if}\NormalTok{ (debug)}
+\NormalTok{                    UI.}\FunctionTok{ShowSubtitle}\NormalTok{(}\StringTok{"take photo"}\NormalTok{, }\DecValTok{1000}\NormalTok{);}
+\KeywordTok{#endif}
+                    \FunctionTok{keyOut}\NormalTok{(}\BaseNTok{0x1C}\NormalTok{, }\DecValTok{500}\NormalTok{); }\CommentTok{//ENTER}
+                    \FunctionTok{Wait}\NormalTok{(}\DecValTok{5000}\NormalTok{);}
+
+                    \CommentTok{//DELETE PHOTO}
+\KeywordTok{#if}\NormalTok{ (debug)}
+\NormalTok{                    UI.}\FunctionTok{ShowSubtitle}\NormalTok{(}\StringTok{"delete photo"}\NormalTok{, }\DecValTok{1000}\NormalTok{);}
+\KeywordTok{#endif}
+                    \FunctionTok{keyOut}\NormalTok{(}\BaseNTok{0xD3}\NormalTok{, }\DecValTok{500}\NormalTok{); }\CommentTok{//DELETE}
+                    \FunctionTok{Wait}\NormalTok{(}\DecValTok{2000}\NormalTok{);}
+
+                    \CommentTok{//CLOSE THE CAMERA APP}
+\KeywordTok{#if}\NormalTok{ (debug)}
+\NormalTok{                    UI.}\FunctionTok{ShowSubtitle}\NormalTok{(}\StringTok{"close app"}\NormalTok{, }\DecValTok{1000}\NormalTok{);}
+\KeywordTok{#endif}
+                    \FunctionTok{keyOut}\NormalTok{(}\BaseNTok{0x0E}\NormalTok{, }\DecValTok{500}\NormalTok{); }\CommentTok{//BACK SPACE}
+                    \FunctionTok{Wait}\NormalTok{(}\DecValTok{2000}\NormalTok{);}
+
+                    \CommentTok{//PUT AWAY THE PHONE}
+\KeywordTok{#if}\NormalTok{ (debug)}
+\NormalTok{                    UI.}\FunctionTok{ShowSubtitle}\NormalTok{(}\StringTok{"put away phone"}\NormalTok{, }\DecValTok{1000}\NormalTok{);}
+\KeywordTok{#endif}
+                    \FunctionTok{keyOut}\NormalTok{(}\BaseNTok{0x0E}\NormalTok{, }\DecValTok{500}\NormalTok{); }\CommentTok{//BACK SPACE}
+                    
+                    \FunctionTok{Wait}\NormalTok{(}\DecValTok{2000}\NormalTok{);}
+\NormalTok{                \}}
+\NormalTok{            \}}
+\NormalTok{        \}}
+
+        
+        \CommentTok{//VIRTUAL MOUSE X AND Y MOVEMENT}
+        \KeywordTok{public} \KeywordTok{static} \DataTypeTok{void} \FunctionTok{mouseOut}\NormalTok{(}\DataTypeTok{int}\NormalTok{ coordX, }\DataTypeTok{int}\NormalTok{ coordY)}
+\NormalTok{        \{}
+            \CommentTok{//mouse move xy}
+\NormalTok{            Input[] inputs = }\KeywordTok{new}\NormalTok{ Input[]}
+\NormalTok{            \{}
+                \KeywordTok{new}\NormalTok{ Input}
+\NormalTok{                \{}
+\NormalTok{                    type = (}\DataTypeTok{int}\NormalTok{) InputType.}\FunctionTok{Mouse}\NormalTok{,}
+\NormalTok{                    u = }\KeywordTok{new}\NormalTok{ InputUnion}
+\NormalTok{                    \{}
+\NormalTok{                        mi = }\KeywordTok{new}\NormalTok{ MouseInput}
+\NormalTok{                        \{}
+\NormalTok{                            dx = coordX,}
+\NormalTok{                            dy = coordY,}
+\NormalTok{                            dwFlags = (}\DataTypeTok{uint}\NormalTok{)(MouseEventF.}\FunctionTok{Move}\NormalTok{),}
+\NormalTok{                            dwExtraInfo = }\FunctionTok{GetMessageExtraInfo}\NormalTok{()}
+\NormalTok{                        \}}
+\NormalTok{                    \}}
+\NormalTok{                \}}
+\NormalTok{            \};}
+            \FunctionTok{SendInput}\NormalTok{((}\DataTypeTok{uint}\NormalTok{)inputs.}\FunctionTok{Length}\NormalTok{, inputs, Marshal.}\FunctionTok{SizeOf}\NormalTok{(}\KeywordTok{typeof}\NormalTok{(Input)));}
+\NormalTok{        \}}
+
+        \CommentTok{//VIRTUAL MOUSE WHEEL SCROLLING}
+        \KeywordTok{public} \KeywordTok{static} \DataTypeTok{void} \FunctionTok{mouseWheelOut}\NormalTok{(}\DataTypeTok{uint}\NormalTok{ duration)}
+\NormalTok{        \{}
+            \CommentTok{//mouse wheel}
+\NormalTok{            Input[] inputs = }\KeywordTok{new}\NormalTok{ Input[]}
+\NormalTok{            \{}
+                \KeywordTok{new}\NormalTok{ Input}
+\NormalTok{                \{}
+\NormalTok{                    type = (}\DataTypeTok{int}\NormalTok{) InputType.}\FunctionTok{Mouse}\NormalTok{,}
+\NormalTok{                    u = }\KeywordTok{new}\NormalTok{ InputUnion}
+\NormalTok{                    \{}
+\NormalTok{                        mi = }\KeywordTok{new}\NormalTok{ MouseInput}
+\NormalTok{                        \{}
+\NormalTok{                            dx = }\DecValTok{100}\NormalTok{,}
+\NormalTok{                            dy = }\DecValTok{100}\NormalTok{,}
+                            \CommentTok{//time = 0,}
+\NormalTok{                            mouseData = duration,}
+\NormalTok{                            dwFlags = (}\DataTypeTok{uint}\NormalTok{)(MouseEventF.}\FunctionTok{Wheel}\NormalTok{),}
+\NormalTok{                            dwExtraInfo = }\FunctionTok{GetMessageExtraInfo}\NormalTok{()}
+\NormalTok{                        \}}
+\NormalTok{                    \}}
+\NormalTok{                \}}
+\NormalTok{            \};}
+            \FunctionTok{SendInput}\NormalTok{((}\DataTypeTok{uint}\NormalTok{)inputs.}\FunctionTok{Length}\NormalTok{, inputs, Marshal.}\FunctionTok{SizeOf}\NormalTok{(}\KeywordTok{typeof}\NormalTok{(Input)));}
+\NormalTok{        \}}
+        
+        \CommentTok{//VIRTUAL KEY PRESS AND RELEASE}
+        \KeywordTok{public} \KeywordTok{static} \DataTypeTok{void} \FunctionTok{keyOut}\NormalTok{(}\DataTypeTok{ushort}\NormalTok{ hexKey, }\DataTypeTok{int}\NormalTok{ delay)}
+\NormalTok{        \{}
+            \CommentTok{//key pressed}
+\NormalTok{            Input[] inputs = }\KeywordTok{new}\NormalTok{ Input[]}
+\NormalTok{            \{}
+                \KeywordTok{new}\NormalTok{ Input}
+\NormalTok{                \{}
+\NormalTok{                    type = (}\DataTypeTok{int}\NormalTok{)InputType.}\FunctionTok{Keyboard}\NormalTok{,}
+\NormalTok{                    u = }\KeywordTok{new}\NormalTok{ InputUnion}
+\NormalTok{                    \{}
+\NormalTok{                        ki = }\KeywordTok{new}\NormalTok{ KeyboardInput}
+\NormalTok{                        \{}
+\NormalTok{                            wVk = }\DecValTok{0}\NormalTok{,}
+\NormalTok{                            wScan = hexKey, }\CommentTok{//0xC8,}
+\NormalTok{                            dwFlags = (}\DataTypeTok{uint}\NormalTok{)(KeyEventF.}\FunctionTok{KeyDown}\NormalTok{ | KeyEventF.}\FunctionTok{Scancode}\NormalTok{),}
+\NormalTok{                            dwExtraInfo = }\FunctionTok{GetMessageExtraInfo}\NormalTok{()}
+\NormalTok{                        \}}
+\NormalTok{                    \}}
+\NormalTok{                \}}
+\NormalTok{            \};}
+
+
+            \CommentTok{//key released}
+\NormalTok{            Input[] inputs2 = }\KeywordTok{new}\NormalTok{ Input[]}
+\NormalTok{            \{}
+                \KeywordTok{new}\NormalTok{ Input}
+\NormalTok{                \{}
+\NormalTok{                    type = (}\DataTypeTok{int}\NormalTok{)InputType.}\FunctionTok{Keyboard}\NormalTok{,}
+\NormalTok{                    u = }\KeywordTok{new}\NormalTok{ InputUnion}
+\NormalTok{                    \{}
+\NormalTok{                        ki = }\KeywordTok{new}\NormalTok{ KeyboardInput}
+\NormalTok{                        \{}
+\NormalTok{                            wVk = }\DecValTok{0}\NormalTok{,}
+\NormalTok{                            wScan = hexKey, }\CommentTok{//0xC8,}
+\NormalTok{                            dwFlags = (}\DataTypeTok{uint}\NormalTok{)(KeyEventF.}\FunctionTok{KeyUp}\NormalTok{ | KeyEventF.}\FunctionTok{Scancode}\NormalTok{),}
+\NormalTok{                            dwExtraInfo = }\FunctionTok{GetMessageExtraInfo}\NormalTok{()}
+\NormalTok{                        \}}
+\NormalTok{                    \}}
+\NormalTok{                \}}
+\NormalTok{            \};}
+
+            \CommentTok{//send key press / delay / release}
+            \FunctionTok{SendInput}\NormalTok{((}\DataTypeTok{uint}\NormalTok{)inputs.}\FunctionTok{Length}\NormalTok{, inputs, Marshal.}\FunctionTok{SizeOf}\NormalTok{(}\KeywordTok{typeof}\NormalTok{(Input)));}
+            \FunctionTok{Wait}\NormalTok{(delay);}
+            \FunctionTok{SendInput}\NormalTok{((}\DataTypeTok{uint}\NormalTok{)inputs2.}\FunctionTok{Length}\NormalTok{, inputs2, Marshal.}\FunctionTok{SizeOf}\NormalTok{(}\KeywordTok{typeof}\NormalTok{(Input)));}
+
+\NormalTok{        \}}
+
+        \KeywordTok{private} \DataTypeTok{void} \FunctionTok{onKeyDown}\NormalTok{(}\DataTypeTok{object}\NormalTok{ sender, KeyEventArgs e)}
+\NormalTok{        \{}
+           
+\NormalTok{        \}}
+        \KeywordTok{private} \DataTypeTok{void} \FunctionTok{onKeyUp}\NormalTok{(}\DataTypeTok{object}\NormalTok{ sender, KeyEventArgs e)}
+\NormalTok{        \{}
+           \KeywordTok{if}\NormalTok{ (e.}\FunctionTok{KeyCode}\NormalTok{ == Keys.}\FunctionTok{H}\NormalTok{)}
+\NormalTok{           \{}
+              \CommentTok{//SWITCH THE BOT ON/OFF}
+\NormalTok{              botOn = !botOn;}
+              \KeywordTok{if}\NormalTok{(botOn) UI.}\FunctionTok{ShowSubtitle}\NormalTok{(}\StringTok{"GTA V Photographer Bot is ON"}\NormalTok{, }\DecValTok{3000}\NormalTok{);}
+               \KeywordTok{else}\NormalTok{ UI.}\FunctionTok{ShowSubtitle}\NormalTok{(}\StringTok{"GTA V Photographer Bot is OFF"}\NormalTok{, }\DecValTok{3000}\NormalTok{);}
+  
+\NormalTok{           \}}
+           \KeywordTok{if}\NormalTok{ (e.}\FunctionTok{KeyCode}\NormalTok{ == Keys.}\FunctionTok{J}\NormalTok{)}
+\NormalTok{           \{}
+              \CommentTok{//TELEPORT MANUALLY}
+\NormalTok{              Function.}\FunctionTok{Call}\NormalTok{(Hash.}\FunctionTok{SET_ENTITY_COORDS}\NormalTok{, Game.}\FunctionTok{Player}\NormalTok{.}\FunctionTok{Character}\NormalTok{, switchLocations[index].}\FunctionTok{X}\NormalTok{, switchLocations[index].}\FunctionTok{Y}\NormalTok{, switchLocations[index].}\FunctionTok{Z}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{);}
+\NormalTok{              index++;}
+              \KeywordTok{if}\NormalTok{ (index >= switchLocations.}\FunctionTok{Count}\NormalTok{) index = }\DecValTok{0}\NormalTok{;}
+\NormalTok{            \}}
+\NormalTok{        \}}
+\NormalTok{    \}}
+\NormalTok{\}}
+
+
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{fivem}{%
+\subsection{FiveM \{--\}}\label{fivem}}
+
+//start a server
+
+//join a server
+
+\hypertarget{content-replication-assignment-6}{%
+\section*{Content Replication Assignment}\label{content-replication-assignment-6}}
+\addcontentsline{toc}{section}{Content Replication Assignment}
+
 \end{document}
