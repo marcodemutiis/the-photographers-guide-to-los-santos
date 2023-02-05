@@ -854,4 +854,826 @@ Generate a notification with a custom text string:
 
 Write a mod script to change your game character into a deer by pressing a key, and make it autonomously wander around Los Santos by pressing another key.
 
+\hypertarget{surrealist-photography}{%
+\chapter{Surrealist Photography}\label{surrealist-photography}}
+
+//general introduction about avant garde traditions of distancing from reality and exploring the possibilities of CGI decoupled from realism adn life-like simulation, the game as an engine that can be used to create oniric scenes, which in turn reveal the untapped possibilities hidden within the game code, the player as a modder which can generate worlds within the world\ldots{}
+
+\hypertarget{alexey-andrienko-aka-happ-v2}{%
+\section*{Alexey Andrienko aka HAPP v2}\label{alexey-andrienko-aka-happ-v2}}
+\addcontentsline{toc}{section}{Alexey Andrienko aka HAPP v2}
+
+artwork text
+
+\href{https://www.gamescenes.org/2018/02/game-art-happ-v2s-in-game-photography.html}{More about Happ v2}
+
+\hypertarget{getting-there-7}{%
+\subsection*{Getting There}\label{getting-there-7}}
+\addcontentsline{toc}{subsection}{Getting There}
+
+\href{https://grandtheftdata.com/landmarks/\#-2629.132,626.461,4,atlas,name=beach,Chumash_Beach,_Chumash}{Chumash Beach}
+
+\hypertarget{readings-4}{%
+\section*{Readings}\label{readings-4}}
+\addcontentsline{toc}{section}{Readings}
+
+\hypertarget{tutorial-4}{%
+\section*{Tutorial}\label{tutorial-4}}
+\addcontentsline{toc}{section}{Tutorial}
+
+\hypertarget{scripting-characters}{%
+\subsection*{Scripting Characters}\label{scripting-characters}}
+\addcontentsline{toc}{subsection}{Scripting Characters}
+
+\hypertarget{npcs}{%
+\subsection*{NPCs}\label{npcs}}
+\addcontentsline{toc}{subsection}{NPCs}
+
+NPCs are non playable characters and in GTA V scripting they are called \texttt{Peds}. Peds are an entity like Props or Vehicles and can be created, assigned different model textures, equipped with weapons and controlled through different tasks.
+
+\hypertarget{spawn-a-new-npc}{%
+\subsection*{Spawn a new NPC}\label{spawn-a-new-npc}}
+\addcontentsline{toc}{subsection}{Spawn a new NPC}
+
+A GTA V Ped can be created by the \texttt{World.CreatePed} function. This takes two parameters: an ID to assign the 3D model and textures, and the location where the Ped is created.
+
+The model IDs are the same we used in the previous tutorial, when we changed our character's appearance to a cat. A list of all available models can be found \href{https://wiki.gtanet.work/index.php/Peds}{here}. \texttt{PedHash.Cat}, \texttt{PedHash.Deer}, \texttt{PedHash.AviSchwartzman}are all possible IDs we can assign to the NPC we want to create.
+We can create a new model variable, which we will name `myPedModel' and assign it a model ID:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{Model myPedModel = PedHash.}\FunctionTok{AviSchwartzman}\NormalTok{;}
+\end{Highlighting}
+\end{Shaded}
+
+The location where the NPC is created through a vector3 data type, which represents a vector in 3D space. This basically means a point that contains X, Y and Z coordinates. We can give absolute coordinates, making the Ped appear at a specific location in the game, but we can also use a location relative to our position in the game. In order not to risk making a Ped appear somewhere completely outside of our view -- on some mountain or in the sea -- let's look at a vector3 that points to a position in front of the player.
+
+We want to establish the player with\texttt{Game.Player.Character}, followed by a function that retireve the player position within the game world. That's called by using \texttt{GetOffsetInWorldCoords}, which takes a vector3. The values of the X, Y and Z of the vector 3 offset the location based on the origin point represented by the player. Therefore, we can move the place where we want the Ped to appear by adding values to the X axis (left or right of player), Y axis (ahead or behind the player), and Z axis (above or below the player).
+To make a Ped appear in front of the player we can create a vector3 data type with 0 for X, 5 for Y and 0 for Z: \texttt{new\ Vector3(0,\ 5,\ 0)}. Let's make a vector3 variable, which we will name `myPedSpawnPosition', assign it the values above for X, Y and Z coordinates from the player position.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{Vector3 myPedSpawnPosition = Game.}\FunctionTok{Player}\NormalTok{.}\FunctionTok{Character}\NormalTok{.}\FunctionTok{GetOffsetInWorldCoords}\NormalTok{(}\KeywordTok{new} \FunctionTok{Vector3}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{5}\NormalTok{, }\DecValTok{0}\NormalTok{));}
+\end{Highlighting}
+\end{Shaded}
+
+Now we can use the model and the position variables to spawn the NPC in front of the player. We'll create a Ped named `myPed1' and use the \texttt{World.CreatePed} function with the two variables as parameters:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DataTypeTok{var}\NormalTok{ myPed1 = World.}\FunctionTok{CreatePed}\NormalTok{(myPedModel, myPedSpawnPosition); }
+\end{Highlighting}
+\end{Shaded}
+
+Example code
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{using}\NormalTok{ System;}
+\KeywordTok{using}\NormalTok{ System.}\FunctionTok{Collections}\NormalTok{.}\FunctionTok{Generic}\NormalTok{;}
+\KeywordTok{using}\NormalTok{ System.}\FunctionTok{Linq}\NormalTok{;}
+\KeywordTok{using}\NormalTok{ System.}\FunctionTok{Text}\NormalTok{;}
+\KeywordTok{using}\NormalTok{ System.}\FunctionTok{Threading}\NormalTok{.}\FunctionTok{Tasks}\NormalTok{;}
+ 
+\KeywordTok{using}\NormalTok{ GTA;}
+\KeywordTok{using}\NormalTok{ GTA.}\FunctionTok{Math}\NormalTok{;}
+\KeywordTok{using}\NormalTok{ System.}\FunctionTok{Windows}\NormalTok{.}\FunctionTok{Forms}\NormalTok{;}
+\KeywordTok{using}\NormalTok{ System.}\FunctionTok{Drawing}\NormalTok{;}
+\KeywordTok{using}\NormalTok{ GTA.}\FunctionTok{Native}\NormalTok{;}
+ 
+ 
+\KeywordTok{namespace}\NormalTok{ moddingTutorial}
+\NormalTok{\{}
+    \KeywordTok{public} \KeywordTok{class}\NormalTok{ moddingTutorial : Script}
+\NormalTok{    \{}
+        \KeywordTok{public} \FunctionTok{moddingTutorial}\NormalTok{()}
+\NormalTok{        \{}
+            \KeywordTok{this}\NormalTok{.}\FunctionTok{Tick}\NormalTok{ += onTick;}
+            \KeywordTok{this}\NormalTok{.}\FunctionTok{KeyUp}\NormalTok{ += onKeyUp;}
+            \KeywordTok{this}\NormalTok{.}\FunctionTok{KeyDown}\NormalTok{ += onKeyDown;}
+\NormalTok{        \}}
+ 
+        \KeywordTok{private} \DataTypeTok{void} \FunctionTok{onTick}\NormalTok{(}\DataTypeTok{object}\NormalTok{ sender, EventArgs e) }\CommentTok{//this function gets executed continuously }
+\NormalTok{        \{}
+\NormalTok{        \}}
+ 
+        \KeywordTok{private} \DataTypeTok{void} \FunctionTok{onKeyUp}\NormalTok{(}\DataTypeTok{object}\NormalTok{ sender, KeyEventArgs e)}\CommentTok{//everything inside here is executed only when we release a key}
+\NormalTok{        \{}
+\NormalTok{        \}}
+ 
+        \KeywordTok{private} \DataTypeTok{void} \FunctionTok{onKeyDown}\NormalTok{(}\DataTypeTok{object}\NormalTok{ sender, KeyEventArgs e) }\CommentTok{//everything inside here is executed only when we press a key}
+\NormalTok{        \{}
+            \CommentTok{//when pressing 'K'}
+            \KeywordTok{if}\NormalTok{(e.}\FunctionTok{KeyCode}\NormalTok{ == Keys.}\FunctionTok{K}\NormalTok{)}
+\NormalTok{            \{}
+                \CommentTok{//select a model and store it in a variable}
+\NormalTok{                Model myPedModel = PedHash.}\FunctionTok{AviSchwartzman}\NormalTok{;}
+    
+        \CommentTok{//create a position relative to the player}
+\NormalTok{        Vector3 myPedSpawnPosition = Game.}\FunctionTok{Player}\NormalTok{.}\FunctionTok{Character}\NormalTok{.}\FunctionTok{GetOffsetInWorldCoords}\NormalTok{(}\KeywordTok{new} \FunctionTok{Vector3}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{5}\NormalTok{, }\DecValTok{0}\NormalTok{));}
+    
+        \CommentTok{//create a Ped with the chosen model, spawning at the chosen position}
+        \DataTypeTok{var}\NormalTok{ myPed1 = World.}\FunctionTok{CreatePed}\NormalTok{(myPedModel, myPedSpawnPosition); }
+\NormalTok{            \}}
+\NormalTok{        \}}
+\NormalTok{    \}}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{control-multiple-npcs}{%
+\subsection*{Control Multiple NPCs}\label{control-multiple-npcs}}
+\addcontentsline{toc}{subsection}{Control Multiple NPCs}
+
+You can create multiple NPCs and give them custom names. Let's create a human NPC and a cat NPC and call them Jim and MannyTheCat respectively:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DataTypeTok{var}\NormalTok{ Jim = World.}\FunctionTok{CreatePed}\NormalTok{(PedHash.}\FunctionTok{AviSchwartzman}\NormalTok{, Game.}\FunctionTok{Player}\NormalTok{.}\FunctionTok{Character}\NormalTok{.}\FunctionTok{GetOffsetInWorldCoords}\NormalTok{(}\KeywordTok{new} \FunctionTok{Vector3}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{5}\NormalTok{, }\DecValTok{0}\NormalTok{)));}
+\DataTypeTok{var}\NormalTok{ MannyTheCat = World.}\FunctionTok{CreatePed}\NormalTok{(PedHash.}\FunctionTok{Cat}\NormalTok{, Game.}\FunctionTok{Player}\NormalTok{.}\FunctionTok{Character}\NormalTok{.}\FunctionTok{GetOffsetInWorldCoords}\NormalTok{(}\KeywordTok{new} \FunctionTok{Vector3}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{0}\NormalTok{)));}
+\end{Highlighting}
+\end{Shaded}
+
+Try to kill one of the \texttt{Ped} NPCs you created by using the \texttt{Kill()}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{Jim.}\FunctionTok{Kill}\NormalTok{();}
+\end{Highlighting}
+\end{Shaded}
+
+Note that when you kill your \texttt{Ped} `Jim', it falls on the floor and it won't actually respond to any call or task you will give it, but it's not removed from the game. To remove a specific \texttt{Ped} you have to use the \texttt{Delete}function, which will remove that instance (and will make the NPC disappear).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{Jim.}\FunctionTok{Delete}\NormalTok{();}
+\end{Highlighting}
+\end{Shaded}
+
+To handle groups of NPCs we can use the \texttt{List} class. A \texttt{List} is a collection of objects, and a \texttt{List}of \texttt{Peds} allows us to store our NPCs. We can use an index to retrieve and control specific \texttt{Peds} in the group. You can see the \href{https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.list-1?view=net-7.0}{reference} for more detailed information.
+
+Create a \texttt{List} of \texttt{Peds} named myPeds as a global variable in the public class \texttt{public\ class\ moddingTutorial\ :\ Script}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{List<Ped> myPeds = }\KeywordTok{new}\NormalTok{ List<Ped>();}
+\end{Highlighting}
+\end{Shaded}
+
+In the onKeyDown function \texttt{private\ void\ onKeyDown(object\ sender,\ KeyEventArgs\ e)} create 5 new Peds with a \href{https://www.w3schools.com/cs/cs_for_loop.php}{For Loop}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{for}\NormalTok{ (}\DataTypeTok{int}\NormalTok{ i = }\DecValTok{0}\NormalTok{; i < }\DecValTok{5}\NormalTok{; i++)}
+\NormalTok{\{}
+    \CommentTok{//spawn a new Ped called newPed}
+    \DataTypeTok{var}\NormalTok{ newPed = World.}\FunctionTok{CreatePed}\NormalTok{(PedHash.}\FunctionTok{Clown01SMY}\NormalTok{, Game.}\FunctionTok{Player}\NormalTok{.}\FunctionTok{Character}\NormalTok{.}\FunctionTok{GetOffsetInWorldCoords}\NormalTok{(}\KeywordTok{new} \FunctionTok{Vector3}\NormalTok{(i}\FloatTok{-2.5f}\NormalTok{, }\DecValTok{8}\NormalTok{, }\DecValTok{0}\NormalTok{)));}
+    \CommentTok{//add the new Ped to my list of Peds myPeds}
+\NormalTok{    myPeds.}\FunctionTok{Add}\NormalTok{(newPed);}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+Now all the 5 \texttt{Peds} are part of the myPeds{[}{]} \texttt{List}. You can control each Ped individually by calling their individual number ID in the group. The first spawn \texttt{Ped} is myPed{[}0{]}, the last one is myPeds{[}4{]}.
+
+Tell the 1st spawned NPC to start wandering around:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{myPeds[}\DecValTok{0}\NormalTok{].}\FunctionTok{Task}\NormalTok{.}\FunctionTok{WanderAround}\NormalTok{();}
+\end{Highlighting}
+\end{Shaded}
+
+Kill the 2nd spawned NPC:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{myPeds[}\DecValTok{1}\NormalTok{].}\FunctionTok{Kill}\NormalTok{();}
+\end{Highlighting}
+\end{Shaded}
+
+Tell the 3rd NPC to jump:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{myPeds[}\DecValTok{2}\NormalTok{].}\FunctionTok{Jump}\NormalTok{();}
+\end{Highlighting}
+\end{Shaded}
+
+Tell the 4th NPC to walk toward the camera:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{myPeds[}\DecValTok{3}\NormalTok{].}\FunctionTok{GoTo}\NormalTok{(GameplayCamera.}\FunctionTok{Position}\NormalTok{);}
+\end{Highlighting}
+\end{Shaded}
+
+Tell the 5th NPC to put their hands up for 3 seconds:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{myPeds[}\DecValTok{4}\NormalTok{].}\FunctionTok{Task}\NormalTok{.}\FunctionTok{HandsUp}\NormalTok{(}\DecValTok{3000}\NormalTok{);}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{nearby-npcs}{%
+\subsection*{Nearby NPCs}\label{nearby-npcs}}
+\addcontentsline{toc}{subsection}{Nearby NPCs}
+
+Script Hook V DOt Net provides a function \texttt{GetNearbyPeds}which groups all the \texttt{Peds} within a nearby radius from a character.
+
+Create a new group that adds \texttt{Peds} which are closer than 20 meters from the player (add that as a global variable in \texttt{public\ class\ moddingTutorial\ :\ Script}):
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{Ped[] NearbyPeds = World.}\FunctionTok{GetNearbyPeds}\NormalTok{(Game.}\FunctionTok{Player}\NormalTok{.}\FunctionTok{Character}\NormalTok{, 20f);}
+\end{Highlighting}
+\end{Shaded}
+
+Use a \href{https://www.simplilearn.com/tutorials/asp-dot-net-tutorial/csharp-foreach\#:~:text=The\%20foreach\%20loop\%20in\%20C\%23,readable\%20alternative\%20to\%20for\%20loop.}{Foreach Loop} to get every \texttt{Ped} in the group and give them the task to put their hands up for a second:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{foreach}\NormalTok{ (Ped p }\KeywordTok{in}\NormalTok{ NearbyPeds)}
+\NormalTok{\{}
+\NormalTok{    p.}\FunctionTok{Task}\NormalTok{.}\FunctionTok{HandsUp}\NormalTok{(}\DecValTok{1000}\NormalTok{);}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\texttt{GetNearbyPeds} does not sort out individual \texttt{Peds}in the group based on distance, so we have to do a bit of manual filtering to get the nearest NPC within the chosen radius from the player character.
+
+Define the global variables in the public class \texttt{public\ class\ moddingTutorial\ :\ Script}:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DataTypeTok{float}\NormalTok{ lastDistance;}
+\NormalTok{Ped nearestPed = }\KeywordTok{null}\NormalTok{;}
+\NormalTok{Ped oldNearestPed = }\KeywordTok{null}\NormalTok{;}
+\end{Highlighting}
+\end{Shaded}
+
+Get and parse the nearby NPCs in the OnTick function \texttt{private\ void\ onTick(object\ sender,\ EventArgs\ e)}:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{//set radius}
+\DataTypeTok{float}\NormalTok{ maxDistance = 25f;}
+\CommentTok{//get nearest peds      }
+\NormalTok{Ped[] pedsGroup = World.}\FunctionTok{GetNearbyPeds}\NormalTok{(Game.}\FunctionTok{Player}\NormalTok{.}\FunctionTok{Character}\NormalTok{, maxDistance);}
+ 
+\DataTypeTok{float}\NormalTok{ lastDistance = maxDistance;}
+\KeywordTok{foreach}\NormalTok{ (Ped ped }\KeywordTok{in}\NormalTok{ pedsGroup)}
+\NormalTok{\{}
+    \DataTypeTok{float}\NormalTok{ distance = ped.}\FunctionTok{Position}\NormalTok{.}\FunctionTok{DistanceTo}\NormalTok{(Game.}\FunctionTok{Player}\NormalTok{.}\FunctionTok{Character}\NormalTok{.}\FunctionTok{Position}\NormalTok{);}
+    \KeywordTok{if}\NormalTok{ (distance < lastDistance)}
+\NormalTok{    \{}
+\NormalTok{        nearestPed = ped;}
+\NormalTok{        lastDistance = distance;}
+\NormalTok{    \}}
+\NormalTok{\}}
+
+    \KeywordTok{if}\NormalTok{ (nearestPed != }\KeywordTok{null}\NormalTok{ && oldNearestPed != nearestPed)}
+\NormalTok{    \{}
+\NormalTok{        nearestPed.}\FunctionTok{Task}\NormalTok{.}\FunctionTok{HandsUp}\NormalTok{(}\DecValTok{1000}\NormalTok{);}
+\NormalTok{    \}}
+\NormalTok{oldNearestPed = nearestPed;}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{give-tasks-to-npcs}{%
+\subsection*{Give Tasks to NPCs}\label{give-tasks-to-npcs}}
+\addcontentsline{toc}{subsection}{Give Tasks to NPCs}
+
+A Ped can be given a task using the \texttt{Task} function, just like we did in the previous tutorial for the player character.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{myPed1.}\FunctionTok{Task}\NormalTok{.}\FunctionTok{WanderAround}\NormalTok{();}
+\end{Highlighting}
+\end{Shaded}
+
+Some tasks involve interacting with other characters (Peds or Game.Player.Character) or take different parameters like positions (vector3), duration (in milliseconds), and other data types.
+We can give our NPC the task to fight against the player by using the \texttt{FightAgainst} function, which requires a Ped parameter -- which in the case of the player is expressed as \texttt{Game.Player.Character}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{myPed1.}\FunctionTok{Task}\NormalTok{.}\FunctionTok{FightAgainst}\NormalTok{(Game.}\FunctionTok{Player}\NormalTok{.}\FunctionTok{Character}\NormalTok{); }\CommentTok{//give npc task to fight against player}
+\end{Highlighting}
+\end{Shaded}
+
+Try to replace the task to ``fight against'' with ``flee from (player)'' , ``hands up'', ``jump''\ldots{} or some of the other available tasks.
+
+See the \href{https://nitanmarcel.github.io/shvdn-docs.github.io/class_g_t_a_1_1_task_invoker.html}{TaskInvoker list} for possible tasks, or click on the list of available tasks below.
+
+List of Available Tasks
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DataTypeTok{void} \FunctionTok{AchieveHeading}\NormalTok{ (}\DataTypeTok{float}\NormalTok{ heading, }\DataTypeTok{int}\NormalTok{ timeout=}\DecValTok{0}\NormalTok{)}
+ 
+\DataTypeTok{void} \FunctionTok{AimAt}\NormalTok{ (Entity target, }\DataTypeTok{int}\NormalTok{ duration)}
+ 
+\DataTypeTok{void} \FunctionTok{AimAt}\NormalTok{ (Vector3 target, }\DataTypeTok{int}\NormalTok{ duration)}
+ 
+\DataTypeTok{void} \FunctionTok{Arrest}\NormalTok{ (Ped ped)}
+ 
+\DataTypeTok{void} \FunctionTok{ChatTo}\NormalTok{ (Ped ped)}
+ 
+\DataTypeTok{void} \FunctionTok{Jump}\NormalTok{ ()}
+ 
+\DataTypeTok{void} \FunctionTok{Climb}\NormalTok{ ()}
+ 
+\DataTypeTok{void} \FunctionTok{ClimbLadder}\NormalTok{ ()}
+ 
+\DataTypeTok{void} \FunctionTok{Cower}\NormalTok{ (}\DataTypeTok{int}\NormalTok{ duration)}
+ 
+\DataTypeTok{void} \FunctionTok{ChaseWithGroundVehicle}\NormalTok{ (Ped target)}
+ 
+\DataTypeTok{void} \FunctionTok{ChaseWithHelicopter}\NormalTok{ (Ped target, Vector3 offset)}
+ 
+\DataTypeTok{void} \FunctionTok{ChaseWithPlane}\NormalTok{ (Ped target, Vector3 offset)}
+ 
+\DataTypeTok{void} \FunctionTok{CruiseWithVehicle}\NormalTok{ (Vehicle vehicle, }\DataTypeTok{float}\NormalTok{ speed, DrivingStyle style=DrivingStyle.}\FunctionTok{Normal}\NormalTok{)}
+ 
+\DataTypeTok{void} \FunctionTok{DriveTo}\NormalTok{ (Vehicle vehicle, Vector3 target, }\DataTypeTok{float}\NormalTok{ radius, }\DataTypeTok{float}\NormalTok{ speed, DrivingStyle style=DrivingStyle.}\FunctionTok{Normal}\NormalTok{)}
+ 
+\DataTypeTok{void} \FunctionTok{EnterAnyVehicle}\NormalTok{ (VehicleSeat seat=VehicleSeat.}\FunctionTok{Any}\NormalTok{, }\DataTypeTok{int}\NormalTok{ timeout=-}\DecValTok{1}\NormalTok{, }\DataTypeTok{float}\NormalTok{ speed=1f, EnterVehicleFlags flag=EnterVehicleFlags.}\FunctionTok{None}\NormalTok{)}
+ 
+\DataTypeTok{void} \FunctionTok{EnterVehicle}\NormalTok{ (Vehicle vehicle, VehicleSeat seat=VehicleSeat.}\FunctionTok{Any}\NormalTok{, }\DataTypeTok{int}\NormalTok{ timeout=-}\DecValTok{1}\NormalTok{, }\DataTypeTok{float}\NormalTok{ speed=1f, EnterVehicleFlags flag=EnterVehicleFlags.}\FunctionTok{None}\NormalTok{)}
+ 
+\DataTypeTok{void} \FunctionTok{FightAgainst}\NormalTok{ (Ped target)}
+ 
+\DataTypeTok{void} \FunctionTok{FightAgainst}\NormalTok{ (Ped target, }\DataTypeTok{int}\NormalTok{ duration)}
+ 
+\DataTypeTok{void} \FunctionTok{FightAgainstHatedTargets}\NormalTok{ (}\DataTypeTok{float}\NormalTok{ radius)}
+ 
+\DataTypeTok{void} \FunctionTok{FightAgainstHatedTargets}\NormalTok{ (}\DataTypeTok{float}\NormalTok{ radius, }\DataTypeTok{int}\NormalTok{ duration)}
+ 
+\DataTypeTok{void} \FunctionTok{FleeFrom}\NormalTok{ (Ped ped, }\DataTypeTok{int}\NormalTok{ duration=-}\DecValTok{1}\NormalTok{)}
+ 
+\DataTypeTok{void} \FunctionTok{FleeFrom}\NormalTok{ (Vector3 position, }\DataTypeTok{int}\NormalTok{ duration=-}\DecValTok{1}\NormalTok{)}
+ 
+\DataTypeTok{void} \FunctionTok{FollowPointRoute}\NormalTok{ (}\KeywordTok{params}\NormalTok{ Vector3[] points)}
+ 
+\DataTypeTok{void} \FunctionTok{FollowPointRoute}\NormalTok{ (}\DataTypeTok{float}\NormalTok{ movementSpeed, }\KeywordTok{params}\NormalTok{ Vector3[] points)}
+ 
+\DataTypeTok{void} \FunctionTok{FollowToOffsetFromEntity}\NormalTok{ (Entity target, Vector3 offset, }\DataTypeTok{float}\NormalTok{ movementSpeed, }\DataTypeTok{int}\NormalTok{ timeout=-}\DecValTok{1}\NormalTok{, }\DataTypeTok{float}\NormalTok{ distanceToFollow=10f, }\DataTypeTok{bool}\NormalTok{ persistFollowing=}\KeywordTok{true}\NormalTok{)}
+ 
+\DataTypeTok{void} \FunctionTok{GoTo}\NormalTok{ (Entity target, Vector3 offset=}\KeywordTok{default}\NormalTok{(Vector3), }\DataTypeTok{int}\NormalTok{ timeout=-}\DecValTok{1}\NormalTok{)}
+ 
+\DataTypeTok{void} \FunctionTok{GoTo}\NormalTok{ (Vector3 position, }\DataTypeTok{int}\NormalTok{ timeout=-}\DecValTok{1}\NormalTok{)}
+ 
+\DataTypeTok{void} \FunctionTok{GoStraightTo}\NormalTok{ (Vector3 position, }\DataTypeTok{int}\NormalTok{ timeout=-}\DecValTok{1}\NormalTok{, }\DataTypeTok{float}\NormalTok{ targetHeading=0f, }\DataTypeTok{float}\NormalTok{ distanceToSlide=0f)}
+ 
+\DataTypeTok{void} \FunctionTok{GuardCurrentPosition}\NormalTok{ ()}
+ 
+\DataTypeTok{void} \FunctionTok{HandsUp}\NormalTok{ (}\DataTypeTok{int}\NormalTok{ duration)}
+ 
+\DataTypeTok{void} \FunctionTok{LandPlane}\NormalTok{ (Vector3 startPosition, Vector3 touchdownPosition, Vehicle plane=}\KeywordTok{null}\NormalTok{)}
+ 
+\DataTypeTok{void} \FunctionTok{LeaveVehicle}\NormalTok{ (LeaveVehicleFlags flags=LeaveVehicleFlags.}\FunctionTok{None}\NormalTok{)}
+ 
+\DataTypeTok{void} \FunctionTok{LeaveVehicle}\NormalTok{ (Vehicle vehicle, }\DataTypeTok{bool}\NormalTok{ closeDoor)}
+ 
+\DataTypeTok{void} \FunctionTok{LeaveVehicle}\NormalTok{ (Vehicle vehicle, LeaveVehicleFlags flags)}
+ 
+\DataTypeTok{void} \FunctionTok{LookAt}\NormalTok{ (Entity target, }\DataTypeTok{int}\NormalTok{ duration=-}\DecValTok{1}\NormalTok{)}
+
+\DataTypeTok{void} \FunctionTok{LookAt}\NormalTok{ (Vector3 position, }\DataTypeTok{int}\NormalTok{ duration=-}\DecValTok{1}\NormalTok{)}
+  
+\DataTypeTok{void} \FunctionTok{ParachuteTo}\NormalTok{ (Vector3 position)}
+ 
+\DataTypeTok{void} \FunctionTok{ParkVehicle}\NormalTok{ (Vehicle vehicle, Vector3 position, }\DataTypeTok{float}\NormalTok{ heading, }\DataTypeTok{float}\NormalTok{ radius=}\FloatTok{20.0f}\NormalTok{, }\DataTypeTok{bool}\NormalTok{ keepEngineOn=}\KeywordTok{false}\NormalTok{)}
+ 
+\DataTypeTok{void} \FunctionTok{PerformSequence}\NormalTok{ (TaskSequence sequence)}
+ 
+\DataTypeTok{void} \FunctionTok{PlayAnimation}\NormalTok{ (}\DataTypeTok{string}\NormalTok{ animDict, }\DataTypeTok{string}\NormalTok{ animName)}
+ 
+\DataTypeTok{void} \FunctionTok{PlayAnimation}\NormalTok{ (}\DataTypeTok{string}\NormalTok{ animDict, }\DataTypeTok{string}\NormalTok{ animName, }\DataTypeTok{float}\NormalTok{ speed, }\DataTypeTok{int}\NormalTok{ duration, }\DataTypeTok{float}\NormalTok{ playbackRate)}
+ 
+\DataTypeTok{void} \FunctionTok{PlayAnimation}\NormalTok{ (}\DataTypeTok{string}\NormalTok{ animDict, }\DataTypeTok{string}\NormalTok{ animName, }\DataTypeTok{float}\NormalTok{ blendInSpeed, }\DataTypeTok{int}\NormalTok{ duration, AnimationFlags flags)}
+ 
+\DataTypeTok{void} \FunctionTok{PlayAnimation}\NormalTok{ (}\DataTypeTok{string}\NormalTok{ animDict, }\DataTypeTok{string}\NormalTok{ animName, }\DataTypeTok{float}\NormalTok{ blendInSpeed, }\DataTypeTok{float}\NormalTok{ blendOutSpeed, }\DataTypeTok{int}\NormalTok{ duration, AnimationFlags flags, }\DataTypeTok{float}\NormalTok{ playbackRate)}
+ 
+\DataTypeTok{void} \FunctionTok{RappelFromHelicopter}\NormalTok{ ()}
+ 
+\DataTypeTok{void} \FunctionTok{ReactAndFlee}\NormalTok{ (Ped ped)}
+ 
+\DataTypeTok{void} \FunctionTok{ReloadWeapon}\NormalTok{ ()}
+ 
+\DataTypeTok{void} \FunctionTok{RunTo}\NormalTok{ (Vector3 position, }\DataTypeTok{bool}\NormalTok{ ignorePaths=}\KeywordTok{false}\NormalTok{, }\DataTypeTok{int}\NormalTok{ timeout=-}\DecValTok{1}\NormalTok{)}
+ 
+\DataTypeTok{void} \FunctionTok{ShootAt}\NormalTok{ (Ped target, }\DataTypeTok{int}\NormalTok{ duration=-}\DecValTok{1}\NormalTok{, FiringPattern pattern=FiringPattern.}\FunctionTok{Default}\NormalTok{)}
+ 
+\DataTypeTok{void} \FunctionTok{ShootAt}\NormalTok{ (Vector3 position, }\DataTypeTok{int}\NormalTok{ duration=-}\DecValTok{1}\NormalTok{, FiringPattern pattern=FiringPattern.}\FunctionTok{Default}\NormalTok{)}
+ 
+\DataTypeTok{void} \FunctionTok{ShuffleToNextVehicleSeat}\NormalTok{ (Vehicle vehicle=}\KeywordTok{null}\NormalTok{)}
+ 
+\DataTypeTok{void} \FunctionTok{Skydive}\NormalTok{ ()}
+ 
+\DataTypeTok{void} \FunctionTok{SlideTo}\NormalTok{ (Vector3 position, }\DataTypeTok{float}\NormalTok{ heading)}
+ 
+\DataTypeTok{void} \FunctionTok{StandStill}\NormalTok{ (}\DataTypeTok{int}\NormalTok{ duration)}
+ 
+\DataTypeTok{void} \FunctionTok{StartScenario}\NormalTok{ (}\DataTypeTok{string}\NormalTok{ name, }\DataTypeTok{float}\NormalTok{ heading)}
+ 
+\DataTypeTok{void} \FunctionTok{StartScenario}\NormalTok{ (}\DataTypeTok{string}\NormalTok{ name, Vector3 position, }\DataTypeTok{float}\NormalTok{ heading)}
+ 
+\DataTypeTok{void} \FunctionTok{SwapWeapon}\NormalTok{ ()}
+ 
+\DataTypeTok{void} \FunctionTok{TurnTo}\NormalTok{ (Entity target, }\DataTypeTok{int}\NormalTok{ duration=-}\DecValTok{1}\NormalTok{)}
+ 
+\DataTypeTok{void} \FunctionTok{TurnTo}\NormalTok{ (Vector3 position, }\DataTypeTok{int}\NormalTok{ duration=-}\DecValTok{1}\NormalTok{)}
+ 
+\DataTypeTok{void} \FunctionTok{UseParachute}\NormalTok{ ()}
+ 
+\DataTypeTok{void} \FunctionTok{UseMobilePhone}\NormalTok{ ()}
+ 
+\DataTypeTok{void} \FunctionTok{UseMobilePhone}\NormalTok{ (}\DataTypeTok{int}\NormalTok{ duration)}
+ 
+\DataTypeTok{void} \FunctionTok{PutAwayParachute}\NormalTok{ ()}
+ 
+\DataTypeTok{void} \FunctionTok{PutAwayMobilePhone}\NormalTok{ ()}
+ 
+\DataTypeTok{void} \FunctionTok{VehicleChase}\NormalTok{ (Ped target)}
+ 
+\DataTypeTok{void} \FunctionTok{VehicleShootAtPed}\NormalTok{ (Ped target)}
+ 
+\DataTypeTok{void} \FunctionTok{Wait}\NormalTok{ (}\DataTypeTok{int}\NormalTok{ duration)}
+ 
+\DataTypeTok{void} \FunctionTok{WanderAround}\NormalTok{ ()}
+ 
+\DataTypeTok{void} \FunctionTok{WanderAround}\NormalTok{ (Vector3 position, }\DataTypeTok{float}\NormalTok{ radius)}
+ 
+\DataTypeTok{void} \FunctionTok{WarpIntoVehicle}\NormalTok{ (Vehicle vehicle, VehicleSeat seat)}
+ 
+\DataTypeTok{void} \FunctionTok{WarpOutOfVehicle}\NormalTok{ (Vehicle vehicle)}
+ 
+\DataTypeTok{void} \FunctionTok{ClearAll}\NormalTok{ ()}
+ 
+\DataTypeTok{void} \FunctionTok{ClearAllImmediately}\NormalTok{ ()}
+ 
+\DataTypeTok{void} \FunctionTok{ClearLookAt}\NormalTok{ ()}
+ 
+\DataTypeTok{void} \FunctionTok{ClearSecondary}\NormalTok{ ()}
+ 
+\DataTypeTok{void} \FunctionTok{ClearAnimation}\NormalTok{ (}\DataTypeTok{string}\NormalTok{ animSet, }\DataTypeTok{string}\NormalTok{ animName)}
+\end{Highlighting}
+\end{Shaded}
+
+You can spawn a group of NPCs and give them individual tasks. You can also make them interact with each other (or with the player character). Here we spawn 3 NPCs and tell the to fight with each other.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{//create a list of Peds}
+\NormalTok{List<Ped> myPeds = }\KeywordTok{new}\NormalTok{ List<Ped>();}
+
+\CommentTok{//create a list of Ped models }
+\NormalTok{List<Model> myPedModel = }\KeywordTok{new}\NormalTok{ List<Model>();}
+
+\CommentTok{//manually add models for each ped}
+\NormalTok{myPedModel.}\FunctionTok{Add}\NormalTok{(PedHash.}\FunctionTok{Clown01SMY}\NormalTok{);}
+\NormalTok{myPedModel.}\FunctionTok{Add}\NormalTok{(PedHash.}\FunctionTok{Doctor01SMM}\NormalTok{);}
+\NormalTok{myPedModel.}\FunctionTok{Add}\NormalTok{(PedHash.}\FunctionTok{Abigail}\NormalTok{);}
+
+
+\KeywordTok{for}\NormalTok{(}\DataTypeTok{int}\NormalTok{ i = }\DecValTok{0}\NormalTok{; i < myPedModel.}\FunctionTok{Count}\NormalTok{; i++)}
+\NormalTok{\{}
+    \CommentTok{//spawn a new Ped for each model}
+    \DataTypeTok{var}\NormalTok{ newPed = World.}\FunctionTok{CreatePed}\NormalTok{(myPedModel[i], Game.}\FunctionTok{Player}\NormalTok{.}\FunctionTok{Character}\NormalTok{.}\FunctionTok{GetOffsetInWorldCoords}\NormalTok{(}\KeywordTok{new} \FunctionTok{Vector3}\NormalTok{(i*}\DecValTok{2}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{0}\NormalTok{)));}
+    \CommentTok{//add the new Ped to my list of Peds}
+\NormalTok{    myPeds.}\FunctionTok{Add}\NormalTok{(newPed);}
+\NormalTok{\}}
+
+\NormalTok{myPeds[}\DecValTok{0}\NormalTok{].}\FunctionTok{Task}\NormalTok{.}\FunctionTok{FightAgainst}\NormalTok{(myPeds[}\DecValTok{1}\NormalTok{]);}
+\NormalTok{myPeds[}\DecValTok{1}\NormalTok{].}\FunctionTok{Task}\NormalTok{.}\FunctionTok{FightAgainst}\NormalTok{(myPeds[}\DecValTok{2}\NormalTok{]);}
+\NormalTok{myPeds[}\DecValTok{2}\NormalTok{].}\FunctionTok{Task}\NormalTok{.}\FunctionTok{FightAgainst}\NormalTok{(myPeds[}\DecValTok{0}\NormalTok{]);}
+\end{Highlighting}
+\end{Shaded}
+
+To clear a task at any given moment we can use the task \texttt{ClearAllImmediately();}. To stop our 3 NPCs from fighting each other we give them the task to stop everything they are doing immediately.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{myPeds[}\DecValTok{0}\NormalTok{].}\FunctionTok{Task}\NormalTok{.}\FunctionTok{ClearAllImmediately}\NormalTok{();}
+\NormalTok{myPeds[}\DecValTok{1}\NormalTok{].}\FunctionTok{Task}\NormalTok{.}\FunctionTok{ClearAllImmediately}\NormalTok{();}
+\NormalTok{myPeds[}\DecValTok{2}\NormalTok{].}\FunctionTok{Task}\NormalTok{.}\FunctionTok{ClearAllImmediately}\NormalTok{();}
+\end{Highlighting}
+\end{Shaded}
+
+Peace is restored in the universe. To remove the NPCs use \texttt{Delete()}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{myPeds[}\DecValTok{0}\NormalTok{].}\FunctionTok{Delete}\NormalTok{();}
+\NormalTok{myPeds[}\DecValTok{1}\NormalTok{].}\FunctionTok{Delete}\NormalTok{();}
+\NormalTok{myPeds[}\DecValTok{2}\NormalTok{].}\FunctionTok{Delete}\NormalTok{();}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{animations}{%
+\subsection*{Animations}\label{animations}}
+\addcontentsline{toc}{subsection}{Animations}
+
+We can give Peds a task to play specific animations. To do this we can use the native function \texttt{TASK\_PLAY\_ANIM}.
+The function takes a lot of parameters (some of them still not exactly know), but here is the full function and a breakdown of each parameters.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{Native.}\FunctionTok{Function}\NormalTok{.}\FunctionTok{Call}\NormalTok{(Native.}\FunctionTok{Hash}\NormalTok{.}\FunctionTok{TASK_PLAY_ANIM}\NormalTok{, thePed, sDict, sAnim, speed, speed * }\DecValTok{-1}\NormalTok{, }\DecValTok{-1}\NormalTok{, flags, }\DecValTok{0}\NormalTok{, False, bDisableLegIK, False) }
+\end{Highlighting}
+\end{Shaded}
+
+\texttt{thePed} The Ped that will play the animation
+\texttt{sDict} The dictionary where the anim is located
+\texttt{sAnim} The anim name
+\texttt{speed} The play start speed (This is important to make smooth changes between anims)
+\texttt{speed\ *\ -1} Unknown
+\texttt{-1} Unknown
+\texttt{flags} Flags that you can set for the playback (see flags below)
+\texttt{0} Unknown
+\texttt{false} Unknown
+\texttt{bDisableLegIK} If the anim will ignore the leg/foot interaction with obstacles
+\texttt{false} Unknown
+
+Flags for playback modes
+
+\begin{verbatim}
+```
+normal = 0
+    repeat = 1
+    stop_last_frame = 2
+    unk1 = 4
+    unk2_air = 8
+    upperbody = 16
+    enablePlCtrl = 32
+    unk3 = 64
+    cancelable = 128
+    unk4_creature = 256
+    unk5_freezePos = 512
+    unk6_rot90 = 1024
+```
+\end{verbatim}
+
+You need to request the animation dictionary before start using it in your script: \texttt{REQUEST\_ANIM\_DICT}.
+After that, wait for the animation to load (or you could check if it's loaded with the boolean \texttt{HAS\_ANIM\_DICT\_LOADED}), before playing the animation.
+
+Once you have requested your animation dictionary and it is loaded, you can play and stop the specific animation using \texttt{TASK\_PLAY\_ANIM} and \texttt{STOP\_ANIM\_TASK}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{//request animation dictionary}
+\NormalTok{Function.}\FunctionTok{Call}\NormalTok{(Hash.}\FunctionTok{REQUEST_ANIM_DICT}\NormalTok{, }\StringTok{"cmini@strip_club@pole_dance@pole_a_2_stage"}\NormalTok{);}
+ 
+\CommentTok{//wait 100 ms to load the animation}
+\FunctionTok{Wait}\NormalTok{(}\DecValTok{100}\NormalTok{);}
+ 
+\CommentTok{//play animation from animation dictionary using the player character}
+\NormalTok{Function.}\FunctionTok{Call}\NormalTok{(Hash.}\FunctionTok{TASK_PLAY_ANIM}\NormalTok{, Game.}\FunctionTok{Player}\NormalTok{.}\FunctionTok{Character}\NormalTok{, }\StringTok{"mini@strip_club@pole_dance@pole_a_2_stage"}\NormalTok{, }\StringTok{"pole_a_2_stage"}\NormalTok{, }\FloatTok{8.0}\NormalTok{, }\FloatTok{8.0}\NormalTok{ * }\DecValTok{-1}\NormalTok{, }\DecValTok{-1}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{, }\KeywordTok{false}\NormalTok{, }\KeywordTok{false}\NormalTok{, }\KeywordTok{false}\NormalTok{);}
+ 
+\CommentTok{//wait 5 secs}
+\FunctionTok{Wait}\NormalTok{(}\DecValTok{5000}\NormalTok{);}
+ 
+\CommentTok{//stop the animation}
+\NormalTok{Function.}\FunctionTok{Call}\NormalTok{(Hash.}\FunctionTok{STOP_ANIM_TASK}\NormalTok{, Game.}\FunctionTok{Player}\NormalTok{.}\FunctionTok{Character}\NormalTok{, }\StringTok{"mini@strip_club@pole_dance@pole_a_2_stage"}\NormalTok{, }\StringTok{"pole_a_2_stage"}\NormalTok{, }\FloatTok{1.0}\NormalTok{);}
+\end{Highlighting}
+\end{Shaded}
+
+Most information found for this functions were found \href{Source:\%20http://gtaxscripting.blogspot.com/2016/06/tut-gta-v-playing-and-handling.html}{here}. More example code and information is avaiable there.
+
+There are 6645 animation dictionaries and 35460 animation clips. You can see some of the possible animations in GTA V here: \href{https://www.youtube.com/playlist?list=PLFy_1HUkWwEAgPtwtjjLYpKCbBiwXamST}{youtube.com/playlist?list=PLFy\_1HUkWwEAgPtwtjjLYpKCbBiwXamST}.
+Here you can find a \href{https://docs.ragepluginhook.net/html/62951c37-a440-478c-b389-c471230ddfc5.htm}{list of available dictionaries and animations}.
+
+Fun fact: deers seem to be able to do pole dance animations too.
+
+Give animations to nearby peds.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{//request animation dictionary}
+\NormalTok{Function.}\FunctionTok{Call}\NormalTok{(Hash.}\FunctionTok{REQUEST_ANIM_DICT}\NormalTok{, }\StringTok{"gestures@miss@fbi_5"}\NormalTok{);}
+
+\CommentTok{//wait for it to load}
+\FunctionTok{Wait}\NormalTok{(}\DecValTok{50}\NormalTok{);}
+
+\CommentTok{//get nearby ped}
+\NormalTok{Ped[] NearbyPeds = World.}\FunctionTok{GetNearbyPeds}\NormalTok{(Game.}\FunctionTok{Player}\NormalTok{.}\FunctionTok{Character}\NormalTok{, 20f);}
+
+\KeywordTok{foreach}\NormalTok{ (Ped p }\KeywordTok{in}\NormalTok{ NearbyPeds)}
+\NormalTok{\{   }
+    \CommentTok{//clear the peds of any tasks they might have}
+\NormalTok{    p.}\FunctionTok{Task}\NormalTok{.}\FunctionTok{ClearAllImmediately}\NormalTok{();}
+    \CommentTok{//play animation from animation dictionary}
+\NormalTok{    Function.}\FunctionTok{Call}\NormalTok{(Hash.}\FunctionTok{TASK_PLAY_ANIM}\NormalTok{, p, }\StringTok{"missfbi5ig_2"}\NormalTok{, }\StringTok{"crying_trevor"}\NormalTok{, }\FloatTok{8.0}\NormalTok{, }\FloatTok{8.0}\NormalTok{ * }\DecValTok{-1}\NormalTok{, }\DecValTok{-1}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{, }\KeywordTok{false}\NormalTok{, }\KeywordTok{false}\NormalTok{, }\KeywordTok{false}\NormalTok{);}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{teleporting}{%
+\subsection*{Teleporting}\label{teleporting}}
+\addcontentsline{toc}{subsection}{Teleporting}
+
+We can change the location of the player character or of any Ped or Vehicle entity by using the native function \texttt{SET\_ENTITY\_COORDS}. This function needs an entity and X, Y and Z coordinate to teleport to.
+We need to know the exact coordinates of the locations we want to teleport to, but thankfully the modding community forums provide lists with all available coordinates we can teleport to. Let's take the XYZ coordinates of the top of Mount Chiliad (the highest point in the game) to teleport our player character to.
+
+\begin{verbatim}
+LOCATION: Top of the Mt Chilad
+COORDINATES: X:450.718 Y:5566.614 Z:806.183
+\end{verbatim}
+
+To create a teleport function we will use a native function. Script Hook V Dot Net is a wrapper for the C++ ScriptHook, calling the functions in Scripthook to do things in the game. However, there are some functions that are not in Script Hook V Dot Net and in order to use these, we have to use the native calling from Script Hook.
+
+\href{https://nitanmarcel.github.io/shvdn-docs.github.io/namespace_g_t_a_1_1_native.html\#a84977424e1cb7b6f1c2902770bf9ad2d}{Native functions} are called with \texttt{Function.Call} followed by their corresponding hash name and parameters. They use this structure:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{Function.}\FunctionTok{Call}\NormalTok{(Hash.}\FunctionTok{HASH_NAME}\NormalTok{, input_params);}
+\end{Highlighting}
+\end{Shaded}
+
+The native function for teleporting expects the hash \texttt{SET\_ENTITY\_COORDS}, the \texttt{ped} entity to teleport, and the X, Y and Z coordinates to teleport the character to. \texttt{Function.Call(Hash.SET\_ENTITY\_COORDS,\ Ped\ ped,\ X,\ Y,\ Z,\ 0,\ 0,\ 1);}
+
+The function to teleport the player character to the top of Moutn Chiliad is:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{//Teleport to the top of Mount Chiliad}
+\NormalTok{Function.}\FunctionTok{Call}\NormalTok{(Hash.}\FunctionTok{SET_ENTITY_COORDS}\NormalTok{, Game.}\FunctionTok{Player}\NormalTok{.}\FunctionTok{Character}\NormalTok{, }\FloatTok{450.718f}\NormalTok{, }\FloatTok{5566.614f}\NormalTok{, }\FloatTok{806.183f}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{);}
+\end{Highlighting}
+\end{Shaded}
+
+See this \href{https://gtaforums.com/topic/792877-list-of-over-100-coordinates-more-comming/}{list of locations} to find their respective coordinates or click on the list below
+
+List of Locations with Coordinates
+
+\begin{verbatim}
+INDOOR LOCATIONS
+ 
+Strip Club DJ Booth X:126.135 Y:-1278.583 Z:29.270
+
+Blaine County Savings Bank X:-109.299 Y:6464.035 Z:31.627
+
+Police Station X:436.491 Y: -982.172 Z:30.699
+
+Humane Labs Entrance X:3619.749 Y:2742.740 Z:28.690
+
+Burnt FIB Building X:160.868 Y:-745.831 Z:250.063
+
+10 Car Garage Back Room X:223.193 Y:-967.322 Z:99.000
+
+Humane Labs Tunnel X:3525.495 Y:3705.301 Z:20.992
+
+Ammunation Office X:12.494 Y:-1110.130 Z: 29.797
+
+Ammunation Gun Range X: 22.153 Y:-1072.854 Z:29.797
+
+Trevor's Meth Lab X:1391.773 Y:3608.716 Z:38.942
+
+Pacific Standard Bank Vault X:255.851 Y: 217.030 Z:101.683
+
+Lester's House X:1273.898 Y:-1719.304 Z:54.771
+
+Floyd's Apartment X:-1150.703 Y:-1520.713 Z:10.633
+
+FIB Top Floor X:135.733 Y:-749.216 Z:258.152
+
+IAA Office X:117.220 Y:-620.938 Z:206.047
+
+Pacific Standard Bank X:235.046 Y:216.434 Z:106.287
+
+Fort Zancudo ATC entrance X:-2344.373 Y:3267.498 Z:32.811
+
+Fort Zancudo ATC top floor X:-2358.132 Y:3249.754 Z:101.451
+
+Torture Room X: 147.170 Y:-2201.804 Z:4.688
+
+ 
+OUTDOOR LOCATIONS
+ 
+Main LS Customs X:-365.425 Y:-131.809 Z:37.873
+
+Very High Up X:-129.964 Y:8130.873 Z:6705.307
+
+IAA Roof X:134.085 Y:-637.859 Z:262.851
+
+FIB Roof X:150.126 Y:-754.591 Z:262.865
+
+Maze Bank Roof X:-75.015 Y:-818.215 Z:326.176
+
+Top of the Mt Chilad X:450.718 Y:5566.614 Z:806.183
+
+Most Northerly Point X:24.775 Y:7644.102 Z:19.055
+
+Vinewood Bowl Stage X:686.245 Y:577.950 Z:130.461
+
+Sisyphus Theater Stage X:205.316 Y:1167.378 Z:227.005
+
+Galileo Observatory Roof X:-438.804 Y:1076.097 Z:352.411
+
+Kortz Center X:-2243.810 Y:264.048 Z:174.615
+
+Chumash Historic Family Pier X:-3426.683 Y:967.738 Z:8.347
+
+Paleto Bay Pier X:-275.522 Y:6635.835 Z:7.425
+
+God's thumb X:-1006.402 Y:6272.383 Z:1.503
+
+Calafia Train Bridge X:-517.869 Y:4425.284 Z:89.795
+
+Altruist Cult Camp X:-1170.841 Y:4926.646 Z:224.295
+
+Maze Bank Arena Roof X:-324.300 Y:-1968.545 Z:67.002
+
+Marlowe Vineyards X:-1868.971 Y:2095.674 Z:139.115
+
+Hippy Camp X:2476.712 Y:3789.645 Z:41.226
+
+Devin Weston's House X:-2639.872 Y:1866.812 Z:160.135
+
+Abandon Mine X:-595.342 Y: 2086.008 Z:131.412
+
+Weed Farm X:2208.777 Y:5578.235 Z:53.735
+
+Stab City X: 126.975 Y:3714.419 Z:46.827
+
+Airplane Graveyard Airplane Tail X:2395.096 Y:3049.616 Z:60.053
+
+Satellite Dish Antenna X:2034.988 Y:2953.105 Z:74.602
+
+Satellite Dishes X: 2062.123 Y:2942.055 Z:47.431
+
+Windmill Top X:2026.677 Y:1842.684 Z:133.313
+
+Sandy Shores Building Site Crane X:1051.209 Y:2280.452 Z:89.727
+
+Rebel Radio X:736.153 Y:2583.143 Z:79.634
+
+Quarry X:2954.196 Y:2783.410 Z:41.004
+
+Palmer-Taylor Power Station Chimney X: 2732.931 Y: 1577.540 Z:83.671
+
+Merryweather Dock X: 486.417 Y:-3339.692 Z:6.070
+
+Cargo Ship X:899.678 Y:-2882.191 Z:19.013
+
+Del Perro Pier X:-1850.127 Y:-1231.751 Z:13.017
+
+Play Boy Mansion X:-1475.234 Y:167.088Z:55.841
+
+Jolene Cranley-Evans Ghost X:3059.620 Y:5564.246 Z:197.091
+
+NOOSE Headquarters X:2535.243 Y:-383.799 Z:92.993
+
+Snowman X: 971.245 Y:-1620.993 Z:30.111
+
+Oriental Theater X:293.089 Y:180.466 Z:104.301
+
+Beach Skatepark X:-1374.881 Y:-1398.835 Z:6.141
+
+Underpass Skatepark X:718.341 Y:-1218.714 Z: 26.014
+
+Casino X:925.329 Y:46.152 Z:80.908
+
+University of San Andreas X:-1696.866 Y:142.747 Z:64.372
+
+La Puerta Freeway Bridge X: -543.932 Y:-2225.543 Z:122.366
+
+Land Act Dam X: 1660.369 Y:-12.013 Z:170.020
+
+Mount Gordo X: 2877.633 Y:5911.078 Z:369.624
+
+Little Seoul X:-889.655 Y:-853.499 Z:20.566
+
+Epsilon Building X:-695.025 Y:82.955 Z:55.855 Z:55.855
+
+The Richman Hotel X:-1330.911 Y:340.871 Z:64.078
+
+Vinewood sign X:711.362 Y:1198.134 Z:348.526
+
+Los Santos Golf Club X:-1336.715 Y:59.051 Z:55.246
+
+Chicken X:-31.010 Y:6316.830 Z:40.083
+
+Little Portola X:-635.463 Y:-242.402 Z:38.175
+
+Pacific Bluffs Country Club X:-3022.222 Y:39.968 Z:13.611
+
+Vinewood Cemetery X:-1659993 Y:-128.399 Z:59.954
+
+Paleto Forest Sawmill Chimney X:-549.467 Y:5308.221 Z:114.146
+
+Mirror Park X:1070.206 Y:-711.958 Z:58.483
+
+Rocket X:1608.698 Y:6438.096 Z:37.637
+
+El Gordo Lighthouse X:3430.155 Y:5174.196 Z:41.280
+\end{verbatim}
+
+\hypertarget{content-replication-assignment-4}{%
+\section*{Content Replication Assignment}\label{content-replication-assignment-4}}
+\addcontentsline{toc}{section}{Content Replication Assignment}
+
+Teleport the player to a beach, spawn ten whales on the shore and generate an NPC wandering aroud them and take a screenshot in the style of HAPP V2.
+
 \end{document}
