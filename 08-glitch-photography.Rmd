@@ -523,6 +523,8 @@ Installation and setup:
 
 Menyoo requires Scripthook V and Scripthook V Dot Net which we already installed in order to enable our scripts (check chapter 5 if for some reasons you do not have them installed).
 
++ In order to install the Menyoo Single Player Trainer go to [github.com/MAFINS/MenyooSP/releases](https://github.com/MAFINS/MenyooSP/releases) and download the ```MenyooSP.zip``` file in the Assets section of the page. Open its content and select the ```menyooStuff``folder and ```Menyoo.asi```file.  Copy and paste these in your GTA V directory ```C:\Program Files (x86)\Steam\steamapps\common\Grand Theft Auto V```.
+
 
 
 
