@@ -1676,6 +1676,193 @@ El Gordo Lighthouse X:3430.155 Y:5174.196 Z:41.280
 
 Teleport the player to a beach, spawn ten whales on the shore and generate an NPC wandering aroud them and take a screenshot in the style of HAPP V2.
 
+\hypertarget{hyperrealism}{%
+\chapter{Hyperrealism}\label{hyperrealism}}
+
+//intro to the artistic current of photorealism and hyperrealism in painting and drawing, connected to the idea of photorealism and simulation in games (attempt to simulate life itself, not just photography), relationship between the game and the physical world, the way virtual spaces influence and shape society (training self driving cars in GTA V, CGI shaping architecture of buildings and object\ldots), the blurrying of the lines between virtual and physical\ldots{}
+
+\hypertarget{k-by-aram-bartholl}{%
+\subsection*{\texorpdfstring{\emph{8k} by Aram Bartholl}{8k by Aram Bartholl}}\label{k-by-aram-bartholl}}
+\addcontentsline{toc}{subsection}{\emph{8k} by Aram Bartholl}
+
+Aram Bartholl, \emph{8k}, installation view
+
+Aram Bartholl, \emph{8k}, installation view
+
+\href{https://arambartholl.com/8k/}{More about 8k}
+
+\hypertarget{getting-there-8}{%
+\subsection*{Getting there}\label{getting-there-8}}
+\addcontentsline{toc}{subsection}{Getting there}
+
+\begin{itemize}
+\tightlist
+\item
+  \href{https://grandtheftdata.com/landmarks/\#1672.279,-29.78,4,atlas,name=tataviam_act_dam,Land_Act_Dam,_Tataviam_Mountains}{Land Act Dam, Tataviam Mountains}
+\end{itemize}
+
+\hypertarget{readings-5}{%
+\section*{Readings}\label{readings-5}}
+\addcontentsline{toc}{section}{Readings}
+
+\hypertarget{tutorial-5}{%
+\section*{Tutorial}\label{tutorial-5}}
+\addcontentsline{toc}{section}{Tutorial}
+
+\hypertarget{setting-camera-views}{%
+\subsection*{Setting Camera Views}\label{setting-camera-views}}
+\addcontentsline{toc}{subsection}{Setting Camera Views}
+
+GTA V has 4 default camera views, which can be switched by pressing the \texttt{V} key on PC.
+To set a specific camera view we can use the native function \texttt{SET\_FOLLOW\_PED\_CAM\_VIEW\_MOD}, followed by number 0, 1, 2 or 4 to establish the desired point of view:
+
+\begin{itemize}
+\tightlist
+\item
+  0 - Third Person View - Close
+\item
+  1 - Third Person View - Mid
+\item
+  2 - Third Person View - Far
+\item
+  4 - First Person View
+\end{itemize}
+
+Switch to first person view:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{Function.}\FunctionTok{Call}\NormalTok{(Hash.}\FunctionTok{SET_FOLLOW_PED_CAM_VIEW_MODE}\NormalTok{, }\DecValTok{4}\NormalTok{); }
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{setting-the-time-of-the-day}{%
+\subsection*{Setting the Time of the Day}\label{setting-the-time-of-the-day}}
+\addcontentsline{toc}{subsection}{Setting the Time of the Day}
+
+We can control the time and the light for our shots to the second in GTA V. We can specify the exact time of the day with the native function \texttt{SET\_CLOCK\_TIME}, followed by hour, minute and second. Note that the sun sets at 5:30 a.m. and goes down at 8 p.m.
+
+Set the imte of the day to 15:45:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{Function.}\FunctionTok{Call}\NormalTok{(Hash.}\FunctionTok{SET_CLOCK_TIME}\NormalTok{, }\DecValTok{15}\NormalTok{, }\DecValTok{45}\NormalTok{, }\DecValTok{00}\NormalTok{);}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{controlling-the-weather}{%
+\subsection{Controlling the Weather \{--\}}\label{controlling-the-weather}}
+
+We can choose among the following weather options using the native function \texttt{SET\_WEATHER\_TYPE\_NOW\_PERSIST}:
+
+``CLEAR''
+``EXTRASUNNY''
+``CLOUDS''
+``OVERCAST''
+``RAIN''
+``CLEARING''
+``THUNDER''
+``SMOG''
+``FOGGY''
+``XMAS''
+``SNOWLIGHT''
+``BLIZZARD''
+
+Set the weather to blizzard:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{Function.}\FunctionTok{Call}\NormalTok{(Hash.}\FunctionTok{SET_WEATHER_TYPE_NOW_PERSIST}\NormalTok{, }\StringTok{"BLIZZARD"}\NormalTok{);}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{scripting-cinematic-fade-out-in}{%
+\subsection*{Scripting Cinematic Fade Out / In}\label{scripting-cinematic-fade-out-in}}
+\addcontentsline{toc}{subsection}{Scripting Cinematic Fade Out / In}
+
+Script Hook has native functions to create a fead to/from black. The function hash are \texttt{DO\_SCREEN\_FADE\_OUT} and \texttt{DO\_SCREEN\_FADE\_IN} and they are followed by the number of milliseconds to go from full black to showing the scene and viceversa.
+
+Let's create a fade to black over 3 seconds when we press the letter key `O':
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{if}\NormalTok{ (e.}\FunctionTok{KeyCode}\NormalTok{ == Keys.}\FunctionTok{O}\NormalTok{)}
+\NormalTok{\{}
+\NormalTok{    Function.}\FunctionTok{Call}\NormalTok{(Hash.}\FunctionTok{DO_SCREEN_FADE_OUT}\NormalTok{, }\DecValTok{3000}\NormalTok{);}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+And a fade over 3 seconds when we press the letter key `I':
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{if}\NormalTok{ (e.}\FunctionTok{KeyCode}\NormalTok{ == Keys.}\FunctionTok{I}\NormalTok{)}
+\NormalTok{\{}
+\NormalTok{    Function.}\FunctionTok{Call}\NormalTok{(Hash.}\FunctionTok{DO_SCREEN_FADE_IN}\NormalTok{, }\DecValTok{3000}\NormalTok{);}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+We could also create an automated check in our onTick loop, which keeps seeing if the screen has been faded to black. We can use the native function \texttt{IS\_SCREEN\_FADED\_OUT} which is a boolean data type. This means it will return either true or false. If it returns true, it means the screen has been faded out.
+
+Let's add an ``if'' statement in our onTick loop to chek if the screen has been faded to black, and if so we teleport somewhere else and we call a fade in over 3 second:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{if}\NormalTok{ (Function.}\FunctionTok{Call}\NormalTok{<}\DataTypeTok{bool}\NormalTok{>(Hash.}\FunctionTok{IS_SCREEN_FADED_OUT}\NormalTok{))}
+\NormalTok{\{}
+\NormalTok{    Function.}\FunctionTok{Call}\NormalTok{(Hash.}\FunctionTok{SET_ENTITY_COORDS}\NormalTok{, Game.}\FunctionTok{Player}\NormalTok{.}\FunctionTok{Character}\NormalTok{, }\FloatTok{-1374.881f}\NormalTok{, }\FloatTok{-1398.835f}\NormalTok{, }\FloatTok{6.141f}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{);}
+    \FunctionTok{Wait}\NormalTok{(}\DecValTok{500}\NormalTok{);}
+\NormalTok{    GTA.}\FunctionTok{Native}\NormalTok{.}\FunctionTok{Function}\NormalTok{.}\FunctionTok{Call}\NormalTok{(Hash.}\FunctionTok{DO_SCREEN_FADE_IN}\NormalTok{, }\DecValTok{3000}\NormalTok{);}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+Now if you try to hit the `O' key, the screen will fade out, and then it will automatically fade in again.
+
+\hypertarget{natural-vision-evolved-mod}{%
+\subsection*{Natural Vision Evolved Mod}\label{natural-vision-evolved-mod}}
+\addcontentsline{toc}{subsection}{Natural Vision Evolved Mod}
+
+Natural Vision Evolved (NVE) is a graphic mod develped by \href{https://www.razedmods.com/}{Jamal Rashid, aka Razed}. This mod enhances GTA V's lighting, weather effects, ambient colours, world textures, building models, pushing the photo-realism and cinematic looks. While the mod contains settings for different hardware settings, it's recommended to have a relatively powerful PC with a good graphic card. \href{https://www.systemrequirementslab.com/cyri/requirements/gta-5-naturalvision-remastered/16594}{Here} you can find minimum and recommended requirements for Natural Vision Evolved mod.
+
+Installation and setup:
+
+\begin{itemize}
+\item
+  Go to \href{https://www.razedmods.com/gta-v}{razedmods.com/gta-v} and download Natural Vision Evolved (6.2 Gb).
+\item
+  Go to \href{https://openiv.com/}{openiv.com/} and download Open IV, Open `ovisetup' and install Open IV on your computer.
+\item
+  Select GTA V Windows. Choose Grand Theft Auto V folder \texttt{C:\textbackslash{}Program\ Files\ (x86)\textbackslash{}Steam\textbackslash{}steamapps\textbackslash{}common\textbackslash{}Grand\ Theft\ Auto\ V}
+\item
+  Once Open IV is open, go to your file window select the \texttt{Tools} menu on top of the window, and select \texttt{ASI\ Manager}. In \texttt{ASI\ Manager} install all options: ASI Loader, OpenIV.ASI and openCamera.
+\item
+  Select \texttt{Tools} again and click \texttt{Options}. Click on the \texttt{"mods"\ folder} tab and select \texttt{Allow\ edit\ mode\ only\ for\ archive\ inside\ "mods"\ folder}. Click \texttt{Close}.
+\item
+  Select \texttt{Edit\ mode} at the top right of the window. Select \texttt{OK} on the pop up window.
+\item
+  Now you can add your mod to the mods folder.
+\item
+  Open the NVE mod folder, open ENB (Required) folder, open the subfolder containing the settings you want (low/medium/ultra graphics). Copy all the files inside selected folder to your GTA V directory folder \texttt{C:\textbackslash{}Program\ Files\ (x86)\textbackslash{}Steam\textbackslash{}steamapps\textbackslash{}common\textbackslash{}Grand\ Theft\ Auto\ V}.
+\item
+  Go back to your root NVE folder, extract and select NaturalVision Installer PART ONE and drag it to Open IV. Install the file and select ``mod folder'' when asked to choose. After that is complete, extract and select NaturalVision Installer PART TWO and drag it to Open IV. Install the file and select ``mod folder'' when asked to choose. The Installers have to be executed in order: first do PART ONE, and then do PART TWO.
+\item
+  Go back to your downloads and inside the NVE folder you can choose some optional addons. Install/Uninstall them with Open IV as above Always choose to select ``mod'' folder and select install.
+\item
+  Open GTA V, press \texttt{ESC} to bring up the menu and go to \texttt{SETTINGS}. Adjust the graphics quality, making sure \texttt{Shader\ Quality}, \texttt{Particle\ Quality} and \texttt{Post\ FX}are set to \texttt{\textless{}Very\ High\textgreater{}}. Restart the game to make change in effect.
+\end{itemize}
+
+\hypertarget{reshade}{%
+\subsection{ReShade \{--\}}\label{reshade}}
+
+//install reshade + presets tutorial
+
+\hypertarget{content-replication-assignment-5}{%
+\section*{Content Replication Assignment}\label{content-replication-assignment-5}}
+\addcontentsline{toc}{section}{Content Replication Assignment}
+
 \hypertarget{glitch-art}{%
 \chapter{Glitch Art}\label{glitch-art}}
 
@@ -1691,8 +1878,8 @@ Raphael Brunk, \emph{Capture55326.4\_19}, 2016
 
 \href{http://www.darktaxa-project.net/artists/raphael-brunk/}{More about Captures}
 
-\hypertarget{getting-there-8}{%
-\subsection*{Getting there}\label{getting-there-8}}
+\hypertarget{getting-there-9}{%
+\subsection*{Getting there}\label{getting-there-9}}
 \addcontentsline{toc}{subsection}{Getting there}
 
 \begin{itemize}
@@ -1701,12 +1888,12 @@ Raphael Brunk, \emph{Capture55326.4\_19}, 2016
   \href{https://grandtheftdata.com/landmarks/\#-94.207,530.818,5,atlas,name=3668,3668_Wild_Oats_Dr,_Vinewood_Hills}{3668 Wild Oats Dr, Vinewood Hills}
 \end{itemize}
 
-\hypertarget{readings-5}{%
-\section*{Readings}\label{readings-5}}
+\hypertarget{readings-6}{%
+\section*{Readings}\label{readings-6}}
 \addcontentsline{toc}{section}{Readings}
 
-\hypertarget{tutorial-5}{%
-\section*{Tutorial}\label{tutorial-5}}
+\hypertarget{tutorial-6}{%
+\section*{Tutorial}\label{tutorial-6}}
 \addcontentsline{toc}{section}{Tutorial}
 
 \hypertarget{controlling-the-game-camera}{%
@@ -2214,8 +2401,8 @@ entities archetypes index: \url{https://mwojtasik.dev/tools/gtav/objects/}
 
 //replace textures with custom images
 
-\hypertarget{content-replication-assignment-5}{%
-\section*{Content Replication Assignment}\label{content-replication-assignment-5}}
+\hypertarget{content-replication-assignment-6}{%
+\section*{Content Replication Assignment}\label{content-replication-assignment-6}}
 \addcontentsline{toc}{section}{Content Replication Assignment}
 
 \hypertarget{meta-photography}{%
@@ -2231,12 +2418,12 @@ entities archetypes index: \url{https://mwojtasik.dev/tools/gtav/objects/}
 \subsection*{Crossroad of Realities by Benoit Paillé}\label{crossroad-of-realities-by-benoit-pailluxe9}}
 \addcontentsline{toc}{subsection}{Crossroad of Realities by Benoit Paillé}
 
-\hypertarget{readings-6}{%
-\section*{Readings}\label{readings-6}}
+\hypertarget{readings-7}{%
+\section*{Readings}\label{readings-7}}
 \addcontentsline{toc}{section}{Readings}
 
-\hypertarget{tutorial-6}{%
-\section*{Tutorial}\label{tutorial-6}}
+\hypertarget{tutorial-7}{%
+\section*{Tutorial}\label{tutorial-7}}
 \addcontentsline{toc}{section}{Tutorial}
 
 \hypertarget{virtual-keys}{%
@@ -2988,8 +3175,8 @@ GTA V Photographer Bot Script
 
 //join a server
 
-\hypertarget{content-replication-assignment-6}{%
-\section*{Content Replication Assignment}\label{content-replication-assignment-6}}
+\hypertarget{content-replication-assignment-7}{%
+\section*{Content Replication Assignment}\label{content-replication-assignment-7}}
 \addcontentsline{toc}{section}{Content Replication Assignment}
 
 \end{document}
