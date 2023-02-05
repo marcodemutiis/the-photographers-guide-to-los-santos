@@ -780,6 +780,7 @@ knitr::include_graphics('assets/scriptingGifs/teleport.gif', dpi = NA)
 ```
 
 
+
 ## Content Replication Assignment {-}
 Teleport the player to a beach, spawn ten whales on the shore and generate an NPC wandering aroud them and take a screenshot in the style of HAPP V2.
 

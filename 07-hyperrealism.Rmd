@@ -155,6 +155,22 @@ Setup:
 
 
 ### ReShade {–}
-//install reshade + presets tutorial  
+//install reshade + presets tutorial 
+
+### Menyoo Mod Trainer {–}
+
+Game trainers are a kind of game modification that changes its behavior using addresses and values. Trainers are used to gain unfair advantage in games and cheating, but they are also used by players to "train" themselves under different game conditions. In GTA V a trainer mod is very useful for creative practices, as it allows players to modify many aspects of the game that extend the possibilities offered by the official Scene Director and Rockstar Editor. They do not require scripting and offer control of the game world through a graphic interface. 
+
+Menyoo is one of many available mod trainers for GTA V. provides 
+
+Menyoo requires Scripthook V and Scripthook V Dot Net which we already installed in order to enable our scripts (check chapter 5 if for some reasons you do not have them installed).
+
++ In order to install the Menyoo Single Player Trainer go to [github.com/MAFINS/MenyooSP/releases](https://github.com/MAFINS/MenyooSP/releases) and download the ```MenyooSP.zip``` file in the Assets section of the page. Open its content and select the ```menyooStuff``folder and ```Menyoo.asi```file.  Copy and paste these in your GTA V directory ```C:\Program Files (x86)\Steam\steamapps\common\Grand Theft Auto V```.
+
++ Run GTA V and press ```F8``` to bring up the Menyoo Trainer menu. From there you can control many of the functions we are learning to script, including character models, animations, and teleporting. Scripting will always give you more accurate control of what you can achieve, but a trainer mod is very useful in showing the possibilities. Finally, menyoo as a creative tool can be combined with custom scripts, Scene Director and Rockstar Editor. 
+
+
+https://forums.gta5-mods.com/topic/64/menyoo-object-spooner-tutorial
+ 
 
 ## Content Replication Assignment {-}

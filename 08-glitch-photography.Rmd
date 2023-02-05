@@ -530,4 +530,4 @@ entities archetypes index: https://mwojtasik.dev/tools/gtav/objects/
 
 //replace textures with custom images
 
-## Content Replication Assignment
+## Content Replication Assignment {-}
