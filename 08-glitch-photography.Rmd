@@ -527,6 +527,10 @@ Menyoo requires Scripthook V and Scripthook V Dot Net which we already installed
 
 + Run GTA V and press ```F8``` to bring up the Menyoo Trainer menu. From there you can control many of the functions we are learning to script, including character models, animations, and teleporting. Scripting will always give you more accurate control of what you can achieve, but a trainer mod is very useful in showing the possibilities. Finally, menyoo as a creative tool can be combined with custom scripts, Scene Director and Rockstar Editor. 
 
+```{r fig.align='left', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html')}
+knitr::include_graphics('assets/menyoo.png', dpi = NA)
+```
+
 
 https://forums.gta5-mods.com/topic/64/menyoo-object-spooner-tutorial
 
