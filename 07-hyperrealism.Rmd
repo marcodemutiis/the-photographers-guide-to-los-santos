@@ -154,6 +154,10 @@ Installation and setup:
 + Open GTA V, press ```ESC``` to bring up the menu and go to ```SETTINGS```. Adjust the graphics quality, making sure ```Shader Quality```, ```Particle Quality``` and ```Post FX```are set to ```<Very High>```. Restart the game to make change in effect.
 
 
+```{r fig.align='left', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html'), fig.link=''}
+knitr::include_graphics('assets/nve.png', dpi = NA)
+```
+
 
 ### ReShade {–}
 ReShade is a generic post-processing injector for games and video software developed by crosire...
