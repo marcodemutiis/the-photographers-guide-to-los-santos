@@ -160,7 +160,7 @@ knitr::include_graphics('assets/nve.png', dpi = NA)
 
 
 ### ReShade {–}
-ReShade is a generic post-processing injector for games and video software developed by crosire...
+ReShade is a generic post-processing injector for games and video software developed by crosire.
 //install reshade + presets tutorial
 
 + Go to [reshade.me](http://static.reshade.me/) and download the latest version
@@ -175,7 +175,7 @@ ReShade is a generic post-processing injector for games and video software devel
 
 + Run GTA V and press the ```Home key``` to bring up the menu. The first time you bring up Reshade, it will offer to give a short tutorial on how to choose and modify the presets.
 
-+ Bring up a preset and mess around with its setting to see how it affects the visuals of the game.
++ Bring up a preset and mess around with its setting to see how it affects the visuals of the game. Thanks to different effects and presets, the aesthetics of the game world can be configured to obtain looks that are completely different from the original graphics created by the deleopers and designers of the game.
 
 ```{r fig.align='left', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html'), fig.link=''}
 knitr::include_graphics('assets/reshade.png', dpi = NA)
