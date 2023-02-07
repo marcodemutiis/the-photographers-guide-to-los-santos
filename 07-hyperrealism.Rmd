@@ -177,5 +177,9 @@ ReShade is a generic post-processing injector for games and video software devel
 knitr::include_graphics('assets/reshade.png', dpi = NA)
 ```
 
+```{r fig.align='left', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html'), fig.link=''}
+knitr::include_graphics('assets/reshade2.png', dpi = NA)
+```
+
 
 ## Content Replication Assignment {-}
