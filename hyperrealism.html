@@ -227,10 +227,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="hyperrealism.html"><a href="hyperrealism.html#tutorial-5"><i class="fa fa-check"></i>Tutorial</a><ul>
 <li class="chapter" data-level="" data-path="hyperrealism.html"><a href="hyperrealism.html#setting-camera-views"><i class="fa fa-check"></i>Setting Camera Views</a></li>
 <li class="chapter" data-level="" data-path="hyperrealism.html"><a href="hyperrealism.html#setting-the-time-of-the-day"><i class="fa fa-check"></i>Setting the Time of the Day</a></li>
-<li class="chapter" data-level="7.0.1" data-path="hyperrealism.html"><a href="hyperrealism.html#controlling-the-weather"><i class="fa fa-check"></i><b>7.0.1</b> Controlling the Weather {–}</a></li>
+<li class="chapter" data-level="" data-path="hyperrealism.html"><a href="hyperrealism.html#controlling-the-weather"><i class="fa fa-check"></i>Controlling the Weather</a></li>
 <li class="chapter" data-level="" data-path="hyperrealism.html"><a href="hyperrealism.html#scripting-cinematic-fade-out-in"><i class="fa fa-check"></i>Scripting Cinematic Fade Out / In</a></li>
 <li class="chapter" data-level="" data-path="hyperrealism.html"><a href="hyperrealism.html#natural-vision-evolved-mod"><i class="fa fa-check"></i>Natural Vision Evolved Mod</a></li>
-<li class="chapter" data-level="7.0.2" data-path="hyperrealism.html"><a href="hyperrealism.html#reshade"><i class="fa fa-check"></i><b>7.0.2</b> ReShade {–}</a></li>
+<li class="chapter" data-level="" data-path="hyperrealism.html"><a href="hyperrealism.html#reshade"><i class="fa fa-check"></i>ReShade</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="hyperrealism.html"><a href="hyperrealism.html#content-replication-assignment-5"><i class="fa fa-check"></i>Content Replication Assignment</a></li>
 </ul></li>
@@ -319,8 +319,8 @@ To set a specific camera view we can use the native function <code>SET_FOLLOW_PE
 <div class="sourceCode" id="cb51"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb51-1"><a href="hyperrealism.html#cb51-1"></a>Function.<span class="fu">Call</span>(Hash.<span class="fu">SET_CLOCK_TIME</span>, <span class="dv">15</span>, <span class="dv">45</span>, <span class="dv">00</span>);</span></code></pre></div>
 <p><a href="" target="_blank"><img src="assets/scriptingGifs/setTime.gif" style="display: block; margin: auto auto auto 0;" /></a></p>
 </div>
-<div id="controlling-the-weather" class="section level3 hasAnchor">
-<h3><span class="header-section-number">7.0.1</span> Controlling the Weather {–}<a href="hyperrealism.html#controlling-the-weather" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="controlling-the-weather" class="section level3 unnumbered hasAnchor">
+<h3>Controlling the Weather<a href="hyperrealism.html#controlling-the-weather" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>We can choose among the following weather options using the native function <code>SET_WEATHER_TYPE_NOW_PERSIST</code>:</p>
 <p>“CLEAR”
 “EXTRASUNNY”
@@ -374,15 +374,14 @@ To set a specific camera view we can use the native function <code>SET_FOLLOW_PE
 <li><p>Select <code>Tools</code> again and click <code>Options</code>. Click on the <code>"mods" folder</code> tab and select <code>Allow edit mode only for archive inside "mods" folder</code>. Click <code>Close</code>.</p></li>
 <li><p>Select <code>Edit mode</code> at the top right of the window. Select <code>OK</code> on the pop up window.</p></li>
 <li><p>Now you can add your mod to the mods folder.</p></li>
-<li><p>Open the NVE mod folder, open ENB (Required) folder, open the subfolder containing the settings you want (low/medium/ultra graphics). Copy all the files inside selected folder to your GTA V directory folder <code>C:\Program Files (x86)\Steam\steamapps\common\Grand Theft Auto V</code>.</p></li>
-<li><p>Go back to your root NVE folder, extract and select NaturalVision Installer PART ONE and drag it to Open IV. Install the file and select “mod folder” when asked to choose. After that is complete, extract and select NaturalVision Installer PART TWO and drag it to Open IV. Install the file and select “mod folder” when asked to choose. The Installers have to be executed in order: first do PART ONE, and then do PART TWO.</p></li>
-<li><p>Go back to your downloads and inside the NVE folder you can choose some optional addons. Install/Uninstall them with Open IV as above Always choose to select “mod” folder and select install.</p></li>
-<li><p>Open GTA V, press <code>ESC</code> to bring up the menu and go to <code>SETTINGS</code>. Adjust the graphics quality, making sure <code>Shader Quality</code>, <code>Particle Quality</code> and <code>Post FX</code>are set to <code>&lt;Very High&gt;</code>. Restart the game to make change in effect.</p></li>
+<li><p>Open the NVE mod folder, extract and select NaturalVision Installer PART ONE and drag it to Open IV. Install the file and select “mod folder” when asked to choose. After that is complete, extract and select NaturalVision Installer PART TWO and drag it to Open IV. Install the file and select “mod folder” when asked to choose. The Installers have to be executed in order: first do PART ONE, and then do PART TWO.</p></li>
+<li><p>Go back to your downloads and inside the NVE folder you can choose some optional addons. Install/Uninstall them with Open IV as above. Always choose to select “mod” folder and select install.</p></li>
+<li><p>Open GTA V, press <code>ESC</code> to bring up the menu and go to <code>SETTINGS</code>. Adjust the graphics quality, making sure <code>Shader Quality</code>, <code>Particle Quality</code> and <code>Post FX</code>are set to <code>&lt;Very High&gt;</code>. Restart the game to make change in effect. More details about installation are provided in the README file inside the NVE zip folder.</p></li>
 </ul>
 <p><a href="" target="_blank"><img src="assets/nve.png" style="display: block; margin: auto auto auto 0;" /></a></p>
 </div>
-<div id="reshade" class="section level3 hasAnchor">
-<h3><span class="header-section-number">7.0.2</span> ReShade {–}<a href="hyperrealism.html#reshade" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="reshade" class="section level3 unnumbered hasAnchor">
+<h3>ReShade<a href="hyperrealism.html#reshade" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>ReShade is a generic post-processing injector for games and video software developed by crosire.
 //install reshade + presets tutorial</p>
 <ul>
