@@ -58,7 +58,7 @@ knitr::include_graphics('assets/scriptingGifs/setTime.gif', dpi = NA)
 
 
 
-### Controlling the Weather {–}
+### Controlling the Weather {-}
 
 We can choose among the following weather options using the native function ```SET_WEATHER_TYPE_NOW_PERSIST```:
 
@@ -145,13 +145,11 @@ Installation and setup:
 
 + Now you can add your mod to the mods folder.
 
-+ Open the NVE mod folder, open ENB (Required) folder, open the subfolder containing the settings you want (low/medium/ultra graphics). Copy all the files inside selected folder to your GTA V directory folder ```C:\Program Files (x86)\Steam\steamapps\common\Grand Theft Auto V```.
++ Open the NVE mod folder, extract and select NaturalVision Installer PART ONE and drag it to Open IV. Install the file and select "mod folder" when asked to choose. After that is complete, extract and select NaturalVision Installer PART TWO and drag it to Open IV. Install the file and select "mod folder" when asked to choose. The Installers have to be executed in order: first do PART ONE, and then do PART TWO.
 
-+ Go back to your root NVE folder, extract and select NaturalVision Installer PART ONE and drag it to Open IV. Install the file and select "mod folder" when asked to choose. After that is complete, extract and select NaturalVision Installer PART TWO and drag it to Open IV. Install the file and select "mod folder" when asked to choose. The Installers have to be executed in order: first do PART ONE, and then do PART TWO.
++ Go back to your downloads and inside the NVE folder you can choose some optional addons. Install/Uninstall them with Open IV as above. Always choose to select "mod" folder and select install.
 
-+ Go back to your downloads and inside the NVE folder you can choose some optional addons. Install/Uninstall them with Open IV as above Always choose to select "mod" folder and select install.
-
-+ Open GTA V, press ```ESC``` to bring up the menu and go to ```SETTINGS```. Adjust the graphics quality, making sure ```Shader Quality```, ```Particle Quality``` and ```Post FX```are set to ```<Very High>```. Restart the game to make change in effect.
++ Open GTA V, press ```ESC``` to bring up the menu and go to ```SETTINGS```. Adjust the graphics quality, making sure ```Shader Quality```, ```Particle Quality``` and ```Post FX```are set to ```<Very High>```. Restart the game to make change in effect. More details about installation are provided in the README file inside the NVE zip folder.
 
 
 ```{r fig.align='left', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html'), fig.link=''}
@@ -159,7 +157,7 @@ knitr::include_graphics('assets/nve.png', dpi = NA)
 ```
 
 
-### ReShade {–}
+### ReShade {-}
 ReShade is a generic post-processing injector for games and video software developed by crosire.
 //install reshade + presets tutorial
 
