@@ -763,6 +763,12 @@ namespace moddingTutorial
   </details>
 
 
+
+```{r fig.align='left', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html')}
+knitr::include_graphics('assets/scriptingGifs/photobot.gif', dpi = NA)
+```
+
+
 ### FiveM {–}
 //start a server
 
