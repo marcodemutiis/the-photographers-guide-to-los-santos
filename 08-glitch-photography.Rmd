@@ -250,6 +250,12 @@ namespace ModdingTutorial
 </details>
 
 
+
+```{r fig.align='left', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html')}
+knitr::include_graphics('assets/scriptingGifs/multipleCameras.gif', dpi = NA)
+```
+
+
 	
 
 ### Attach a Camera to an Entity {-}
@@ -362,6 +368,12 @@ namespace moddingTutorial
 
 ```
 </details>
+
+
+
+```{r fig.align='left', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html')}
+knitr::include_graphics('assets/scriptingGifs/attachingCamToAnimal.gif', dpi = NA)
+```
 
 
 
@@ -512,6 +524,12 @@ namespace moddingTutorial
 }
 ```
 	</details>
+
+
+
+```{r fig.align='left', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html')}
+knitr::include_graphics('assets/scriptingGifs/satelliteViewSwitch.gif', dpi = NA)
+```
 
 
 ### Menyoo Mod Trainer {–}
