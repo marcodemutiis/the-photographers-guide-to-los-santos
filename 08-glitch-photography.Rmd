@@ -149,113 +149,6 @@ namespace BasicFreeCamTest
 knitr::include_graphics('assets/scriptingGifs/freeCam.gif', dpi = NA)
 ```
 
-
-### Create Multiple Cameras {-}
-<details>
-  <summary>Example code</summary>
-
-```cs
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using GTA;
-using GTA.Math;
-using System.Windows.Forms;
-using System.Drawing;
-using GTA.Native;
-
-namespace ModdingTutorial
-{
-    public class ModdingTutorial : Script    
-    {
-        Vector3 myCamPos;
-        int CamSelect = 0;
-        int CamCount = 3;
-
-        List<Ped> myPeds = new List<Ped>();
-        Model myModel = PedHash.Abigail;
-        List<Vector3> myLocs = new List<Vector3>();
-        Camera newCam= null;
-        List<Camera> myCam = new List<Camera>();
-
-        
-        public ModdingTutorial()
-        {
-            this.Tick += onTick;
-            this.KeyUp += onKeyUp;
-            this.KeyDown += onKeyDown;
-
-            myLocs.Add(new Vector3(450.178f, 5566.614f, 806.183f)); //Mt.Chiliad
-            myLocs.Add(new Vector3(24.775f, 7644.102f, 18.055f)); //Most Northern Point
-            myLocs.Add(new Vector3(150.126f, -754.591f, 261.865f)); //FIB Roof
-
-            for (int i = 0; i < CamCount; i++)
-            {
-                //create Ped
-                var newPed = World.CreatePed(myModel, myLocs[i]);
-		Function.Call(Hash.SET_ENTITY_VISIBLE, newPed, false, 0);
-                myPeds.Add(newPed);
-
-                //create Cam
-                newCam = World.CreateCamera(Vector3.Zero, myPeds[i].Rotation, 50f);
-                myCam.Add(newCam);
-                myCamPos = new Vector3(0, 0, 1f);
-            }
-            
-        }
-
-        private void onTick(object sender, EventArgs e)
-        {
-            //update Cams
-            for (int i = 0; i < CamCount; i++)
-            {
-                myCam[i].AttachTo(myPeds[i], myCamPos);
-                myCam[i].Rotation = myPeds[i].Rotation;
-            }
-        }
-
-        private void onKeyUp(object sender, KeyEventArgs e)
-        {
-            //switch between cameras when pressing SHIFT + K
-            if(e.KeyCode == Keys.K && e.Modifiers == Keys.Shift && myPeds[2] != null)
-            {
-                CamSelect = (CamSelect + 1) % 4;
-                switch(CamSelect)
-                {
-                    case 0: World.RenderingCamera = null;
-                        UI.ShowSubtitle("Showing Gameplay Cam View");
-                        break;
-                    case 1: World.RenderingCamera = myCam[0];
-                        UI.ShowSubtitle("Showing Cam 1");
-                        break;
-                    case 2: World.RenderingCamera = myCam[1];
-                        UI.ShowSubtitle("Showing Cam 2");
-                        break;
-                    case 3: World.RenderingCamera = myCam[2];
-                        UI.ShowSubtitle("Showing Cam 3");
-                        break;
-                }
-            }
-        }
-
-        private void onKeyDown(object sender, KeyEventArgs e)
-        {
-        }
-    }
-}
-	
-```
-</details>
-
-
-
-```{r fig.align='left', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html')}
-knitr::include_graphics('assets/scriptingGifs/multipleCameras.gif', dpi = NA)
-```
-
-
 	
 
 ### Attach a Camera to an Entity {-}
@@ -373,6 +266,113 @@ namespace moddingTutorial
 
 ```{r fig.align='left', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html')}
 knitr::include_graphics('assets/scriptingGifs/attachingCamToAnimal.gif', dpi = NA)
+```
+
+
+
+### Create Multiple Cameras {-}
+<details>
+  <summary>Example code</summary>
+
+```cs
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using GTA;
+using GTA.Math;
+using System.Windows.Forms;
+using System.Drawing;
+using GTA.Native;
+
+namespace ModdingTutorial
+{
+    public class ModdingTutorial : Script    
+    {
+        Vector3 myCamPos;
+        int CamSelect = 0;
+        int CamCount = 3;
+
+        List<Ped> myPeds = new List<Ped>();
+        Model myModel = PedHash.Abigail;
+        List<Vector3> myLocs = new List<Vector3>();
+        Camera newCam= null;
+        List<Camera> myCam = new List<Camera>();
+
+        
+        public ModdingTutorial()
+        {
+            this.Tick += onTick;
+            this.KeyUp += onKeyUp;
+            this.KeyDown += onKeyDown;
+
+            myLocs.Add(new Vector3(450.178f, 5566.614f, 806.183f)); //Mt.Chiliad
+            myLocs.Add(new Vector3(24.775f, 7644.102f, 18.055f)); //Most Northern Point
+            myLocs.Add(new Vector3(150.126f, -754.591f, 261.865f)); //FIB Roof
+
+            for (int i = 0; i < CamCount; i++)
+            {
+                //create Ped
+                var newPed = World.CreatePed(myModel, myLocs[i]);
+        Function.Call(Hash.SET_ENTITY_VISIBLE, newPed, false, 0);
+                myPeds.Add(newPed);
+
+                //create Cam
+                newCam = World.CreateCamera(Vector3.Zero, myPeds[i].Rotation, 50f);
+                myCam.Add(newCam);
+                myCamPos = new Vector3(0, 0, 1f);
+            }
+            
+        }
+
+        private void onTick(object sender, EventArgs e)
+        {
+            //update Cams
+            for (int i = 0; i < CamCount; i++)
+            {
+                myCam[i].AttachTo(myPeds[i], myCamPos);
+                myCam[i].Rotation = myPeds[i].Rotation;
+            }
+        }
+
+        private void onKeyUp(object sender, KeyEventArgs e)
+        {
+            //switch between cameras when pressing SHIFT + K
+            if(e.KeyCode == Keys.K && e.Modifiers == Keys.Shift && myPeds[2] != null)
+            {
+                CamSelect = (CamSelect + 1) % 4;
+                switch(CamSelect)
+                {
+                    case 0: World.RenderingCamera = null;
+                        UI.ShowSubtitle("Showing Gameplay Cam View");
+                        break;
+                    case 1: World.RenderingCamera = myCam[0];
+                        UI.ShowSubtitle("Showing Cam 1");
+                        break;
+                    case 2: World.RenderingCamera = myCam[1];
+                        UI.ShowSubtitle("Showing Cam 2");
+                        break;
+                    case 3: World.RenderingCamera = myCam[2];
+                        UI.ShowSubtitle("Showing Cam 3");
+                        break;
+                }
+            }
+        }
+
+        private void onKeyDown(object sender, KeyEventArgs e)
+        {
+        }
+    }
+}
+    
+```
+</details>
+
+
+
+```{r fig.align='left', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html')}
+knitr::include_graphics('assets/scriptingGifs/multipleCameras.gif', dpi = NA)
 ```
 
 
