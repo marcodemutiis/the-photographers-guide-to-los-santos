@@ -30,6 +30,8 @@ knitr::include_graphics('assets/maps/vinewoodHills.png', dpi = NA)
 
 ### Controlling the Game Camera {-}
 
+
+
 <details>
   <summary>Example code</summary>
 
@@ -150,6 +152,9 @@ knitr::include_graphics('assets/scriptingGifs/freeCam.gif', dpi = NA)
 ```
 
 	
+### Recording and Replaying Camera Movements {-}
+We can record the movement of the camera by storing its posiiton and movement every frame in a list of Vector3 variables. Then we can simply access the list and assign the position of the camera at each frame. This is useful to create reusable camera movements, like tracking shots and cinematic camera movements. Once we have achieved the desired camera movement, we can spawn objects in the scene and adjust color grading before saving the screengrab.
+
 
 <details>
   <summary>Example code</summary>
@@ -332,7 +337,7 @@ namespace BasicFreeCamTest
                 UI.ShowSubtitle("Recorded Frames = " + RecCamPos.Count, 1000);
             }
         }
-        
+
         private void onAborted(object sender, EventArgs e)
         {
             World.RenderingCamera = null;
@@ -353,6 +358,9 @@ knitr::include_graphics('assets/scriptingGifs/recCam.gif', dpi = NA)
 
 
 ### Attach a Camera to an Entity {-}
+
+We can also attach a camera to a car, a prop or an NPC. The Camera object in ```GTA``` has ```AttachTo``` function we can call, followed by two paramenters: the entity we want to attach the camera to and the position relative to the entity.
+Attaching a camera to an NPC can provide interesting views and perspectives. Here we create a cat NPC by pressing ```G``` and attach a camera to it. We can switch the camera view by pressing ```SHIFT + K``` and let the cat follow the player by pressing ```H```.
 
 <details>
   <summary>Example code</summary>
@@ -472,6 +480,9 @@ knitr::include_graphics('assets/scriptingGifs/attachingCamToAnimal.gif', dpi = N
 
 
 ### Create Multiple Cameras {-}
+
+The easiest way to create multiple cameras is position invisible Ped NPCs in specific locations, make them invisible with the native function ```SET_ENTITY_VISIBLE``` and attach a camera to them. We can switch between the different cameras with ```SHIFT + K```. These can be used as different cameras to surveil and look at scenes in different locations within the game world.
+
 <details>
   <summary>Example code</summary>
 
@@ -516,7 +527,7 @@ namespace ModdingTutorial
             {
                 //create Ped
                 var newPed = World.CreatePed(myModel, myLocs[i]);
-        Function.Call(Hash.SET_ENTITY_VISIBLE, newPed, false, 0);
+                Function.Call(Hash.SET_ENTITY_VISIBLE, newPed, false, 0);
                 myPeds.Add(newPed);
 
                 //create Cam
@@ -579,6 +590,8 @@ knitr::include_graphics('assets/scriptingGifs/multipleCameras.gif', dpi = NA)
 
 
 ### Switching Character through Satellite Camera View {-}
+
+We can use the native function ```START_PLAYER_SWITCH``` to enable the satellite view animation from the game, and get transported to a different location where an NPC or player avatar is spawned.
 
 <details>
   <summary>Example code</summary>
