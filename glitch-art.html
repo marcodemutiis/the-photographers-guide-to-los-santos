@@ -302,6 +302,9 @@ Raphael Brunk, <em>Capture55326.4_19</em>, 2016</p>
 <h2>Tutorial<a href="glitch-art.html#tutorial-6" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <div id="controlling-the-game-camera" class="section level3 unnumbered hasAnchor">
 <h3>Controlling the Game Camera<a href="glitch-art.html#controlling-the-game-camera" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>We can detach the camera from the player’s character and move freely around the game world. We instantiate a new <code>Camera</code> variable called <code>FreeCam</code>. We define it as the new world camera with the same position and rotation of the gameplay camera: <code>FreeCam = World.CreateCamera(GameplayCamera.Position, GameplayCamera.Rotation, GameplayCamera.FieldOfView);</code>. We then define our new camera as the main camera with <code>World.RenderingCamera = FreeCam;</code>.
+In order to control the camera we basically its vectors in 3D coordinates and multiply with a number over a certain direction to move towards a specific destination.
+A free camera – unlike the main character view – also allows us to move through the game architecture and terrain, revealing the construction of the game world. Press <code>Ò</code> to toggle the free camera On and off.</p>
 <details>
 <p><summary>Example code</summary></p>
 <div class="sourceCode" id="cb56"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb56-1"><a href="glitch-art.html#cb56-1"></a><span class="co">//this code was kindly provided by LeeC22 on https://gtaforums.com/topic/981454-free-cam-mode-in-c/#comment-1072077418</span></span>
@@ -816,7 +819,7 @@ Attaching a camera to an NPC can provide interesting views and perspectives. Her
 </div>
 <div id="switching-character-through-satellite-camera-view" class="section level3 unnumbered hasAnchor">
 <h3>Switching Character through Satellite Camera View<a href="glitch-art.html#switching-character-through-satellite-camera-view" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>We can use the native function <code>START_PLAYER_SWITCH</code> to enable the satellite view animation from the game, and get transported to a different location where an NPC or player avatar is spawned.</p>
+<p>We can use the native function <code>START_PLAYER_SWITCH</code> to enable the satellite view animation from the game, and get transported to a different location where an NPC or player avatar is spawned. Press <code>G</code> to move across divverent NPCs at different location through the satellite camera transition.</p>
 <details>
 <p><summary>Example code</summary></p>
 <div class="sourceCode" id="cb60"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb60-1"><a href="glitch-art.html#cb60-1"></a>    </span>

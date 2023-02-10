@@ -1920,6 +1920,10 @@ Raphael Brunk, \emph{Capture55326.4\_19}, 2016
 \subsection*{Controlling the Game Camera}\label{controlling-the-game-camera}}
 \addcontentsline{toc}{subsection}{Controlling the Game Camera}
 
+We can detach the camera from the player's character and move freely around the game world. We instantiate a new \texttt{Camera} variable called \texttt{FreeCam}. We define it as the new world camera with the same position and rotation of the gameplay camera: \texttt{FreeCam\ =\ World.CreateCamera(GameplayCamera.Position,\ GameplayCamera.Rotation,\ GameplayCamera.FieldOfView);}. We then define our new camera as the main camera with \texttt{World.RenderingCamera\ =\ FreeCam;}.
+In order to control the camera we basically its vectors in 3D coordinates and multiply with a number over a certain direction to move towards a specific destination.
+A free camera -- unlike the main character view -- also allows us to move through the game architecture and terrain, revealing the construction of the game world. Press \texttt{Ò} to toggle the free camera On and off.
+
 Example code
 
 \begin{Shaded}
@@ -2453,7 +2457,7 @@ Example code
 \subsection*{Switching Character through Satellite Camera View}\label{switching-character-through-satellite-camera-view}}
 \addcontentsline{toc}{subsection}{Switching Character through Satellite Camera View}
 
-We can use the native function \texttt{START\_PLAYER\_SWITCH} to enable the satellite view animation from the game, and get transported to a different location where an NPC or player avatar is spawned.
+We can use the native function \texttt{START\_PLAYER\_SWITCH} to enable the satellite view animation from the game, and get transported to a different location where an NPC or player avatar is spawned. Press \texttt{G} to move across divverent NPCs at different location through the satellite camera transition.
 
 Example code
 
