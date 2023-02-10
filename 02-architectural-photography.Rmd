@@ -109,7 +109,7 @@ Mark D Teo, The Urban Architecture of Los Angeles and Grand Theft Auto, 2015. ht
 
 #### Screenshotting {-}
 
-On windows there are several ways to take a screenshot. To capture your entire screen and automatically save the screenshot, press the ```Windows logo key``` + ```PrtScn key```, or alternatively ```fn key``` + ```Windows logo key``` + ```PrtScn key```. The screenshot will be saved to the ```Pictures > Screenshots folder```.
+On windows there are several ways to take a screenshot. To capture your entire screen and automatically save the screenshot, press the ```Windows logo key``` + ```PrtScn key``` (or  ```fn key``` + ```Windows logo key``` + ```PrtScn key```). The screenshot will be saved to ```Pictures > Screenshots folder```.
 
 
 On windows 10 and 11 you can use the Game bar to take game screenshots and start/stop game screen recordings. Press the ```Windows logo key```  + ```G``` on your keyboard to open Game Bar.
