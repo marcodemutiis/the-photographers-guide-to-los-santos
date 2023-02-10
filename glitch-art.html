@@ -240,6 +240,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="glitch-art.html"><a href="glitch-art.html#readings-6"><i class="fa fa-check"></i>Readings</a></li>
 <li class="chapter" data-level="" data-path="glitch-art.html"><a href="glitch-art.html#tutorial-6"><i class="fa fa-check"></i>Tutorial</a><ul>
 <li class="chapter" data-level="" data-path="glitch-art.html"><a href="glitch-art.html#controlling-the-game-camera"><i class="fa fa-check"></i>Controlling the Game Camera</a></li>
+<li class="chapter" data-level="" data-path="glitch-art.html"><a href="glitch-art.html#recording-and-replaying-camera-movements"><i class="fa fa-check"></i>Recording and Replaying Camera Movements</a></li>
 <li class="chapter" data-level="" data-path="glitch-art.html"><a href="glitch-art.html#attach-a-camera-to-an-entity"><i class="fa fa-check"></i>Attach a Camera to an Entity</a></li>
 <li class="chapter" data-level="" data-path="glitch-art.html"><a href="glitch-art.html#create-multiple-cameras"><i class="fa fa-check"></i>Create Multiple Cameras</a></li>
 <li class="chapter" data-level="" data-path="glitch-art.html"><a href="glitch-art.html#switching-character-through-satellite-camera-view"><i class="fa fa-check"></i>Switching Character through Satellite Camera View</a></li>
@@ -410,6 +411,10 @@ Raphael Brunk, <em>Capture55326.4_19</em>, 2016</p>
 <span id="cb56-105"><a href="glitch-art.html#cb56-105"></a>    </span></code></pre></div>
 </details>
 <p><a href="" target="_blank"><img src="assets/scriptingGifs/freeCam.gif" style="display: block; margin: auto auto auto 0;" /></a></p>
+</div>
+<div id="recording-and-replaying-camera-movements" class="section level3 unnumbered hasAnchor">
+<h3>Recording and Replaying Camera Movements<a href="glitch-art.html#recording-and-replaying-camera-movements" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>We can record the movement of the camera by storing its posiiton and movement every frame in a list of Vector3 variables. Then we can simply access the list and assign the position of the camera at each frame. This is useful to create reusable camera movements, like tracking shots and cinematic camera movements. Once we have achieved the desired camera movement, we can spawn objects in the scene and adjust color grading before saving the screengrab.</p>
 <details>
 <p><summary>Example code</summary></p>
 <div class="sourceCode" id="cb57"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb57-1"><a href="glitch-art.html#cb57-1"></a><span class="co">//this code was extended by code for controlling the camera by LeeC22 on https://gtaforums.com/topic/981454-free-cam-mode-in-c/#comment-1072077418</span></span>
@@ -589,7 +594,7 @@ Raphael Brunk, <em>Capture55326.4_19</em>, 2016</p>
 <span id="cb57-175"><a href="glitch-art.html#cb57-175"></a>                UI.<span class="fu">ShowSubtitle</span>(<span class="st">&quot;Recorded Frames = &quot;</span> + RecCamPos.<span class="fu">Count</span>, <span class="dv">1000</span>);</span>
 <span id="cb57-176"><a href="glitch-art.html#cb57-176"></a>            }</span>
 <span id="cb57-177"><a href="glitch-art.html#cb57-177"></a>        }</span>
-<span id="cb57-178"><a href="glitch-art.html#cb57-178"></a>        </span>
+<span id="cb57-178"><a href="glitch-art.html#cb57-178"></a></span>
 <span id="cb57-179"><a href="glitch-art.html#cb57-179"></a>        <span class="kw">private</span> <span class="dt">void</span> <span class="fu">onAborted</span>(<span class="dt">object</span> sender, EventArgs e)</span>
 <span id="cb57-180"><a href="glitch-art.html#cb57-180"></a>        {</span>
 <span id="cb57-181"><a href="glitch-art.html#cb57-181"></a>            World.<span class="fu">RenderingCamera</span> = <span class="kw">null</span>;</span>
@@ -602,6 +607,8 @@ Raphael Brunk, <em>Capture55326.4_19</em>, 2016</p>
 </div>
 <div id="attach-a-camera-to-an-entity" class="section level3 unnumbered hasAnchor">
 <h3>Attach a Camera to an Entity<a href="glitch-art.html#attach-a-camera-to-an-entity" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>We can also attach a camera to a car, a prop or an NPC. The Camera object in <code>GTA</code> has <code>AttachTo</code> function we can call, followed by two paramenters: the entity we want to attach the camera to and the position relative to the entity.
+Attaching a camera to an NPC can provide interesting views and perspectives. Here we create a cat NPC by pressing <code>G</code> and attach a camera to it. We can switch the camera view by pressing <code>SHIFT + K</code> and let the cat follow the player by pressing <code>H</code>.</p>
 <details>
 <p><summary>Example code</summary></p>
 <div class="sourceCode" id="cb58"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb58-1"><a href="glitch-art.html#cb58-1"></a><span class="kw">using</span> System;</span>
@@ -710,6 +717,7 @@ Raphael Brunk, <em>Capture55326.4_19</em>, 2016</p>
 </div>
 <div id="create-multiple-cameras" class="section level3 unnumbered hasAnchor">
 <h3>Create Multiple Cameras<a href="glitch-art.html#create-multiple-cameras" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The easiest way to create multiple cameras is position invisible Ped NPCs in specific locations, make them invisible with the native function <code>SET_ENTITY_VISIBLE</code> and attach a camera to them. We can switch between the different cameras with <code>SHIFT + K</code>. These can be used as different cameras to surveil and look at scenes in different locations within the game world.</p>
 <details>
 <p><summary>Example code</summary></p>
 <div class="sourceCode" id="cb59"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb59-1"><a href="glitch-art.html#cb59-1"></a><span class="kw">using</span> System;</span>
@@ -752,7 +760,7 @@ Raphael Brunk, <em>Capture55326.4_19</em>, 2016</p>
 <span id="cb59-38"><a href="glitch-art.html#cb59-38"></a>            {</span>
 <span id="cb59-39"><a href="glitch-art.html#cb59-39"></a>                <span class="co">//create Ped</span></span>
 <span id="cb59-40"><a href="glitch-art.html#cb59-40"></a>                <span class="dt">var</span> newPed = World.<span class="fu">CreatePed</span>(myModel, myLocs[i]);</span>
-<span id="cb59-41"><a href="glitch-art.html#cb59-41"></a>        Function.<span class="fu">Call</span>(Hash.<span class="fu">SET_ENTITY_VISIBLE</span>, newPed, <span class="kw">false</span>, <span class="dv">0</span>);</span>
+<span id="cb59-41"><a href="glitch-art.html#cb59-41"></a>                Function.<span class="fu">Call</span>(Hash.<span class="fu">SET_ENTITY_VISIBLE</span>, newPed, <span class="kw">false</span>, <span class="dv">0</span>);</span>
 <span id="cb59-42"><a href="glitch-art.html#cb59-42"></a>                myPeds.<span class="fu">Add</span>(newPed);</span>
 <span id="cb59-43"><a href="glitch-art.html#cb59-43"></a></span>
 <span id="cb59-44"><a href="glitch-art.html#cb59-44"></a>                <span class="co">//create Cam</span></span>
@@ -808,6 +816,7 @@ Raphael Brunk, <em>Capture55326.4_19</em>, 2016</p>
 </div>
 <div id="switching-character-through-satellite-camera-view" class="section level3 unnumbered hasAnchor">
 <h3>Switching Character through Satellite Camera View<a href="glitch-art.html#switching-character-through-satellite-camera-view" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>We can use the native function <code>START_PLAYER_SWITCH</code> to enable the satellite view animation from the game, and get transported to a different location where an NPC or player avatar is spawned.</p>
 <details>
 <p><summary>Example code</summary></p>
 <div class="sourceCode" id="cb60"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb60-1"><a href="glitch-art.html#cb60-1"></a>    </span>

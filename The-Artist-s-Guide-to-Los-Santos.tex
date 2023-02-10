@@ -2032,6 +2032,12 @@ Example code
 \end{Highlighting}
 \end{Shaded}
 
+\hypertarget{recording-and-replaying-camera-movements}{%
+\subsection*{Recording and Replaying Camera Movements}\label{recording-and-replaying-camera-movements}}
+\addcontentsline{toc}{subsection}{Recording and Replaying Camera Movements}
+
+We can record the movement of the camera by storing its posiiton and movement every frame in a list of Vector3 variables. Then we can simply access the list and assign the position of the camera at each frame. This is useful to create reusable camera movements, like tracking shots and cinematic camera movements. Once we have achieved the desired camera movement, we can spawn objects in the scene and adjust color grading before saving the screengrab.
+
 Example code
 
 \begin{Shaded}
@@ -2213,7 +2219,7 @@ Example code
 \NormalTok{                UI.}\FunctionTok{ShowSubtitle}\NormalTok{(}\StringTok{"Recorded Frames = "}\NormalTok{ + RecCamPos.}\FunctionTok{Count}\NormalTok{, }\DecValTok{1000}\NormalTok{);}
 \NormalTok{            \}}
 \NormalTok{        \}}
-        
+
         \KeywordTok{private} \DataTypeTok{void} \FunctionTok{onAborted}\NormalTok{(}\DataTypeTok{object}\NormalTok{ sender, EventArgs e)}
 \NormalTok{        \{}
 \NormalTok{            World.}\FunctionTok{RenderingCamera}\NormalTok{ = }\KeywordTok{null}\NormalTok{;}
@@ -2227,6 +2233,9 @@ Example code
 \hypertarget{attach-a-camera-to-an-entity}{%
 \subsection*{Attach a Camera to an Entity}\label{attach-a-camera-to-an-entity}}
 \addcontentsline{toc}{subsection}{Attach a Camera to an Entity}
+
+We can also attach a camera to a car, a prop or an NPC. The Camera object in \texttt{GTA} has \texttt{AttachTo} function we can call, followed by two paramenters: the entity we want to attach the camera to and the position relative to the entity.
+Attaching a camera to an NPC can provide interesting views and perspectives. Here we create a cat NPC by pressing \texttt{G} and attach a camera to it. We can switch the camera view by pressing \texttt{SHIFT\ +\ K} and let the cat follow the player by pressing \texttt{H}.
 
 Example code
 
@@ -2340,6 +2349,8 @@ Example code
 \subsection*{Create Multiple Cameras}\label{create-multiple-cameras}}
 \addcontentsline{toc}{subsection}{Create Multiple Cameras}
 
+The easiest way to create multiple cameras is position invisible Ped NPCs in specific locations, make them invisible with the native function \texttt{SET\_ENTITY\_VISIBLE} and attach a camera to them. We can switch between the different cameras with \texttt{SHIFT\ +\ K}. These can be used as different cameras to surveil and look at scenes in different locations within the game world.
+
 Example code
 
 \begin{Shaded}
@@ -2384,7 +2395,7 @@ Example code
 \NormalTok{            \{}
                 \CommentTok{//create Ped}
                 \DataTypeTok{var}\NormalTok{ newPed = World.}\FunctionTok{CreatePed}\NormalTok{(myModel, myLocs[i]);}
-\NormalTok{        Function.}\FunctionTok{Call}\NormalTok{(Hash.}\FunctionTok{SET_ENTITY_VISIBLE}\NormalTok{, newPed, }\KeywordTok{false}\NormalTok{, }\DecValTok{0}\NormalTok{);}
+\NormalTok{                Function.}\FunctionTok{Call}\NormalTok{(Hash.}\FunctionTok{SET_ENTITY_VISIBLE}\NormalTok{, newPed, }\KeywordTok{false}\NormalTok{, }\DecValTok{0}\NormalTok{);}
 \NormalTok{                myPeds.}\FunctionTok{Add}\NormalTok{(newPed);}
 
                 \CommentTok{//create Cam}
@@ -2441,6 +2452,8 @@ Example code
 \hypertarget{switching-character-through-satellite-camera-view}{%
 \subsection*{Switching Character through Satellite Camera View}\label{switching-character-through-satellite-camera-view}}
 \addcontentsline{toc}{subsection}{Switching Character through Satellite Camera View}
+
+We can use the native function \texttt{START\_PLAYER\_SWITCH} to enable the satellite view animation from the game, and get transported to a different location where an NPC or player avatar is spawned.
 
 Example code
 
