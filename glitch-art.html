@@ -241,8 +241,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="glitch-art.html"><a href="glitch-art.html#tutorial-6"><i class="fa fa-check"></i>Tutorial</a><ul>
 <li class="chapter" data-level="" data-path="glitch-art.html"><a href="glitch-art.html#controlling-the-game-camera"><i class="fa fa-check"></i>Controlling the Game Camera</a></li>
 <li class="chapter" data-level="" data-path="glitch-art.html"><a href="glitch-art.html#recording-and-replaying-camera-movements"><i class="fa fa-check"></i>Recording and Replaying Camera Movements</a></li>
-<li class="chapter" data-level="" data-path="glitch-art.html"><a href="glitch-art.html#attach-a-camera-to-an-entity"><i class="fa fa-check"></i>Attach a Camera to an Entity</a></li>
-<li class="chapter" data-level="" data-path="glitch-art.html"><a href="glitch-art.html#create-multiple-cameras"><i class="fa fa-check"></i>Create Multiple Cameras</a></li>
+<li class="chapter" data-level="" data-path="glitch-art.html"><a href="glitch-art.html#attaching-a-camera-to-an-entity"><i class="fa fa-check"></i>Attaching a Camera to an Entity</a></li>
+<li class="chapter" data-level="" data-path="glitch-art.html"><a href="glitch-art.html#creating-and-switching-between-multiple-cameras"><i class="fa fa-check"></i>Creating and Switching between Multiple Cameras</a></li>
 <li class="chapter" data-level="" data-path="glitch-art.html"><a href="glitch-art.html#switching-character-through-satellite-camera-view"><i class="fa fa-check"></i>Switching Character through Satellite Camera View</a></li>
 <li class="chapter" data-level="8.0.1" data-path="glitch-art.html"><a href="glitch-art.html#menyoo-mod-trainer"><i class="fa fa-check"></i><b>8.0.1</b> Menyoo Mod Trainer {–}</a></li>
 <li class="chapter" data-level="" data-path="glitch-art.html"><a href="glitch-art.html#codewalker"><i class="fa fa-check"></i>CodeWalker</a></li>
@@ -605,8 +605,8 @@ Raphael Brunk, <em>Capture55326.4_19</em>, 2016</p>
 </details>
 <p><a href="" target="_blank"><img src="assets/scriptingGifs/recCam.gif" style="display: block; margin: auto auto auto 0;" /></a></p>
 </div>
-<div id="attach-a-camera-to-an-entity" class="section level3 unnumbered hasAnchor">
-<h3>Attach a Camera to an Entity<a href="glitch-art.html#attach-a-camera-to-an-entity" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="attaching-a-camera-to-an-entity" class="section level3 unnumbered hasAnchor">
+<h3>Attaching a Camera to an Entity<a href="glitch-art.html#attaching-a-camera-to-an-entity" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>We can also attach a camera to a car, a prop or an NPC. The Camera object in <code>GTA</code> has <code>AttachTo</code> function we can call, followed by two paramenters: the entity we want to attach the camera to and the position relative to the entity.
 Attaching a camera to an NPC can provide interesting views and perspectives. Here we create a cat NPC by pressing <code>G</code> and attach a camera to it. We can switch the camera view by pressing <code>SHIFT + K</code> and let the cat follow the player by pressing <code>H</code>.</p>
 <details>
@@ -715,8 +715,8 @@ Attaching a camera to an NPC can provide interesting views and perspectives. Her
 </details>
 <p><img src="assets/scriptingGifs/attachingCamToAnimal.gif" style="display: block; margin: auto auto auto 0;" /></p>
 </div>
-<div id="create-multiple-cameras" class="section level3 unnumbered hasAnchor">
-<h3>Create Multiple Cameras<a href="glitch-art.html#create-multiple-cameras" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="creating-and-switching-between-multiple-cameras" class="section level3 unnumbered hasAnchor">
+<h3>Creating and Switching between Multiple Cameras<a href="glitch-art.html#creating-and-switching-between-multiple-cameras" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>The easiest way to create multiple cameras is position invisible Ped NPCs in specific locations, make them invisible with the native function <code>SET_ENTITY_VISIBLE</code> and attach a camera to them. We can switch between the different cameras with <code>SHIFT + K</code>. These can be used as different cameras to surveil and look at scenes in different locations within the game world.</p>
 <details>
 <p><summary>Example code</summary></p>
