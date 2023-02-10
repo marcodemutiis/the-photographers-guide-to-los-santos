@@ -38,7 +38,6 @@ knitr::include_graphics('assets/maps/vinewoodHills.png', dpi = NA)
 
 using System;
 using System.Windows.Forms;
-
 using GTA;
 using GTA.Math;
 
@@ -151,6 +150,207 @@ knitr::include_graphics('assets/scriptingGifs/freeCam.gif', dpi = NA)
 ```
 
 	
+
+<details>
+  <summary>Example code</summary>
+
+```cs
+//this code was extended by code for controlling the camera by LeeC22 on https://gtaforums.com/topic/981454-free-cam-mode-in-c/#comment-1072077418
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;   
+using System.Windows.Forms;
+using System.Drawing;
+using GTA;
+using GTA.Math;
+using GTA.Native;
+using Control = GTA.Control;
+
+namespace BasicFreeCamTest
+{
+    public class cBasicFreeCamTest : Script
+    {
+        private Keys ActivationKey = Keys.O; //O to switch to Free Camera
+        private Keys RecordKey = Keys.I;    //I to start/stop recording the camera movements
+        private Keys ReplayKey = Keys.K;    //K to start/stop replaying the recorded camera movement
+        private bool FreeCamActive = false;
+        private bool RecCamActive = false;
+        private int CamFramesIndex = 0;
+        private bool ReplayCamActive = false;
+        private Camera FreeCam;
+        private Camera ReplayCam;
+        List<Vector3> RecCamPos = new List<Vector3>();
+        List<Vector3> RecCamRot = new List<Vector3>();
+
+        public cBasicFreeCamTest()
+        {
+            Tick += onTick;
+            KeyUp += onKeyUp;
+            Aborted += onAborted;
+
+            Interval = 0;
+        }
+
+        private void onTick(object sender, EventArgs e)
+        {
+            // Exits from the loop if the game is loading
+            if (Game.IsLoading) return;
+
+            if (FreeCamActive) UpdateFreeCam();
+            if (RecCamActive) UpdateRecCam();
+            if (ReplayCamActive) UpdateReplayCam();
+        }
+
+        private void UpdateRecCam()
+        {
+            //record position and rotation of the free camera every frame
+            RecCamPos.Add(FreeCam.Position);
+            RecCamRot.Add(FreeCam.Rotation);
+        }
+        private void UpdateReplayCam()
+        {
+            Game.DisableAllControlsThisFrame(2);
+
+            //move the camera at the exact position and rotation it was recorded at a given frame
+            ReplayCam.Position = RecCamPos[CamFramesIndex];
+            ReplayCam.Rotation = RecCamRot[CamFramesIndex];
+
+            //move to the next frame until we hit the last one
+            CamFramesIndex++;
+            if (CamFramesIndex >= RecCamPos.Count) CamFramesIndex = RecCamPos.Count-1;
+        }
+
+        private void UpdateFreeCam()
+        {
+            float deltaTime = Game.LastFrameTime;
+            float speed = 2f;
+            float camSpeed = speed * deltaTime;
+            float rotSpeed = 80f;
+            float camRotSpeed = rotSpeed * deltaTime;
+
+            Game.DisableAllControlsThisFrame(2);
+
+            Vector3 camForward = FreeCam.Direction.Normalized; 
+            Vector3 camRight = Vector3.Cross(Vector3.WorldUp, camForward); 
+            Vector3 camUp = Vector3.Cross(camRight, camForward);
+
+            if (Game.IsDisabledControlJustPressed(2, Control.FrontendCancel))
+            {
+                World.RenderingCamera = null;
+                FreeCam.Destroy();
+                FreeCamActive = false;
+                return;
+            }
+
+            float fbSpeedMult = Game.GetDisabledControlNormal(2, Control.MoveUpDown);
+            float lrSpeedMult = Game.GetDisabledControlNormal(2, Control.MoveLeftRight);
+            float yawSpeedMult = Game.GetDisabledControlNormal(2, Control.LookLeftRight);
+            float pitchSpeedMult = Game.GetDisabledControlNormal(2, Control.LookUpDown);
+
+            float fbSpeed = camSpeed * fbSpeedMult;
+            float lrSpeed = camSpeed * lrSpeedMult;
+            float yawSpeed = camRotSpeed * yawSpeedMult;
+            float pitchSpeed = camRotSpeed * pitchSpeedMult;
+
+            Vector3 camLR = camRight * -lrSpeed;
+            Vector3 camFB = camForward * -fbSpeed;
+            Vector3 camMove = camLR + camFB;
+
+            Vector3 camRot = new Vector3(pitchSpeed, 0, -yawSpeed);
+
+            FreeCam.Position += camMove;
+            FreeCam.Rotation += camRot;
+        }
+
+        private void onKeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == ActivationKey) //Toggle Free Cam
+            {
+                //toggle the freecam on/off
+                FreeCamActive = !FreeCamActive;
+
+                if (FreeCamActive) //ON
+                {
+                    FreeCam = World.CreateCamera(GameplayCamera.Position, GameplayCamera.Rotation, GameplayCamera.FieldOfView);
+                    World.RenderingCamera = FreeCam;
+                    UI.ShowSubtitle("FreeCam ON", 1000);
+                }
+                else //OFF
+                {
+                    World.RenderingCamera = null;
+                    FreeCam.Destroy();
+                    UI.ShowSubtitle("FreeCam OFF", 1000);
+                }
+            }
+            if (e.KeyCode == RecordKey) //Toggle Recording
+            {
+                RecCamActive = !RecCamActive;
+                if(RecCamActive)
+                {
+                    UI.ShowSubtitle("RecCam ON", 1000);
+                    //Clear the array of positions and rotations
+                    RecCamPos.Clear();
+                    RecCamRot.Clear();
+                    //reset index
+                    CamFramesIndex= 0;
+                    //disable replay cam
+                    ReplayCamActive= false;
+                    //activate free cam
+                }
+                else
+                {
+                    UI.ShowSubtitle("RecCam OFF", 1000);
+                }
+            }
+            if (e.KeyCode == ReplayKey) //Toggle Replay
+            {
+                ReplayCamActive = !ReplayCamActive;
+
+                if(ReplayCamActive)
+                {
+                    ReplayCam = World.CreateCamera(RecCamPos[0], RecCamRot[0], GameplayCamera.FieldOfView);
+                    RecCamActive = false;
+                    FreeCamActive = false;
+                    UI.ShowSubtitle("ReplayCam ON", 1000);
+                }
+                else
+                {
+                    RecCamActive = false;
+                    // World.RenderingCamera = null;
+                    //ReplayCam.Destroy();
+                    CamFramesIndex = 0;
+                    UI.ShowSubtitle("ReplayCam OFF", 1000);
+                }
+            }
+            
+            if (e.KeyCode == Keys.H)
+            {
+                //display number of frames recorded
+                UI.ShowSubtitle("Recorded Frames = " + RecCamPos.Count, 1000);
+            }
+        }
+        
+        private void onAborted(object sender, EventArgs e)
+        {
+            World.RenderingCamera = null;
+        }
+    }
+}
+
+
+```
+</details>
+
+
+
+```{r fig.align='left', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html'), fig.link=''}
+knitr::include_graphics('assets/scriptingGifs/recCam.gif', dpi = NA)
+```
+
+
 
 ### Attach a Camera to an Entity {-}
 
