@@ -30,6 +30,9 @@ knitr::include_graphics('assets/maps/vinewoodHills.png', dpi = NA)
 
 ### Controlling the Game Camera {-}
 
+We can detach the camera from the player's character and move freely around the game world. We instantiate a new ```Camera``` variable called ```FreeCam```. We define it as the new world camera with the same position and rotation of the gameplay camera: ```FreeCam = World.CreateCamera(GameplayCamera.Position, GameplayCamera.Rotation, GameplayCamera.FieldOfView);```. We then define our new camera as the main camera with ```World.RenderingCamera = FreeCam;```.
+In order to control the camera we basically its vectors in 3D coordinates and multiply with a number over a certain direction to move towards a specific destination.
+A free camera – unlike the main character view – also allows us to move through the game architecture and terrain, revealing the construction of the game world. Press ```Ò``` to toggle the free camera On and off.
 
 
 <details>
@@ -592,7 +595,7 @@ knitr::include_graphics('assets/scriptingGifs/multipleCameras.gif', dpi = NA)
 
 ### Switching Character through Satellite Camera View {-}
 
-We can use the native function ```START_PLAYER_SWITCH``` to enable the satellite view animation from the game, and get transported to a different location where an NPC or player avatar is spawned.
+We can use the native function ```START_PLAYER_SWITCH``` to enable the satellite view animation from the game, and get transported to a different location where an NPC or player avatar is spawned. Press ```G``` to move across divverent NPCs at different location through the satellite camera transition.
 
 <details>
   <summary>Example code</summary>
