@@ -1928,7 +1928,6 @@ Example code
 
 \KeywordTok{using}\NormalTok{ System;}
 \KeywordTok{using}\NormalTok{ System.}\FunctionTok{Windows}\NormalTok{.}\FunctionTok{Forms}\NormalTok{;}
-
 \KeywordTok{using}\NormalTok{ GTA;}
 \KeywordTok{using}\NormalTok{ GTA.}\FunctionTok{Math}\NormalTok{;}
 
@@ -2030,6 +2029,198 @@ Example code
 \NormalTok{    \}}
 \NormalTok{\}}
     
+\end{Highlighting}
+\end{Shaded}
+
+Example code
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{//this code was extended by code for controlling the camera by LeeC22 on https://gtaforums.com/topic/981454-free-cam-mode-in-c/#comment-1072077418}
+
+\KeywordTok{using}\NormalTok{ System;}
+\KeywordTok{using}\NormalTok{ System.}\FunctionTok{Collections}\NormalTok{.}\FunctionTok{Generic}\NormalTok{;}
+\KeywordTok{using}\NormalTok{ System.}\FunctionTok{Linq}\NormalTok{;}
+\KeywordTok{using}\NormalTok{ System.}\FunctionTok{Text}\NormalTok{;}
+\KeywordTok{using}\NormalTok{ System.}\FunctionTok{Threading}\NormalTok{.}\FunctionTok{Tasks}\NormalTok{;   }
+\KeywordTok{using}\NormalTok{ System.}\FunctionTok{Windows}\NormalTok{.}\FunctionTok{Forms}\NormalTok{;}
+\KeywordTok{using}\NormalTok{ System.}\FunctionTok{Drawing}\NormalTok{;}
+\KeywordTok{using}\NormalTok{ GTA;}
+\KeywordTok{using}\NormalTok{ GTA.}\FunctionTok{Math}\NormalTok{;}
+\KeywordTok{using}\NormalTok{ GTA.}\FunctionTok{Native}\NormalTok{;}
+\KeywordTok{using}\NormalTok{ Control = GTA.}\FunctionTok{Control}\NormalTok{;}
+
+\KeywordTok{namespace}\NormalTok{ BasicFreeCamTest}
+\NormalTok{\{}
+    \KeywordTok{public} \KeywordTok{class}\NormalTok{ cBasicFreeCamTest : Script}
+\NormalTok{    \{}
+        \KeywordTok{private}\NormalTok{ Keys ActivationKey = Keys.}\FunctionTok{O}\NormalTok{; }\CommentTok{//O to switch to Free Camera}
+        \KeywordTok{private}\NormalTok{ Keys RecordKey = Keys.}\FunctionTok{I}\NormalTok{;    }\CommentTok{//I to start/stop recording the camera movements}
+        \KeywordTok{private}\NormalTok{ Keys ReplayKey = Keys.}\FunctionTok{K}\NormalTok{;    }\CommentTok{//K to start/stop replaying the recorded camera movement}
+        \KeywordTok{private} \DataTypeTok{bool}\NormalTok{ FreeCamActive = }\KeywordTok{false}\NormalTok{;}
+        \KeywordTok{private} \DataTypeTok{bool}\NormalTok{ RecCamActive = }\KeywordTok{false}\NormalTok{;}
+        \KeywordTok{private} \DataTypeTok{int}\NormalTok{ CamFramesIndex = }\DecValTok{0}\NormalTok{;}
+        \KeywordTok{private} \DataTypeTok{bool}\NormalTok{ ReplayCamActive = }\KeywordTok{false}\NormalTok{;}
+        \KeywordTok{private}\NormalTok{ Camera FreeCam;}
+        \KeywordTok{private}\NormalTok{ Camera ReplayCam;}
+\NormalTok{        List<Vector3> RecCamPos = }\KeywordTok{new}\NormalTok{ List<Vector3>();}
+\NormalTok{        List<Vector3> RecCamRot = }\KeywordTok{new}\NormalTok{ List<Vector3>();}
+
+        \KeywordTok{public} \FunctionTok{cBasicFreeCamTest}\NormalTok{()}
+\NormalTok{        \{}
+\NormalTok{            Tick += onTick;}
+\NormalTok{            KeyUp += onKeyUp;}
+\NormalTok{            Aborted += onAborted;}
+
+\NormalTok{            Interval = }\DecValTok{0}\NormalTok{;}
+\NormalTok{        \}}
+
+        \KeywordTok{private} \DataTypeTok{void} \FunctionTok{onTick}\NormalTok{(}\DataTypeTok{object}\NormalTok{ sender, EventArgs e)}
+\NormalTok{        \{}
+            \CommentTok{// Exits from the loop if the game is loading}
+            \KeywordTok{if}\NormalTok{ (Game.}\FunctionTok{IsLoading}\NormalTok{) }\KeywordTok{return}\NormalTok{;}
+
+            \KeywordTok{if}\NormalTok{ (FreeCamActive) }\FunctionTok{UpdateFreeCam}\NormalTok{();}
+            \KeywordTok{if}\NormalTok{ (RecCamActive) }\FunctionTok{UpdateRecCam}\NormalTok{();}
+            \KeywordTok{if}\NormalTok{ (ReplayCamActive) }\FunctionTok{UpdateReplayCam}\NormalTok{();}
+\NormalTok{        \}}
+
+        \KeywordTok{private} \DataTypeTok{void} \FunctionTok{UpdateRecCam}\NormalTok{()}
+\NormalTok{        \{}
+            \CommentTok{//record position and rotation of the free camera every frame}
+\NormalTok{            RecCamPos.}\FunctionTok{Add}\NormalTok{(FreeCam.}\FunctionTok{Position}\NormalTok{);}
+\NormalTok{            RecCamRot.}\FunctionTok{Add}\NormalTok{(FreeCam.}\FunctionTok{Rotation}\NormalTok{);}
+\NormalTok{        \}}
+        \KeywordTok{private} \DataTypeTok{void} \FunctionTok{UpdateReplayCam}\NormalTok{()}
+\NormalTok{        \{}
+\NormalTok{            Game.}\FunctionTok{DisableAllControlsThisFrame}\NormalTok{(}\DecValTok{2}\NormalTok{);}
+
+            \CommentTok{//move the camera at the exact position and rotation it was recorded at a given frame}
+\NormalTok{            ReplayCam.}\FunctionTok{Position}\NormalTok{ = RecCamPos[CamFramesIndex];}
+\NormalTok{            ReplayCam.}\FunctionTok{Rotation}\NormalTok{ = RecCamRot[CamFramesIndex];}
+
+            \CommentTok{//move to the next frame until we hit the last one}
+\NormalTok{            CamFramesIndex++;}
+            \KeywordTok{if}\NormalTok{ (CamFramesIndex >= RecCamPos.}\FunctionTok{Count}\NormalTok{) CamFramesIndex = RecCamPos.}\FunctionTok{Count}\DecValTok{-1}\NormalTok{;}
+\NormalTok{        \}}
+
+        \KeywordTok{private} \DataTypeTok{void} \FunctionTok{UpdateFreeCam}\NormalTok{()}
+\NormalTok{        \{}
+            \DataTypeTok{float}\NormalTok{ deltaTime = Game.}\FunctionTok{LastFrameTime}\NormalTok{;}
+            \DataTypeTok{float}\NormalTok{ speed = 2f;}
+            \DataTypeTok{float}\NormalTok{ camSpeed = speed * deltaTime;}
+            \DataTypeTok{float}\NormalTok{ rotSpeed = 80f;}
+            \DataTypeTok{float}\NormalTok{ camRotSpeed = rotSpeed * deltaTime;}
+
+\NormalTok{            Game.}\FunctionTok{DisableAllControlsThisFrame}\NormalTok{(}\DecValTok{2}\NormalTok{);}
+
+\NormalTok{            Vector3 camForward = FreeCam.}\FunctionTok{Direction}\NormalTok{.}\FunctionTok{Normalized}\NormalTok{; }
+\NormalTok{            Vector3 camRight = Vector3.}\FunctionTok{Cross}\NormalTok{(Vector3.}\FunctionTok{WorldUp}\NormalTok{, camForward); }
+\NormalTok{            Vector3 camUp = Vector3.}\FunctionTok{Cross}\NormalTok{(camRight, camForward);}
+
+            \KeywordTok{if}\NormalTok{ (Game.}\FunctionTok{IsDisabledControlJustPressed}\NormalTok{(}\DecValTok{2}\NormalTok{, Control.}\FunctionTok{FrontendCancel}\NormalTok{))}
+\NormalTok{            \{}
+\NormalTok{                World.}\FunctionTok{RenderingCamera}\NormalTok{ = }\KeywordTok{null}\NormalTok{;}
+\NormalTok{                FreeCam.}\FunctionTok{Destroy}\NormalTok{();}
+\NormalTok{                FreeCamActive = }\KeywordTok{false}\NormalTok{;}
+                \KeywordTok{return}\NormalTok{;}
+\NormalTok{            \}}
+
+            \DataTypeTok{float}\NormalTok{ fbSpeedMult = Game.}\FunctionTok{GetDisabledControlNormal}\NormalTok{(}\DecValTok{2}\NormalTok{, Control.}\FunctionTok{MoveUpDown}\NormalTok{);}
+            \DataTypeTok{float}\NormalTok{ lrSpeedMult = Game.}\FunctionTok{GetDisabledControlNormal}\NormalTok{(}\DecValTok{2}\NormalTok{, Control.}\FunctionTok{MoveLeftRight}\NormalTok{);}
+            \DataTypeTok{float}\NormalTok{ yawSpeedMult = Game.}\FunctionTok{GetDisabledControlNormal}\NormalTok{(}\DecValTok{2}\NormalTok{, Control.}\FunctionTok{LookLeftRight}\NormalTok{);}
+            \DataTypeTok{float}\NormalTok{ pitchSpeedMult = Game.}\FunctionTok{GetDisabledControlNormal}\NormalTok{(}\DecValTok{2}\NormalTok{, Control.}\FunctionTok{LookUpDown}\NormalTok{);}
+
+            \DataTypeTok{float}\NormalTok{ fbSpeed = camSpeed * fbSpeedMult;}
+            \DataTypeTok{float}\NormalTok{ lrSpeed = camSpeed * lrSpeedMult;}
+            \DataTypeTok{float}\NormalTok{ yawSpeed = camRotSpeed * yawSpeedMult;}
+            \DataTypeTok{float}\NormalTok{ pitchSpeed = camRotSpeed * pitchSpeedMult;}
+
+\NormalTok{            Vector3 camLR = camRight * -lrSpeed;}
+\NormalTok{            Vector3 camFB = camForward * -fbSpeed;}
+\NormalTok{            Vector3 camMove = camLR + camFB;}
+
+\NormalTok{            Vector3 camRot = }\KeywordTok{new} \FunctionTok{Vector3}\NormalTok{(pitchSpeed, }\DecValTok{0}\NormalTok{, -yawSpeed);}
+
+\NormalTok{            FreeCam.}\FunctionTok{Position}\NormalTok{ += camMove;}
+\NormalTok{            FreeCam.}\FunctionTok{Rotation}\NormalTok{ += camRot;}
+\NormalTok{        \}}
+
+        \KeywordTok{private} \DataTypeTok{void} \FunctionTok{onKeyUp}\NormalTok{(}\DataTypeTok{object}\NormalTok{ sender, KeyEventArgs e)}
+\NormalTok{        \{}
+            \KeywordTok{if}\NormalTok{ (e.}\FunctionTok{KeyCode}\NormalTok{ == ActivationKey) }\CommentTok{//Toggle Free Cam}
+\NormalTok{            \{}
+                \CommentTok{//toggle the freecam on/off}
+\NormalTok{                FreeCamActive = !FreeCamActive;}
+
+                \KeywordTok{if}\NormalTok{ (FreeCamActive) }\CommentTok{//ON}
+\NormalTok{                \{}
+\NormalTok{                    FreeCam = World.}\FunctionTok{CreateCamera}\NormalTok{(GameplayCamera.}\FunctionTok{Position}\NormalTok{, GameplayCamera.}\FunctionTok{Rotation}\NormalTok{, GameplayCamera.}\FunctionTok{FieldOfView}\NormalTok{);}
+\NormalTok{                    World.}\FunctionTok{RenderingCamera}\NormalTok{ = FreeCam;}
+\NormalTok{                    UI.}\FunctionTok{ShowSubtitle}\NormalTok{(}\StringTok{"FreeCam ON"}\NormalTok{, }\DecValTok{1000}\NormalTok{);}
+\NormalTok{                \}}
+                \KeywordTok{else} \CommentTok{//OFF}
+\NormalTok{                \{}
+\NormalTok{                    World.}\FunctionTok{RenderingCamera}\NormalTok{ = }\KeywordTok{null}\NormalTok{;}
+\NormalTok{                    FreeCam.}\FunctionTok{Destroy}\NormalTok{();}
+\NormalTok{                    UI.}\FunctionTok{ShowSubtitle}\NormalTok{(}\StringTok{"FreeCam OFF"}\NormalTok{, }\DecValTok{1000}\NormalTok{);}
+\NormalTok{                \}}
+\NormalTok{            \}}
+            \KeywordTok{if}\NormalTok{ (e.}\FunctionTok{KeyCode}\NormalTok{ == RecordKey) }\CommentTok{//Toggle Recording}
+\NormalTok{            \{}
+\NormalTok{                RecCamActive = !RecCamActive;}
+                \KeywordTok{if}\NormalTok{(RecCamActive)}
+\NormalTok{                \{}
+\NormalTok{                    UI.}\FunctionTok{ShowSubtitle}\NormalTok{(}\StringTok{"RecCam ON"}\NormalTok{, }\DecValTok{1000}\NormalTok{);}
+                    \CommentTok{//Clear the array of positions and rotations}
+\NormalTok{                    RecCamPos.}\FunctionTok{Clear}\NormalTok{();}
+\NormalTok{                    RecCamRot.}\FunctionTok{Clear}\NormalTok{();}
+                    \CommentTok{//reset index}
+\NormalTok{                    CamFramesIndex= }\DecValTok{0}\NormalTok{;}
+                    \CommentTok{//disable replay cam}
+\NormalTok{                    ReplayCamActive= }\KeywordTok{false}\NormalTok{;}
+                    \CommentTok{//activate free cam}
+\NormalTok{                \}}
+                \KeywordTok{else}
+\NormalTok{                \{}
+\NormalTok{                    UI.}\FunctionTok{ShowSubtitle}\NormalTok{(}\StringTok{"RecCam OFF"}\NormalTok{, }\DecValTok{1000}\NormalTok{);}
+\NormalTok{                \}}
+\NormalTok{            \}}
+            \KeywordTok{if}\NormalTok{ (e.}\FunctionTok{KeyCode}\NormalTok{ == ReplayKey) }\CommentTok{//Toggle Replay}
+\NormalTok{            \{}
+\NormalTok{                ReplayCamActive = !ReplayCamActive;}
+
+                \KeywordTok{if}\NormalTok{(ReplayCamActive)}
+\NormalTok{                \{}
+\NormalTok{                    ReplayCam = World.}\FunctionTok{CreateCamera}\NormalTok{(RecCamPos[}\DecValTok{0}\NormalTok{], RecCamRot[}\DecValTok{0}\NormalTok{], GameplayCamera.}\FunctionTok{FieldOfView}\NormalTok{);}
+\NormalTok{                    RecCamActive = }\KeywordTok{false}\NormalTok{;}
+\NormalTok{                    FreeCamActive = }\KeywordTok{false}\NormalTok{;}
+\NormalTok{                    UI.}\FunctionTok{ShowSubtitle}\NormalTok{(}\StringTok{"ReplayCam ON"}\NormalTok{, }\DecValTok{1000}\NormalTok{);}
+\NormalTok{                \}}
+                \KeywordTok{else}
+\NormalTok{                \{}
+\NormalTok{                    RecCamActive = }\KeywordTok{false}\NormalTok{;}
+                    \CommentTok{// World.RenderingCamera = null;}
+                    \CommentTok{//ReplayCam.Destroy();}
+\NormalTok{                    CamFramesIndex = }\DecValTok{0}\NormalTok{;}
+\NormalTok{                    UI.}\FunctionTok{ShowSubtitle}\NormalTok{(}\StringTok{"ReplayCam OFF"}\NormalTok{, }\DecValTok{1000}\NormalTok{);}
+\NormalTok{                \}}
+\NormalTok{            \}}
+            
+            \KeywordTok{if}\NormalTok{ (e.}\FunctionTok{KeyCode}\NormalTok{ == Keys.}\FunctionTok{H}\NormalTok{)}
+\NormalTok{            \{}
+                \CommentTok{//display number of frames recorded}
+\NormalTok{                UI.}\FunctionTok{ShowSubtitle}\NormalTok{(}\StringTok{"Recorded Frames = "}\NormalTok{ + RecCamPos.}\FunctionTok{Count}\NormalTok{, }\DecValTok{1000}\NormalTok{);}
+\NormalTok{            \}}
+\NormalTok{        \}}
+        
+        \KeywordTok{private} \DataTypeTok{void} \FunctionTok{onAborted}\NormalTok{(}\DataTypeTok{object}\NormalTok{ sender, EventArgs e)}
+\NormalTok{        \{}
+\NormalTok{            World.}\FunctionTok{RenderingCamera}\NormalTok{ = }\KeywordTok{null}\NormalTok{;}
+\NormalTok{        \}}
+\NormalTok{    \}}
+\NormalTok{\}}
+
 \end{Highlighting}
 \end{Shaded}
 
