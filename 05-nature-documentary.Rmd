@@ -69,17 +69,46 @@ knitr::include_graphics('assets/loadSaveGame.png', dpi = NA)
 
 + Select Visual C# and Class Library (.NET Framework)
 
+
+```{r fig.align='left', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html'), fig.link=''}
+knitr::include_graphics('assets/scriptingGifs/ScriptNewProject.png', dpi = NA)
+```
+
+
 + Give a custom file name (e.g. moddingTutorial)
 
-+ Rename public class Class1 as “moddingTutorial” in the right panel Solution Explorer
++ Rename public class Class1 as “moddingTutorial” in the right panel Solution Explorer and click Yes on the pop-up window 
 
-+ In the same panel go to References and click add References… > Browse > browse to Downloads 
++ In the same panel go to References and click add References… 
+
+
+```{r fig.align='left', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html'), fig.link=''}
+knitr::include_graphics('assets/scriptingGifs/ScriptAddRefs.png', dpi = NA)
+```
+
+
+
++ Click on > Browse > browse to Downloads 
 
 + Select ScriptHookedVDotNet > ```ScriptHookVDotNet2.dll``` and ```ScriptHookVDotNet3.dll``` and add them
 
-+ Also add ```System.Windows.forms```
 
-+ Also add ```System.Drawing```
+```{r fig.align='left', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html'), fig.link=''}
+knitr::include_graphics('assets/scriptingGifs/ScriptAddRefsSHVDN.png', dpi = NA)
+```
+
+
+
++ Go to > Assemblies and search for "forms" and select ```System.Windows.forms```
+
++ Search for "drawing" and select ```System.Drawing```
+
+
+```{r fig.align='left', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html'), fig.link=''}
+knitr::include_graphics('assets/scriptingGifs/ScriptAddRefsFormsDrawing.png', dpi = NA)
+```
+
+
 
 + In your code file add the following lines on top:
 ```cs
