@@ -793,16 +793,76 @@ knitr::include_graphics('assets/combiningTools.png', dpi = NA)
 
 ### CodeWalker {-}
 
-CodeWalker is an applicaiton that renders an interactive 3D Map for GTAV. Through CodeWalker we are able to modify the architecture and objects inside the map, replacing textures and images with custom content. 
+CodeWalker is an applicaiton created by [dexyfex](https://github.com/dexyfex/CodeWalker) that renders an interactive 3D Map for GTAV. Through CodeWalker we are able to modify the architecture and objects inside the map, replacing textures and images with custom content. 
+
 
 Installation and setup:
 
 + Go to [https://www.gta5-mods.com/tools/codewalker-gtav-interactive-3d-map](https://www.gta5-mods.com/tools/codewalker-gtav-interactive-3d-map) and download CodeWalker. Extract the content of the .zip folder and open the CodeWalker application. Once the GTAV installation folder has been found, the world view will load by default. Use the WASD keys to move, and left-drag to rotate the camera view. Mouse wheel zooms in/out and controls the movement speed.
 
++ Click on the arrow on the top left of the screen, then select ```Enable Mods``` and ```Enable DLC```.
+
 
 ```{r fig.align='left', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html')}
-knitr::include_graphics('assets/CodeWalker.png', dpi = NA)
+knitr::include_graphics('assets/CodeWalker2.png', dpi = NA)
 ```
+
++ On top of the panel click on ```Options > Lighting```. Deselect ```Deferred shading``` and in ```Time of Day``` set the time to 12:00. Then click on ```Save Settings```.
+
++ Next we are going to hit the ```T``` key and select the ```Select objects``` tool from the tool bar. 
+
+```{r fig.align='left', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html')}
+knitr::include_graphics('assets/CodeWalker3.png', dpi = NA)
+```
+
++ Click on the ```Move``` tool, which allows to select things by right clicking on them. Hovering on the object will highlight the bounding box of the model, right clicking it will enable the movement of the object. Try dragging an object in 3D space, clicking and dragging one of the 3D axis arrows.
+
+
+```{r fig.align='left', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html')}
+knitr::include_graphics('assets/CodeWalker4.png', dpi = NA)
+```
+
++ Undo the changes by pressing ```Undo``` from the tool bar or ```Ctrl + Z``` until the object is back in its original position. 
+
++ Now press the first tool on the left in the tool bar: ```New```. This will open the Project window.
+
++ Select an object with the ```Select objects``` tools and you will see that the object information is updated in the Project window, including the object's position, rotation and file name (archetype). Choose an object and click ```Add to Project```. This will add the object to our ymap.
+
+Note: do not delete assets from the game map. Simply select an object that can be added to the project. 
+
++ With the ```Select objects``` tool and ```Move``` tool selected, hold ```Shift``` and move the object to multiply the object.  In this example we have multiplied a chair a few times, moved them and rotated them.
+
+```{r fig.align='left', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html')}
+knitr::include_graphics('assets/CodeWalker5.png', dpi = NA)
+```
+
++ Once you are happy with your changes, go to ```File > New > Ymap File``` in the Project window. This creates a new ymap called ```map1.ymap```.
+
++ We can also add objects that are not in the immediate vicinity of the location we want to add them to. Select map1.ymap in the Project window, and from the window menu press ```Ymap > New Entity```. This will create a default egg. In the Project window go to Archetype and paste the file name of the object you want. You can refer to [this database](https://gta-objects.xyz/) to find the file name reference of each object.
+
+
++ Once you are done click on the ```Save``` icon and save your file in a folder titled YMAP.
+
++ In the Project window now go to ```Tools``` and click on ```Manifest Generator...```. Click on ```Save _manifest.yml``` and save them as _manifest1.yml
+
+
++ Go to Open IV > mods > update > x64 > dlcpacks, click Edit Mode and create a folder named custom_maps. Inside the folder copy the file dlc.rpf that you can find [here](https://github.com/marcodemutiis/the-photographers-guide-to-los-santos/blob/main/assets/custom_maps/dlc.rpf).
+
++ Now go to Open IV > mods > update > update.rpf > common > data. Find dlclist.xml, richt click on it and choose edit. Scroll to the end of the file and add ```<Item>dlcpacks:/custom_maps/</Item> above </Paths>``` and save.
+
++ Finally go to Open IV > mods > update > x64 > dlcpacks > custom_maps > dlc.rpf > x64 > levels > gta5 > _citye > maps > Custom_maps.rpf. Make sure Edit Mode is on and place your .ymap file here.
+
+
++ Now open GTA V and go to the location where you made the changes and see if they are there. 
+
+```{r fig.align='left', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html')}
+knitr::include_graphics('assets/CodeWalkerYMAP.png', dpi = NA)
+```
+
+This tutorial was adapted from [GTA 5 Tutorial - Part 2] Using codewalker and creating/modifying ymaps by [Tobii](https://www.youtube.com/watch?v=VDoAjV3kv2g&list=PL3KgAhmoIEOU540c5hydM5KaVXeJcYiPF&ab_channel=Tobii) and https://www.youtube.com/watch?v=70ODCkbrj60&ab_channel=TeachingHub
+
+
+
 
 
 //https://www.gta5-mods.com/tools/codewalker-gtav-interactive-3d-map
@@ -822,18 +882,6 @@ entities archetypes index: https://mwojtasik.dev/tools/gtav/objects/
 //generate and save manifestNAME.ymf // copy ymf and ymap files to server 
 
 //replace textures with custom images
-
-//add ymap to GTA 5 single player https://www.youtube.com/watch?v=ie9IgNyzB1M&ab_channel=RIBSOSAY
-//go to Open IV > mods > update > x64 > dlcpacks, click Edit Mode and create a folder named custom_maps. Inside the folder copy the file dlc.rpf that you can find [here](https://github.com/marcodemutiis/the-photographers-guide-to-los-santos/blob/main/assets/custom_maps/dlc.rpf).
-
-//Now go to Open IV > mods > update > update.rpf > common > data. Find dlclist.xml, richt click on it and choose edit. Scroll to the end of the file and add ```xml<Item>dlcpacks:/custom_maps/</Item> above </Paths>```.
-
-// Finally go to Open IV > mods > update > x64 > dlcpacks > custom_maps > dlc.rpf > x64 > levels > gta5 > _citye > maps > Custom_maps.rpf. Make sure Edit Mode is on and place your .ymap file here.
-
-//Inside that you'll copy the content of https://www.youtube.com/watch?v=70ODCkbrj60&ab_channel=TeachingHub
-Massive thing i forgot to add was you must add the line below to your dlclist.xml located in:
-mods > update > update.rpf > common > data > dlclist.xml
-
 
 
 
