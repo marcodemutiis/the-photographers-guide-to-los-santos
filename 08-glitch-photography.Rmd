@@ -792,6 +792,19 @@ knitr::include_graphics('assets/combiningTools.png', dpi = NA)
 
 
 ### CodeWalker {-}
+
+CodeWalker is an applicaiton that renders an interactive 3D Map for GTAV. Through CodeWalker we are able to modify the architecture and objects inside the map, replacing textures and images with custom content. 
+
+Installation and setup:
+
++ Go to [https://www.gta5-mods.com/tools/codewalker-gtav-interactive-3d-map](https://www.gta5-mods.com/tools/codewalker-gtav-interactive-3d-map) and download CodeWalker. Extract the content of the .zip folder and open the CodeWalker application. Once the GTAV installation folder has been found, the world view will load by default. Use the WASD keys to move, and left-drag to rotate the camera view. Mouse wheel zooms in/out and controls the movement speed.
+
+
+```{r fig.align='left', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html')}
+knitr::include_graphics('assets/CodeWalker.png', dpi = NA)
+```
+
+
 //https://www.gta5-mods.com/tools/codewalker-gtav-interactive-3d-map
 //https://www.youtube.com/watch?v=VDoAjV3kv2g&list=PL3KgAhmoIEOU540c5hydM5KaVXeJcYiPF&ab_channel=Tobii
 
@@ -819,7 +832,7 @@ entities archetypes index: https://mwojtasik.dev/tools/gtav/objects/
 
 //Inside that you'll copy the content of https://www.youtube.com/watch?v=70ODCkbrj60&ab_channel=TeachingHub
 Massive thing i forgot to add was you must add the line below to your dlclist.xml located in:
-"mods\update\update.rpf\common\data\dlclist.xml"
+mods > update > update.rpf > common > data > dlclist.xml
 
 
 
