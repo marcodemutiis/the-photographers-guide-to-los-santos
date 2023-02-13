@@ -855,6 +855,12 @@ knitr::include_graphics('assets/CodeWalker5.png', dpi = NA)
 + Now open GTA V and go to the location where you made the changes and see if they are there. 
 
 ```{r fig.align='left', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html')}
+knitr::include_graphics('assets/CodeWalkerYMAP.png', dpi = NA)
+```
+
++ Depending on the kind of objects you have place, and the flags you set, you will be able to interact with them, and the game will also recognize them and span some NPCs on them.
+
+```{r fig.align='left', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html')}
 knitr::include_graphics('assets/scriptingGifs/CodeWalkerYMAP.gif', dpi = NA)
 ```
 
