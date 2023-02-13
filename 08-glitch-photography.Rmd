@@ -830,7 +830,7 @@ knitr::include_graphics('assets/CodeWalker4.png', dpi = NA)
 
 Note: do not delete assets from the game map. Simply select an object that can be added to the project. 
 
-+ With the ```Select objects``` tool and ```Move``` tool selected, hold ```Shift``` and move the object to multiply the object.  In this example we have multiplied a chair a few times, moved them and rotated them.
++ With the ```Select objects``` tool and ```Move``` tool selected, hold ```SHIFT``` and drag the object to multiply the object.  In this example we have multiplied a chair a few times, moved them and rotated them.
 
 ```{r fig.align='left', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html')}
 knitr::include_graphics('assets/CodeWalker5.png', dpi = NA)
@@ -838,12 +838,11 @@ knitr::include_graphics('assets/CodeWalker5.png', dpi = NA)
 
 + Once you are happy with your changes, go to ```File > New > Ymap File``` in the Project window. This creates a new ymap called ```map1.ymap```.
 
-+ We can also add objects that are not in the immediate vicinity of the location we want to add them to. Select map1.ymap in the Project window, and from the window menu press ```Ymap > New Entity```. This will create a default egg. In the Project window go to Archetype and paste the file name of the object you want. You can refer to [this database](https://gta-objects.xyz/) to find the file name reference of each object.
-
++ We can also add objects that are not in the immediate vicinity of the location we want to add them to. Select map1.ymap in the Project window, and from the window menu press ```Ymap > New Entity```. This will create a default egg. In the Project window go to Archetype and replace the file name with the one of the object you want. You can refer to [this database](https://gta-objects.xyz/) to find the file name reference of each object easily (or use the ```Select objects``` tools and copy the Archetype info from your desired object).
 
 + Once you are done click on the ```Save``` icon and save your file in a folder titled YMAP.
 
-+ In the Project window now go to ```Tools``` and click on ```Manifest Generator...```. Click on ```Save _manifest.yml``` and save them as _manifest1.yml
++ In the Project window now go to ```Tools``` and click on ```Manifest Generator...```. Click on ```Save _manifest.yml``` and save them as _manifest1.yml //memo: actually this is only needed for custom YMap on FiveM, so we could skip it here
 
 
 + Go to Open IV > mods > update > x64 > dlcpacks, click Edit Mode and create a folder named custom_maps. Inside the folder copy the file dlc.rpf that you can find [here](https://github.com/marcodemutiis/the-photographers-guide-to-los-santos/blob/main/assets/custom_maps/dlc.rpf).
@@ -868,14 +867,9 @@ This tutorial was adapted from [GTA 5 Tutorial - Part 2] Using codewalker and cr
 //https://www.gta5-mods.com/tools/codewalker-gtav-interactive-3d-map
 //https://www.youtube.com/watch?v=VDoAjV3kv2g&list=PL3KgAhmoIEOU540c5hydM5KaVXeJcYiPF&ab_channel=Tobii
 
-//Download and setup https://github.com/dexyfex/CodeWalker
 
-//move objects
 
-//duplicate object ```SHIFT + Mouse Drag```
 
-//new object (select Project Explorer > YMap > map1.ymap and click on YMap > New Entity)(in Archetype replace the model name with the object model you want) (search object and view models, copy model name to use in new entity archetype)
-entities archetypes index: https://mwojtasik.dev/tools/gtav/objects/ 
 
 //delete objects (note: if Max LOD > LOD shows the object, you should not delete it, just move it but dont delete it)
 
