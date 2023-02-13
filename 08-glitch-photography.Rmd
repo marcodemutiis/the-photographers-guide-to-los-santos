@@ -163,34 +163,35 @@ knitr::include_graphics('assets/scriptingGifs/freeCam.gif', dpi = NA)
 ### Recording and Replaying Camera Movements {-}
 
 We can record the movement of the camera by storing its posiiton and movement every frame in a list of Vector3 variables. Then we can simply access the list and assign the position of the camera at each frame. This is useful to create reusable camera movements, like tracking shots and cinematic camera movements. Once we have achieved the desired camera movement, we can spawn objects in the scene and adjust color grading before saving the screengrab.
-In this example, turn on the free camera by pressing ```O``` and then start and stop the recording of the camera movement by pressing ```I```. To toggle the replay camera press ```K```. Try changing color effects or adding objects and NPCs to the scene, while you move again your camera in the exact same path.
-
+In this example, turn on the free camera by pressing ```O``` and then start and stop the recording of the camera movement by pressing ```I```. To toggle the replay camera press ```K```.
 
 <details>
   <summary>Example code</summary>
 
 ```cs
 //this code was extended by code for controlling the camera by LeeC22 on https://gtaforums.com/topic/981454-free-cam-mode-in-c/#comment-1072077418
-
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;   
+using System.Threading.Tasks;
+    
 using System.Windows.Forms;
 using System.Drawing;
 using GTA;
 using GTA.Math;
 using GTA.Native;
+
+
 using Control = GTA.Control;
 
 namespace BasicFreeCamTest
 {
     public class cBasicFreeCamTest : Script
     {
-        private Keys ActivationKey = Keys.O; //O to switch to Free Camera
-        private Keys RecordKey = Keys.I;    //I to start/stop recording the camera movements
-        private Keys ReplayKey = Keys.K;    //K to start/stop replaying the recorded camera movement
+        private Keys ActivationKey = Keys.O;
+        private Keys RecordKey = Keys.I;
+        private Keys ReplayKey = Keys.K;
         private bool FreeCamActive = false;
         private bool RecCamActive = false;
         private int CamFramesIndex = 0;
@@ -215,27 +216,36 @@ namespace BasicFreeCamTest
             if (Game.IsLoading) return;
 
             if (FreeCamActive) UpdateFreeCam();
+
             if (RecCamActive) UpdateRecCam();
+
             if (ReplayCamActive) UpdateReplayCam();
         }
 
         private void UpdateRecCam()
         {
-            //record position and rotation of the free camera every frame
             RecCamPos.Add(FreeCam.Position);
             RecCamRot.Add(FreeCam.Rotation);
+            UI.ShowSubtitle("Recording Camera ON", 100);
         }
         private void UpdateReplayCam()
         {
+
             Game.DisableAllControlsThisFrame(2);
 
-            //move the camera at the exact position and rotation it was recorded at a given frame
             ReplayCam.Position = RecCamPos[CamFramesIndex];
             ReplayCam.Rotation = RecCamRot[CamFramesIndex];
 
-            //move to the next frame until we hit the last one
             CamFramesIndex++;
-            if (CamFramesIndex >= RecCamPos.Count) CamFramesIndex = RecCamPos.Count-1;
+            if (CamFramesIndex >= RecCamPos.Count)
+            {
+                CamFramesIndex = RecCamPos.Count - 1;
+                ReplayCamActive = false;
+            }
+            else
+            {
+                UI.ShowSubtitle("Playing Back Camera\nPlaying Back Frame #" + CamFramesIndex, 100);
+            }
         }
 
         private void UpdateFreeCam()
@@ -282,7 +292,7 @@ namespace BasicFreeCamTest
 
         private void onKeyUp(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == ActivationKey) //Toggle Free Cam
+            if (e.KeyCode == ActivationKey)
             {
                 //toggle the freecam on/off
                 FreeCamActive = !FreeCamActive;
@@ -291,21 +301,20 @@ namespace BasicFreeCamTest
                 {
                     FreeCam = World.CreateCamera(GameplayCamera.Position, GameplayCamera.Rotation, GameplayCamera.FieldOfView);
                     World.RenderingCamera = FreeCam;
-                    UI.ShowSubtitle("FreeCam ON", 1000);
+                    UI.ShowSubtitle("Free Camera ON", 1000);
                 }
                 else //OFF
                 {
                     World.RenderingCamera = null;
                     FreeCam.Destroy();
-                    UI.ShowSubtitle("FreeCam OFF", 1000);
+                    UI.ShowSubtitle("Free Camera OFF", 1000);
                 }
             }
-            if (e.KeyCode == RecordKey) //Toggle Recording
+            if (e.KeyCode == RecordKey)
             {
                 RecCamActive = !RecCamActive;
                 if(RecCamActive)
                 {
-                    UI.ShowSubtitle("RecCam ON", 1000);
                     //Clear the array of positions and rotations
                     RecCamPos.Clear();
                     RecCamRot.Clear();
@@ -313,47 +322,45 @@ namespace BasicFreeCamTest
                     CamFramesIndex= 0;
                     //disable replay cam
                     ReplayCamActive= false;
-                    //activate free cam
+                    //activate free cam if it's off
+                    if (!FreeCamActive)
+                    {
+                        FreeCam = World.CreateCamera(GameplayCamera.Position, GameplayCamera.Rotation, GameplayCamera.FieldOfView);
+                        World.RenderingCamera = FreeCam;
+                        FreeCamActive = true;
+                        
+                    }
                 }
                 else
                 {
-                    UI.ShowSubtitle("RecCam OFF", 1000);
+                    UI.ShowSubtitle("Recording Camera OFF\nRecorded Frames = " + RecCamPos.Count, 2000);
                 }
             }
-            if (e.KeyCode == ReplayKey) //Toggle Replay
+            if (e.KeyCode == ReplayKey)
             {
                 ReplayCamActive = !ReplayCamActive;
 
                 if(ReplayCamActive)
                 {
+                    CamFramesIndex = 0;
                     ReplayCam = World.CreateCamera(RecCamPos[0], RecCamRot[0], GameplayCamera.FieldOfView);
                     RecCamActive = false;
                     FreeCamActive = false;
-                    UI.ShowSubtitle("ReplayCam ON", 1000);
                 }
                 else
                 {
                     RecCamActive = false;
-                    // World.RenderingCamera = null;
-                    //ReplayCam.Destroy();
                     CamFramesIndex = 0;
-                    UI.ShowSubtitle("ReplayCam OFF", 1000);
                 }
             }
-            
-            if (e.KeyCode == Keys.H)
-            {
-                //display number of frames recorded
-                UI.ShowSubtitle("Recorded Frames = " + RecCamPos.Count, 1000);
-            }
         }
-
         private void onAborted(object sender, EventArgs e)
         {
             World.RenderingCamera = null;
         }
     }
 }
+
 
 
 ```
