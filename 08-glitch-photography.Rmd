@@ -811,5 +811,17 @@ entities archetypes index: https://mwojtasik.dev/tools/gtav/objects/
 //replace textures with custom images
 
 //add ymap to GTA 5 single player https://www.youtube.com/watch?v=ie9IgNyzB1M&ab_channel=RIBSOSAY
+//go to Open IV > mods > update > x64 > dlcpacks, click Edit Mode and create a folder named custom_maps. Inside the folder copy the file dlc.rpf that you can find here: https://github.com/marcodemutiis/the-photographers-guide-to-los-santos/blob/main/assets/custom_maps/dlc.rpf
+
+//Now go to Open IV > mods > update > update.rpf > common > data. Find dlclist.xml, richt click on it and choose edit. Scroll to the end of the file and add <Item>dlcpacks:/custom_maps/</Item> above </Paths>.
+
+// Finally go to Open IV > mods > update > x64 > dlcpacks > custom_maps > dlc.rpf > x64 > levels > gta5 > _citye > maps > Custom_maps.rpf. Make sure Edit Mode is on and place your .ymap file here.
+
+//Inside that you'll copy the content of https://www.youtube.com/watch?v=70ODCkbrj60&ab_channel=TeachingHub
+Massive thing i forgot to add was you must add the line below to your dlclist.xml located in:
+mods\update\update.rpf\common\data\dlclist.xml
+
+
+
 
 ## Content Replication Assignment {-}
