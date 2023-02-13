@@ -819,7 +819,7 @@ entities archetypes index: https://mwojtasik.dev/tools/gtav/objects/
 
 //Inside that you'll copy the content of https://www.youtube.com/watch?v=70ODCkbrj60&ab_channel=TeachingHub
 Massive thing i forgot to add was you must add the line below to your dlclist.xml located in:
-```mods\update\update.rpf\common\data\dlclist.xml```
+"mods\update\update.rpf\common\data\dlclist.xml"
 
 
 
