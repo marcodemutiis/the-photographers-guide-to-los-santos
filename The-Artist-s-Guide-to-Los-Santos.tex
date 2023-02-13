@@ -2667,347 +2667,358 @@ entities archetypes index: \url{https://mwojtasik.dev/tools/gtav/objects/}
 //replace textures with custom images
 
 //add ymap to GTA 5 single player \url{https://www.youtube.com/watch?v=ie9IgNyzB1M\&ab_channel=RIBSOSAY}
+//go to Open IV \textgreater{} mods \textgreater{} update \textgreater{} x64 \textgreater{} dlcpacks, click Edit Mode and create a folder named custom\_maps. Inside the folder copy the file dlc.rpf that you can find \href{https://github.com/marcodemutiis/the-photographers-guide-to-los-santos/blob/main/assets/custom_maps/dlc.rpf}{here}.
 
-\hypertarget{content-replication-assignment-6}{%
-\section*{Content Replication Assignment}\label{content-replication-assignment-6}}
-\addcontentsline{toc}{section}{Content Replication Assignment}
+//Now go to Open IV \textgreater{} mods \textgreater{} update \textgreater{} update.rpf \textgreater{} common \textgreater{} data. Find dlclist.xml, richt click on it and choose edit. Scroll to the end of the file and add \texttt{xml\textless{}Item\textgreater{}dlcpacks:/custom\_maps/\textless{}/Item\textgreater{}\ above\ \textless{}/Paths\textgreater{}}.
 
-\hypertarget{meta-photography}{%
-\chapter{Meta-Photography}\label{meta-photography}}
+// Finally go to Open IV \textgreater{} mods \textgreater{} update \textgreater{} x64 \textgreater{} dlcpacks \textgreater{} custom\_maps \textgreater{} dlc.rpf \textgreater{} x64 \textgreater{} levels \textgreater{} gta5 \textgreater{} \_citye \textgreater{} maps \textgreater{} Custom\_maps.rpf. Make sure Edit Mode is on and place your .ymap file here.
+
+//Inside that you'll copy the content of \url{https://www.youtube.com/watch?v=70ODCkbrj60\&ab_channel=TeachingHub}
+Massive thing i forgot to add was you must add the line below to your dlclist.xml located in:
+
+\begin{verbatim}
+
+
+
+
+## Content Replication Assignment {-}
+
+<!--chapter:end:08-glitch-photography.Rmd-->
+
+# Meta-Photography
 
 // General intro on the artistic reflection on the photographic medium itself, the tradition of conceptual photography and the connection to the simulation of the camera and the act of photographing virtual worlds
 
-\hypertarget{gta-v-photography-bot}{%
-\subsection*{GTA V Photography Bot}\label{gta-v-photography-bot}}
-\addcontentsline{toc}{subsection}{GTA V Photography Bot}
+### GTA V Photography Bot {-}
 
-\hypertarget{crossroad-of-realities-by-benoit-pailluxe9}{%
-\subsection*{Crossroad of Realities by Benoit Paillé}\label{crossroad-of-realities-by-benoit-pailluxe9}}
-\addcontentsline{toc}{subsection}{Crossroad of Realities by Benoit Paillé}
 
-\hypertarget{readings-7}{%
-\section*{Readings}\label{readings-7}}
-\addcontentsline{toc}{section}{Readings}
 
-\hypertarget{tutorial-7}{%
-\section*{Tutorial}\label{tutorial-7}}
-\addcontentsline{toc}{section}{Tutorial}
 
-\hypertarget{virtual-keys}{%
-\subsection*{Virtual Keys}\label{virtual-keys}}
-\addcontentsline{toc}{subsection}{Virtual Keys}
+### Crossroad of Realities by Benoit Paillé {-}
 
-The most reliable way to send keyboard and mouse input is the SendInput function in user32.dll.
 
-The SendInput function takes three parameters: the number of inputs, an array of INPUT for the inputs we want to send, and the size of our INPUT struct. The INPUT struct includes an integer that indicates the type of input and a union for the inputs that will be passed.
+## Readings {-}
 
-Keys are mapped to Direct Input Keyboard hex codes. You can find a list of all hex codes for each key \href{http://www.flint.jp/misc/?q=dik\&lang=en}{here} or below.
+## Tutorial {-}
 
-List of DirectX key mappings
+### Virtual Keys {-}
 
-\begin{verbatim}
-Value   Macro         Symbol
-------------------------
-0x01    DIK_ESCAPE  Esc 
-0x02    DIK_1         1 
-0x03    DIK_2         2 
-0x04    DIK_3         3 
-0x05    DIK_4         4 
-0x06    DIK_5         5 
-0x07    DIK_6         6 
-0x08    DIK_7         7 
-0x09    DIK_8         8 
-0x0A    DIK_9         9 
-0x0B    DIK_0         0 
-0x0C    DIK_MINUS     - 
-0x0D    DIK_EQUALS  =   
-0x0E    DIK_BACK      Back Space    
-0x0F    DIK_TAB     Tab 
-0x10    DIK_Q         Q 
-0x11    DIK_W         W 
-0x12    DIK_E         E 
-0x13    DIK_R         R 
-0x14    DIK_T         T 
-0x15    DIK_Y         Y 
-0x16    DIK_U         U 
-0x17    DIK_I         I 
-0x18    DIK_O         O 
-0x19    DIK_P         P 
-0x1A    DIK_LBRACKET  [ 
-0x1B    DIK_RBRACKET  ] 
-0x1C    DIK_RETURN  Enter   
-0x1D    DIK_LContol Ctrl (Left) 
-0x1E    DIK_A         A 
-0x1F    DIK_S         S 
-0x20    DIK_D         D 
-0x21    DIK_F         F 
-0x22    DIK_G         G 
-0x23    DIK_H         H 
-0x24    DIK_J         J 
-0x25    DIK_K         K 
-0x26    DIK_L         L 
-0x27    DIK_SEMICOLON   ;   
-0x28    DIK_APOSTROPHE  '   
-0x29    DIK_GRAVE     ` 
-0x2A    DIK_LSHIFT  Shift (Left)    
-0x2B    DIK_BACKSLASH   \   
-0x2C    DIK_Z         Z 
-0x2D    DIK_X         X 
-0x2E    DIK_C         C 
-0x2F    DIK_V         V 
-0x30    DIK_B         B 
-0x31    DIK_N         N 
-0x32    DIK_M         M 
-0x33    DIK_COMMA     , 
-0x34    DIK_PERIOD  .   
-0x35    DIK_SLASH     / 
-0x36    DIK_RSHIFT  Shift (Right)   
-0x37    DIK_MULTIPLY    * (Numpad)  
-0x38    DIK_LMENU     Alt (Left)    
-0x39    DIK_SPACE     Space 
-0x3A    DIK_CAPITAL Caps Lock
-0x3B    DIK_F1      F1  
-0x3C    DIK_F2      F2  
-0x3D    DIK_F3      F3  
-0x3E    DIK_F4      F4  
-0x3F    DIK_F5      F5  
-0x40    DIK_F6      F6  
-0x41    DIK_F7      F7  
-0x42    DIK_F8      F8  
-0x43    DIK_F9      F9  
-0x44    DIK_F10     F10 
-0x45    DIK_NUMLOCK Num Lock    
-0x46    DIK_SCROLL  Scroll Lock 
-0x47    DIK_NUMPAD7 7 (Numpad)  
-0x48    DIK_NUMPAD8 8 (Numpad)  
-0x49    DIK_NUMPAD9 9 (Numpad)  
-0x4A    DIK_SUBTRACT  - (Numpad)    
-0x4B    DIK_NUMPAD4 4 (Numpad)  
-0x4C    DIK_NUMPAD5 5 (Numpad)  
-0x4D    DIK_NUMPAD6 6 (Numpad)  
-0x4E    DIK_ADD     + (Numpad)  
-0x4F    DIK_NUMPAD1 1 (Numpad)  
-0x50    DIK_NUMPAD2 2 (Numpad)  
-0x51    DIK_NUMPAD3 3 (Numpad)  
-0x52    DIK_NUMPAD0 0 (Numpad)  
-0x53    DIK_DECIMAL . (Numpad)  
-0x57    DIK_F11     F11 
-0x58    DIK_F12     F12 
-0x64    DIK_F13     F13 (NEC PC-98)
-0x65    DIK_F14     F14 (NEC PC-98)
-0x66    DIK_F15     F15 (NEC PC-98)
-0x70    DIK_KANA      Kana  Japenese Keyboard
-0x79    DIK_CONVERT Convert Japenese Keyboard
-0x7B    DIK_NOCONVERT   No Convert  Japenese Keyboard
-0x7D    DIK_YEN     ¥     Japenese Keyboard
-0x8D    DIK_NUMPADEQUALS    =   NEC PC-98
-0x90    DIK_CIRCUMFLEX  ^   Japenese Keyboard
-0x91    DIK_AT      @   NEC PC-98
-0x92    DIK_COLON     : NEC PC-98
-0x93    DIK_UNDERLINE   _   NEC PC-98
-0x94    DIK_KANJI     Kanji Japenese Keyboard
-0x95    DIK_STOP      Stop  NEC PC-98
-0x96    DIK_AX      (Japan AX)  
-0x97    DIK_UNLABELED   (J3100) 
-0x9C    DIK_NUMPADENTER Enter (Numpad)  
-0x9D    DIK_RCONTROL    Ctrl (Right)    
-0xB3    DIK_NUMPADCOMMA , (Numpad)  NEC PC-98
-0xB5    DIK_DIVIDE    / (Numpad)    
-0xB7    DIK_SYSRQ       Sys Rq  
-0xB8    DIK_RMENU       Alt (Right) 
-0xC5    DIK_PAUSE       Pause   
-0xC7    DIK_HOME        Home    
-0xC8    DIK_UP        ↑ (Arrow up)
-0xC9    DIK_PRIOR       Page Up 
-0xCB    DIK_LEFT        ←   (Arrow left)
-0xCD    DIK_RIGHT       →   (Arrow right)
-0xCF    DIK_END       End   
-0xD0    DIK_DOWN        ↓   (Arrow down)
-0xD1    DIK_NEXT        Page Down   
-0xD2    DIK_INSERT    Insert    
-0xD3    DIK_DELETE    Delete    
-0xDB    DIK_LWIN        Windows 
-0xDC    DIK_RWIN        Windows 
-0xDD    DIK_APPS        Menu    
-0xDE    DIK_POWER       Power   
-0xDF    DIK_SLEEP       Windows
+The most reliable way to send keyboard and mouse input is the SendInput function in user32.dll. 
+
+The SendInput function takes three parameters: the number of inputs, an array of INPUT for the inputs we want to send, and the size of our INPUT struct. The INPUT struct includes an integer that indicates the type of input and a union for the inputs that will be passed. 
+
+Keys are mapped to Direct Input Keyboard hex codes. You can find a list of all hex codes for each key [here](http://www.flint.jp/misc/?q=dik&lang=en) or below.
+
+<details>
+  <summary>List of DirectX key mappings</summary>
 \end{verbatim}
 
-Example code
+\hypertarget{value-macro-symbol}{%
+\section{Value Macro Symbol}\label{value-macro-symbol}}
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\KeywordTok{using}\NormalTok{ System;}
-\KeywordTok{using}\NormalTok{ System.}\FunctionTok{Collections}\NormalTok{.}\FunctionTok{Generic}\NormalTok{;}
-\KeywordTok{using}\NormalTok{ System.}\FunctionTok{Linq}\NormalTok{;}
-\KeywordTok{using}\NormalTok{ System.}\FunctionTok{Text}\NormalTok{;}
-\KeywordTok{using}\NormalTok{ System.}\FunctionTok{Threading}\NormalTok{.}\FunctionTok{Tasks}\NormalTok{;}
+0x01 DIK\_ESCAPE Esc
+0x02 DIK\_1 1
+0x03 DIK\_2 2
+0x04 DIK\_3 3
+0x05 DIK\_4 4
+0x06 DIK\_5 5
+0x07 DIK\_6 6
+0x08 DIK\_7 7
+0x09 DIK\_8 8
+0x0A DIK\_9 9
+0x0B DIK\_0 0
+0x0C DIK\_MINUS -
+0x0D DIK\_EQUALS =\\
+0x0E DIK\_BACK Back Space\\
+0x0F DIK\_TAB Tab
+0x10 DIK\_Q Q
+0x11 DIK\_W W
+0x12 DIK\_E E
+0x13 DIK\_R R
+0x14 DIK\_T T
+0x15 DIK\_Y Y
+0x16 DIK\_U U
+0x17 DIK\_I I
+0x18 DIK\_O O
+0x19 DIK\_P P
+0x1A DIK\_LBRACKET {[}
+0x1B DIK\_RBRACKET {]}
+0x1C DIK\_RETURN Enter\\
+0x1D DIK\_LContol Ctrl (Left)
+0x1E DIK\_A A
+0x1F DIK\_S S
+0x20 DIK\_D D
+0x21 DIK\_F F
+0x22 DIK\_G G
+0x23 DIK\_H H
+0x24 DIK\_J J
+0x25 DIK\_K K
+0x26 DIK\_L L
+0x27 DIK\_SEMICOLON ;\\
+0x28 DIK\_APOSTROPHE '\\
+0x29 DIK\_GRAVE `
+0x2A DIK\_LSHIFT Shift (Left)\\
+0x2B DIK\_BACKSLASH ~\\
+0x2C DIK\_Z Z
+0x2D DIK\_X X
+0x2E DIK\_C C
+0x2F DIK\_V V
+0x30 DIK\_B B
+0x31 DIK\_N N
+0x32 DIK\_M M
+0x33 DIK\_COMMA ,
+0x34 DIK\_PERIOD .\\
+0x35 DIK\_SLASH /
+0x36 DIK\_RSHIFT Shift (Right)\\
+0x37 DIK\_MULTIPLY * (Numpad)\\
+0x38 DIK\_LMENU Alt (Left)\\
+0x39 DIK\_SPACE Space
+0x3A DIK\_CAPITAL Caps Lock
+0x3B DIK\_F1 F1\\
+0x3C DIK\_F2 F2\\
+0x3D DIK\_F3 F3\\
+0x3E DIK\_F4 F4\\
+0x3F DIK\_F5 F5\\
+0x40 DIK\_F6 F6\\
+0x41 DIK\_F7 F7\\
+0x42 DIK\_F8 F8\\
+0x43 DIK\_F9 F9\\
+0x44 DIK\_F10 F10
+0x45 DIK\_NUMLOCK Num Lock\\
+0x46 DIK\_SCROLL Scroll Lock
+0x47 DIK\_NUMPAD7 7 (Numpad)\\
+0x48 DIK\_NUMPAD8 8 (Numpad)\\
+0x49 DIK\_NUMPAD9 9 (Numpad)\\
+0x4A DIK\_SUBTRACT - (Numpad)\\
+0x4B DIK\_NUMPAD4 4 (Numpad)\\
+0x4C DIK\_NUMPAD5 5 (Numpad)\\
+0x4D DIK\_NUMPAD6 6 (Numpad)\\
+0x4E DIK\_ADD + (Numpad)\\
+0x4F DIK\_NUMPAD1 1 (Numpad)\\
+0x50 DIK\_NUMPAD2 2 (Numpad)\\
+0x51 DIK\_NUMPAD3 3 (Numpad)\\
+0x52 DIK\_NUMPAD0 0 (Numpad)\\
+0x53 DIK\_DECIMAL . (Numpad)\\
+0x57 DIK\_F11 F11
+0x58 DIK\_F12 F12
+0x64 DIK\_F13 F13 (NEC PC-98)
+0x65 DIK\_F14 F14 (NEC PC-98)
+0x66 DIK\_F15 F15 (NEC PC-98)
+0x70 DIK\_KANA Kana Japenese Keyboard
+0x79 DIK\_CONVERT Convert Japenese Keyboard
+0x7B DIK\_NOCONVERT No Convert Japenese Keyboard
+0x7D DIK\_YEN ¥ Japenese Keyboard
+0x8D DIK\_NUMPADEQUALS = NEC PC-98
+0x90 DIK\_CIRCUMFLEX \^{} Japenese Keyboard
+0x91 DIK\_AT @ NEC PC-98
+0x92 DIK\_COLON : NEC PC-98
+0x93 DIK\_UNDERLINE \_ NEC PC-98
+0x94 DIK\_KANJI Kanji Japenese Keyboard
+0x95 DIK\_STOP Stop NEC PC-98
+0x96 DIK\_AX (Japan AX)\\
+0x97 DIK\_UNLABELED (J3100)
+0x9C DIK\_NUMPADENTER Enter (Numpad)\\
+0x9D DIK\_RCONTROL Ctrl (Right)\\
+0xB3 DIK\_NUMPADCOMMA , (Numpad) NEC PC-98
+0xB5 DIK\_DIVIDE / (Numpad)\\
+0xB7 DIK\_SYSRQ Sys Rq\\
+0xB8 DIK\_RMENU Alt (Right)
+0xC5 DIK\_PAUSE Pause\\
+0xC7 DIK\_HOME Home\\
+0xC8 DIK\_UP ↑ (Arrow up)
+0xC9 DIK\_PRIOR Page Up
+0xCB DIK\_LEFT ← (Arrow left)
+0xCD DIK\_RIGHT → (Arrow right)
+0xCF DIK\_END End\\
+0xD0 DIK\_DOWN ↓ (Arrow down)
+0xD1 DIK\_NEXT Page Down\\
+0xD2 DIK\_INSERT Insert\\
+0xD3 DIK\_DELETE Delete\\
+0xDB DIK\_LWIN Windows
+0xDC DIK\_RWIN Windows
+0xDD DIK\_APPS Menu\\
+0xDE DIK\_POWER Power\\
+0xDF DIK\_SLEEP Windows
 
-\KeywordTok{using}\NormalTok{ GTA;}
-\KeywordTok{using}\NormalTok{ GTA.}\FunctionTok{Math}\NormalTok{;}
-\KeywordTok{using}\NormalTok{ System.}\FunctionTok{Windows}\NormalTok{.}\FunctionTok{Forms}\NormalTok{;}
-\KeywordTok{using}\NormalTok{ System.}\FunctionTok{Drawing}\NormalTok{;}
-\KeywordTok{using}\NormalTok{ GTA.}\FunctionTok{Native}\NormalTok{;}
-\KeywordTok{using}\NormalTok{ System.}\FunctionTok{IO}\NormalTok{;}
-\KeywordTok{using}\NormalTok{ System.}\FunctionTok{Runtime}\NormalTok{.}\FunctionTok{InteropServices}\NormalTok{;}
+\begin{verbatim}
+  </details>
 
-\KeywordTok{namespace}\NormalTok{ moddingTutorial}
-\NormalTok{\{}
-    \KeywordTok{public} \KeywordTok{class}\NormalTok{ moddingTutorial : Script}
-\NormalTok{    \{}
+
+
+<details>
+  <summary>Example code</summary>
   
-        \CommentTok{//this bunch of stuff is to control keyboard and mouse}
-\NormalTok{        [}\FunctionTok{StructLayout}\NormalTok{(LayoutKind.}\FunctionTok{Sequential}\NormalTok{)]}
-        \KeywordTok{public} \KeywordTok{struct}\NormalTok{ KeyboardInput}
-\NormalTok{        \{}
-            \KeywordTok{public} \DataTypeTok{ushort}\NormalTok{ wVk;}
-            \KeywordTok{public} \DataTypeTok{ushort}\NormalTok{ wScan;}
-            \KeywordTok{public} \DataTypeTok{uint}\NormalTok{ dwFlags;}
-            \KeywordTok{public} \DataTypeTok{uint}\NormalTok{ time;}
-            \KeywordTok{public}\NormalTok{ IntPtr dwExtraInfo;}
-\NormalTok{        \}}
-\NormalTok{        [}\FunctionTok{StructLayout}\NormalTok{(LayoutKind.}\FunctionTok{Sequential}\NormalTok{)]}
-        \KeywordTok{public} \KeywordTok{struct}\NormalTok{ MouseInput}
-\NormalTok{        \{}
-            \KeywordTok{public} \DataTypeTok{int}\NormalTok{ dx;}
-            \KeywordTok{public} \DataTypeTok{int}\NormalTok{ dy;}
-            \KeywordTok{public} \DataTypeTok{uint}\NormalTok{ mouseData;}
-            \KeywordTok{public} \DataTypeTok{uint}\NormalTok{ dwFlags;}
-            \KeywordTok{public} \DataTypeTok{uint}\NormalTok{ time;}
-            \KeywordTok{public}\NormalTok{ IntPtr dwExtraInfo;}
-\NormalTok{        \}}
-\NormalTok{        [}\FunctionTok{StructLayout}\NormalTok{(LayoutKind.}\FunctionTok{Sequential}\NormalTok{)]}
-        \KeywordTok{public} \KeywordTok{struct}\NormalTok{ HardwareInput}
-\NormalTok{        \{}
-            \KeywordTok{public} \DataTypeTok{uint}\NormalTok{ uMsg;}
-            \KeywordTok{public} \DataTypeTok{ushort}\NormalTok{ wParamL;}
-            \KeywordTok{public} \DataTypeTok{ushort}\NormalTok{ wParamH;}
-\NormalTok{        \}}
-\NormalTok{        [}\FunctionTok{StructLayout}\NormalTok{(LayoutKind.}\FunctionTok{Explicit}\NormalTok{)]}
-        \KeywordTok{public} \KeywordTok{struct}\NormalTok{ InputUnion}
-\NormalTok{        \{}
-\NormalTok{            [}\FunctionTok{FieldOffset}\NormalTok{(}\DecValTok{0}\NormalTok{)] }\KeywordTok{public}\NormalTok{ MouseInput mi;}
-\NormalTok{            [}\FunctionTok{FieldOffset}\NormalTok{(}\DecValTok{0}\NormalTok{)] }\KeywordTok{public}\NormalTok{ KeyboardInput ki;}
-\NormalTok{            [}\FunctionTok{FieldOffset}\NormalTok{(}\DecValTok{0}\NormalTok{)] }\KeywordTok{public}\NormalTok{ HardwareInput hi;}
-\NormalTok{        \}}
-        \KeywordTok{public} \KeywordTok{struct}\NormalTok{ Input}
-\NormalTok{        \{}
-            \KeywordTok{public} \DataTypeTok{int}\NormalTok{ type;}
-            \KeywordTok{public}\NormalTok{ InputUnion u;}
-\NormalTok{        \}}
-\NormalTok{        [Flags]}
-        \KeywordTok{public} \KeywordTok{enum}\NormalTok{ InputType}
-\NormalTok{        \{}
-\NormalTok{            Mouse = }\DecValTok{0}\NormalTok{,}
-\NormalTok{            Keyboard = }\DecValTok{1}\NormalTok{,}
-\NormalTok{            Hardware = }\DecValTok{2}
-\NormalTok{        \}}
-\NormalTok{        [Flags]}
-        \KeywordTok{public} \KeywordTok{enum}\NormalTok{ KeyEventF}
-\NormalTok{        \{}
-\NormalTok{            KeyDown = }\BaseNTok{0x0000}\NormalTok{,}
-\NormalTok{            ExtendedKey = }\BaseNTok{0x0001}\NormalTok{,}
-\NormalTok{            KeyUp = }\BaseNTok{0x0002}\NormalTok{,}
-\NormalTok{            Unicode = }\BaseNTok{0x0004}\NormalTok{,}
-\NormalTok{            Scancode = }\BaseNTok{0x0008}
-\NormalTok{        \}}
-\NormalTok{        [Flags]}
-        \KeywordTok{public} \KeywordTok{enum}\NormalTok{ MouseEventF}
-\NormalTok{        \{}
-\NormalTok{            Absolute = }\BaseNTok{0x8000}\NormalTok{,}
-\NormalTok{            HWheel = }\BaseNTok{0x01000}\NormalTok{,}
-\NormalTok{            Move = }\BaseNTok{0x0001}\NormalTok{,}
-\NormalTok{            MoveNoCoalesce = }\BaseNTok{0x2000}\NormalTok{,}
-\NormalTok{            LeftDown = }\BaseNTok{0x0002}\NormalTok{,}
-\NormalTok{            LeftUp = }\BaseNTok{0x0004}\NormalTok{,}
-\NormalTok{            RightDown = }\BaseNTok{0x0008}\NormalTok{,}
-\NormalTok{            RightUp = }\BaseNTok{0x0010}\NormalTok{,}
-\NormalTok{            MiddleDown = }\BaseNTok{0x0020}\NormalTok{,}
-\NormalTok{            MiddleUp = }\BaseNTok{0x0040}\NormalTok{,}
-\NormalTok{            VirtualDesk = }\BaseNTok{0x4000}\NormalTok{,}
-\NormalTok{            Wheel = }\BaseNTok{0x0800}\NormalTok{,}
-\NormalTok{            XDown = }\BaseNTok{0x0080}\NormalTok{,}
-\NormalTok{            XUp = }\BaseNTok{0x0100}
-\NormalTok{        \}}
+  ```cs
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-\NormalTok{        [}\FunctionTok{DllImport}\NormalTok{(}\StringTok{"user32.dll"}\NormalTok{, SetLastError = }\KeywordTok{true}\NormalTok{)]}
-        \KeywordTok{private} \KeywordTok{static} \KeywordTok{extern} \DataTypeTok{uint} \FunctionTok{SendInput}\NormalTok{(}\DataTypeTok{uint}\NormalTok{ nInputs, Input[] pInputs, }\DataTypeTok{int}\NormalTok{ cbSize);}
-\NormalTok{        [}\FunctionTok{DllImport}\NormalTok{(}\StringTok{"user32.dll"}\NormalTok{)]}
-        \KeywordTok{private} \KeywordTok{static} \KeywordTok{extern}\NormalTok{ IntPtr }\FunctionTok{GetMessageExtraInfo}\NormalTok{();}
-        \DataTypeTok{bool}\NormalTok{ pressKey = }\KeywordTok{false}\NormalTok{;}
+using GTA;
+using GTA.Math;
+using System.Windows.Forms;
+using System.Drawing;
+using GTA.Native;
+using System.IO;
+using System.Runtime.InteropServices;
+
+namespace moddingTutorial
+{
+    public class moddingTutorial : Script
+    {
+  
+        //this bunch of stuff is to control keyboard and mouse
+        [StructLayout(LayoutKind.Sequential)]
+        public struct KeyboardInput
+        {
+            public ushort wVk;
+            public ushort wScan;
+            public uint dwFlags;
+            public uint time;
+            public IntPtr dwExtraInfo;
+        }
+        [StructLayout(LayoutKind.Sequential)]
+        public struct MouseInput
+        {
+            public int dx;
+            public int dy;
+            public uint mouseData;
+            public uint dwFlags;
+            public uint time;
+            public IntPtr dwExtraInfo;
+        }
+        [StructLayout(LayoutKind.Sequential)]
+        public struct HardwareInput
+        {
+            public uint uMsg;
+            public ushort wParamL;
+            public ushort wParamH;
+        }
+        [StructLayout(LayoutKind.Explicit)]
+        public struct InputUnion
+        {
+            [FieldOffset(0)] public MouseInput mi;
+            [FieldOffset(0)] public KeyboardInput ki;
+            [FieldOffset(0)] public HardwareInput hi;
+        }
+        public struct Input
+        {
+            public int type;
+            public InputUnion u;
+        }
+        [Flags]
+        public enum InputType
+        {
+            Mouse = 0,
+            Keyboard = 1,
+            Hardware = 2
+        }
+        [Flags]
+        public enum KeyEventF
+        {
+            KeyDown = 0x0000,
+            ExtendedKey = 0x0001,
+            KeyUp = 0x0002,
+            Unicode = 0x0004,
+            Scancode = 0x0008
+        }
+        [Flags]
+        public enum MouseEventF
+        {
+            Absolute = 0x8000,
+            HWheel = 0x01000,
+            Move = 0x0001,
+            MoveNoCoalesce = 0x2000,
+            LeftDown = 0x0002,
+            LeftUp = 0x0004,
+            RightDown = 0x0008,
+            RightUp = 0x0010,
+            MiddleDown = 0x0020,
+            MiddleUp = 0x0040,
+            VirtualDesk = 0x4000,
+            Wheel = 0x0800,
+            XDown = 0x0080,
+            XUp = 0x0100
+        }
+
+        [DllImport("user32.dll", SetLastError = true)]
+        private static extern uint SendInput(uint nInputs, Input[] pInputs, int cbSize);
+        [DllImport("user32.dll")]
+        private static extern IntPtr GetMessageExtraInfo();
+        bool pressKey = false;
 
   
-        \KeywordTok{public} \FunctionTok{moddingTutorial}\NormalTok{()}
-\NormalTok{        \{}
-            \KeywordTok{this}\NormalTok{.}\FunctionTok{Tick}\NormalTok{ += onTick;}
-            \KeywordTok{this}\NormalTok{.}\FunctionTok{KeyUp}\NormalTok{ += onKeyUp;}
-            \KeywordTok{this}\NormalTok{.}\FunctionTok{KeyDown}\NormalTok{ += onKeyDown;}
-\NormalTok{        \}}
+        public moddingTutorial()
+        {
+            this.Tick += onTick;
+            this.KeyUp += onKeyUp;
+            this.KeyDown += onKeyDown;
+        }
 
-        \KeywordTok{private} \DataTypeTok{void} \FunctionTok{onTick}\NormalTok{(}\DataTypeTok{object}\NormalTok{ sender, EventArgs e) }\CommentTok{//this function gets executed continuously }
-\NormalTok{        \{}
-\NormalTok{        \}}
+        private void onTick(object sender, EventArgs e) //this function gets executed continuously 
+        {
+        }
 
-        \KeywordTok{private} \DataTypeTok{void} \FunctionTok{onKeyUp}\NormalTok{(}\DataTypeTok{object}\NormalTok{ sender, KeyEventArgs e)}
-\NormalTok{        \{}
-\NormalTok{        \}}
+        private void onKeyUp(object sender, KeyEventArgs e)
+        {
+        }
 
-        \KeywordTok{private} \DataTypeTok{void} \FunctionTok{onKeyDown}\NormalTok{(}\DataTypeTok{object}\NormalTok{ sender, KeyEventArgs e)}
-\NormalTok{        \{}
+        private void onKeyDown(object sender, KeyEventArgs e)
+        {
             
-            \KeywordTok{if}\NormalTok{ (e.}\FunctionTok{KeyCode}\NormalTok{ == Keys.}\FunctionTok{H}\NormalTok{)}
-\NormalTok{            \{   }
-                \CommentTok{//define the pressing of the arrow up key}
-\NormalTok{                Input[] keyUP_press = }\KeywordTok{new}\NormalTok{ Input[]}
-\NormalTok{                \{}
-                  \KeywordTok{new}\NormalTok{ Input}
-\NormalTok{                  \{}
-\NormalTok{                    type = (}\DataTypeTok{int}\NormalTok{)InputType.}\FunctionTok{Keyboard}\NormalTok{,}
-\NormalTok{                    u = }\KeywordTok{new}\NormalTok{ InputUnion}
-\NormalTok{                    \{}
-\NormalTok{                      ki = }\KeywordTok{new}\NormalTok{ KeyboardInput}
-\NormalTok{                      \{}
-\NormalTok{                        wVk = }\DecValTok{0}\NormalTok{,}
-\NormalTok{                        wScan = }\BaseNTok{0xC8}\NormalTok{, }\CommentTok{// key ARROW UP}
-\NormalTok{                        dwFlags = (}\DataTypeTok{uint}\NormalTok{)(KeyEventF.}\FunctionTok{KeyDown}\NormalTok{ | KeyEventF.}\FunctionTok{Scancode}\NormalTok{), }\CommentTok{//key press}
-\NormalTok{                        dwExtraInfo = }\FunctionTok{GetMessageExtraInfo}\NormalTok{()}
-\NormalTok{                      \}}
-\NormalTok{                    \}}
-\NormalTok{                  \}}
-\NormalTok{                \};}
+            if (e.KeyCode == Keys.H)
+            {   
+                //define the pressing of the arrow up key
+                Input[] keyUP_press = new Input[]
+                {
+                  new Input
+                  {
+                    type = (int)InputType.Keyboard,
+                    u = new InputUnion
+                    {
+                      ki = new KeyboardInput
+                      {
+                        wVk = 0,
+                        wScan = 0xC8, // key ARROW UP
+                        dwFlags = (uint)(KeyEventF.KeyDown | KeyEventF.Scancode), //key press
+                        dwExtraInfo = GetMessageExtraInfo()
+                      }
+                    }
+                  }
+                };
 
-                \CommentTok{//define the release of the arrow up key}
-\NormalTok{                Input[] keyUP_release = }\KeywordTok{new}\NormalTok{ Input[]}
-\NormalTok{                \{}
-                  \KeywordTok{new}\NormalTok{ Input}
-\NormalTok{                  \{}
-\NormalTok{                    type = (}\DataTypeTok{int}\NormalTok{)InputType.}\FunctionTok{Keyboard}\NormalTok{,}
-\NormalTok{                    u = }\KeywordTok{new}\NormalTok{ InputUnion}
-\NormalTok{                    \{}
-\NormalTok{                      ki = }\KeywordTok{new}\NormalTok{ KeyboardInput}
-\NormalTok{                      \{}
-\NormalTok{                        wVk = }\DecValTok{0}\NormalTok{,}
-\NormalTok{                        wScan = }\BaseNTok{0xC8}\NormalTok{, }\CommentTok{//key ARROW UP}
-\NormalTok{                        dwFlags = (}\DataTypeTok{uint}\NormalTok{)(KeyEventF.}\FunctionTok{KeyUp}\NormalTok{ | KeyEventF.}\FunctionTok{Scancode}\NormalTok{), }\CommentTok{//key release}
-\NormalTok{                        dwExtraInfo = }\FunctionTok{GetMessageExtraInfo}\NormalTok{()}
-\NormalTok{                      \}}
-\NormalTok{                    \}}
-\NormalTok{                  \}}
-\NormalTok{                \};}
+                //define the release of the arrow up key
+                Input[] keyUP_release = new Input[]
+                {
+                  new Input
+                  {
+                    type = (int)InputType.Keyboard,
+                    u = new InputUnion
+                    {
+                      ki = new KeyboardInput
+                      {
+                        wVk = 0,
+                        wScan = 0xC8, //key ARROW UP
+                        dwFlags = (uint)(KeyEventF.KeyUp | KeyEventF.Scancode), //key release
+                        dwExtraInfo = GetMessageExtraInfo()
+                      }
+                    }
+                  }
+                };
                 
-                \CommentTok{//we need to send a key press and add a delay before releasing it otherwise it's too fast for the game to register it}
-                \CommentTok{//send key press of arrow up key}
-                \FunctionTok{SendInput}\NormalTok{((}\DataTypeTok{uint}\NormalTok{)keyUP_press.}\FunctionTok{Length}\NormalTok{, keyUP_press, Marshal.}\FunctionTok{SizeOf}\NormalTok{(}\KeywordTok{typeof}\NormalTok{(Input)));}
-                \CommentTok{//delay half a second}
-                \FunctionTok{Wait}\NormalTok{(}\DecValTok{500}\NormalTok{);}
-                \CommentTok{//send key release of arrow up key}
-                \FunctionTok{SendInput}\NormalTok{((}\DataTypeTok{uint}\NormalTok{)keyUP_release.}\FunctionTok{Length}\NormalTok{, keyUP_release, Marshal.}\FunctionTok{SizeOf}\NormalTok{(}\KeywordTok{typeof}\NormalTok{(Input)));}
-\NormalTok{            \}}
-\NormalTok{        \}}
-\NormalTok{    \}}
-\NormalTok{\}}
-\end{Highlighting}
-\end{Shaded}
+                //we need to send a key press and add a delay before releasing it otherwise it's too fast for the game to register it
+                //send key press of arrow up key
+                SendInput((uint)keyUP_press.Length, keyUP_press, Marshal.SizeOf(typeof(Input)));
+                //delay half a second
+                Wait(500);
+                //send key release of arrow up key
+                SendInput((uint)keyUP_release.Length, keyUP_release, Marshal.SizeOf(typeof(Input)));
+            }
+        }
+    }
+}
+\end{verbatim}
 
 GTA V Photographer Bot Script
 
@@ -3442,8 +3453,8 @@ GTA V Photographer Bot Script
 
 //join a server
 
-\hypertarget{content-replication-assignment-7}{%
-\section*{Content Replication Assignment}\label{content-replication-assignment-7}}
+\hypertarget{content-replication-assignment-6}{%
+\section*{Content Replication Assignment}\label{content-replication-assignment-6}}
 \addcontentsline{toc}{section}{Content Replication Assignment}
 
 \end{document}
