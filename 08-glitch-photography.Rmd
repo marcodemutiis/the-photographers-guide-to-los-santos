@@ -855,8 +855,9 @@ knitr::include_graphics('assets/CodeWalker5.png', dpi = NA)
 + Now open GTA V and go to the location where you made the changes and see if they are there. 
 
 ```{r fig.align='left', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html')}
-knitr::include_graphics('assets/CodeWalkerYMAP.png', dpi = NA)
+knitr::include_graphics('assets/scriptingGifs/CodeWalkerYMAP.gif', dpi = NA)
 ```
+
 
 This tutorial was adapted from [GTA 5 Tutorial - Part 2] Using codewalker and creating/modifying ymaps by [Tobii](https://www.youtube.com/watch?v=VDoAjV3kv2g&list=PL3KgAhmoIEOU540c5hydM5KaVXeJcYiPF&ab_channel=Tobii) and https://www.youtube.com/watch?v=70ODCkbrj60&ab_channel=TeachingHub
 
