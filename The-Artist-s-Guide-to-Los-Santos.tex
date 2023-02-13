@@ -2648,44 +2648,62 @@ Scripting will always give you more accurate control of what you can achieve, bu
 \subsection*{CodeWalker}\label{codewalker}}
 \addcontentsline{toc}{subsection}{CodeWalker}
 
-CodeWalker is an applicaiton that renders an interactive 3D Map for GTAV. Through CodeWalker we are able to modify the architecture and objects inside the map, replacing textures and images with custom content.
+CodeWalker is an applicaiton created by \href{https://github.com/dexyfex/CodeWalker}{dexyfex} that renders an interactive 3D Map for GTAV. Through CodeWalker we are able to modify the architecture and objects inside the map, replacing textures and images with custom content.
 
 Installation and setup:
 
 \begin{itemize}
-\tightlist
 \item
   Go to \url{https://www.gta5-mods.com/tools/codewalker-gtav-interactive-3d-map} and download CodeWalker. Extract the content of the .zip folder and open the CodeWalker application. Once the GTAV installation folder has been found, the world view will load by default. Use the WASD keys to move, and left-drag to rotate the camera view. Mouse wheel zooms in/out and controls the movement speed.
+\item
+  Click on the arrow on the top left of the screen, then select \texttt{Enable\ Mods} and \texttt{Enable\ DLC}.
+\item
+  On top of the panel click on \texttt{Options\ \textgreater{}\ Lighting}. Deselect \texttt{Deferred\ shading} and in \texttt{Time\ of\ Day} set the time to 12:00. Then click on \texttt{Save\ Settings}.
+\item
+  Next we are going to hit the \texttt{T} key and select the \texttt{Select\ objects} tool from the tool bar.
+\item
+  Click on the \texttt{Move} tool, which allows to select things by right clicking on them. Hovering on the object will highlight the bounding box of the model, right clicking it will enable the movement of the object. Try dragging an object in 3D space, clicking and dragging one of the 3D axis arrows.
+\item
+  Undo the changes by pressing \texttt{Undo} from the tool bar or \texttt{Ctrl\ +\ Z} until the object is back in its original position.
+\item
+  Now press the first tool on the left in the tool bar: \texttt{New}. This will open the Project window.
+\item
+  Select an object with the \texttt{Select\ objects} tools and you will see that the object information is updated in the Project window, including the object's position, rotation and file name (archetype). Choose an object and click \texttt{Add\ to\ Project}. This will add the object to our ymap.
 \end{itemize}
+
+Note: do not delete assets from the game map. Simply select an object that can be added to the project.
+
+\begin{itemize}
+\item
+  With the \texttt{Select\ objects} tool and \texttt{Move} tool selected, hold \texttt{SHIFT} and drag the object to multiply the object. In this example we have multiplied a chair a few times, moved them and rotated them.
+\item
+  Once you are happy with your changes, go to \texttt{File\ \textgreater{}\ New\ \textgreater{}\ Ymap\ File} in the Project window. This creates a new ymap called \texttt{map1.ymap}.
+\item
+  We can also add objects that are not in the immediate vicinity of the location we want to add them to. Select map1.ymap in the Project window, and from the window menu press \texttt{Ymap\ \textgreater{}\ New\ Entity}. This will create a default egg. In the Project window go to Archetype and replace the file name with the one of the object you want. You can refer to \href{https://gta-objects.xyz/}{this database} to find the file name reference of each object easily (or use the \texttt{Select\ objects} tools and copy the Archetype info from your desired object).
+\item
+  Once you are done click on the \texttt{Save} icon and save your file in a folder titled YMAP.
+\item
+  In the Project window now go to \texttt{Tools} and click on \texttt{Manifest\ Generator...}. Click on \texttt{Save\ \_manifest.yml} and save them as \_manifest1.yml //memo: actually this is only needed for custom YMap on FiveM, so we could skip it here
+\item
+  Go to Open IV \textgreater{} mods \textgreater{} update \textgreater{} x64 \textgreater{} dlcpacks, click Edit Mode and create a folder named custom\_maps. Inside the folder copy the file dlc.rpf that you can find \href{https://github.com/marcodemutiis/the-photographers-guide-to-los-santos/blob/main/assets/custom_maps/dlc.rpf}{here}.
+\item
+  Now go to Open IV \textgreater{} mods \textgreater{} update \textgreater{} update.rpf \textgreater{} common \textgreater{} data. Find dlclist.xml, richt click on it and choose edit. Scroll to the end of the file and add \texttt{\textless{}Item\textgreater{}dlcpacks:/custom\_maps/\textless{}/Item\textgreater{}\ above\ \textless{}/Paths\textgreater{}} and save.
+\item
+  Finally go to Open IV \textgreater{} mods \textgreater{} update \textgreater{} x64 \textgreater{} dlcpacks \textgreater{} custom\_maps \textgreater{} dlc.rpf \textgreater{} x64 \textgreater{} levels \textgreater{} gta5 \textgreater{} \_citye \textgreater{} maps \textgreater{} Custom\_maps.rpf. Make sure Edit Mode is on and place your .ymap file here.
+\item
+  Now open GTA V and go to the location where you made the changes and see if they are there.
+\end{itemize}
+
+This tutorial was adapted from {[}GTA 5 Tutorial - Part 2{]} Using codewalker and creating/modifying ymaps by \href{https://www.youtube.com/watch?v=VDoAjV3kv2g\&list=PL3KgAhmoIEOU540c5hydM5KaVXeJcYiPF\&ab_channel=Tobii}{Tobii} and \url{https://www.youtube.com/watch?v=70ODCkbrj60\&ab_channel=TeachingHub}
 
 //\url{https://www.gta5-mods.com/tools/codewalker-gtav-interactive-3d-map}
 //\url{https://www.youtube.com/watch?v=VDoAjV3kv2g\&list=PL3KgAhmoIEOU540c5hydM5KaVXeJcYiPF\&ab_channel=Tobii}
-
-//Download and setup \url{https://github.com/dexyfex/CodeWalker}
-
-//move objects
-
-//duplicate object \texttt{SHIFT\ +\ Mouse\ Drag}
-
-//new object (select Project Explorer \textgreater{} YMap \textgreater{} map1.ymap and click on YMap \textgreater{} New Entity)(in Archetype replace the model name with the object model you want) (search object and view models, copy model name to use in new entity archetype)
-entities archetypes index: \url{https://mwojtasik.dev/tools/gtav/objects/}
 
 //delete objects (note: if Max LOD \textgreater{} LOD shows the object, you should not delete it, just move it but dont delete it)
 
 //generate and save manifestNAME.ymf // copy ymf and ymap files to server
 
 //replace textures with custom images
-
-//add ymap to GTA 5 single player \url{https://www.youtube.com/watch?v=ie9IgNyzB1M\&ab_channel=RIBSOSAY}
-//go to Open IV \textgreater{} mods \textgreater{} update \textgreater{} x64 \textgreater{} dlcpacks, click Edit Mode and create a folder named custom\_maps. Inside the folder copy the file dlc.rpf that you can find \href{https://github.com/marcodemutiis/the-photographers-guide-to-los-santos/blob/main/assets/custom_maps/dlc.rpf}{here}.
-
-//Now go to Open IV \textgreater{} mods \textgreater{} update \textgreater{} update.rpf \textgreater{} common \textgreater{} data. Find dlclist.xml, richt click on it and choose edit. Scroll to the end of the file and add \texttt{xml\textless{}Item\textgreater{}dlcpacks:/custom\_maps/\textless{}/Item\textgreater{}\ above\ \textless{}/Paths\textgreater{}}.
-
-// Finally go to Open IV \textgreater{} mods \textgreater{} update \textgreater{} x64 \textgreater{} dlcpacks \textgreater{} custom\_maps \textgreater{} dlc.rpf \textgreater{} x64 \textgreater{} levels \textgreater{} gta5 \textgreater{} \_citye \textgreater{} maps \textgreater{} Custom\_maps.rpf. Make sure Edit Mode is on and place your .ymap file here.
-
-//Inside that you'll copy the content of \url{https://www.youtube.com/watch?v=70ODCkbrj60\&ab_channel=TeachingHub}
-Massive thing i forgot to add was you must add the line below to your dlclist.xml located in:
-mods \textgreater{} update \textgreater{} update.rpf \textgreater{} common \textgreater{} data \textgreater{} dlclist.xml
 
 \hypertarget{content-replication-assignment-6}{%
 \section*{Content Replication Assignment}\label{content-replication-assignment-6}}

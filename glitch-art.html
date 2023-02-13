@@ -991,29 +991,49 @@ Attaching a camera to an NPC can provide interesting views and perspectives. Her
 </div>
 <div id="codewalker" class="section level3 unnumbered hasAnchor">
 <h3>CodeWalker<a href="glitch-art.html#codewalker" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>CodeWalker is an applicaiton that renders an interactive 3D Map for GTAV. Through CodeWalker we are able to modify the architecture and objects inside the map, replacing textures and images with custom content.</p>
+<p>CodeWalker is an applicaiton created by <a href="https://github.com/dexyfex/CodeWalker">dexyfex</a> that renders an interactive 3D Map for GTAV. Through CodeWalker we are able to modify the architecture and objects inside the map, replacing textures and images with custom content.</p>
 <p>Installation and setup:</p>
 <ul>
-<li>Go to <a href="https://www.gta5-mods.com/tools/codewalker-gtav-interactive-3d-map">https://www.gta5-mods.com/tools/codewalker-gtav-interactive-3d-map</a> and download CodeWalker. Extract the content of the .zip folder and open the CodeWalker application. Once the GTAV installation folder has been found, the world view will load by default. Use the WASD keys to move, and left-drag to rotate the camera view. Mouse wheel zooms in/out and controls the movement speed.</li>
+<li><p>Go to <a href="https://www.gta5-mods.com/tools/codewalker-gtav-interactive-3d-map">https://www.gta5-mods.com/tools/codewalker-gtav-interactive-3d-map</a> and download CodeWalker. Extract the content of the .zip folder and open the CodeWalker application. Once the GTAV installation folder has been found, the world view will load by default. Use the WASD keys to move, and left-drag to rotate the camera view. Mouse wheel zooms in/out and controls the movement speed.</p></li>
+<li><p>Click on the arrow on the top left of the screen, then select <code>Enable Mods</code> and <code>Enable DLC</code>.</p></li>
 </ul>
-<p><img src="assets/CodeWalker.png" style="display: block; margin: auto auto auto 0;" /></p>
+<p><img src="assets/CodeWalker2.png" style="display: block; margin: auto auto auto 0;" /></p>
+<ul>
+<li><p>On top of the panel click on <code>Options &gt; Lighting</code>. Deselect <code>Deferred shading</code> and in <code>Time of Day</code> set the time to 12:00. Then click on <code>Save Settings</code>.</p></li>
+<li><p>Next we are going to hit the <code>T</code> key and select the <code>Select objects</code> tool from the tool bar.</p></li>
+</ul>
+<p><img src="assets/CodeWalker3.png" style="display: block; margin: auto auto auto 0;" /></p>
+<ul>
+<li>Click on the <code>Move</code> tool, which allows to select things by right clicking on them. Hovering on the object will highlight the bounding box of the model, right clicking it will enable the movement of the object. Try dragging an object in 3D space, clicking and dragging one of the 3D axis arrows.</li>
+</ul>
+<p><img src="assets/CodeWalker4.png" style="display: block; margin: auto auto auto 0;" /></p>
+<ul>
+<li><p>Undo the changes by pressing <code>Undo</code> from the tool bar or <code>Ctrl + Z</code> until the object is back in its original position.</p></li>
+<li><p>Now press the first tool on the left in the tool bar: <code>New</code>. This will open the Project window.</p></li>
+<li><p>Select an object with the <code>Select objects</code> tools and you will see that the object information is updated in the Project window, including the object’s position, rotation and file name (archetype). Choose an object and click <code>Add to Project</code>. This will add the object to our ymap.</p></li>
+</ul>
+<p>Note: do not delete assets from the game map. Simply select an object that can be added to the project.</p>
+<ul>
+<li>With the <code>Select objects</code> tool and <code>Move</code> tool selected, hold <code>SHIFT</code> and drag the object to multiply the object. In this example we have multiplied a chair a few times, moved them and rotated them.</li>
+</ul>
+<p><img src="assets/CodeWalker5.png" style="display: block; margin: auto auto auto 0;" /></p>
+<ul>
+<li><p>Once you are happy with your changes, go to <code>File &gt; New &gt; Ymap File</code> in the Project window. This creates a new ymap called <code>map1.ymap</code>.</p></li>
+<li><p>We can also add objects that are not in the immediate vicinity of the location we want to add them to. Select map1.ymap in the Project window, and from the window menu press <code>Ymap &gt; New Entity</code>. This will create a default egg. In the Project window go to Archetype and replace the file name with the one of the object you want. You can refer to <a href="https://gta-objects.xyz/">this database</a> to find the file name reference of each object easily (or use the <code>Select objects</code> tools and copy the Archetype info from your desired object).</p></li>
+<li><p>Once you are done click on the <code>Save</code> icon and save your file in a folder titled YMAP.</p></li>
+<li><p>In the Project window now go to <code>Tools</code> and click on <code>Manifest Generator...</code>. Click on <code>Save _manifest.yml</code> and save them as _manifest1.yml //memo: actually this is only needed for custom YMap on FiveM, so we could skip it here</p></li>
+<li><p>Go to Open IV &gt; mods &gt; update &gt; x64 &gt; dlcpacks, click Edit Mode and create a folder named custom_maps. Inside the folder copy the file dlc.rpf that you can find <a href="https://github.com/marcodemutiis/the-photographers-guide-to-los-santos/blob/main/assets/custom_maps/dlc.rpf">here</a>.</p></li>
+<li><p>Now go to Open IV &gt; mods &gt; update &gt; update.rpf &gt; common &gt; data. Find dlclist.xml, richt click on it and choose edit. Scroll to the end of the file and add <code>&lt;Item&gt;dlcpacks:/custom_maps/&lt;/Item&gt; above &lt;/Paths&gt;</code> and save.</p></li>
+<li><p>Finally go to Open IV &gt; mods &gt; update &gt; x64 &gt; dlcpacks &gt; custom_maps &gt; dlc.rpf &gt; x64 &gt; levels &gt; gta5 &gt; _citye &gt; maps &gt; Custom_maps.rpf. Make sure Edit Mode is on and place your .ymap file here.</p></li>
+<li><p>Now open GTA V and go to the location where you made the changes and see if they are there.</p></li>
+</ul>
+<p><img src="assets/scriptingGifs/CodeWalkerYMAP.gif" style="display: block; margin: auto auto auto 0;" /></p>
+<p>This tutorial was adapted from [GTA 5 Tutorial - Part 2] Using codewalker and creating/modifying ymaps by <a href="https://www.youtube.com/watch?v=VDoAjV3kv2g&amp;list=PL3KgAhmoIEOU540c5hydM5KaVXeJcYiPF&amp;ab_channel=Tobii">Tobii</a> and <a href="https://www.youtube.com/watch?v=70ODCkbrj60&amp;ab_channel=TeachingHub" class="uri">https://www.youtube.com/watch?v=70ODCkbrj60&amp;ab_channel=TeachingHub</a></p>
 <p>//<a href="https://www.gta5-mods.com/tools/codewalker-gtav-interactive-3d-map" class="uri">https://www.gta5-mods.com/tools/codewalker-gtav-interactive-3d-map</a>
 //<a href="https://www.youtube.com/watch?v=VDoAjV3kv2g&amp;list=PL3KgAhmoIEOU540c5hydM5KaVXeJcYiPF&amp;ab_channel=Tobii" class="uri">https://www.youtube.com/watch?v=VDoAjV3kv2g&amp;list=PL3KgAhmoIEOU540c5hydM5KaVXeJcYiPF&amp;ab_channel=Tobii</a></p>
-<p>//Download and setup <a href="https://github.com/dexyfex/CodeWalker" class="uri">https://github.com/dexyfex/CodeWalker</a></p>
-<p>//move objects</p>
-<p>//duplicate object <code>SHIFT + Mouse Drag</code></p>
-<p>//new object (select Project Explorer &gt; YMap &gt; map1.ymap and click on YMap &gt; New Entity)(in Archetype replace the model name with the object model you want) (search object and view models, copy model name to use in new entity archetype)
-entities archetypes index: <a href="https://mwojtasik.dev/tools/gtav/objects/" class="uri">https://mwojtasik.dev/tools/gtav/objects/</a></p>
 <p>//delete objects (note: if Max LOD &gt; LOD shows the object, you should not delete it, just move it but dont delete it)</p>
 <p>//generate and save manifestNAME.ymf // copy ymf and ymap files to server</p>
 <p>//replace textures with custom images</p>
-<p>//add ymap to GTA 5 single player <a href="https://www.youtube.com/watch?v=ie9IgNyzB1M&amp;ab_channel=RIBSOSAY" class="uri">https://www.youtube.com/watch?v=ie9IgNyzB1M&amp;ab_channel=RIBSOSAY</a>
-//go to Open IV &gt; mods &gt; update &gt; x64 &gt; dlcpacks, click Edit Mode and create a folder named custom_maps. Inside the folder copy the file dlc.rpf that you can find <a href="https://github.com/marcodemutiis/the-photographers-guide-to-los-santos/blob/main/assets/custom_maps/dlc.rpf">here</a>.</p>
-<p>//Now go to Open IV &gt; mods &gt; update &gt; update.rpf &gt; common &gt; data. Find dlclist.xml, richt click on it and choose edit. Scroll to the end of the file and add <code>xml&lt;Item&gt;dlcpacks:/custom_maps/&lt;/Item&gt; above &lt;/Paths&gt;</code>.</p>
-<p>// Finally go to Open IV &gt; mods &gt; update &gt; x64 &gt; dlcpacks &gt; custom_maps &gt; dlc.rpf &gt; x64 &gt; levels &gt; gta5 &gt; _citye &gt; maps &gt; Custom_maps.rpf. Make sure Edit Mode is on and place your .ymap file here.</p>
-<p>//Inside that you’ll copy the content of <a href="https://www.youtube.com/watch?v=70ODCkbrj60&amp;ab_channel=TeachingHub" class="uri">https://www.youtube.com/watch?v=70ODCkbrj60&amp;ab_channel=TeachingHub</a>
-Massive thing i forgot to add was you must add the line below to your dlclist.xml located in:
-mods &gt; update &gt; update.rpf &gt; common &gt; data &gt; dlclist.xml</p>
 </div>
 </div>
 <div id="content-replication-assignment-6" class="section level2 unnumbered hasAnchor">
