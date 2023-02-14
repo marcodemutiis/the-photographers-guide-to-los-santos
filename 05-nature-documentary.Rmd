@@ -208,7 +208,7 @@ private void onKeyDown(object sender, KeyEventArgs e)
 
 ### Change Player Model {-}
 
-The player character is controlled as Game.Player. Game.Player can perform different functions, including changing the avatar model, and performing tasks.
+The player character is controlled as ```Game.Player```. ```Game.Player``` can perform different functions, including changing the avatar model, and performing tasks.
 
 Change the 3D model of your character by using the ```ChangeModel``` function.
 The function needs a model ID, in order to load the model file of our game character.
