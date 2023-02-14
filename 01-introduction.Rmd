@@ -5,6 +5,10 @@ The Photographer's Guide to Los Santos sits between a touristic guide and a phot
 
 The Photographer's Guide to Los Santos is an ongoing project that builds on top of a research on artistic practices within spaces of computer games, with a particular focus on in-game photography, machinima and digital visual arts. It follows some themes and ideas previously explored in the exhibition [_How to Win at Photography_](https://www.howtowinat.photography/), while focusing more specifically on the relationship between computer games and photographic activities inside the world of Grand Theft Auto V.
 
+```{r fig.align='center', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html'), fig.link=''}
+knitr::include_graphics('assets/cover2.png', dpi = NA)
+```
+
 The idea of a guide refers to in-game photography as a form of 'virtual tourism' ([Book, 2003](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=538182)), which was also the premise of an actual tourist guide published by Rough Guides in their 2019 [_Rough Guide to XBOX_](https://www.roughguides.com/articles/introduction-to-the-rough-guide-to-xbox/). Yet this guide project also understands the game world as a site for image production and artistic creation, turning the game into a destination for a 'game art tourist'. The Photographer's Guide to Los Santos presents the game environment of Grand Theft Auto V both as a space to explore and in which to create images, as well as a place to navigate and learn about some of the most important artworks that it has enabled to create. 
 
 ```{r fig.align='center', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html'), fig.link='https://grandtheftdata.com/landmarks/#0,0,2,satellite'}
