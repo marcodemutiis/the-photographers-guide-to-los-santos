@@ -177,14 +177,6 @@ Installation and setup:
 + Bring up a preset and mess around with its setting to see how it affects the visuals of the game. Thanks to different effects and presets, the aesthetics of the game world can be configured to obtain looks that are completely different from the original graphics created by the deleopers and designers of the game.
 
 ```{r fig.align='left', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html'), fig.link=''}
-knitr::include_graphics('assets/reshade.png', dpi = NA)
-```
-
-```{r fig.align='left', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html'), fig.link=''}
-knitr::include_graphics('assets/reshade2.png', dpi = NA)
-```
-
-```{r fig.align='left', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html'), fig.link=''}
 knitr::include_graphics('assets/scriptingGifs/reshadeDitherPoodle.gif', dpi = NA)
 ```
 
