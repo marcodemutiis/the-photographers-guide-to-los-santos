@@ -159,7 +159,8 @@ knitr::include_graphics('assets/nve.png', dpi = NA)
 
 ### ReShade {-}
 ReShade is a generic post-processing injector for games and video software developed by crosire.
-//install reshade + presets tutorial
+
+Installation and setup:
 
 + Go to [reshade.me](http://static.reshade.me/) and download the latest version
 
@@ -184,7 +185,7 @@ knitr::include_graphics('assets/reshade2.png', dpi = NA)
 ```
 
 ```{r fig.align='left', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html'), fig.link=''}
-knitr::include_graphics('assets/reshade3.png', dpi = NA)
+knitr::include_graphics('assets/scriptingGifs/reshadeDitherPoodle.gif', dpi = NA)
 ```
 
 
