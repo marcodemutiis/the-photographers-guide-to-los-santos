@@ -978,7 +978,8 @@ Attaching a camera to an NPC can provide interesting views and perspectives. Her
 <h3>Menyoo Mod Trainer<a href="glitch-art.html#menyoo-mod-trainer" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Game trainers are a kind of game modification that changes its behavior using addresses and values. Trainers are used to gain unfair advantage in games and cheating, but they are also used by players to “train” themselves under different game conditions. In GTA V a trainer mod is very useful for creative practices, as it allows players to modify many aspects of the game that extend the possibilities offered by the official Scene Director and Rockstar Editor. They do not require scripting and offer control of the game world through a more intuitive graphic interface.</p>
 <p>Menyoo is one of many available mod trainers for GTA V. It’s the most popular trainer because of its incredibly wide range of features, controlling NPCs, vehicles, props and scenes, and allowing players to generate custom interiors and objects from GTA V’s database of entities, dynamic scenarios, and entire sets and scenes for machinima and photographic projects.</p>
-<p>Installation and setup</p>
+<div id="installation-and-setup" class="section level4 unnumbered hasAnchor">
+<h4>Installation and setup<a href="glitch-art.html#installation-and-setup" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>Menyoo requires Scripthook V and Scripthook V Dot Net which we already installed in order to enable our scripts (check chapter 5 if for some reasons you do not have them installed).</p>
 <ul>
 <li><p>In order to install the Menyoo Single Player Trainer go to <a href="https://github.com/MAFINS/MenyooSP/releases">github.com/MAFINS/MenyooSP/releases</a> and download the <code>MenyooSP.zip</code> file in the Assets section of the page. Open its content and select the <code>menyooStuff``folder and</code>Menyoo.asi```file. Copy and paste these in your GTA V directory.</p></li>
@@ -989,10 +990,12 @@ Attaching a camera to an NPC can provide interesting views and perspectives. Her
 <p>Scripting will always give you more accurate control of what you can achieve, but a trainer mod is very useful in showing what’s possible and it’s a much more accessible tool for those who are less incline to code. Finally, all of the tools in this guide are not mutually exclusive, but can be combined together: menyoo can be used with custom scripts, ReShade, screenshotting, Scene Director and Rockstar Editor, allowing the player to really have complete control of the game and its world. In the example below we have used code to spawn 5 clown NPCs and to position the game camera, the weather manipulated in Menyoo to create a meteor shower, and we used a shallow depth of field lens and color grading in ReShade.</p>
 <p><img src="assets/combiningTools.png" style="display: block; margin: auto auto auto 0;" /></p>
 </div>
+</div>
 <div id="codewalker" class="section level3 unnumbered hasAnchor">
 <h3>CodeWalker<a href="glitch-art.html#codewalker" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>CodeWalker is an applicaiton created by <a href="https://github.com/dexyfex/CodeWalker">dexyfex</a> that renders an interactive 3D Map for GTAV. Through CodeWalker we are able to modify the architecture and objects inside the map, replacing textures and images with custom content.</p>
-<p>Installation and setup</p>
+<div id="installation-and-setup-1" class="section level4 unnumbered hasAnchor">
+<h4>Installation and setup<a href="glitch-art.html#installation-and-setup-1" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <ul>
 <li><p>Go to <a href="https://www.gta5-mods.com/tools/codewalker-gtav-interactive-3d-map">https://www.gta5-mods.com/tools/codewalker-gtav-interactive-3d-map</a> and download CodeWalker. Extract the content of the .zip folder and open the CodeWalker application. Once the GTAV installation folder has been found, the world view will load by default. Use the WASD keys to move, and left-drag to rotate the camera view. Mouse wheel zooms in/out and controls the movement speed.</p></li>
 <li><p>Click on the arrow on the top left of the screen, then select <code>Enable Mods</code> and <code>Enable DLC</code>.</p></li>
@@ -1001,7 +1004,9 @@ Attaching a camera to an NPC can provide interesting views and perspectives. Her
 <ul>
 <li>On top of the panel click on <code>Options &gt; Lighting</code>. Deselect <code>Deferred shading</code> and in <code>Time of Day</code> set the time to 12:00. Then click on <code>Save Settings</code>.</li>
 </ul>
-<p>Creating Custom Maps</p>
+</div>
+<div id="creating-custom-maps" class="section level4 unnumbered hasAnchor">
+<h4>Creating Custom Maps<a href="glitch-art.html#creating-custom-maps" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <ul>
 <li>Next we are going to hit the <code>T</code> key and select the <code>Select objects</code> tool from the tool bar.</li>
 </ul>
@@ -1035,7 +1040,9 @@ Attaching a camera to an NPC can provide interesting views and perspectives. Her
 <li>Depending on the kind of objects you have place, and the flags you set, you will be able to interact with them, and the game will also recognize them and span some NPCs on them.</li>
 </ul>
 <p><img src="assets/scriptingGifs/CodeWalkerYMAP.gif" style="display: block; margin: auto auto auto 0;" /></p>
-<p>Editing and replacing textures</p>
+</div>
+<div id="editing-and-replacing-textures" class="section level4 unnumbered hasAnchor">
+<h4>Editing and replacing textures<a href="glitch-art.html#editing-and-replacing-textures" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>//Required: Photoshop and NVIDIA DDS Plugin <a href="https://developer.nvidia.com/nvidia-texture-tools-exporter" class="uri">https://developer.nvidia.com/nvidia-texture-tools-exporter</a></p>
 <p>//files: .yft are 3D models, .ydr are ?? and .ytd are textures</p>
 <ul>
@@ -1081,6 +1088,7 @@ Attaching a camera to an NPC can provide interesting views and perspectives. Her
 <p>//delete objects (note: if Max LOD &gt; LOD shows the object, you should not delete it, just move it but dont delete it)</p>
 <p>//generate and save manifestNAME.ymf // copy ymf and ymap files to server</p>
 <p>//replace textures with custom images</p>
+</div>
 </div>
 </div>
 <div id="content-replication-assignment-6" class="section level2 unnumbered hasAnchor">
