@@ -769,7 +769,7 @@ Game trainers are a kind of game modification that changes its behavior using ad
 
 Menyoo is one of many available mod trainers for GTA V. It's the most popular trainer because of its incredibly wide range of features, controlling NPCs, vehicles, props and scenes, and allowing players to generate custom interiors and objects from GTA V's database of entities, dynamic scenarios, and entire sets and scenes for machinima and photographic projects.
 
-Installation and setup:
+Installation and setup
 
 Menyoo requires Scripthook V and Scripthook V Dot Net which we already installed in order to enable our scripts (check chapter 5 if for some reasons you do not have them installed).
 
@@ -796,7 +796,7 @@ knitr::include_graphics('assets/combiningTools.png', dpi = NA)
 CodeWalker is an applicaiton created by [dexyfex](https://github.com/dexyfex/CodeWalker) that renders an interactive 3D Map for GTAV. Through CodeWalker we are able to modify the architecture and objects inside the map, replacing textures and images with custom content. 
 
 
-Installation and setup:
+Installation and setup
 
 + Go to [https://www.gta5-mods.com/tools/codewalker-gtav-interactive-3d-map](https://www.gta5-mods.com/tools/codewalker-gtav-interactive-3d-map) and download CodeWalker. Extract the content of the .zip folder and open the CodeWalker application. Once the GTAV installation folder has been found, the world view will load by default. Use the WASD keys to move, and left-drag to rotate the camera view. Mouse wheel zooms in/out and controls the movement speed.
 
@@ -808,6 +808,9 @@ knitr::include_graphics('assets/CodeWalker2.png', dpi = NA)
 ```
 
 + On top of the panel click on ```Options > Lighting```. Deselect ```Deferred shading``` and in ```Time of Day``` set the time to 12:00. Then click on ```Save Settings```.
+
+
+Creating Custom Maps
 
 + Next we are going to hit the ```T``` key and select the ```Select objects``` tool from the tool bar. 
 
@@ -826,7 +829,7 @@ knitr::include_graphics('assets/CodeWalker4.png', dpi = NA)
 
 + Now press the first tool on the left in the tool bar: ```New```. This will open the Project window.
 
-+ Select an object with the ```Select objects``` tools and you will see that the object information is updated in the Project window, including the object's position, rotation and file name (archetype). Choose an object and click ```Add to Project```. This will add the object to our ymap.
++ Select an object with the ```Select objects``` tool and you will see that the object information is updated in the Project window, including the object's position, rotation and file name (archetype). Choose an object and click ```Add to Project```. This will add the object to our ymap.
 
 Note: do not delete assets from the game map. Simply select an object that can be added to the project. 
 
@@ -865,7 +868,74 @@ knitr::include_graphics('assets/scriptingGifs/CodeWalkerYMAP.gif', dpi = NA)
 ```
 
 
-This tutorial was adapted from [GTA 5 Tutorial - Part 2] Using codewalker and creating/modifying ymaps by [Tobii](https://www.youtube.com/watch?v=VDoAjV3kv2g&list=PL3KgAhmoIEOU540c5hydM5KaVXeJcYiPF&ab_channel=Tobii) and https://www.youtube.com/watch?v=70ODCkbrj60&ab_channel=TeachingHub
+Editing and replacing textures
+
+//Required: Photoshop and NVIDIA DDS Plugin https://developer.nvidia.com/nvidia-texture-tools-exporter
+
+//files: .yft are 3D models, .ydr are ?? and .ytd are textures
+
++ Open Code Walker and find a texture you want to replace. Use the ```Select objects``` to move objects around until you find where the texture you want to change is. We are going to replace a billboard banner with a custom image. In this specific case we can see that the billboard structure is not part of the image, and that the banner is actually part of the ground.
+
+```{r fig.align='left', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html')}
+knitr::include_graphics('assets/scriptingGifs/textureReplacement1.gif', dpi = NA)
+```
+
++ In the Code Walks menu on the right go to ```Selection``` and check the filename of the object that contains our image. In our case that is "sp1_04_ground" 
+
+```{r fig.align='left', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html')}
+knitr::include_graphics('assets/textureReplacement_openIVSearchObject.png', dpi = NA)
+```
+
++ Open Open IV and copy "sp1_04_ground" into Open IV's search bar on the top of the window. Then click on ```Search in all``` under the "No items match your search" text. Select and double click on "sp1_04_ground.ydr" and click on ```Copy to "mods" folder```.
+
+```{r fig.align='left', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html')}
+knitr::include_graphics('assets/textureReplacement_openIVcopyToModFolder.png', dpi = NA)
+```
+
++ Double click on "sp1_04_ground.ydr" to bring up OpenIV Model Viewer and inspect the 3D model. Click on ```[+] Add texture``` from the menu on the bottom right and select the different .ytd texture folders. If you select "spi_04.ytd" or "spi_04+hi.ytd" you'll load the texture of the billboard banner appear. The two files are the ones that are loaded by the game when the camera is closer and further from the object respectively.
+
+```{r fig.align='left', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html')}
+knitr::include_graphics('assets/textureReplacement_openIVydrModelViewer.png', dpi = NA)
+```
+
++ Close the Model Viewer and back in Open IV look for the "spi_04.ytd" texture file. Double click on it to bring up Open IV Texture Editor. Inside the .ydt file you will see all the .dds files contained in it. We have 2 files in "spi_04.ytd". We can preview them by selecting them and we can find the banner image in "sp1_04_rss_hc_bbrd_01". We select that,  click ```Export selected``` and save the file somewhere on our computer.
+
+```{r fig.align='left', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html')}
+knitr::include_graphics('assets/textureReplacement_openydtTextureFile.png', dpi = NA)
+```
+
++ We open the file we saved in Photoshop. Modify the image as you want and then flatten all layers (ctrl+E) in Photoshop. Then choose ```Save as a copy``` and select .DDS type file and replace the file. The NVIDIA DDS Plugin interface will pop up. Here it's important to set the file type tp the same kind as the original .dds file. In this example the file is a DXT1 type, which is equivalent to the "BC1a 4bpp with 1 bit alpha" option. Select that and hit ```Save```
+
+```{r fig.align='left', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html')}
+knitr::include_graphics('assets/textureReplacement_psNVIDIAddsBC1a.png', dpi = NA)
+```
+
++ Close Photoshop and back in Open IV go back to "spi_04.ytd" and bring up Open IV Texture Editor. Select "sp1_04_rss_hc_bbrd_01" again and now click ```Replace```. Select the modified file form your computer and click ```Save```.
+
+```{r fig.align='left', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html')}
+knitr::include_graphics('assets/textureReplacement_replaceDdsFile.png', dpi = NA)
+```
+
++ Do the same for "spi_04+hi.ytd". Try to make the image as similar as possible so that when the game switches between the files (according to the player distance) the change is seamless.
+
++ When all the textures are modified with our custom image, relaunch Code Walker and verify that the image has changed.
+
+```{r fig.align='left', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html')}
+knitr::include_graphics('assets/textureReplacement_checkTextureInCW.png', dpi = NA)
+```
+
++ Finally launch GTA 5 and you should be able to find your texture appearing inside the game.
+
+```{r fig.align='left', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html')}
+knitr::include_graphics('assets/scriptingGifs/textureReplacement2.gif', dpi = NA)
+```
+
+
+
+
+
+
+This tutorial was adapted from [GTA 5 Tutorial - Part 2] Using codewalker and creating/modifying ymaps by [Tobii](https://www.youtube.com/watch?v=VDoAjV3kv2g&list=PL3KgAhmoIEOU540c5hydM5KaVXeJcYiPF&ab_channel=Tobii), and https://www.youtube.com/watch?v=70ODCkbrj60&ab_channel=TeachingHub, [GTA 5 Tutorial - Part 5] Texture editing, replacing and changing by [Tobii§] (https://www.youtube.com/watch?v=931L_2ZvOl4&list=PL3KgAhmoIEOU540c5hydM5KaVXeJcYiPF&index=7&ab_channel=Tobii)
 
 
 
