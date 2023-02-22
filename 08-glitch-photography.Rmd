@@ -932,19 +932,7 @@ knitr::include_graphics('assets/scriptingGifs/textureReplacement2.gif', dpi = NA
 ```
 
 
-
-
-
-
-This tutorial was adapted from [GTA 5 Tutorial - Part 2] Using codewalker and creating/modifying ymaps by [Tobii](https://www.youtube.com/watch?v=VDoAjV3kv2g&list=PL3KgAhmoIEOU540c5hydM5KaVXeJcYiPF&ab_channel=Tobii), and https://www.youtube.com/watch?v=70ODCkbrj60&ab_channel=TeachingHub, [GTA 5 Tutorial - Part 5] Texture editing, replacing and changing by [Tobii§] (https://www.youtube.com/watch?v=931L_2ZvOl4&list=PL3KgAhmoIEOU540c5hydM5KaVXeJcYiPF&index=7&ab_channel=Tobii)
-
-
-
-
-
-//https://www.gta5-mods.com/tools/codewalker-gtav-interactive-3d-map
-//https://www.youtube.com/watch?v=VDoAjV3kv2g&list=PL3KgAhmoIEOU540c5hydM5KaVXeJcYiPF&ab_channel=Tobii
-
+//try modifying the postcards at the Hookies family seafood restaurant, located on the Great Ocean Highway in North Chumash. -> check the prop_venice_racks.ytd -> prop_postcard.dds (part of the prop_postcard_rack.ydr). 
 
 
 
