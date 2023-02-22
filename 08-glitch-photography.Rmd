@@ -870,29 +870,30 @@ knitr::include_graphics('assets/scriptingGifs/CodeWalkerYMAP.gif', dpi = NA)
 
 #### Editing and replacing textures {-}
 
-//Required: Photoshop and NVIDIA DDS Plugin https://developer.nvidia.com/nvidia-texture-tools-exporter
+Another way in which we can intervene in the game world and modify it, is to replace existing images with custom ones. Every object in the game is made of a 3D model and one or more texture files attached to it. Textures are are 2D image files that are applied to 3D surfaces. In this example we'll swap the existing image of a billboard banner with a custom image.
 
-//files: .yft are 3D models, .ydr are ?? and .ytd are textures
+For editing textures in game, we need two additional pieces of software installed before we go ahead: Adobe [Photoshop](https://www.adobe.com/products/photoshop.html) and [NVIDIA Texture Tools Exporter Plugin for Adobe Photoshop)](https://developer.nvidia.com/nvidia-texture-tools-exporter). Note that versions prior to Photoshop CC (5.0 - CS6) require the [legacy version of the plugin](https://developer.nvidia.com/gameworksdownload#?dn=texture-tools-for-adobe-photoshop-8-55).
 
-+ Open Code Walker and find a texture you want to replace. Use the ```Select objects``` to move objects around until you find where the texture you want to change is. We are going to replace a billboard banner with a custom image. In this specific case we can see that the billboard structure is not part of the image, and that the banner is actually part of the ground.
+
++ Open Code Walker and find a texture you want to replace. Use the ```Select objects``` to move objects around until you find where the texture you want to change is. We are going to replace a billboard banner with a custom image. More specifically we'll replace the banner containing the "Fame on Shame" illustration with the posters of the exhibition [How to Win at Photography](https://www.howtowinat.photography/). In this  case we can see that the billboard structure is not part of the image, and that the banner is actually part of the ground model.
 
 ```{r fig.align='left', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html')}
 knitr::include_graphics('assets/scriptingGifs/textureReplacement1.gif', dpi = NA)
 ```
 
-+ In the Code Walks menu on the right go to ```Selection``` and check the filename of the object that contains our image. In our case that is "sp1_04_ground" 
++ In the Code Walker menu on the right go to ```Selection``` and check the filename of the object that contains our image. In our case that is "sp1_04_ground". This is the name of the .ydr file that contains the map model. 
 
 ```{r fig.align='left', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html')}
 knitr::include_graphics('assets/textureReplacement_openIVSearchObject.png', dpi = NA)
 ```
 
-+ Open Open IV and copy "sp1_04_ground" into Open IV's search bar on the top of the window. Then click on ```Search in all``` under the "No items match your search" text. Select and double click on "sp1_04_ground.ydr" and click on ```Copy to "mods" folder```.
++ Open Open IV and copy "sp1_04_ground" into Open IV's search bar on the top of the window. Then click on ```Search in all``` under the "No items match your search" text. Select and double click on "sp1_04_ground.ydr" and click on ```Copy to "mods" folder```. This will create a duplicate of the files so that we can make changes to them without corrupting the original files.
 
 ```{r fig.align='left', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html')}
 knitr::include_graphics('assets/textureReplacement_openIVcopyToModFolder.png', dpi = NA)
 ```
 
-+ Double click on "sp1_04_ground.ydr" to bring up OpenIV Model Viewer and inspect the 3D model. Click on ```[+] Add texture``` from the menu on the bottom right and select the different .ytd texture folders. If you select "spi_04.ytd" or "spi_04+hi.ytd" you'll load the texture of the billboard banner appear. The two files are the ones that are loaded by the game when the camera is closer and further from the object respectively.
++ Double click on "sp1_04_ground.ydr" to bring up OpenIV Model Viewer and inspect the 3D model. Click on ```[+] Add texture``` from the menu on the bottom right and select the different .ytd texture files associated with the model. If you select "spi_04.ytd" or "spi_04+hi.ytd" you'll load the texture of the billboard banner. These .ytd files are textures that are applied to the 3D model, and the two files are the ones that are loaded by the game when the camera is closer and further from the object respectively.
 
 ```{r fig.align='left', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html')}
 knitr::include_graphics('assets/textureReplacement_openIVydrModelViewer.png', dpi = NA)
@@ -952,7 +953,7 @@ This tutorial was adapted from [GTA 5 Tutorial - Part 2] Using codewalker and cr
 
 //generate and save manifestNAME.ymf // copy ymf and ymap files to server 
 
-//replace textures with custom images
+
 
 
 
