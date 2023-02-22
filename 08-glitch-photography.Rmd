@@ -769,7 +769,7 @@ Game trainers are a kind of game modification that changes its behavior using ad
 
 Menyoo is one of many available mod trainers for GTA V. It's the most popular trainer because of its incredibly wide range of features, controlling NPCs, vehicles, props and scenes, and allowing players to generate custom interiors and objects from GTA V's database of entities, dynamic scenarios, and entire sets and scenes for machinima and photographic projects.
 
-Installation and setup
+#### Installation and setup {-}
 
 Menyoo requires Scripthook V and Scripthook V Dot Net which we already installed in order to enable our scripts (check chapter 5 if for some reasons you do not have them installed).
 
@@ -796,7 +796,7 @@ knitr::include_graphics('assets/combiningTools.png', dpi = NA)
 CodeWalker is an applicaiton created by [dexyfex](https://github.com/dexyfex/CodeWalker) that renders an interactive 3D Map for GTAV. Through CodeWalker we are able to modify the architecture and objects inside the map, replacing textures and images with custom content. 
 
 
-Installation and setup
+#### Installation and setup {-}
 
 + Go to [https://www.gta5-mods.com/tools/codewalker-gtav-interactive-3d-map](https://www.gta5-mods.com/tools/codewalker-gtav-interactive-3d-map) and download CodeWalker. Extract the content of the .zip folder and open the CodeWalker application. Once the GTAV installation folder has been found, the world view will load by default. Use the WASD keys to move, and left-drag to rotate the camera view. Mouse wheel zooms in/out and controls the movement speed.
 
@@ -810,7 +810,7 @@ knitr::include_graphics('assets/CodeWalker2.png', dpi = NA)
 + On top of the panel click on ```Options > Lighting```. Deselect ```Deferred shading``` and in ```Time of Day``` set the time to 12:00. Then click on ```Save Settings```.
 
 
-Creating Custom Maps
+#### Creating Custom Maps  {-}
 
 + Next we are going to hit the ```T``` key and select the ```Select objects``` tool from the tool bar. 
 
@@ -868,7 +868,7 @@ knitr::include_graphics('assets/scriptingGifs/CodeWalkerYMAP.gif', dpi = NA)
 ```
 
 
-Editing and replacing textures
+#### Editing and replacing textures {-}
 
 //Required: Photoshop and NVIDIA DDS Plugin https://developer.nvidia.com/nvidia-texture-tools-exporter
 
