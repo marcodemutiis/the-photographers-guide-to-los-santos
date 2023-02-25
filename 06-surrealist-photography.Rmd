@@ -789,11 +789,18 @@ knitr::include_graphics('assets/scriptingGifs/scenarios.gif', dpi = NA)
 
 We can control sounds from the game as well as playing external sound files. Here's an overview of a few different functions to can play speech recordings and audio from the GTA V audio bank, and a method to play a custom .wav file saved onside the "scripts" folder. 
 
+The native function ```_PLAY_AMBIENT_SPEECH1``` and ```_PLAY_AMBIENT_SPEECH2``` both do the same thing: they make the character say a few lines, with the voice of the character model, and with their relative mouth and body animations.
+```_PLAY_AMBIENT_SPEECH1``` will take as parameters the Ped that is going to speak, a string of the speech name, the speech parameter string and an integer that is set to 1.
 
+Try to use the native function to make the player character say something from the ```"GENERIC_BYE"``` speech bank:
 
 ```cs
-Function.Call(Hash._PLAY_AMBIENT_SPEECH1, Game.Player.Character, "GENERIC_CURSE_MED", "SPEECH_PARAMS_FORCE", 1);
+Function.Call(Hash._PLAY_AMBIENT_SPEECH1, Game.Player.Character, "GENERIC_BYE", "SPEECH_PARAMS_FORCE", 1);
 ```
+
+
+Here you can find a list of all availabel  speech names.
+
 
 <details>
   <summary>List of speech names</summary>
