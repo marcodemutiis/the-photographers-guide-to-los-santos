@@ -909,7 +909,11 @@ You can find all available scenarios <a href="https://github.com/DioneB/gtav-sce
 <div id="playing-sounds" class="section level3 unnumbered hasAnchor">
 <h3>Playing Sounds<a href="surrealist-photography.html#playing-sounds" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>We can control sounds from the game as well as playing external sound files. Here’s an overview of a few different functions to can play speech recordings and audio from the GTA V audio bank, and a method to play a custom .wav file saved onside the “scripts” folder.</p>
-<div class="sourceCode" id="cb48"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb48-1"><a href="surrealist-photography.html#cb48-1"></a>Function.<span class="fu">Call</span>(Hash._PLAY_AMBIENT_SPEECH1, Game.<span class="fu">Player</span>.<span class="fu">Character</span>, <span class="st">&quot;GENERIC_CURSE_MED&quot;</span>, <span class="st">&quot;SPEECH_PARAMS_FORCE&quot;</span>, <span class="dv">1</span>);</span></code></pre></div>
+<p>The native function <code>_PLAY_AMBIENT_SPEECH1</code> and <code>_PLAY_AMBIENT_SPEECH2</code> both do the same thing: they make the character say a few lines, with the voice of the character model, and with their relative mouth and body animations.
+<code>_PLAY_AMBIENT_SPEECH1</code> will take as parameters the Ped that is going to speak, a string of the speech name, the speech parameter string and an integer that is set to 1.</p>
+<p>Try to use the native function to make the player character say something from the <code>"GENERIC_BYE"</code> speech bank:</p>
+<div class="sourceCode" id="cb48"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb48-1"><a href="surrealist-photography.html#cb48-1"></a>Function.<span class="fu">Call</span>(Hash._PLAY_AMBIENT_SPEECH1, Game.<span class="fu">Player</span>.<span class="fu">Character</span>, <span class="st">&quot;GENERIC_BYE&quot;</span>, <span class="st">&quot;SPEECH_PARAMS_FORCE&quot;</span>, <span class="dv">1</span>);</span></code></pre></div>
+<p>Here you can find a list of all availabel speech names.</p>
 <details>
 <p><summary>List of speech names</summary></p>
 <pre><code>// List of Speech Names found in gtav.ysc.decompiled (28 May 2015)

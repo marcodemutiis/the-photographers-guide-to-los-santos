@@ -1677,11 +1677,18 @@ List of available tasks
 
 We can control sounds from the game as well as playing external sound files. Here's an overview of a few different functions to can play speech recordings and audio from the GTA V audio bank, and a method to play a custom .wav file saved onside the ``scripts'' folder.
 
+The native function \texttt{\_PLAY\_AMBIENT\_SPEECH1} and \texttt{\_PLAY\_AMBIENT\_SPEECH2} both do the same thing: they make the character say a few lines, with the voice of the character model, and with their relative mouth and body animations.
+\texttt{\_PLAY\_AMBIENT\_SPEECH1} will take as parameters the Ped that is going to speak, a string of the speech name, the speech parameter string and an integer that is set to 1.
+
+Try to use the native function to make the player character say something from the \texttt{"GENERIC\_BYE"} speech bank:
+
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{Function.}\FunctionTok{Call}\NormalTok{(Hash._PLAY_AMBIENT_SPEECH1, Game.}\FunctionTok{Player}\NormalTok{.}\FunctionTok{Character}\NormalTok{, }\StringTok{"GENERIC_CURSE_MED"}\NormalTok{, }\StringTok{"SPEECH_PARAMS_FORCE"}\NormalTok{, }\DecValTok{1}\NormalTok{);}
+\NormalTok{Function.}\FunctionTok{Call}\NormalTok{(Hash._PLAY_AMBIENT_SPEECH1, Game.}\FunctionTok{Player}\NormalTok{.}\FunctionTok{Character}\NormalTok{, }\StringTok{"GENERIC_BYE"}\NormalTok{, }\StringTok{"SPEECH_PARAMS_FORCE"}\NormalTok{, }\DecValTok{1}\NormalTok{);}
 \end{Highlighting}
 \end{Shaded}
+
+Here you can find a list of all availabel speech names.
 
 List of speech names
 
