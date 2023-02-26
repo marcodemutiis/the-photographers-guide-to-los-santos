@@ -528,7 +528,7 @@ Once you have requested your animation dictionary and it is loaded, you can play
 
 ```cs
 //request animation dictionary
-Function.Call(Hash.REQUEST_ANIM_DICT, "cmini@strip_club@pole_dance@pole_a_2_stage");
+Function.Call(Hash.REQUEST_ANIM_DICT, "mini@strip_club@pole_dance@pole_a_2_stage");
  
 //wait 100 ms to load the animation
 Wait(100);
@@ -782,7 +782,7 @@ You can find all available scenarios [here](https://github.com/DioneB/gtav-scena
 
 
 ```{r fig.align='left', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html'), fig.link=''}
-knitr::include_graphics('assets/scriptingGifs/scenarios.gif', dpi = NA)
+knitr::include_graphics('assets/scriptingGifs/scenarios5Peds.gif', dpi = NA)
 ```
 
 
