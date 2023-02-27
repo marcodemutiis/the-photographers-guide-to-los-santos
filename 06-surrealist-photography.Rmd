@@ -478,10 +478,327 @@ knitr::include_graphics('assets/scriptingGifs/3Peds2.gif', dpi = NA)
 ```
 
 
+### Scenarios {-}
+
+Screnarios are short looping animations that can be triggered with  the ```Task``` of type ```StartScenario```. Unlike other animation types (see next chapter below), scenarios include props with the moevement of the character. Also, certain scenarios only work with specific model, so we won't be able to make a deer drink coffe or use a binocular (we'll make a deer pole dancing later don't worry).
+
+Scenarios can be invoked by using the task ```StartScenario(string 	name, Vector3 	position, float 	heading)```. the ```StartScenario``` task function requires 3 paramenters: the name of the scenario we want to play, the position in which our Ped will be playing  the scenario (through a Vector3 data type containing the XYZ coordinates), and the rotation degree (between 1 and 360° - note: this seems to work only when applied to the player character and not on Ped NPCs).
+
+Try to play the scenario animation ```WORLD_HUMAN_TOURIST_MAP``` on our game character:
+
+```cs
+Game.Player.Character.Task.StartScenario("WORLD_HUMAN_TOURIST_MAP", Game.Player.Character.Position, 1f);
+```
+
+To stop the scenario animation you can use ```Game.Player.Character.Task.ClearAllImmediately();``` like with every other task.
+You can find all available scenarios [here](https://github.com/DioneB/gtav-scenarios) or click on the list of below
+
+<details>
+  <summary>List of available scenarios</summary>
+
+
+```
+WORLD_HUMAN_AA_COFFEE	
+WORLD_HUMAN_AA_SMOKE	
+WORLD_HUMAN_BINOCULARS	 
+WORLD_HUMAN_BUM_FREEWAY
+WORLD_HUMAN_BUM_SLUMPED 
+WORLD_HUMAN_BUM_STANDING
+WORLD_HUMAN_BUM_WASH
+WORLD_HUMAN_VALET
+WORLD_HUMAN_CAR_PARK_ATTENDANT
+WORLD_HUMAN_CHEERING
+WORLD_HUMAN_CLIPBOARD
+WORLD_HUMAN_CLIPBOARD_FACILITY
+WORLD_HUMAN_CONST_DRILL
+WORLD_HUMAN_COP_IDLES
+WORLD_HUMAN_DRINKING
+WORLD_HUMAN_DRINKING_FACILITY
+WORLD_HUMAN_DRINKING_CASINO_TERRACE
+WORLD_HUMAN_DRUG_DEALER
+WORLD_HUMAN_DRUG_DEALER_HARD
+WORLD_HUMAN_MOBILE_FILM_SHOCKING
+WORLD_HUMAN_GARDENER_LEAF_BLOWER
+WORLD_HUMAN_GARDENER_PLANT
+WORLD_HUMAN_GOLF_PLAYER
+WORLD_HUMAN_GUARD_PATROL
+WORLD_HUMAN_GUARD_STAND
+WORLD_HUMAN_GUARD_STAND_CASINO
+WORLD_HUMAN_GUARD_STAND_CLUBHOUSE
+WORLD_HUMAN_GUARD_STAND_FACILITY
+WORLD_HUMAN_GUARD_STAND_ARMY
+WORLD_HUMAN_HAMMERING
+WORLD_HUMAN_HANG_OUT_STREET
+WORLD_HUMAN_HANG_OUT_STREET_CLUBHOUSE
+WORLD_HUMAN_HIKER
+WORLD_HUMAN_HIKER_STANDING
+WORLD_HUMAN_HUMAN_STATUE
+WORLD_HUMAN_JANITOR
+WORLD_HUMAN_JOG
+WORLD_HUMAN_JOG_STANDING
+WORLD_HUMAN_LEANING
+WORLD_HUMAN_LEANING_CASINO_TERRACE
+WORLD_HUMAN_MAID_CLEAN
+WORLD_HUMAN_MUSCLE_FLEX
+WORLD_HUMAN_MUSCLE_FREE_WEIGHTS
+WORLD_HUMAN_MUSICIAN
+WORLD_HUMAN_PAPARAZZI
+WORLD_HUMAN_PARTYING
+WORLD_HUMAN_PICNIC
+WORLD_HUMAN_POWER_WALKER
+WORLD_HUMAN_PROSTITUTE_HIGH_CLASS
+WORLD_HUMAN_PROSTITUTE_LOW_CLASS
+WORLD_HUMAN_PUSH_UPS
+WORLD_HUMAN_SEAT_LEDGE
+WORLD_HUMAN_SEAT_LEDGE_EATING
+WORLD_HUMAN_SEAT_STEPS
+WORLD_HUMAN_SEAT_WALL
+WORLD_HUMAN_SEAT_WALL_EATING
+WORLD_HUMAN_SEAT_WALL_TABLET
+WORLD_HUMAN_SECURITY_SHINE_TORCH
+WORLD_HUMAN_SIT_UPS
+WORLD_HUMAN_SMOKING
+WORLD_HUMAN_SMOKING_CLUBHOUSE
+WORLD_HUMAN_SMOKING_POT
+WORLD_HUMAN_SMOKING_POT_CLUBHOUSE
+WORLD_HUMAN_STAND_FIRE
+WORLD_HUMAN_STAND_FISHING
+WORLD_HUMAN_STAND_IMPATIENT
+WORLD_HUMAN_STAND_IMPATIENT_CLUBHOUSE
+WORLD_HUMAN_STAND_IMPATIENT_FACILITY
+WORLD_HUMAN_STAND_IMPATIENT_UPRIGHT
+WORLD_HUMAN_STAND_IMPATIENT_UPRIGHT_FACILITY
+WORLD_HUMAN_STAND_MOBILE
+WORLD_HUMAN_STAND_MOBILE_CLUBHOUSE
+WORLD_HUMAN_STAND_MOBILE_FACILITY
+WORLD_HUMAN_STAND_MOBILE_UPRIGHT
+WORLD_HUMAN_STAND_MOBILE_UPRIGHT_CLUBHOUSE
+WORLD_HUMAN_STRIP_WATCH_STAND
+WORLD_HUMAN_STUPOR
+WORLD_HUMAN_STUPOR_CLUBHOUSE
+WORLD_HUMAN_SUNBATHE
+WORLD_HUMAN_SUNBATHE_BACK
+WORLD_HUMAN_SUPERHERO
+WORLD_HUMAN_SWIMMING
+WORLD_HUMAN_TENNIS_PLAYER
+WORLD_HUMAN_TOURIST_MAP
+WORLD_HUMAN_TOURIST_MOBILE
+WORLD_HUMAN_VEHICLE_MECHANIC
+WORLD_HUMAN_WELDING
+WORLD_HUMAN_WINDOW_SHOP_BROWSE
+WORLD_HUMAN_YOGA
+PROP_HUMAN_ATM
+PROP_HUMAN_BBQ
+PROP_HUMAN_BUM_BIN
+PROP_HUMAN_BUM_SHOPPING_CART
+PROP_HUMAN_MUSCLE_CHIN_UPS
+PROP_HUMAN_MUSCLE_CHIN_UPS_ARMY
+PROP_HUMAN_MUSCLE_CHIN_UPS_PRISON
+PROP_HUMAN_PARKING_METER
+PROP_HUMAN_SEAT_ARMCHAIR
+PROP_HUMAN_SEAT_BAR
+PROP_HUMAN_SEAT_BENCH
+PROP_HUMAN_SEAT_BENCH_FACILITY
+PROP_HUMAN_SEAT_BENCH_DRINK
+PROP_HUMAN_SEAT_BENCH_DRINK_FACILITY
+PROP_HUMAN_SEAT_BENCH_DRINK_BEER
+PROP_HUMAN_SEAT_BENCH_FOOD
+PROP_HUMAN_SEAT_BENCH_FOOD_FACILITY
+PROP_HUMAN_SEAT_BUS_STOP_WAIT
+PROP_HUMAN_SEAT_CHAIR
+PROP_HUMAN_SEAT_CHAIR_DRINK
+PROP_HUMAN_SEAT_CHAIR_DRINK_BEER
+PROP_HUMAN_SEAT_CHAIR_FOOD
+PROP_HUMAN_SEAT_CHAIR_UPRIGHT
+PROP_HUMAN_SEAT_CHAIR_MP_PLAYER
+PROP_HUMAN_SEAT_COMPUTER
+PROP_HUMAN_SEAT_COMPUTER_LOW
+PROP_HUMAN_SEAT_DECKCHAIR
+PROP_HUMAN_SEAT_DECKCHAIR_DRINK
+PROP_HUMAN_SEAT_MUSCLE_BENCH_PRESS
+PROP_HUMAN_SEAT_MUSCLE_BENCH_PRESS_PRISON
+PROP_HUMAN_SEAT_SEWING
+PROP_HUMAN_SEAT_STRIP_WATCH
+PROP_HUMAN_SEAT_SUNLOUNGER
+PROP_HUMAN_STAND_IMPATIENT
+CODE_HUMAN_CROSS_ROAD_WAIT
+CODE_HUMAN_MEDIC_KNEEL
+CODE_HUMAN_MEDIC_TEND_TO_DEAD
+CODE_HUMAN_MEDIC_TIME_OF_DEATH
+CODE_HUMAN_POLICE_CROWD_CONTROL
+CODE_HUMAN_POLICE_INVESTIGATE
+EAR_TO_TEXT
+EAR_TO_TEXT_FAT
+---	---
+WORLD_BOAR_GRAZING
+WORLD_CAT_SLEEPING_GROUND
+WORLD_CAT_SLEEPING_LEDGE
+WORLD_COW_GRAZING
+WORLD_COYOTE_HOWL
+WORLD_COYOTE_REST
+WORLD_COYOTE_WANDER
+WORLD_COYOTE_WALK
+WORLD_CHICKENHAWK_FEEDING
+WORLD_CHICKENHAWK_STANDING
+WORLD_CORMORANT_STANDING
+WORLD_CROW_FEEDING
+WORLD_CROW_STANDING
+WORLD_DEER_GRAZING
+WORLD_DOG_BARKING_ROTTWEILER
+WORLD_DOG_BARKING_RETRIEVER
+WORLD_DOG_BARKING_SHEPHERD
+WORLD_DOG_SITTING_ROTTWEILER
+WORLD_DOG_SITTING_RETRIEVER
+WORLD_DOG_SITTING_SHEPHERD
+WORLD_DOG_BARKING_SMALL
+WORLD_DOG_SITTING_SMALL
+WORLD_DOLPHIN_SWIM
+WORLD_FISH_FLEE
+WORLD_FISH_IDLE
+WORLD_GULL_FEEDING
+WORLD_GULL_STANDING
+WORLD_HEN_FLEE
+WORLD_HEN_PECKING
+WORLD_HEN_STANDING
+WORLD_MOUNTAIN_LION_REST
+WORLD_MOUNTAIN_LION_WANDER
+WORLD_ORCA_SWIM
+WORLD_PIG_GRAZING
+WORLD_PIGEON_FEEDING
+WORLD_PIGEON_STANDING
+WORLD_RABBIT_EATING
+WORLD_RABBIT_FLEE
+WORLD_RATS_EATING
+WORLD_RATS_FLEEING
+WORLD_SHARK_SWIM
+WORLD_SHARK_HAMMERHEAD_SWIM
+WORLD_STINGRAY_SWIM
+
+```
+
+</details>
+
+
+We can give scenarios to multiple Peds just like we gave different tasks to NPCs in the section above. We can add a ```List``` to store multiple scenarios, just like we made a ```List``` to store multiple NPCs. Then we can control individual NPCs and trigger specific scenarios by going through the list items.
+
+For example the following line will control the first NPC Ped we created, and made them play the third scenario in the list (note that items added to list start from 0, so the first one is actually number 0).
+
+```cs
+myPeds[0].Task.StartScenario(scenarios[2], myPeds[0].Position, 300f); 
+```
+
+In the code below we press ```G``` to spawn 5 Peds of model Clown in front of the player character, and we add 5 scenarios to our list. Then press ```H``` to make each Ped play one of the scenarios. Use ```J```to stop the task and ```K``` to delete the Peds and clear the list.
+
+
+<details>
+  <summary>Example code</summary>
+
+
+```cs
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using System.Drawing;
+using GTA;
+using GTA.Math;
+using GTA.Native;
+
+namespace moddingTutorial
+{
+    public class moddingTutorial : Script
+    {
+        List<string> scenarios = new List<string>();
+        List<Ped> myPeds = new List<Ped>();
+
+        public moddingTutorial()
+        {
+            this.Tick += onTick;
+            this.KeyUp += onKeyUp;
+            this.KeyDown += onKeyDown;
+        }
+
+        private void onTick(object sender, EventArgs e)
+        {
+           
+        }
+
+        private void onKeyUp(object sender, KeyEventArgs e)
+        {
+
+        }
+
+        private void onKeyDown(object sender, KeyEventArgs e)
+        {
+            
+            if (e.KeyCode == Keys.G)
+            {
+              	//add scenarios to the list of scenarios
+              	scenarios.Add("WORLD_HUMAN_AA_COFFEE");
+            		scenarios.Add("WORLD_HUMAN_TOURIST_MAP");
+            		scenarios.Add("WORLD_HUMAN_TOURIST_MOBILE");
+            		scenarios.Add("WORLD_HUMAN_BINOCULARS");
+            		scenarios.Add("WORLD_HUMAN_PARTYING");
+            		scenarios.Add("WORLD_HUMAN_MUSCLE_FLEX");
+
+                //create 5 Clown NPCs and add the to the list of myPeds
+                for (int i = 0; i < 5; i++)
+                {
+                    //spawn a new Ped called newPed
+                    var newPed = World.CreatePed(PedHash.Clown01SMY, Game.Player.Character.GetOffsetInWorldCoords(new Vector3(i - 2.5f, 8, 0)));
+                    //add the new Ped to my list of Peds myPeds
+                    myPeds.Add(newPed);
+                }
+            }
+            if (e.KeyCode == Keys.H)
+            {
+                //give the scenarios to the Peds
+                for (int i = 0; i < 5; i++)
+                {
+                		myPeds[i].Task.StartScenario(scenarios[i], myPeds[i].Position, 300f); 
+               	}
+            }
+            if (e.KeyCode == Keys.J)
+            {
+            		//stop the task of each Ped
+            		for (int i = 0; i < 5; i++)
+                {
+                		myPeds[i].Task.ClearAllImmediately(); 
+               	}
+            }
+            if (e.KeyCode == Keys.K)
+            {
+                //delete 5 Peds
+                for (int i = 0; i < 5; i++)
+                {
+                    myPeds[i].Delete();
+                }
+
+                //and clear the list
+                myPeds.Clear();
+            }
+
+        }
+    }
+}
+
+
+
+```
+
+</details>
+
+
+```{r fig.align='left', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html'), fig.link=''}
+knitr::include_graphics('assets/scriptingGifs/scenarios5Peds.gif', dpi = NA)
+```
+
 
 ### Animations {-}
 
-We can give Peds a task to play specific animations. To do this we can use the native function ```TASK_PLAY_ANIM```.
+We can get Peds to play specific animations from a larger database of different possible movements. To do this we can use the native function ```TASK_PLAY_ANIM```.
 The function takes a lot of parameters (some of them still not exactly know), but here is the full function and a breakdown of each parameters.
 
 ```cs
@@ -580,217 +897,16 @@ foreach (Ped p in NearbyPeds)
 }
 ```
 
-### Scenarios {-}
-
-Another kind of animations that can be given to Peds is scenarios. Animations only playback the movement of the model without any object (e.g. the pole dancing animation does not provide a pole), while scenarios also include props. Also, certain scenarios only work with specific model, so we won't be able to make a deer drink coffe or use a binocular.
-
-Scenarios can be invoked by using the task ```StartScenario(string 	name, Vector3 	position, float 	heading)```. the ```StartScenario``` task function requires 3 paramenters: the name of the scenario we want to play, the position in which our Ped will be playing  the scenario (through a Vector3 data type containing the XYZ coordinates), and the rotation degree (between 1 and 360°).
-
-Try to play the scenario animation ```WORLD_HUMAN_TOURIST_MAP``` on our game character:
-
-```cs
-Game.Player.Character.Task.StartScenario("WORLD_HUMAN_TOURIST_MAP", Game.Player.Character.Position, 1f);
-```
-
-To stop the scenario animation you can use ```Game.Player.Character.Task.ClearAllImmediately();``` like with every other task.
-You can find all available scenarios [here](https://github.com/DioneB/gtav-scenarios) or click on the list of below
-
-<details>
-  <summary>List of available tasks</summary>
-
-
-```
-`WORLD_HUMAN_AA_COFFEE` | *Human*
-`WORLD_HUMAN_AA_SMOKE` | *Human*
-`WORLD_HUMAN_BINOCULARS` | *Human*
-`WORLD_HUMAN_BUM_FREEWAY` | *Human*
-`WORLD_HUMAN_BUM_SLUMPED` | *Human*
-`WORLD_HUMAN_BUM_STANDING` | *Human*
-`WORLD_HUMAN_BUM_WASH` | *Human*
-`WORLD_HUMAN_VALET` | *Human*
-`WORLD_HUMAN_CAR_PARK_ATTENDANT` | *Human*
-`WORLD_HUMAN_CHEERING` | *Human*
-`WORLD_HUMAN_CLIPBOARD` | *Human*
-`WORLD_HUMAN_CLIPBOARD_FACILITY` | *Human*
-`WORLD_HUMAN_CONST_DRILL` | *Human*
-`WORLD_HUMAN_COP_IDLES` | *Human*
-`WORLD_HUMAN_DRINKING` | *Human*
-`WORLD_HUMAN_DRINKING_FACILITY` | *Human*
-`WORLD_HUMAN_DRINKING_CASINO_TERRACE` | *Human*
-`WORLD_HUMAN_DRUG_DEALER` | *Human*
-`WORLD_HUMAN_DRUG_DEALER_HARD` | *Human*
-`WORLD_HUMAN_MOBILE_FILM_SHOCKING` | *Human*
-`WORLD_HUMAN_GARDENER_LEAF_BLOWER` | *Human*
-`WORLD_HUMAN_GARDENER_PLANT` | *Human*
-`WORLD_HUMAN_GOLF_PLAYER` | *Human*
-`WORLD_HUMAN_GUARD_PATROL` | *Human*
-`WORLD_HUMAN_GUARD_STAND` | *Human*
-`WORLD_HUMAN_GUARD_STAND_CASINO` | *Human*
-`WORLD_HUMAN_GUARD_STAND_CLUBHOUSE` | *Human*
-`WORLD_HUMAN_GUARD_STAND_FACILITY` | *Human*
-`WORLD_HUMAN_GUARD_STAND_ARMY` | *Human*
-`WORLD_HUMAN_HAMMERING` | *Human*
-`WORLD_HUMAN_HANG_OUT_STREET` | *Human*
-`WORLD_HUMAN_HANG_OUT_STREET_CLUBHOUSE` | *Human*
-`WORLD_HUMAN_HIKER` | *Human*
-`WORLD_HUMAN_HIKER_STANDING` | *Human*
-`WORLD_HUMAN_HUMAN_STATUE` | *Human*
-`WORLD_HUMAN_JANITOR` | *Human*
-`WORLD_HUMAN_JOG` | *Human*
-`WORLD_HUMAN_JOG_STANDING` | *Human*
-`WORLD_HUMAN_LEANING` | *Human*
-`WORLD_HUMAN_LEANING_CASINO_TERRACE` | *Human*
-`WORLD_HUMAN_MAID_CLEAN` | *Human*
-`WORLD_HUMAN_MUSCLE_FLEX` | *Human*
-`WORLD_HUMAN_MUSCLE_FREE_WEIGHTS` | *Human*
-`WORLD_HUMAN_MUSICIAN` | *Human*
-`WORLD_HUMAN_PAPARAZZI` | *Human*
-`WORLD_HUMAN_PARTYING` | *Human*
-`WORLD_HUMAN_PICNIC` | *Human*
-`WORLD_HUMAN_POWER_WALKER` | *Human*
-`WORLD_HUMAN_PROSTITUTE_HIGH_CLASS` | *Human*
-`WORLD_HUMAN_PROSTITUTE_LOW_CLASS` | *Human*
-`WORLD_HUMAN_PUSH_UPS` | *Human*
-`WORLD_HUMAN_SEAT_LEDGE` | *Human*
-`WORLD_HUMAN_SEAT_LEDGE_EATING` | *Human*
-`WORLD_HUMAN_SEAT_STEPS` | *Human*
-`WORLD_HUMAN_SEAT_WALL` | *Human*
-`WORLD_HUMAN_SEAT_WALL_EATING` | *Human*
-`WORLD_HUMAN_SEAT_WALL_TABLET` | *Human*
-`WORLD_HUMAN_SECURITY_SHINE_TORCH` | *Human*
-`WORLD_HUMAN_SIT_UPS` | *Human*
-`WORLD_HUMAN_SMOKING` | *Human*
-`WORLD_HUMAN_SMOKING_CLUBHOUSE` | *Human*
-`WORLD_HUMAN_SMOKING_POT` | *Human*
-`WORLD_HUMAN_SMOKING_POT_CLUBHOUSE` | *Human*
-`WORLD_HUMAN_STAND_FIRE` | *Human*
-`WORLD_HUMAN_STAND_FISHING` | *Human*
-`WORLD_HUMAN_STAND_IMPATIENT` | *Human*
-`WORLD_HUMAN_STAND_IMPATIENT_CLUBHOUSE` | *Human*
-`WORLD_HUMAN_STAND_IMPATIENT_FACILITY` | *Human*
-`WORLD_HUMAN_STAND_IMPATIENT_UPRIGHT` | *Human*
-`WORLD_HUMAN_STAND_IMPATIENT_UPRIGHT_FACILITY` | *Human*
-`WORLD_HUMAN_STAND_MOBILE` | *Human*
-`WORLD_HUMAN_STAND_MOBILE_CLUBHOUSE` | *Human*
-`WORLD_HUMAN_STAND_MOBILE_FACILITY` | *Human*
-`WORLD_HUMAN_STAND_MOBILE_UPRIGHT` | *Human*
-`WORLD_HUMAN_STAND_MOBILE_UPRIGHT_CLUBHOUSE` | *Human*
-`WORLD_HUMAN_STRIP_WATCH_STAND` | *Human*
-`WORLD_HUMAN_STUPOR` | *Human*
-`WORLD_HUMAN_STUPOR_CLUBHOUSE` | *Human*
-`WORLD_HUMAN_SUNBATHE` | *Human*
-`WORLD_HUMAN_SUNBATHE_BACK` | *Human*
-`WORLD_HUMAN_SUPERHERO` | *Human*
-`WORLD_HUMAN_SWIMMING` | *Human*
-`WORLD_HUMAN_TENNIS_PLAYER` | *Human*
-`WORLD_HUMAN_TOURIST_MAP` | *Human*
-`WORLD_HUMAN_TOURIST_MOBILE` | *Human*
-`WORLD_HUMAN_VEHICLE_MECHANIC` | *Human*
-`WORLD_HUMAN_WELDING` | *Human*
-`WORLD_HUMAN_WINDOW_SHOP_BROWSE` | *Human*
-`WORLD_HUMAN_YOGA` | *Human*
-`PROP_HUMAN_ATM` | *Human*
-`PROP_HUMAN_BBQ` | *Human*
-`PROP_HUMAN_BUM_BIN` | *Human*
-`PROP_HUMAN_BUM_SHOPPING_CART` | *Human*
-`PROP_HUMAN_MUSCLE_CHIN_UPS` | *Human*
-`PROP_HUMAN_MUSCLE_CHIN_UPS_ARMY` | *Human*
-`PROP_HUMAN_MUSCLE_CHIN_UPS_PRISON` | *Human*
-`PROP_HUMAN_PARKING_METER` | *Human*
-`PROP_HUMAN_SEAT_ARMCHAIR` | *Human*
-`PROP_HUMAN_SEAT_BAR` | *Human*
-`PROP_HUMAN_SEAT_BENCH` | *Human*
-`PROP_HUMAN_SEAT_BENCH_FACILITY` | *Human*
-`PROP_HUMAN_SEAT_BENCH_DRINK` | *Human*
-`PROP_HUMAN_SEAT_BENCH_DRINK_FACILITY` | *Human*
-`PROP_HUMAN_SEAT_BENCH_DRINK_BEER` | *Human*
-`PROP_HUMAN_SEAT_BENCH_FOOD` | *Human*
-`PROP_HUMAN_SEAT_BENCH_FOOD_FACILITY` | *Human*
-`PROP_HUMAN_SEAT_BUS_STOP_WAIT` | *Human*
-`PROP_HUMAN_SEAT_CHAIR` | *Human*
-`PROP_HUMAN_SEAT_CHAIR_DRINK` | *Human*
-`PROP_HUMAN_SEAT_CHAIR_DRINK_BEER` | *Human*
-`PROP_HUMAN_SEAT_CHAIR_FOOD` | *Human*
-`PROP_HUMAN_SEAT_CHAIR_UPRIGHT` | *Human*
-`PROP_HUMAN_SEAT_CHAIR_MP_PLAYER` | *Human*
-`PROP_HUMAN_SEAT_COMPUTER` | *Human*
-`PROP_HUMAN_SEAT_COMPUTER_LOW` | *Human*
-`PROP_HUMAN_SEAT_DECKCHAIR` | *Human*
-`PROP_HUMAN_SEAT_DECKCHAIR_DRINK` | *Human*
-`PROP_HUMAN_SEAT_MUSCLE_BENCH_PRESS` | *Human*
-`PROP_HUMAN_SEAT_MUSCLE_BENCH_PRESS_PRISON` | *Human*
-`PROP_HUMAN_SEAT_SEWING` | *Human*
-`PROP_HUMAN_SEAT_STRIP_WATCH` | *Human*
-`PROP_HUMAN_SEAT_SUNLOUNGER` | *Human*
-`PROP_HUMAN_STAND_IMPATIENT` | *Human*
-`CODE_HUMAN_CROSS_ROAD_WAIT` | *Human*
-`CODE_HUMAN_MEDIC_KNEEL` | *Human*
-`CODE_HUMAN_MEDIC_TEND_TO_DEAD` | *Human*
-`CODE_HUMAN_MEDIC_TIME_OF_DEATH` | *Human*
-`CODE_HUMAN_POLICE_CROWD_CONTROL` | *Human*
-`CODE_HUMAN_POLICE_INVESTIGATE` | *Human*
-`EAR_TO_TEXT` | *Human*
-`EAR_TO_TEXT_FAT` | *Human*
---- | ---
-`WORLD_BOAR_GRAZING` | *Animal*
-`WORLD_CAT_SLEEPING_GROUND` | *Animal*
-`WORLD_CAT_SLEEPING_LEDGE` | *Animal*
-`WORLD_COW_GRAZING` | *Animal*
-`WORLD_COYOTE_HOWL` | *Animal*
-`WORLD_COYOTE_REST` | *Animal*
-`WORLD_COYOTE_WANDER` | *Animal*
-`WORLD_COYOTE_WALK` | *Animal*
-`WORLD_CHICKENHAWK_FEEDING` | *Animal*
-`WORLD_CHICKENHAWK_STANDING` | *Animal*
-`WORLD_CORMORANT_STANDING` | *Animal*
-`WORLD_CROW_FEEDING` | *Animal*
-`WORLD_CROW_STANDING` | *Animal*
-`WORLD_DEER_GRAZING` | *Animal*
-`WORLD_DOG_BARKING_ROTTWEILER` | *Animal*
-`WORLD_DOG_BARKING_RETRIEVER` | *Animal*
-`WORLD_DOG_BARKING_SHEPHERD` | *Animal*
-`WORLD_DOG_SITTING_ROTTWEILER` | *Animal*
-`WORLD_DOG_SITTING_RETRIEVER` | *Animal*
-`WORLD_DOG_SITTING_SHEPHERD` | *Animal*
-`WORLD_DOG_BARKING_SMALL` | *Animal*
-`WORLD_DOG_SITTING_SMALL` | *Animal*
-`WORLD_DOLPHIN_SWIM` | *Animal*
-`WORLD_FISH_FLEE` | *Animal*
-`WORLD_FISH_IDLE` | *Animal*
-`WORLD_GULL_FEEDING` | *Animal*
-`WORLD_GULL_STANDING` | *Animal*
-`WORLD_HEN_FLEE` | *Animal*
-`WORLD_HEN_PECKING` | *Animal*
-`WORLD_HEN_STANDING` | *Animal*
-`WORLD_MOUNTAIN_LION_REST` | *Animal*
-`WORLD_MOUNTAIN_LION_WANDER` | *Animal*
-`WORLD_ORCA_SWIM` | *Animal*
-`WORLD_PIG_GRAZING` | *Animal*
-`WORLD_PIGEON_FEEDING` | *Animal*
-`WORLD_PIGEON_STANDING` | *Animal*
-`WORLD_RABBIT_EATING` | *Animal*
-`WORLD_RABBIT_FLEE` | *Animal*
-`WORLD_RATS_EATING` | *Animal*
-`WORLD_RATS_FLEEING` | *Animal*
-`WORLD_SHARK_SWIM` | *Animal*
-`WORLD_SHARK_HAMMERHEAD_SWIM` | *Animal*
-`WORLD_STINGRAY_SWIM` | *Animal*
-
-```
-
-</details>
-
-
-```{r fig.align='left', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html'), fig.link=''}
-knitr::include_graphics('assets/scriptingGifs/scenarios5Peds.gif', dpi = NA)
-```
-
 
 ### Playing Sounds {-}
 
 We can control sounds from the game as well as playing external sound files. Here's an overview of a few different functions to can play speech recordings and audio from the GTA V audio bank, and a method to play a custom .wav file saved onside the "scripts" folder. 
 
-The native function ```_PLAY_AMBIENT_SPEECH1``` and ```_PLAY_AMBIENT_SPEECH2``` both do the same thing: they make the character say a few lines, with the voice of the character model, and with their relative mouth and body animations.
+
+PLAY AMBIENT SPEECHES
+
+The native function ```_PLAY_AMBIENT_SPEECH1``` and ```_PLAY_AMBIENT_SPEECH2``` both do the same thing: they make the character say a few lines, with the voice of the character model, and with their relative mouth and body animations. The speeches are, as the name suggest, ambient lines of dialogue that main characters and NPCs say throughout the game in different situations.
+
 ```_PLAY_AMBIENT_SPEECH1``` will take as parameters the Ped that is going to speak, a string of the speech name, the speech parameter string and an integer that is set to 1.
 
 Try to use the native function to make the player character say something from the ```"GENERIC_BYE"``` speech bank:
@@ -799,8 +915,10 @@ Try to use the native function to make the player character say something from t
 Function.Call(Hash._PLAY_AMBIENT_SPEECH1, Game.Player.Character, "GENERIC_BYE", "SPEECH_PARAMS_FORCE", 1);
 ```
 
+You will see that every time you use that function the character will say one possible variation ("bye", "later on", "bye now" if you use the character of Franklin) contained in the generic bye speech. If you change your character thespeech will change accordingly, although not every character has speech associated with them. For speech parameters, the easiest is to stick with "SPEECH_PARAMS_FORCE".
 
-Here you can find a list of all availabel  speech names.
+
+Here you can find a list of all available  speech names.
 
 
 <details>
@@ -817,6 +935,7 @@ CHAT_RESP
 CHAT_STATE
 COVER_ME
 COVER_YOU
+DODGE
 DYING_HELP
 DYING_MOAN
 FALL_BACK
@@ -921,127 +1040,60 @@ TAKE_COVER
 </details>
 
 
-<details>
-  <summary>List of speech parameters</summary>
+PLAY AMBIENT SPEECHES WITH A DIFFERENT VOICE
 
-
-```
- 
-Speech_Params_Standard
-Speech_Params_Allow_Repeat
-Speech_Params_Beat
-Speech_Params_Force
-Speech_Params_Force_Frontend
-Speech_Params_Force_No_Repeat_Frontend
-Speech_Params_Force_Normal
-Speech_Params_Force_Normal_Clear
-Speech_Params_Force_Normal_Critical
-Speech_Params_Force_Shouted
-Speech_Params_Force_Shouted_Clear
-Speech_Params_Force_Shouted_Critical
-Speech_Params_Force_Preload_Only
-Speech_Params_Megaphone
-Speech_Params_Heli
-Speech_Params_Force_Megaphone
-Speech_Params_Force_Heli
-Speech_Params_Interrupt
-Speech_Params_Interrupt_Shouted
-Speech_Params_Interrupt_Shouted_Clear
-Speech_Params_Interrupt_Shouted_Critical
-Speech_Params_Interrupt_No_Force
-Speech_Params_Interrupt_Frontend
-Speech_Params_Interrupt_No_Force_Frontend
-Speech_Params_Add_Blip
-Speech_Params_Add_Blip_Allow_Repeat
-Speech_Params_Add_Blip_Force
-Speech_Params_Add_Blip_Shouted
-Speech_Params_Add_Blip_Shouted_Force
-Speech_Params_Add_Blip_Interrupt
-Speech_Params_Add_Blip_Interrupt_Force
-Speech_Params_Force_Preload_Only_Shouted
-Speech_Params_Force_Preload_Only_Shouted_Clear
-Speech_Params_Force_Preload_Only_Shouted_Critical
-Speech_Params_Shouted
-Speech_Params_Shouted_Clear
-Speech_Params_Shouted_Critical
-
- 
-// speechName	speechParam
-Apology_No_Trouble	Speech_Params_Force_Shouted_Critical
-Blocked_Generic	Speech_Params_Force_Shouted_Critical
-Chat_Resp	Speech_Params_Force
-Chat_State	Speech_Params_Force
-Fall_Back	Speech_Params_Force_Shouted_Critical
-Generic_Curse_High	Speech_Params_Force_Shouted_Critical
-Generic_Curse_Med	Speech_Params_Force_Shouted_Critical
-Generic_Fuck_You	Speech_Params_Force
-Generic_Frightened_High	Speech_Params_Force_Shouted_Critical
-Generic_Frightened_Med	Speech_Params_Force_Shouted_Critical
-Generic_Hi	Speech_Params_Force
-Generic_Hows_It_Going	Speech_Params_Force
-Generic_Insult_High	Speech_Params_Force
-Generic_Insult_Med	Speech_Params_Force
-Generic_Shocked_High	Speech_Params_Force
-Generic_Shocked_Med	Speech_Params_Force_Shouted_Critical
-Generic_Thanks	Speech_Params_Force_Shouted_Critical
-Hooker_Car_Incorrect	Speech_Params_Force_Shouted_Clear
-Hooker_Decline_Service	Speech_Params_Force_Shouted_Clear
-Hooker_Declined	Speech_Params_Force_Shouted_Clear
-Hooker_Declined_Trevor	Speech_Params_Force_Shouted_Clear
-Hooker_Had_Enough	Speech_Params_Force_Shouted_Clear
-Hooker_Leaves_Angry	Speech_Params_Force_Shouted_Clear
-Hooker_Offer_Again	Speech_Params_Force_Shouted_Clear
-Hooker_Offer_Service	Speech_Params_Force_Shouted_Clear
-Hooker_Request	Speech_Params_Force_Shouted_Clear
-Hooker_Secluded	Speech_Params_Force_Shouted_Clear
-Hooker_Story_Revulsion_Resp	Speech_Params_Force_Shouted_Clear
-Hooker_Story_Sarcastic_Resp	Speech_Params_Force_Shouted_Clear;
-Hooker_Story_Sympathetic_Resp	Speech_Params_Force_Shouted_Clear
-Provoke_Trespass	Speech_Params_Force_Shouted_Critical
-Rollercoaster_Chat_Excited	Speech_Params_Force_Frontend
-Rollercoaster_Chat_Normal	Speech_Params_Force_Frontend
-Sex_Climax	Speech_Params_Force_Shouted_Clear
-Sex_Finished	Speech_Params_Force_Shouted_Clear
-Sex_Generic	Speech_Params_Force_Normal_Clear
-Sex_Generic_Fem	Speech_Params_Force_Shouted_Clear
-Sex_Oral	Speech_Params_Force_Shouted_Clear
-Sex_Oral_Fem	Speech_Params_Force_Shouted_Clear
-Shout_Threaten_Gang	Speech_Params_Force_Shouted_Critical
-Shout_Threaten_Ped	Speech_Params_Force_Shouted_Critical
-Solicit_Franklin	Speech_Params_Force_Shouted_Clear
-Solicit_Franklin_Return	Speech_Params_Force_Shouted_Clear
-Solicit_Michael	Speech_Params_Force_Shouted_Clear
-Solicit_Michael_Return	Speech_Params_Force_Shouted_Clear
-Solicit_Trevor	Speech_Params_Force_Shouted_Clear
-Solicit_Trevor_Return	Speech_Params_Force_Shouted_Clear
-Stay_Down	Speech_Params_Force
-
-```
-
-</details>
-
+We can also play an ambient speech with a different voice from the one of the character we are using. The function ```_PLAY_AMBIENT_SPEECH_WITH_VOICE``` takes as parameter the Ped that will speak, the speech ID, the speech voice model and speech parameters.
 
 
 ```cs
-Function.Call(Hash._PLAY_AMBIENT_SPEECH_WITH_VOICE, Game.Player.Character, "DODGE", "a_f_y_beach_01_white_full_01", "Speech_Params_Standard", 0);
+ Function.Call(Hash._PLAY_AMBIENT_SPEECH_WITH_VOICE, Game.Player.Character, "GENERIC_BYE", "A_F_M_BEVHILLS_01_WHITE_FULL_01", "SPEECH_PARAMS_FORCE", 1);
 ```
 
 ```cs
+Function.Call(Hash._PLAY_AMBIENT_SPEECH_WITH_VOICE, Game.Player.Character, "GENERIC_BYE", "A_F_M_BEACH_01_WHITE_FULL_01", "SPEECH_PARAMS_FORCE", 1);
+```
+
+Not every speech model has all the recorded ambient speech, so we must try and see what works and what doesn't.
+
+
+
+PLAY PAIN SOUNDS
+
+Apart from ambient speech, we can also play "pain" sounds. The native function ```PLAY_PAIN``` contains different kind of screams that can be played. Depending on the model, the screams will be more likely an integer of value 6, 7 or 8. Try to mess with the code find out what kind of screams can be played. Not for the faint of heart:
+
+```cs
+Function.Call(Hash.PLAY_PAIN, Game.Player.Character, 6, 0, 0);
+```
+
+
+PLAY SOUND FILES FROM GTA V SOUND BANK
+
+We can also play a sound file from an audio bank of GTA V sound files. To do that we first load the audio bank, then we use the native function ```PLAY_SOUND_FROM_ENTITY```, specify the audio file name, the character and the audio reference.
+
+```cs
+//load the audio bank
 while (!Function.Call<bool>(Hash.REQUEST_SCRIPT_AUDIO_BANK, "Michael_2_Acid_Bath", 0, -1)){ Wait(100);}            
+//play the audio file
 Function.Call(Hash.PLAY_SOUND_FROM_ENTITY, -1, "ACID_BATH_FALL", Game.Player.Character, "MICHAEL_2_SOUNDS", 0, 0);
 ```
 
-```cs
-//add this on top: 
-using System.Media;
 
-//Or better instantiate global variable
+PLAY EXTERNAL SOUND FILES
+
+Finally we can play an external sound file by using the ```SoundPlayer``` object. ```SoundPlayer``` is simple but limited and only accepts .wav files. To use it, first add ```using System.Media``` at the very top of your code, to import the reference.
+
+Create a new player as a global variable and load the file
+```cs
 SoundPlayer player = new SoundPlayer("./scripts/Eran_N.wav");
-//and on key press
 player.Load();
+```
+
+And on key press you can use play and stop to control playback
+```cs
+//play
 player.Play();
 
-//on another key we can stop the plaback
+//stop
 player.Stop()
 ```
 
