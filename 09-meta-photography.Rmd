@@ -770,8 +770,12 @@ knitr::include_graphics('assets/scriptingGifs/photobot.gif', dpi = NA)
 
 
 ### FiveM {–}
-//start a server
 
 //join a server
++ Go to fivem.net and download the client application.
+
+//start a server
+
+
 
 ## Content Replication Assignment {-}

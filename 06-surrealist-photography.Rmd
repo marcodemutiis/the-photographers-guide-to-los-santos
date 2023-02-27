@@ -1065,6 +1065,12 @@ Apart from ambient speech, we can also play "pain" sounds. The native function `
 Function.Call(Hash.PLAY_PAIN, Game.Player.Character, 6, 0, 0);
 ```
 
+You can disable and enable these sounds for each character using the native ```DISABLE_PED_PAIN_AUDIO``` and setting it to true or false:
+
+```cs
+Function.Call(Hash.DISABLE_PED_PAIN_AUDIO,Game.Player.Character , true);
+```
+
 
 PLAY SOUND FILES FROM GTA V SOUND BANK
 
