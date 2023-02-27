@@ -212,7 +212,8 @@ The player character is controlled as ```Game.Player```. ```Game.Player``` can p
 
 Change the 3D model of your character by using the ```ChangeModel``` function.
 The function needs a model ID, in order to load the model file of our game character.
-You can browse through this list of models to find the one you want to try (note: not all models seem to load properly):  [wiki.gtanet.work/index.php/Peds](https://wiki.gtanet.work/index.php/Peds)  
+You can browse through [this list of models](https://gtahash.ru/skins/) to find the one you want to try (note: not all models seem to load properly).
+
 
 ```{r fig.align='left', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html'), fig.link='https://wiki.gtanet.work/index.php/Peds'}
 knitr::include_graphics('assets/peds.png', dpi = NA)
