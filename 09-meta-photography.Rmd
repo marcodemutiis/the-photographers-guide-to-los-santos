@@ -772,10 +772,20 @@ knitr::include_graphics('assets/scriptingGifs/photobot.gif', dpi = NA)
 ### FiveM {–}
 
 //join a server
-+ Go to fivem.net and download the client application.
++ Go to [fivem.net](https://fivem.net/) and download the client application.
+
++ Run FiveM.exe. If you run the installer in an empty folder, FiveM will install there. Otherwise, it will install in ```%localappdata%\FiveM```.
+
++ Start FiveM from your Windows start menu.
+
++ Click on Play and choose a Server to connect to
+
+
 
 //start a server
 
+video test
+![](https://youtu.be/zNzZ1PfUDNk){width="560" height="315"}
 
 
 ## Content Replication Assignment {-}
