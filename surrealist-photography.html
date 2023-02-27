@@ -1134,23 +1134,25 @@ TAKE_COVER
 <p>PLAY PAIN SOUNDS</p>
 <p>Apart from ambient speech, we can also play “pain” sounds. The native function <code>PLAY_PAIN</code> contains different kind of screams that can be played. Depending on the model, the screams will be more likely an integer of value 6, 7 or 8. Try to mess with the code find out what kind of screams can be played. Not for the faint of heart:</p>
 <div class="sourceCode" id="cb54"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb54-1"><a href="surrealist-photography.html#cb54-1"></a>Function.<span class="fu">Call</span>(Hash.<span class="fu">PLAY_PAIN</span>, Game.<span class="fu">Player</span>.<span class="fu">Character</span>, <span class="dv">6</span>, <span class="dv">0</span>, <span class="dv">0</span>);</span></code></pre></div>
+<p>You can disable and enable these sounds for each character using the native <code>DISABLE_PED_PAIN_AUDIO</code> and setting it to true or false:</p>
+<div class="sourceCode" id="cb55"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb55-1"><a href="surrealist-photography.html#cb55-1"></a>Function.<span class="fu">Call</span>(Hash.<span class="fu">DISABLE_PED_PAIN_AUDIO</span>,Game.<span class="fu">Player</span>.<span class="fu">Character</span> , <span class="kw">true</span>);</span></code></pre></div>
 <p>PLAY SOUND FILES FROM GTA V SOUND BANK</p>
 <p>We can also play a sound file from an audio bank of GTA V sound files. To do that we first load the audio bank, then we use the native function <code>PLAY_SOUND_FROM_ENTITY</code>, specify the audio file name, the character and the audio reference.</p>
-<div class="sourceCode" id="cb55"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb55-1"><a href="surrealist-photography.html#cb55-1"></a><span class="co">//load the audio bank</span></span>
-<span id="cb55-2"><a href="surrealist-photography.html#cb55-2"></a><span class="kw">while</span> (!Function.<span class="fu">Call</span>&lt;<span class="dt">bool</span>&gt;(Hash.<span class="fu">REQUEST_SCRIPT_AUDIO_BANK</span>, <span class="st">&quot;Michael_2_Acid_Bath&quot;</span>, <span class="dv">0</span>, <span class="dv">-1</span>)){ <span class="fu">Wait</span>(<span class="dv">100</span>);}            </span>
-<span id="cb55-3"><a href="surrealist-photography.html#cb55-3"></a><span class="co">//play the audio file</span></span>
-<span id="cb55-4"><a href="surrealist-photography.html#cb55-4"></a>Function.<span class="fu">Call</span>(Hash.<span class="fu">PLAY_SOUND_FROM_ENTITY</span>, <span class="dv">-1</span>, <span class="st">&quot;ACID_BATH_FALL&quot;</span>, Game.<span class="fu">Player</span>.<span class="fu">Character</span>, <span class="st">&quot;MICHAEL_2_SOUNDS&quot;</span>, <span class="dv">0</span>, <span class="dv">0</span>);</span></code></pre></div>
+<div class="sourceCode" id="cb56"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb56-1"><a href="surrealist-photography.html#cb56-1"></a><span class="co">//load the audio bank</span></span>
+<span id="cb56-2"><a href="surrealist-photography.html#cb56-2"></a><span class="kw">while</span> (!Function.<span class="fu">Call</span>&lt;<span class="dt">bool</span>&gt;(Hash.<span class="fu">REQUEST_SCRIPT_AUDIO_BANK</span>, <span class="st">&quot;Michael_2_Acid_Bath&quot;</span>, <span class="dv">0</span>, <span class="dv">-1</span>)){ <span class="fu">Wait</span>(<span class="dv">100</span>);}            </span>
+<span id="cb56-3"><a href="surrealist-photography.html#cb56-3"></a><span class="co">//play the audio file</span></span>
+<span id="cb56-4"><a href="surrealist-photography.html#cb56-4"></a>Function.<span class="fu">Call</span>(Hash.<span class="fu">PLAY_SOUND_FROM_ENTITY</span>, <span class="dv">-1</span>, <span class="st">&quot;ACID_BATH_FALL&quot;</span>, Game.<span class="fu">Player</span>.<span class="fu">Character</span>, <span class="st">&quot;MICHAEL_2_SOUNDS&quot;</span>, <span class="dv">0</span>, <span class="dv">0</span>);</span></code></pre></div>
 <p>PLAY EXTERNAL SOUND FILES</p>
 <p>Finally we can play an external sound file by using the <code>SoundPlayer</code> object. <code>SoundPlayer</code> is simple but limited and only accepts .wav files. To use it, first add <code>using System.Media</code> at the very top of your code, to import the reference.</p>
 <p>Create a new player as a global variable and load the file</p>
-<div class="sourceCode" id="cb56"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb56-1"><a href="surrealist-photography.html#cb56-1"></a>SoundPlayer player = <span class="kw">new</span> <span class="fu">SoundPlayer</span>(<span class="st">&quot;./scripts/Eran_N.wav&quot;</span>);</span>
-<span id="cb56-2"><a href="surrealist-photography.html#cb56-2"></a>player.<span class="fu">Load</span>();</span></code></pre></div>
+<div class="sourceCode" id="cb57"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb57-1"><a href="surrealist-photography.html#cb57-1"></a>SoundPlayer player = <span class="kw">new</span> <span class="fu">SoundPlayer</span>(<span class="st">&quot;./scripts/Eran_N.wav&quot;</span>);</span>
+<span id="cb57-2"><a href="surrealist-photography.html#cb57-2"></a>player.<span class="fu">Load</span>();</span></code></pre></div>
 <p>And on key press you can use play and stop to control playback</p>
-<div class="sourceCode" id="cb57"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb57-1"><a href="surrealist-photography.html#cb57-1"></a><span class="co">//play</span></span>
-<span id="cb57-2"><a href="surrealist-photography.html#cb57-2"></a>player.<span class="fu">Play</span>();</span>
-<span id="cb57-3"><a href="surrealist-photography.html#cb57-3"></a></span>
-<span id="cb57-4"><a href="surrealist-photography.html#cb57-4"></a><span class="co">//stop</span></span>
-<span id="cb57-5"><a href="surrealist-photography.html#cb57-5"></a>player.<span class="fu">Stop</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb58"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb58-1"><a href="surrealist-photography.html#cb58-1"></a><span class="co">//play</span></span>
+<span id="cb58-2"><a href="surrealist-photography.html#cb58-2"></a>player.<span class="fu">Play</span>();</span>
+<span id="cb58-3"><a href="surrealist-photography.html#cb58-3"></a></span>
+<span id="cb58-4"><a href="surrealist-photography.html#cb58-4"></a><span class="co">//stop</span></span>
+<span id="cb58-5"><a href="surrealist-photography.html#cb58-5"></a>player.<span class="fu">Stop</span>()</span></code></pre></div>
 </div>
 <div id="teleporting" class="section level3 unnumbered hasAnchor">
 <h3>Teleporting<a href="surrealist-photography.html#teleporting" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -1160,11 +1162,11 @@ We need to know the exact coordinates of the locations we want to teleport to, b
 COORDINATES: X:450.718 Y:5566.614 Z:806.183</code></pre>
 <p>To create a teleport function we will use a native function. Script Hook V Dot Net is a wrapper for the C++ ScriptHook, calling the functions in Scripthook to do things in the game. However, there are some functions that are not in Script Hook V Dot Net and in order to use these, we have to use the native calling from Script Hook.</p>
 <p><a href="https://nitanmarcel.github.io/shvdn-docs.github.io/namespace_g_t_a_1_1_native.html#a84977424e1cb7b6f1c2902770bf9ad2d">Native functions</a> are called with <code>Function.Call</code> followed by their corresponding hash name and parameters. They use this structure:</p>
-<div class="sourceCode" id="cb59"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb59-1"><a href="surrealist-photography.html#cb59-1"></a>Function.<span class="fu">Call</span>(Hash.<span class="fu">HASH_NAME</span>, input_params);</span></code></pre></div>
+<div class="sourceCode" id="cb60"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb60-1"><a href="surrealist-photography.html#cb60-1"></a>Function.<span class="fu">Call</span>(Hash.<span class="fu">HASH_NAME</span>, input_params);</span></code></pre></div>
 <p>The native function for teleporting expects the hash <code>SET_ENTITY_COORDS</code>, the <code>ped</code> entity to teleport, and the X, Y and Z coordinates to teleport the character to. <code>Function.Call(Hash.SET_ENTITY_COORDS, Ped ped, X, Y, Z, 0, 0, 1);</code></p>
 <p>The function to teleport the player character to the top of Moutn Chiliad is:</p>
-<div class="sourceCode" id="cb60"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb60-1"><a href="surrealist-photography.html#cb60-1"></a><span class="co">//Teleport to the top of Mount Chiliad</span></span>
-<span id="cb60-2"><a href="surrealist-photography.html#cb60-2"></a>Function.<span class="fu">Call</span>(Hash.<span class="fu">SET_ENTITY_COORDS</span>, Game.<span class="fu">Player</span>.<span class="fu">Character</span>, <span class="fl">450.718f</span>, <span class="fl">5566.614f</span>, <span class="fl">806.183f</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>);</span></code></pre></div>
+<div class="sourceCode" id="cb61"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb61-1"><a href="surrealist-photography.html#cb61-1"></a><span class="co">//Teleport to the top of Mount Chiliad</span></span>
+<span id="cb61-2"><a href="surrealist-photography.html#cb61-2"></a>Function.<span class="fu">Call</span>(Hash.<span class="fu">SET_ENTITY_COORDS</span>, Game.<span class="fu">Player</span>.<span class="fu">Character</span>, <span class="fl">450.718f</span>, <span class="fl">5566.614f</span>, <span class="fl">806.183f</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>);</span></code></pre></div>
 <p>See this <a href="https://gtaforums.com/topic/792877-list-of-over-100-coordinates-more-comming/">list of locations</a> to find their respective coordinates or click on the list below</p>
 <details>
 <p><summary>List of Locations with Coordinates</summary></p>

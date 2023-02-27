@@ -1946,6 +1946,14 @@ Apart from ambient speech, we can also play ``pain'' sounds. The native function
 \end{Highlighting}
 \end{Shaded}
 
+You can disable and enable these sounds for each character using the native \texttt{DISABLE\_PED\_PAIN\_AUDIO} and setting it to true or false:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{Function.}\FunctionTok{Call}\NormalTok{(Hash.}\FunctionTok{DISABLE_PED_PAIN_AUDIO}\NormalTok{,Game.}\FunctionTok{Player}\NormalTok{.}\FunctionTok{Character}\NormalTok{ , }\KeywordTok{true}\NormalTok{);}
+\end{Highlighting}
+\end{Shaded}
+
 PLAY SOUND FILES FROM GTA V SOUND BANK
 
 We can also play a sound file from an audio bank of GTA V sound files. To do that we first load the audio bank, then we use the native function \texttt{PLAY\_SOUND\_FROM\_ENTITY}, specify the audio file name, the character and the audio reference.
@@ -4027,9 +4035,10 @@ GTA V Photographer Bot Script
 \hypertarget{fivem}{%
 \subsection{FiveM \{--\}}\label{fivem}}
 
-//start a server
-
 //join a server
++ Go to fivem.net and download the client application.
+
+//start a server
 
 \hypertarget{content-replication-assignment-7}{%
 \section*{Content Replication Assignment}\label{content-replication-assignment-7}}
