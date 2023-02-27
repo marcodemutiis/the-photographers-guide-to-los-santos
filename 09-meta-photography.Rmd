@@ -769,9 +769,10 @@ knitr::include_graphics('assets/scriptingGifs/photobot.gif', dpi = NA)
 ```
 
 
-### FiveM {–}
+### FiveM {-}
 
-//join a server
+FiveM is a modification for Grand Theft Auto V that enables people to play multiplayer on customized dedicated servers.
+
 + Go to [fivem.net](https://fivem.net/) and download the client application.
 
 + Run FiveM.exe. If you run the installer in an empty folder, FiveM will install there. Otherwise, it will install in ```%localappdata%\FiveM```.
