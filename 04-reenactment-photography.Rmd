@@ -71,6 +71,82 @@ artwork text
 
 ## Tutorial {-}
 
-### Scene Director Mode {-}
+### Director Mode {-}
+
+//Director Mode allows players to interact with GTA V as a movie set where one can customize the character appearance, weather conditions, vehicle and pedestrian density, and much more.
+It was first introduced in the PC version of the game with the Rockstar Editor, and later added to the console title in 2015.
+
+
+//There are 3 ways to access Director Mode:
+
+//1. Press the ```UP Arrow Key``` to take out the in-game smartphone and dial ```1999578253``` to activate ```Director Mode```. 
+//2. On the game pause menu go to ```Rockstar Editor``` tab (last tab on the right) and select ```Director Mode``` 
+//3. press ```M``` key on PC to bring up the ```Interaction Menu``` and select ```Director Mode```
+
+//Note: Director Mode is unavailable when player is in a vehicle, wanted, or active in a mission)
+
+//Once activated, the game will open up the main Director Mode scene showing a casting trailer with a menu from which the player can choose from the following options: 
+
++ Actors				Animals, Beach, Bums, Costumes, Downtown, Emergency, Services, Gangs, Heist Characters, Laborers, Military, Online Characters, Professionals, Special Characters, Sports, Story Characters, Transport, Uptown, Vagrants				
++ Time of Day 			Midnight, Pre-Dawn, Dawn, Morning, Midday, Afternoon, Sunset, Dusk
++ Weather				Clear, Broken, Cloud, Overcast, Hazy, Xmas (snow), Smog, Fog, Rain, Thunder
++ Wanted Status			Normal, Low, Medium, High, Disabled
++ Pedestrian Density	Normal, Low, Medium, High, None
++ Vehicle Density		Normal, Low, Medium, High, None
++ Restricted Areas		On/Off
++ Invincibility			On/Off
++ Flaming Bullets		On/Off
++ Explosive Bullets		On/Off
++ Explosive Melee		On/Off
++ Super Jump			On/Off
++ Slidey Cars 			On/Off
++ Low Gravity			On/Off
++ Clear Area 			On/Off
+
+
+Once you have selected your actors and scene setup, go to ```Enter Director Mode``` to launch the actor into the map. Note: first person view is only available if the three protagonists characters are chosen.
+
+There are two ways of to capture gameplay: ```Manual Recording``` and ```Action Replay```.
+
+MANUAL RECORDING
+Hold ```ALT + F1``` for ```Manual Recording```. Gameplay will be recorded in the background until you press ```LEFT ALT + F1``` to save the recording or ```LEFT ALT + F3``` to cancel the recording.
+
+ACTION REPLAY
+This option records gameplay footage after the fact. Press ```F2``` to buffer recorded data in the background, but note it will not record anything until you press ```ALT + F1``` to save action replay.
+
+Recorded clips will be between 30 and 90s seconds in length, depending on how busy your action is. You will be notified if you are running out of space on your hard drive and you can define the amount of hard drive space you use for the Rockstar Editor by going to Pause Menu > Settings > Rockstar Editor.
+
+
+
+### Rockstar Editor {-}
+
+On the game pause menu go to ```Rockstar Editor``` tab (last tab on the right) and choose ```Create New Project```. Then select ```Add Clip``` to select the footage you want to use. 
+
+Recordings will be placed in a timeline: you can scroll through each clip using ```LEFT CTRL + X``` or ```Mouse Click``` and ```Drag``` them. 
+Delete a clip using ```DEL```, duplicate a clip with ```LEFT CTRL + C```, or use the ```Mouse Wheel``` to scroll through the timeline.
+
+```Double Click``` on a clip or press ```ENTER``` to begin editing it.
+
+You can change camera angles, effects, speed etc using these. You can scrub through the clip footage using the ```LEFT Arrow Key``` and ```RIGHT Arrow Key``` or the ```Mouse Wheel```. 
+
+The Camera function allows players to position and control the game camera more freely, with less restrictions than the camera options in game play. There is an exception 
+You cannot change camera angle for any clips that have been captured in first-person mode. If there are any other camera restrictions, you'll see a notification on screen. Aside from that, you're generally free to toy with three different camera settings.
+
+Game Camera – This is your default third-person camera view filmed from behind the main character.
+Pre-set Camera angles – These are simple pres-set camera angles that lock the view at the front, behind, sides or above the main character. You can zoom in an out from these.
+Free Camera – with Free Camera you can place the camera within a defined area but freely around your main character. Don't try and get too cocky with this, but experiment. You can lock the camera in position to create a smooth panning effect.
+
+
+
+
+Note: gameplay in first-person perspective cannot have camera edits made in the editor, and certain Story Mode missions and Random Events will not allow recording at all.
+
+### Scene Director Mod {-}
+
+//installation and setup
+
+//setup mode (set the scene)
+
+//active mode (record scene)
 
 ## Content Replication Assignment {-}
