@@ -87,39 +87,25 @@ Note: Director Mode is unavailable when player is in a vehicle, wanted, or activ
 Once activated, the game will open up the main Director Mode scene showing a casting trailer with a menu from which the player can choose from the following options: 
 
 
-| Syntax      | Description |
+
 | ----------- | ----------- |
 | Actors      | Animals, Beach, Bums, Costumes, Downtown, Emergency, Services, Gangs, Heist Characters, Laborers, Military, Online Characters, Professionals, Special Characters, Sports, Story Characters, Transport, Uptown, Vagrants	|
 | Time of Day | Midnight, Pre-Dawn, Dawn, Morning, Midday, Afternoon, Sunset, Dusk        |
 | Weather | Clear, Broken, Cloud, Overcast, Hazy, Xmas (snow), Smog, Fog, Rain, Thunder   |
 | Wanted Status| Normal, Low, Medium, High, Disabled        |
-| Time of Day | Text        |
-| Time of Day | Text        |
-| Time of Day | Text        |
-| Time of Day | Text        |
-| Time of Day | Text        |
-| Time of Day | Text        |
-| Time of Day | Text        |
-| Time of Day | Text        |
-| Time of Day | Text        |
-| Time of Day | Text        |
-| Time of Day | Text        |
-
-+ Actors:				Animals, Beach, Bums, Costumes, Downtown, Emergency, Services, Gangs, Heist Characters, Laborers, Military, Online Characters, Professionals, Special Characters, Sports, Story Characters, Transport, Uptown, Vagrants				
-+ Time of Day: 			Midnight, Pre-Dawn, Dawn, Morning, Midday, Afternoon, Sunset, Dusk
-+ Weather:				Clear, Broken, Cloud, Overcast, Hazy, Xmas (snow), Smog, Fog, Rain, Thunder
-+ Wanted Status:		Normal, Low, Medium, High, Disabled
-+ Pedestrian Density:	Normal, Low, Medium, High, None
-+ Vehicle Density:		Normal, Low, Medium, High, None
-+ Restricted Areas:		On/Off
-+ Invincibility:		On/Off
-+ Flaming Bullets:		On/Off
-+ Explosive Bullets:	On/Off
-+ Explosive Melee:		On/Off
-+ Super Jump:			On/Off
-+ Slidey Cars: 			On/Off
-+ Low Gravity:			On/Off
-+ Clear Area:			On/Off
+| Pedestrian Density | Normal, Low, Medium, High, None        |
+| Vehicle Density | Normal, Low, Medium, High, None        |
+| Restricted Areas | On/Off        |
+| Invincibility | On/Off        |
+| Flaming Bullets | On/Off        |
+| Explosive Bullets | On/Off        |
+| Explosive Melee | On/Off        |
+| Super Jump | On/Off        |
+| Explosive Bullets | On/Off        |
+| Super Jump | On/Off        |
+| Slidey Cars | On/Off        |
+| Low Gravity | On/Off        |
+| Clear Area | On/Off        |
 
 Once you have selected your actors and scene setup, go to ```Enter Director Mode``` to launch the actor into the map. Note: first person view is only available if the three protagonists characters are chosen.
 
