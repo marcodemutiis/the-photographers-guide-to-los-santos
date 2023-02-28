@@ -28,7 +28,6 @@ knitr::include_graphics('assets/maps/gas_stations_locations.png', dpi = NA)
 + [Xero Gas Station, Great Ocean Hwy, Pacific Bluffs](https://grandtheftdata.com/landmarks/#-1543.17,-676.107,4,atlas,name=gas_station,Xero_Gas_Station,_Great_Ocean_Hwy,_Pacific_Bluffs)
 
 
-
 ## _A Study on Perspective_ by Roc Herms {-}
 ```{r fig.align='center', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html')}
 knitr::include_graphics('assets/Grand-Theft-Auto-V_20141220025147-1280x720.jpeg', dpi = NA)
@@ -103,8 +102,17 @@ It was first introduced in the PC version of the game with the Rockstar Editor, 
 + Low Gravity			On/Off
 + Clear Area 			On/Off
 
-
 Once you have selected your actors and scene setup, go to ```Enter Director Mode``` to launch the actor into the map. Note: first person view is only available if the three protagonists characters are chosen.
+
+
+### Scene Creator {-}
+
+Scene Creator is a functoin within Director Mode that allows players to place props, and save the created designs and layouts.
+
+When in ```Director Mode``` press the ```M``` key on PC to bring up the ```Interaction Menu``` and select Director Mode > Scene Creator > Props > Rocks and Trees. Try choosing some trees and place them in the scene.
+
+
+### Capturing Gameplay {-}
 
 There are two ways of to capture gameplay: ```Manual Recording``` and ```Action Replay```.
 
@@ -115,7 +123,6 @@ ACTION REPLAY
 This option records gameplay footage after the fact. Press ```F2``` to buffer recorded data in the background, but note it will not record anything until you press ```ALT + F1``` to save action replay.
 
 Recorded clips will be between 30 and 90s seconds in length, depending on how busy your action is. You will be notified if you are running out of space on your hard drive and you can define the amount of hard drive space you use for the Rockstar Editor by going to Pause Menu > Settings > Rockstar Editor.
-
 
 
 ### Rockstar Editor {-}
@@ -129,17 +136,24 @@ Delete a clip using ```DEL```, duplicate a clip with ```LEFT CTRL + C```, or use
 
 You can change camera angles, effects, speed etc using these. You can scrub through the clip footage using the ```LEFT Arrow Key``` and ```RIGHT Arrow Key``` or the ```Mouse Wheel```. 
 
-The Camera function allows players to position and control the game camera more freely, with less restrictions than the camera options in game play. There is an exception 
-You cannot change camera angle for any clips that have been captured in first-person mode. If there are any other camera restrictions, you'll see a notification on screen. Aside from that, you're generally free to toy with three different camera settings.
+The Camera function allows players to position and control the game camera more freely, with less restrictions than the camera options in game play. There is an exception for gameplay footage captured in first-person perspective: here you cannot change camera angle. If there are any other camera restrictions, you'll see a notification on screen. Aside from that, three different camera settings are available in ROckstar Editor:
 
-Game Camera – This is your default third-person camera view filmed from behind the main character.
-Pre-set Camera angles – These are simple pres-set camera angles that lock the view at the front, behind, sides or above the main character. You can zoom in an out from these.
-Free Camera – with Free Camera you can place the camera within a defined area but freely around your main character. Don't try and get too cocky with this, but experiment. You can lock the camera in position to create a smooth panning effect.
+1. ```Game Camera```  
+This is the default third-person camera view filmed from behind the main character.
+
+2. ```Pre-set Camera angles```
+These are pres-set camera angles that lock the view at the front, behind, sides or above the main character. You can zoom in an out from these.
+
+3. ```Free Camera``` 
+The Free Camera can be placed within a defined area but freely around your main character.
 
 
+Press ```F5``` to save your project.
 
+Export a picture by pressing 
 
-Note: gameplay in first-person perspective cannot have camera edits made in the editor, and certain Story Mode missions and Random Events will not allow recording at all.
+Export your video using the Export option on the Project Main Menu. Here you can set frame rate and bit rate. The video will appear in the Video Gallery inside the Rockstar Editor main menu. From there you can view it and upload it to either YouTube or the Rockstar Social club.
+
 
 ### Scene Director Mod {-}
 
