@@ -87,11 +87,11 @@ Note: Director Mode is unavailable when player is in a vehicle, wanted, or activ
 Once activated, the game will open up the main Director Mode scene showing a casting trailer with a menu from which the player can choose from the following options: 
 
 
-
-| ----------- | ----------- |
-| Actors      | Animals, Beach, Bums, Costumes, Downtown, Emergency, Services, Gangs, Heist Characters, Laborers, Military, Online Characters, Professionals, Special Characters, Sports, Story Characters, Transport, Uptown, Vagrants	|
-| Time of Day | Midnight, Pre-Dawn, Dawn, Morning, Midday, Afternoon, Sunset, Dusk        |
-| Weather | Clear, Broken, Cloud, Overcast, Hazy, Xmas (snow), Smog, Fog, Rain, Thunder   |
+| Menu Item    | Values |
+| -----------  | ----------- |
+| Actors       | Animals, Beach, Bums, Costumes, Downtown, Emergency, Services, Gangs, Heist Characters, Laborers, Military, Online Characters, Professionals, Special Characters, Sports, Story Characters, Transport, Uptown, Vagrants	|
+| Time of Day  | Midnight, Pre-Dawn, Dawn, Morning, Midday, Afternoon, Sunset, Dusk        |
+| Weather 	   | Clear, Broken, Cloud, Overcast, Hazy, Xmas (snow), Smog, Fog, Rain, Thunder   |
 | Wanted Status| Normal, Low, Medium, High, Disabled        |
 | Pedestrian Density | Normal, Low, Medium, High, None        |
 | Vehicle Density | Normal, Low, Medium, High, None        |
