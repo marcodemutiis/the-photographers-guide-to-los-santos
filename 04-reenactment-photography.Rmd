@@ -46,24 +46,9 @@ knitr::include_graphics('assets/maps/vinewoodSign.png', dpi = NA)
 
 ## Further references {-}
 
-### _Little Books of Los Santos_ by Luke Caspar Pearson {-}
-```{r fig.align='center', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html')}
-knitr::include_graphics('assets/littlebooksoflossantos.jpeg', dpi = NA)
-```
+[_Little Books of Los Santos_ by Luke Caspar Pearson](https://www.alephograph.com/little-books-of-los-santos)
 
-artwork text
-
-[More about _Little Books of Los Santos_](https://www.alephograph.com/little-books-of-los-santos)
-
-
-### _26 Gasoline stations in GTA V_ by M. Earl Williams {-} 
-```{r fig.align='center', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html')}
-knitr::include_graphics('assets/MEarlWilliams.png', dpi = NA)
-```
-
-artwork text
-
-[More about _26 Gasoline stations in GTA V_](https://www.mearlwilliams.com/gasoline_stations#1)
+[More about _26 Gasoline stations in GTA V_ by M. Earl Williams](https://www.mearlwilliams.com/gasoline_stations#1)
 
 
 ## Readings {-}
