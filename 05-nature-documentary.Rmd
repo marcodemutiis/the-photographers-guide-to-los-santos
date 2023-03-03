@@ -4,7 +4,7 @@
 
 
 ## _Grand Theft Auto V’s Botany_ by 高橋遼平 Ryohei Takahashi {-}
-```{r fig.align='left', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html'), fig.link='http://www.idd.tamabi.ac.jp/ga21005/works/GrandTheftAutoV's%20Botany.html'}
+```{r fig.align='left', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html'), fig.link='http://www.idd.tamabi.ac.jp/ga21005/works/GrandTheftAutoV's Botany.html'}
 knitr::include_graphics('assets/GrandTheftAutoVsBotany.jpeg', dpi = NA)
 ```
 artwork text
