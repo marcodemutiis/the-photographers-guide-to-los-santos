@@ -3,13 +3,13 @@
 //general introduction about the creation of a synthetic forms of nature, ecological issues, creation of virtual sublime, flora and fauna that are usually props that become the focus of the player's explorations, "virtual world naturalism"...
 
 
-## _GrandTheftAutoV's Botany_ by 高橋遼平 Ryohei Takahashi {-}
+## _Grand Theft Auto V’s Botany_ by 高橋遼平 Ryohei Takahashi {-}
 ```{r fig.align='left', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html'), fig.link='http://www.idd.tamabi.ac.jp/ga21005/works/GrandTheftAutoV's%20Botany.html'}
 knitr::include_graphics('assets/GrandTheftAutoVsBotany.jpeg', dpi = NA)
 ```
 artwork text
 
-[More about __GrandTheftAutoV's Botany_](http://www.idd.tamabi.ac.jp/ga21005/works/GrandTheftAutoV's%20Botany.html)
+[More about Grand Theft Auto V's Botany_](http://www.idd.tamabi.ac.jp/ga21005/works/GrandTheftAutoV's%20Botany.html)
 
 ## _San Andreas Streaming Deer Cam_ by Brent Watanabe {-}
 ```{r fig.align='left', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html'), fig.link='https://bwatanabe.com/GTA_V_WanderingDeer.html'}
