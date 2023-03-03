@@ -26,14 +26,6 @@ knitr::include_graphics('assets/maps/mountChiliad.png', dpi = NA)
 [Mount Chiliad](https://grandtheftdata.com/landmarks/#86.534,6158.577,4,atlas,name=mount_chiliad,Mount_Chiliad) is located in the Chiliad Mountain State Wilderness, and it is the tallest mountain in the game at 798m above sea level. The state park is home to lots of wildlife such as deer and mountain lions.
 
 
-## _Virtual Botany Cyanotype_ by Alan Butler {-}
-
-//selection of flora from GTA V
-
-artwork text
-
-[More about _Virtual Botany Cyanotype_](http://www.alanbutler.info/virtual-botany-cyanotypes)
-
 ### Getting There {-}
 
 
