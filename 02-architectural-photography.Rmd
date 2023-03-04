@@ -11,13 +11,13 @@ Architecture photography was born with the invention of heliographs, daguerrotyp
 ```{r fig.align='left', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html'), fig.link=''}
 knitr::include_graphics('assets/architecture_photography/niepce.jpeg', dpi = NA)
 ```
-_View from the Window at Le Gras_ by Joseph Nicéphore Niépce, 1826-27 
+_View from the Window at Le Gras_ by Joseph Nicéphore Niépce, 1826-27. 
 
 
 ```{r fig.align='left', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html'), fig.link=''}
 knitr::include_graphics('assets/architecture_photography/daguerre.jpeg', dpi = NA)
 ```
-_Paris’ Boulevard du Temple_ by Louis-Jacques-Mandé Daguerre, 1839
+_Paris’ Boulevard du Temple_ by Louis-Jacques-Mandé Daguerre, 1839.
 
 
 While the relationship between architecture and photography has been part of the medium from its birth for technical reasons, this form of image making has evolved to visually explore the connection with material spaces and forms, as well as the relation between human perception and architectural bodies. The photographic image is not simply a document of a structure, but "is, in fact, _part_ of its architecture".^[Lorenzo Rocha, _Photography and Modern Architecture_ ,"Concrete - Photography and Architecture", Scheidegger & Spiess, 2013] Curator Urs Stahel wrote that "pictures [...] offer a discourse that is unlike the physical experience of architecture. They transform volume into surface; distil matter into forms and signs. Photography shapes architecture, enlarging and reducing it, heightening and shortening it, accentuating it, yet largely leaving it to its own devices."^[Urs Stahel, Foreword to "Concrete - Photography and Architecture", Scheidegger & Spiess, 2013] 
@@ -28,20 +28,31 @@ The first architectural photographer is considered to be Joseph-Philibert Giraul
 ```{r fig.align='left', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html'), fig.link=''}
 knitr::include_graphics('assets/architecture_photography/prangey.jpeg', dpi = NA)
 ```
-_Cathédrale Notre-Dame de Paris_ by Joseph-Philibert Girault Prangey, 1841
+_Cathédrale Notre-Dame de Paris_ by Joseph-Philibert Girault Prangey, 1841.
 
-//Architecture photography and the modernist project
-//Modern architecture started to flourish with photographs in about the 1920s when urban photographers like Eugène Atget, Berenice Abbott, Walker Evans, and T. Lux Feiningercame into play. 
 
-//Eugène Atget(12 February 1857 – 4 August 1927), a French photographer known for his documentation of the streets of Paris before it entered Modernization. His works were published by Berenice Abbott after his death. 
+Modern architecture started to become an increasingly popular subkect within photography as the urban landscapes began to be reshaped. Around 1900, French photographer Eugène Atget(1857 – 1927) started focusing on the disappearing architecture of "Old Paris". He captured the alleys and buildings of the pre-revolutionary Paris, which were going to be demolished as part of a huge modernization project. 
+Many of Atget's photographs were taken at dawn, which - combined with the urban solitude and emptiness he portrayed, created a special sense of space and ambience. Many photographers were greatly influenced by his images, including American photographer Berenice Abbott (1898 – 1991) who bought most of Atget's negative and prints before moving back to New York from Paris. 
 
-//Berenice Abbott(July 17, 1898 – December 9, 1991), an American Photographer is known for New York and urban design photographs in the 1930s and also for her portraits of between-the-wars 20th century cultural figures. 
+```{r fig.align='left', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html'), fig.link=''}
+knitr::include_graphics('assets/architecture_photography/atget.jpeg', dpi = NA)
+```
+_Church of St Gervais, Paris_, by Eugène Atget, 1897-1903.
 
-//"Modernist architecture and photography have been ideologically interconnected" Lorenzo Rocha
-//close connection between photographer and architect:
-//Armando Salas Portugal for Luis Barragán, 
-//Bill Engdahl for Mies van der Rohe, 
-//Julius Shulman for Richard Neutra
+
+Back in New York, Abbott was confronted with a similar modernization process, with the old New York which was fast disappearing. “At almost any point on Manhattan Island, – she noticed – the sweep of one's vision can take in the dramatic contrasts of the old and the new and the bold foreshadowing of the future. This dynamic quality should be caught and recorded immediately in a documentary interpretation of New York City. The city is in the making and unless this transition is crystalized now in permanent form, it will be forever lost[...]. The camera alone can catch the swift surfaces of the cities today and speaks a language intelligible to all.”^[Abbott, Berenice, “Changing New York” (project proposal, New-York Historical Society, 1932); excerpted in O'Neal, Hank. Berenice Abbott: American Photographer. (New York: McGraw-Hill, 1982): 16–17.]
+
+```{r fig.align='left', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html'), fig.link=''}
+knitr::include_graphics('assets/architecture_photography/abbott.jpeg', dpi = NA)
+```
+_Grand Central Station_ by Berenice Abbott, 1941.
+
+
+The modernist project in architecture meant embracing a more minimalist approach and rejecting ornament. A rational use of material was combined with an analytical and funactional approach. Similarly, modernist photography rejected formal images and the painterly qualities of the pictorialist tradition in favour of a sharp focus, crisp lines and repetition. It celebrated the apparatus as a mechanical tool, and called for a "straight photography"^[Sadakichi Hartmann, “A Plea for Straight Photography,” American Amateur Photographer 16 (Mar. 1904), pp. 101–09; reprinted in Beaumont Newhall, ed. Photography: Essays and Images (Museum of Modern Art, New York 1980), p. 186.]. The city played a major role in this relationship between architecture and photography, with radical architecture and modernist photography sharing an ideological connection. Lorenzo Rocha writes of three examples of closely conected pairs of photographers and architects, who shaped architectual photography in the XX century: Armando Salas Portugal for Luis Barragán, Bill Engdahl for Mies van der Rohe, Julius Shulman for Richard Neutra.
+
+
+
+
 
 
 //Bernhard Becher and Hilla Becher, a German conceptual artist and photographer also known as Bernd and Hilla Becher. They worked on Duo in projects which include photography of industrial buildings and structures and they were often organized in grids. They wrote several books and their works are for public display in the Art Institute of Chicago, Chicago, Tate Gallery, London, Museum of Modern Art, New York, and several other famous museums.
@@ -50,6 +61,7 @@ _Cathédrale Notre-Dame de Paris_ by Joseph-Philibert Girault Prangey, 1841
 
 //Hélène Binet postmodern architecture
 
+how instagram affects architecture?
 
 //CGI
 //Into the universe of rendered architectural images - Joel McKim
