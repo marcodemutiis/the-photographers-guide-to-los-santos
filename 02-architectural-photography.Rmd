@@ -64,7 +64,7 @@ Similarly, Grand Theft Auto V's Los Santos is a parodic approximation of 2011 Lo
 ```{r fig.align='left', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html'), fig.link=''}
 knitr::include_graphics('assets/architecture_photography/vinewood.png', dpi = NA)
 ```
-Screenshot of Lo Santos' Vinewood sign in Grad Theft Auto V.
+Screenshot of Lo Santos' Vinewood sign in Grad Theft Auto V
 
 
 "On a recent holiday to L.A. I had a recurring uncanny sense of having previously visited. Perhaps because the city has been represented so many times in film that the feel of the place, if not architectural detail, feels familiar, author Donald Waldie writing “we are all citizens of Los Angeles because we have seen so many movies” (2007). [...] Barthes, quoting Kafka, suggests “we photograph things to drive them from our minds” (1981, p.53) and as the most photographed city on earth L.A. exists in the imagination. Architectural writer, Rayner Banham taught himself to drive to the city “in the original”, comparing it to earlier generations who learnt Italian to read Dante in the original (1971, p.5). But what is the original in a place which buries its façade of history?"
