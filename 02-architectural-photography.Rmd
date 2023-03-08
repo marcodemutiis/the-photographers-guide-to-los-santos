@@ -55,7 +55,17 @@ While the games provide reduced approximations of their original counterparts, m
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/etOIm4b1_94" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
-Yet the game is not just a simulation of the physical space and realism is more of an added visual effect that is still subordinate to gameplay. The architecture in the game is still part of an environment to be played, and not just seen. In the case of Assassin's Creed Unity, this is especially true, as the game mechanics focus on the character abliity to climb over the roofs and buildings of the city. 
+Yet the game is not just a simulation of the physical space and realism is more of an added visual effect, which is still subordinate to gameplay. The architecture in the game is still part of an environment to be played, and not just seen. In the case of Assassin's Creed Unity, this is especially true, as the game mechanics focus on the character's ability to climb over the roofs and buildings of the city. Gameplay priorities intervenes on the game architecture, setting realism aside in favour of features that allow the player to better interact with the space. “We added things like cables and incense across the second level of Notre Dame so players would be able to move around easier when they’re above the ground,” Miousse originally wrote on Ubisoft blog UbiBlog.^[https://blog.siggraph.org/2019/05/how-ubisoft-re-created-notre-dame-for-assassins-creed-unity.html/] Speaking to The Verge, art director Mohamed Gambouz explained that they had to smooth out the pointy rooftops of 18th-century Paris so as not to break the player’s parkour flow. 
+
+"Mohamed Gambouz, who wanted to maintain the pointy medieval rooftops and plentiful chimneys that helped define Paris at the time. The problem was that those roofs were a pain to move around on. Previous Assassin’s Creed games featured cities with primarily flat, or slightly slanted rooftops, that made bounding across the city a joy — throw in a bunch of high, pointy roofs and you break up that flow. The solution was to lessen the number of pointy buildings, and make the slants a bit less harsh, so it still looks like Paris but still plays like Assassin’s Creed."
+"It’s just one of many changes made to make ACU’s Paris not only work better for a game, but also match the vision of Paris that players have in their mind. Gambouz calls it the “postcard” effect. “When people talk about Paris they have postcards in their mind,” he says, “even if this postcard isn’t accurate or truthful to the setting.”"
+^[https://www.theverge.com/2014/10/31/7132587/assassins-creed-unity-paris]	
+
+
+"Game designers also have to work with technical restrictions. For example, each tympanum above Notre-Dame’s main doors is full of intricate sculptures depicting biblical scenes. Rather than being rendered with all these sculptures as 3D objects, the tympana in Unity are flat. The designers elected to create gorgeous textures that give them the appearance of being sculpted. It’s an optimization technique that looks great and doesn’t compromise immersion — unless you get really close and swing the camera around to break the illusion."^[https://www.polygon.com/features/22790314/assassins-creed-unity-notre-dame-restoration-accuracy]
+
+
+
 
 (Galloway): "Bruce Shelley writes that realism is a sort of tool that can be leveraged for greater effect in gameplay but is ultimately non- crucial: “Realism and historical information are resources or props we use to add interest, story, and character to the problems we are posing for the player. That is not to say that realism and historic fact have no importance, they are just not the highest priority.”4" (Bruce Shelley, “Guidelines for Developing Successful Games,” Gama- sutra, August 15, 2001. quoted in Gaming – Essays on Algorithmic Culture, Alexander R. Galloway)
 
@@ -77,10 +87,9 @@ https://www.sfgate.com/news/article/3d-maps-rebuild-notre-dame-fire-assasins-cre
 
 Yet the gameplay affects the architecture in game, 
 
-//“We added things like cables and incense across the second level of Notre Dame so players would be able to move around easier when they’re above the ground,” Miousse told UbiBlog. There are also windows that swing open on the upper levels of the cathedral. Gilt panels on the balustrades of the tribune and along the nave guide the player’s movements.
-Mobility is key in Assassin’s Creed, so Unity’s departures from real life didn’t stop at Notre-Dame. In an interview with The Verge, art director Mohamed Gambouz explained that the developers needed to smooth out the pointy medieval rooftops of 18th-century Paris so as not to break the player’s parkour flow.
-Game designers also have to work with technical restrictions. For example, each tympanum above Notre-Dame’s main doors is full of intricate sculptures depicting biblical scenes. Rather than being rendered with all these sculptures as 3D objects, the tympana in Unity are flat. The designers elected to create gorgeous textures that give them the appearance of being sculpted. It’s an optimization technique that looks great and doesn’t compromise immersion — unless you get really close and swing the camera around to break the illusion.
-https://www.polygon.com/features/22790314/assassins-creed-unity-notre-dame-restoration-accuracy
+// There are also windows that swing open on the upper levels of the cathedral. Gilt panels on the balustrades of the tribune and along the nave guide the player’s movements.
+
+
 
 and copyright also prevents the copy 
 
