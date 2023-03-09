@@ -87,16 +87,12 @@ knitr::include_graphics('assets/architecture_photography/KajaFuchs_Becherinterpr
 A reinterpretation of _Water Towers_ by Hilla and Bernd Becher in Minecraft by Kaja Fuchs
 
 
-
-
-
-//overweg? taking pictures of the materiality of the game and how the architecture is built
 //Game Urbanism
 https://www.youandpea.com/atlas
-heterotopias
 
 
-So finally, at the end of this journey of almost two centuries, photography has been dancing with architecture. The architectural image as a representation "from the distance" has moved to become part of the process of architectural simulation, and transformed into a projective picture of the future and a virtual image that can be experience and navigated with its own specificities and properties. In-game photographic practices of architecture add yet another layer of mediation, with screenshots and photographs of the digital city re-capturing the virtual architectural images from inside the game. 
+Architecture and photography have been interacting with each other for almost two centuries, affecting each other and taking different roles in many processes of building spaces and imag(in)ing structures. The architectural photograph was born as a representation of the past and from the distance. Throughout the XX century architects and photographers would shape the present by shaping spaces and creating images following the modernist ideology. In its computational and networked form, the image begins to copy physical structures and analogue architectural photography but soon proceeds to shape the creation of space itself. Through its computational simulation, photorealistic graphics and networked circulation, it imagines and projects onto the world. It precedes the built space in the physical world. This virtual architectural image is finally able to be navigated, documented, shaped and played once it becomes part of the game world. Players turned photographers and artists are entangled in this complex journey where images and structures constantly move closer and further apart, where new and old materials merge and structures reject or submit to the laws of physics. 
+
 
 
 
