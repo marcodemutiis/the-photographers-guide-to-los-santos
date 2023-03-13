@@ -2439,6 +2439,53 @@ Switch to first person view:
 \end{Highlighting}
 \end{Shaded}
 
+\hypertarget{using-props-to-light-a-scene}{%
+\subsection*{Using Props to Light a Scene}\label{using-props-to-light-a-scene}}
+\addcontentsline{toc}{subsection}{Using Props to Light a Scene}
+
+In addition to NPCs, we can also spawn and control objects. There are more than 15000 objects in the GTA V database that can be accessed and search through \href{https://gta-objects.xyz/objects}{this index}. From yachts to paintings, from flower vases to rocks, they vary in scale and properties and constitute all the objects that are present in the game world.
+
+Objects are referred as \texttt{Prop} variables in the code, and similarly to \texttt{Ped} and \texttt{Vehicle} they are a \texttt{GTA\ Entity} data type.
+To create a new prop we use the \texttt{World.CreateProp} function. This needs the following parameters: a string with the prop file name, the relative of absolute 3D coordinates of where the prop should be created, the 3D rotation value (optional, if not specified the prop will have default rotation values), a true/false boolean to set the object as dynamic or static, a true/false boolean for snapping the object on the ground or spawning it at an arbitrary position.
+
+\texttt{GTA.World.CreateProp(model\ :\ Model\ ,\ position:\ Vector3,\ rotation:\ Vector3,\ dynamic\ :\ bool,\ onGround\ :\ bool)}
+
+Let's create a \texttt{Prop} variable called MyProp and let's make an alarm siren appearing 3 meters in front of the player, with default rotation, dynamic and snapping to its original position:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{Prop MyProp = World.}\FunctionTok{CreateProp}\NormalTok{(}\StringTok{"xm_prop_x17_sub_al_lamp_on"}\NormalTok{, Game.}\FunctionTok{Player}\NormalTok{.}\FunctionTok{Character}\NormalTok{.}\FunctionTok{GetOffsetInWorldCoords}\NormalTok{(}\KeywordTok{new} \FunctionTok{Vector3}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{0}\NormalTok{)), }\KeywordTok{true}\NormalTok{, }\KeywordTok{false}\NormalTok{);}
+\end{Highlighting}
+\end{Shaded}
+
+By default the siren is placed on top of a ceiling, so it will appear above the player.
+
+To delete a prop we can call the \texttt{Prop} variable we created and use the \texttt{Delete()} function:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{MyProp.}\FunctionTok{Delete}\NormalTok{();}
+\end{Highlighting}
+\end{Shaded}
+
+We can also remove Collisions by using the \texttt{IsCollisionEnabled}boolean to false:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{MyProp.}\FunctionTok{IsCollisionEnabled}\NormalTok{(}\KeywordTok{false}\NormalTok{);}
+\end{Highlighting}
+\end{Shaded}
+
+There are several hundreds different light objects within the game's database. We can use these object to manipulate the light for our shots, just like a photographer would do in the studio.
+
+Try spawning ``prop\_spot\_clamp\_02'' to get harsh spot lights
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{Prop MyProp = World.}\FunctionTok{CreateProp}\NormalTok{(}\StringTok{"prop_spot_clamp_02"}\NormalTok{, Game.}\FunctionTok{Player}\NormalTok{.}\FunctionTok{Character}\NormalTok{.}\FunctionTok{GetOffsetInWorldCoords}\NormalTok{(}\KeywordTok{new} \FunctionTok{Vector3}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{3}\NormalTok{)), (}\KeywordTok{new} \FunctionTok{Vector3}\NormalTok{(}\DecValTok{62}\NormalTok{, }\DecValTok{5}\NormalTok{, }\DecValTok{0}\NormalTok{)), }\KeywordTok{true}\NormalTok{, }\KeywordTok{false}\NormalTok{);}
+\end{Highlighting}
+\end{Shaded}
+
 \hypertarget{setting-the-time-of-the-day}{%
 \subsection*{Setting the Time of the Day}\label{setting-the-time-of-the-day}}
 \addcontentsline{toc}{subsection}{Setting the Time of the Day}
@@ -2450,6 +2497,157 @@ Set the imte of the day to 15:45:
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{Function.}\FunctionTok{Call}\NormalTok{(Hash.}\FunctionTok{SET_CLOCK_TIME}\NormalTok{, }\DecValTok{15}\NormalTok{, }\DecValTok{45}\NormalTok{, }\DecValTok{00}\NormalTok{);}
+\end{Highlighting}
+\end{Shaded}
+
+Below is a list of objects casting lights which can be used to light up the scene in different ways.
+
+Lighting props
+
+\begin{Shaded}
+\begin{Highlighting}[]
+ \CommentTok{//STUDIO WHITE TRIPOD LIGHT (COLD)}
+\NormalTok{Prop MyProp = World.}\FunctionTok{CreateProp}\NormalTok{(}\StringTok{"ch_prop_tunnel_tripod_lampa"}\NormalTok{, Game.}\FunctionTok{Player}\NormalTok{.}\FunctionTok{Character}\NormalTok{.}\FunctionTok{GetOffsetInWorldCoords}\NormalTok{(}\KeywordTok{new} \FunctionTok{Vector3}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{0}\NormalTok{)), }\KeywordTok{true}\NormalTok{, }\KeywordTok{false}\NormalTok{); }\CommentTok{//set to true to place on ground or adjust the Z position (by default is about 1 m from the ground)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{//STUDIO WHITE TRIPOD LIGHT (WARMER)}
+\NormalTok{Prop MyProp = World.}\FunctionTok{CreateProp}\NormalTok{(}\StringTok{"xm_prop_base_tripod_lampb"}\NormalTok{, Game.}\FunctionTok{Player}\NormalTok{.}\FunctionTok{Character}\NormalTok{.}\FunctionTok{GetOffsetInWorldCoords}\NormalTok{(}\KeywordTok{new} \FunctionTok{Vector3}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{0}\NormalTok{)), }\KeywordTok{true}\NormalTok{, }\KeywordTok{true}\NormalTok{); }\CommentTok{//set to true to place on ground or adjust the Z position (by default is about 1 m from the ground)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{//STUDIO WHITE TRIPOD LIGHT (STRONGER)}
+\NormalTok{Prop MyProp = World.}\FunctionTok{CreateProp}\NormalTok{(}\StringTok{"xm_prop_base_tower_lampa"}\NormalTok{, Game.}\FunctionTok{Player}\NormalTok{.}\FunctionTok{Character}\NormalTok{.}\FunctionTok{GetOffsetInWorldCoords}\NormalTok{(}\KeywordTok{new} \FunctionTok{Vector3}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{0}\NormalTok{)), }\KeywordTok{true}\NormalTok{, }\KeywordTok{true}\NormalTok{); }\CommentTok{//rotation is fixed, set to true to place on ground or adjust the Z position (by default is about 1 m from the ground)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{//LIGHT BOX (WARM)}
+\NormalTok{Prop MyProp = World.}\FunctionTok{CreateProp}\NormalTok{(}\StringTok{"xm_prop_base_wall_lampa"}\NormalTok{, Game.}\FunctionTok{Player}\NormalTok{.}\FunctionTok{Character}\NormalTok{.}\FunctionTok{GetOffsetInWorldCoords}\NormalTok{(}\KeywordTok{new} \FunctionTok{Vector3}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{0}\NormalTok{)), GameplayCamera.}\FunctionTok{Rotation}\NormalTok{, }\KeywordTok{true}\NormalTok{, }\KeywordTok{false}\NormalTok{); }\CommentTok{//use custom rotation to direct light, set to true to place on ground or adjust the Z position (by default is about 1 m from the ground)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{//LIGHT BOX (COLD)}
+\NormalTok{Prop MyProp = World.}\FunctionTok{CreateProp}\NormalTok{(}\StringTok{"xm_prop_base_wall_lampb"}\NormalTok{, Game.}\FunctionTok{Player}\NormalTok{.}\FunctionTok{Character}\NormalTok{.}\FunctionTok{GetOffsetInWorldCoords}\NormalTok{(}\KeywordTok{new} \FunctionTok{Vector3}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{1}\NormalTok{)), }\KeywordTok{true}\NormalTok{, }\KeywordTok{false}\NormalTok{); }\CommentTok{//fixed rotationl, set to true to place on ground or adjust the Z position (by default is about 1 m from the ground)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{//WHITE NEON LIGHT (no tripod)}
+\NormalTok{Prop MyProp = World.}\FunctionTok{CreateProp}\NormalTok{(}\StringTok{"xm_prop_base_tripod_lampc"}\NormalTok{, Game.}\FunctionTok{Player}\NormalTok{.}\FunctionTok{Character}\NormalTok{.}\FunctionTok{GetOffsetInWorldCoords}\NormalTok{(}\KeywordTok{new} \FunctionTok{Vector3}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{0}\NormalTok{)), }\KeywordTok{true}\NormalTok{, }\KeywordTok{true}\NormalTok{); }\CommentTok{//the neon light is vertical, set to true to place on ground or adjust the Z position (by default is about 1 m from the ground)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{//NEON LIGHT GROUP OF 3 (vertical)}
+\NormalTok{Prop MyProp = World.}\FunctionTok{CreateProp}\NormalTok{(}\StringTok{"xm_prop_lab_tube_lampa_group3"}\NormalTok{, Game.}\FunctionTok{Player}\NormalTok{.}\FunctionTok{Character}\NormalTok{.}\FunctionTok{GetOffsetInWorldCoords}\NormalTok{(}\KeywordTok{new} \FunctionTok{Vector3}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{0}\NormalTok{)), }\KeywordTok{true}\NormalTok{, }\KeywordTok{true}\NormalTok{); }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{//NEON LIGHT GROUP OF 6 (vertical, different colours: modify ending with _g, _p, _r, _y for green, pink, red, yellow)}
+\NormalTok{Prop MyProp = World.}\FunctionTok{CreateProp}\NormalTok{(}\StringTok{"xm_prop_lab_tube_lampa_group6_g"}\NormalTok{, Game.}\FunctionTok{Player}\NormalTok{.}\FunctionTok{Character}\NormalTok{.}\FunctionTok{GetOffsetInWorldCoords}\NormalTok{(}\KeywordTok{new} \FunctionTok{Vector3}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{0}\NormalTok{)), }\KeywordTok{false}\NormalTok{, }\KeywordTok{false}\NormalTok{); }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{//ARENA LIGHTS}
+\NormalTok{Prop MyProp = World.}\FunctionTok{CreateProp}\NormalTok{(}\StringTok{"xs_propintarena_lamps_01a"}\NormalTok{, Game.}\FunctionTok{Player}\NormalTok{.}\FunctionTok{Character}\NormalTok{.}\FunctionTok{GetOffsetInWorldCoords}\NormalTok{(}\KeywordTok{new} \FunctionTok{Vector3}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{0}\NormalTok{)), GameplayCamera.}\FunctionTok{Rotation}\NormalTok{, }\KeywordTok{false}\NormalTok{, }\KeywordTok{false}\NormalTok{);}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{//STROBO LIGHTS}
+\NormalTok{Prop MyProp = World.}\FunctionTok{CreateProp}\NormalTok{(}\StringTok{"ba_prop_battle_lights_fx_riga"}\NormalTok{, Game.}\FunctionTok{Player}\NormalTok{.}\FunctionTok{Character}\NormalTok{.}\FunctionTok{GetOffsetInWorldCoords}\NormalTok{(}\KeywordTok{new} \FunctionTok{Vector3}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{2}\NormalTok{)), GameplayCamera.}\FunctionTok{Rotation}\NormalTok{, }\KeywordTok{false}\NormalTok{, }\KeywordTok{false}\NormalTok{);}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{//4 FLOATING SPOTS LIGHTBOX (modify ending to get different color hues: _lr1 to _lr9)}
+\NormalTok{Prop MyProp = World.}\FunctionTok{CreateProp}\NormalTok{(}\StringTok{"ba_prop_battle_lights_int_03_lr1"}\NormalTok{, Game.}\FunctionTok{Player}\NormalTok{.}\FunctionTok{Character}\NormalTok{.}\FunctionTok{GetOffsetInWorldCoords}\NormalTok{(}\KeywordTok{new} \FunctionTok{Vector3}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{2}\NormalTok{)), GameplayCamera.}\FunctionTok{Rotation}\NormalTok{, }\KeywordTok{false}\NormalTok{, }\KeywordTok{false}\NormalTok{);}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{//WHITE WASH CEILING LAMP}
+\NormalTok{Prop MyProp = World.}\FunctionTok{CreateProp}\NormalTok{(}\StringTok{"prop_chall_lamp_02"}\NormalTok{, Game.}\FunctionTok{Player}\NormalTok{.}\FunctionTok{Character}\NormalTok{.}\FunctionTok{GetOffsetInWorldCoords}\NormalTok{(}\KeywordTok{new} \FunctionTok{Vector3}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{0}\NormalTok{)), }\KeywordTok{true}\NormalTok{, }\KeywordTok{false}\NormalTok{);}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{//WHITE SPOT LAMP}
+\NormalTok{Prop MyProp = World.}\FunctionTok{CreateProp}\NormalTok{(}\StringTok{"prop_spot_clamp_02"}\NormalTok{, Game.}\FunctionTok{Player}\NormalTok{.}\FunctionTok{Character}\NormalTok{.}\FunctionTok{GetOffsetInWorldCoords}\NormalTok{(}\KeywordTok{new} \FunctionTok{Vector3}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{3}\NormalTok{)), }\KeywordTok{true}\NormalTok{, }\KeywordTok{false}\NormalTok{); }\CommentTok{//adjust the Z position (by default is on the floor)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{//MULTIPLE WHITE LIGHTS SETUP}
+\NormalTok{Prop MyProp = World.}\FunctionTok{CreateProp}\NormalTok{(}\StringTok{"v_ilev_carmodlamps"}\NormalTok{, Game.}\FunctionTok{Player}\NormalTok{.}\FunctionTok{Character}\NormalTok{.}\FunctionTok{GetOffsetInWorldCoords}\NormalTok{(}\KeywordTok{new} \FunctionTok{Vector3}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{0}\NormalTok{)), }\KeywordTok{true}\NormalTok{, }\KeywordTok{false}\NormalTok{); }\CommentTok{//adjust the Z position (by default is on the floor)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{//SOFT WHITE WASH}
+\NormalTok{Prop MyProp = World.}\FunctionTok{CreateProp}\NormalTok{(}\StringTok{"v_ilev_fh_lampa_on"}\NormalTok{, Game.}\FunctionTok{Player}\NormalTok{.}\FunctionTok{Character}\NormalTok{.}\FunctionTok{GetOffsetInWorldCoords}\NormalTok{(}\KeywordTok{new} \FunctionTok{Vector3}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{0}\NormalTok{)), }\KeywordTok{true}\NormalTok{, }\KeywordTok{false}\NormalTok{); }\CommentTok{//adjust the Z position (by default is at player's face height)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{//CEILING WHITE NEON (HARSH)}
+\NormalTok{Prop MyProp = World.}\FunctionTok{CreateProp}\NormalTok{(}\StringTok{"xm_base_cia_lamp_ceiling_01"}\NormalTok{, Game.}\FunctionTok{Player}\NormalTok{.}\FunctionTok{Character}\NormalTok{.}\FunctionTok{GetOffsetInWorldCoords}\NormalTok{(}\KeywordTok{new} \FunctionTok{Vector3}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{3}\NormalTok{)), }\KeywordTok{true}\NormalTok{, }\KeywordTok{false}\NormalTok{); }\CommentTok{//adjust the Z position (by default is about 1 m from the ground)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{//CEILING WHITE SPOT (HARSH)}
+\NormalTok{Prop MyProp = World.}\FunctionTok{CreateProp}\NormalTok{(}\StringTok{"xm_prop_base_silo_lamp_01a"}\NormalTok{, Game.}\FunctionTok{Player}\NormalTok{.}\FunctionTok{Character}\NormalTok{.}\FunctionTok{GetOffsetInWorldCoords}\NormalTok{(}\KeywordTok{new} \FunctionTok{Vector3}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{0}\NormalTok{)), }\KeywordTok{true}\NormalTok{, }\KeywordTok{false}\NormalTok{); }\CommentTok{//adjust the Z position (by default is about 1 m from the ground)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{//FLOOR SOFT WHITE WASH TILE}
+\NormalTok{Prop MyProp = World.}\FunctionTok{CreateProp}\NormalTok{(}\StringTok{"xm_base_cia_lamp_floor_01a"}\NormalTok{, Game.}\FunctionTok{Player}\NormalTok{.}\FunctionTok{Character}\NormalTok{.}\FunctionTok{GetOffsetInWorldCoords}\NormalTok{(}\KeywordTok{new} \FunctionTok{Vector3}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{0}\NormalTok{)), }\KeywordTok{true}\NormalTok{, }\KeywordTok{true}\NormalTok{); }\CommentTok{//set to true to fix on the ground}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{//RED SIREN CEILING LIGHT (SIREN ON = xm_prop_x17_sub_al_lamp_on SIREN OFF = xm_prop_x17_sub_al_lamp_off SIREN OFF CASTING LIGHT = xm_prop_x17_sub_alarm_lamp)}
+\NormalTok{Prop MyProp = World.}\FunctionTok{CreateProp}\NormalTok{(}\StringTok{"xm_prop_x17_sub_alarm_lamp"}\NormalTok{, Game.}\FunctionTok{Player}\NormalTok{.}\FunctionTok{Character}\NormalTok{.}\FunctionTok{GetOffsetInWorldCoords}\NormalTok{(}\KeywordTok{new} \FunctionTok{Vector3}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{-5}\NormalTok{)), }\KeywordTok{true}\NormalTok{, }\KeywordTok{false}\NormalTok{); }\CommentTok{//set false and adjust value to position in the Z axis (by default is positioned on the ceiling)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{//RED WASH}
+\NormalTok{Prop MyProp = World.}\FunctionTok{CreateProp}\NormalTok{(}\StringTok{"v_ilev_cd_lampal"}\NormalTok{, Game.}\FunctionTok{Player}\NormalTok{.}\FunctionTok{Character}\NormalTok{.}\FunctionTok{GetOffsetInWorldCoords}\NormalTok{(}\KeywordTok{new} \FunctionTok{Vector3}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{0}\NormalTok{)), }\KeywordTok{true}\NormalTok{, }\KeywordTok{false}\NormalTok{); }\CommentTok{//adjust the Z position (by default is on the ceiling)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{//LIGHT BLUE WASH CEILING LAMP}
+\NormalTok{Prop MyProp = World.}\FunctionTok{CreateProp}\NormalTok{(}\StringTok{"prop_chall_lamp_01n"}\NormalTok{, Game.}\FunctionTok{Player}\NormalTok{.}\FunctionTok{Character}\NormalTok{.}\FunctionTok{GetOffsetInWorldCoords}\NormalTok{(}\KeywordTok{new} \FunctionTok{Vector3}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{0}\NormalTok{)), }\KeywordTok{true}\NormalTok{, }\KeywordTok{false}\NormalTok{);}
 \end{Highlighting}
 \end{Shaded}
 
