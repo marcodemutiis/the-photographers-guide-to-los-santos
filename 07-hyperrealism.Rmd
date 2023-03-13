@@ -42,6 +42,52 @@ Switch to first person view:
 Function.Call(Hash.SET_FOLLOW_PED_CAM_VIEW_MODE, 4); 
 ```
 
+### Using Props to Light a Scene {-}
+
+In addition to NPCs, we can also spawn and control objects. There are more than 15000 objects in the GTA V database that can be accessed and search through [this index](https://gta-objects.xyz/objects). From yachts to paintings, from flower vases to rocks, they vary in scale and properties and constitute all the objects that are present in the game world. 
+
+```{r fig.align='left', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html'), fig.link=''}
+knitr::include_graphics('assets/objects.png', dpi = NA)
+```
+
+Objects are referred as ```Prop``` variables in the code, and similarly to ```Ped``` and ```Vehicle``` they are a ```GTA Entity``` data type.
+To create a new prop we use the ```World.CreateProp``` function. This needs the following parameters: a string with the prop file name, the relative of absolute 3D coordinates of where the prop should be created, the 3D rotation value  (optional, if not specified the prop will have default rotation values), a true/false boolean to set the object as dynamic or static, a true/false boolean for snapping the object on the ground or spawning it at an arbitrary position. 
+
+```GTA.World.CreateProp(model : Model , position: Vector3, rotation: Vector3, dynamic : bool, onGround : bool)```
+
+Let's create a ```Prop``` variable called MyProp and let's make an alarm siren appearing 3 meters in front of the player, with default rotation, dynamic and snapping to its original position:
+
+```cs
+Prop MyProp = World.CreateProp("xm_prop_x17_sub_al_lamp_on", Game.Player.Character.GetOffsetInWorldCoords(new Vector3(0, 3, 0)), true, false);
+```
+
+By default the siren is placed on top of a ceiling, so it will appear above the player.
+
+```{r fig.align='left', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html'), fig.link=''}
+knitr::include_graphics('assets/scriptingGifs/prop_redsiren.gif', dpi = NA)
+```
+
+To delete a prop we can call the ```Prop``` variable we created and use the ```Delete()``` function: 
+```cs
+MyProp.Delete();
+```
+
+We can also remove Collisions by using the ```IsCollisionEnabled```boolean to false:
+```cs
+MyProp.IsCollisionEnabled(false);
+```
+
+There are several hundreds different light objects within the game's database. We can use these object to manipulate the light for our shots, just like a photographer would do in the studio.
+
+Try spawning "prop_spot_clamp_02" to get harsh spot lights
+```cs
+Prop MyProp = World.CreateProp("prop_spot_clamp_02", Game.Player.Character.GetOffsetInWorldCoords(new Vector3(0, 3, 3)), (new Vector3(62, 5, 0)), true, false);
+```
+
+```{r fig.align='left', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html'), fig.link=''}
+knitr::include_graphics('assets/scriptingGifs/prop_redsiren.gif', dpi = NA)
+```
+
 
 ### Setting the Time of the Day {-}
 
@@ -55,6 +101,123 @@ Function.Call(Hash.SET_CLOCK_TIME, 15, 45, 00);
 ```{r fig.align='left', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html'), fig.link=''}
 knitr::include_graphics('assets/scriptingGifs/setTime.gif', dpi = NA)
 ```
+
+```{r fig.align='left', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html'), fig.link=''}
+knitr::include_graphics('assets/scriptingGifs/prop_whitespot.gif', dpi = NA)
+```
+
+Below is a list of objects casting lights which can be used to light up the scene in different ways.
+
+<details>
+  <summary>Lighting props</summary>
+
+```cs
+ //STUDIO WHITE TRIPOD LIGHT (COLD)
+Prop MyProp = World.CreateProp("ch_prop_tunnel_tripod_lampa", Game.Player.Character.GetOffsetInWorldCoords(new Vector3(0, 3, 0)), true, false); //set to true to place on ground or adjust the Z position (by default is about 1 m from the ground)
+```
+
+```cs           
+//STUDIO WHITE TRIPOD LIGHT (WARMER)
+Prop MyProp = World.CreateProp("xm_prop_base_tripod_lampb", Game.Player.Character.GetOffsetInWorldCoords(new Vector3(0, 3, 0)), true, true); //set to true to place on ground or adjust the Z position (by default is about 1 m from the ground)
+```
+
+```cs           
+//STUDIO WHITE TRIPOD LIGHT (STRONGER)
+Prop MyProp = World.CreateProp("xm_prop_base_tower_lampa", Game.Player.Character.GetOffsetInWorldCoords(new Vector3(0, 3, 0)), true, true); //rotation is fixed, set to true to place on ground or adjust the Z position (by default is about 1 m from the ground)
+```
+
+```cs
+//LIGHT BOX (WARM)
+Prop MyProp = World.CreateProp("xm_prop_base_wall_lampa", Game.Player.Character.GetOffsetInWorldCoords(new Vector3(0, 3, 0)), GameplayCamera.Rotation, true, false); //use custom rotation to direct light, set to true to place on ground or adjust the Z position (by default is about 1 m from the ground)
+```
+
+```cs
+//LIGHT BOX (COLD)
+Prop MyProp = World.CreateProp("xm_prop_base_wall_lampb", Game.Player.Character.GetOffsetInWorldCoords(new Vector3(0, 3, 1)), true, false); //fixed rotationl, set to true to place on ground or adjust the Z position (by default is about 1 m from the ground)
+```
+
+```cs
+//WHITE NEON LIGHT (no tripod)
+Prop MyProp = World.CreateProp("xm_prop_base_tripod_lampc", Game.Player.Character.GetOffsetInWorldCoords(new Vector3(0, 3, 0)), true, true); //the neon light is vertical, set to true to place on ground or adjust the Z position (by default is about 1 m from the ground)
+```
+
+```cs
+//NEON LIGHT GROUP OF 3 (vertical)
+Prop MyProp = World.CreateProp("xm_prop_lab_tube_lampa_group3", Game.Player.Character.GetOffsetInWorldCoords(new Vector3(0, 3, 0)), true, true); 
+```
+
+```cs
+//NEON LIGHT GROUP OF 6 (vertical, different colours: modify ending with _g, _p, _r, _y for green, pink, red, yellow)
+Prop MyProp = World.CreateProp("xm_prop_lab_tube_lampa_group6_g", Game.Player.Character.GetOffsetInWorldCoords(new Vector3(0, 3, 0)), false, false); 
+```
+
+```cs
+//ARENA LIGHTS
+Prop MyProp = World.CreateProp("xs_propintarena_lamps_01a", Game.Player.Character.GetOffsetInWorldCoords(new Vector3(0, 3, 0)), GameplayCamera.Rotation, false, false);
+```
+
+```cs
+//STROBO LIGHTS
+Prop MyProp = World.CreateProp("ba_prop_battle_lights_fx_riga", Game.Player.Character.GetOffsetInWorldCoords(new Vector3(0, 3, 2)), GameplayCamera.Rotation, false, false);
+```
+
+```cs
+//4 FLOATING SPOTS LIGHTBOX (modify ending to get different color hues: _lr1 to _lr9)
+Prop MyProp = World.CreateProp("ba_prop_battle_lights_int_03_lr1", Game.Player.Character.GetOffsetInWorldCoords(new Vector3(0, 3, 2)), GameplayCamera.Rotation, false, false);
+```
+
+```cs
+//WHITE WASH CEILING LAMP
+Prop MyProp = World.CreateProp("prop_chall_lamp_02", Game.Player.Character.GetOffsetInWorldCoords(new Vector3(0, 3, 0)), true, false);
+```
+
+```cs
+//WHITE SPOT LAMP
+Prop MyProp = World.CreateProp("prop_spot_clamp_02", Game.Player.Character.GetOffsetInWorldCoords(new Vector3(0, 3, 3)), true, false); //adjust the Z position (by default is on the floor)
+```
+
+```cs
+//MULTIPLE WHITE LIGHTS SETUP
+Prop MyProp = World.CreateProp("v_ilev_carmodlamps", Game.Player.Character.GetOffsetInWorldCoords(new Vector3(0, 3, 0)), true, false); //adjust the Z position (by default is on the floor)
+```
+
+```cs
+//SOFT WHITE WASH
+Prop MyProp = World.CreateProp("v_ilev_fh_lampa_on", Game.Player.Character.GetOffsetInWorldCoords(new Vector3(0, 3, 0)), true, false); //adjust the Z position (by default is at player's face height)
+```
+
+```cs
+//CEILING WHITE NEON (HARSH)
+Prop MyProp = World.CreateProp("xm_base_cia_lamp_ceiling_01", Game.Player.Character.GetOffsetInWorldCoords(new Vector3(0, 3, 3)), true, false); //adjust the Z position (by default is about 1 m from the ground)
+```
+
+```cs
+//CEILING WHITE SPOT (HARSH)
+Prop MyProp = World.CreateProp("xm_prop_base_silo_lamp_01a", Game.Player.Character.GetOffsetInWorldCoords(new Vector3(0, 3, 0)), true, false); //adjust the Z position (by default is about 1 m from the ground)
+```
+
+```cs
+//FLOOR SOFT WHITE WASH TILE
+Prop MyProp = World.CreateProp("xm_base_cia_lamp_floor_01a", Game.Player.Character.GetOffsetInWorldCoords(new Vector3(0, 3, 0)), true, true); //set to true to fix on the ground
+```
+
+```cs
+//RED SIREN CEILING LIGHT (SIREN ON = xm_prop_x17_sub_al_lamp_on SIREN OFF = xm_prop_x17_sub_al_lamp_off SIREN OFF CASTING LIGHT = xm_prop_x17_sub_alarm_lamp)
+Prop MyProp = World.CreateProp("xm_prop_x17_sub_alarm_lamp", Game.Player.Character.GetOffsetInWorldCoords(new Vector3(0, 3, -5)), true, false); //set false and adjust value to position in the Z axis (by default is positioned on the ceiling)
+```
+
+```cs
+//RED WASH
+Prop MyProp = World.CreateProp("v_ilev_cd_lampal", Game.Player.Character.GetOffsetInWorldCoords(new Vector3(0, 3, 0)), true, false); //adjust the Z position (by default is on the ceiling)
+```
+
+```cs
+//LIGHT BLUE WASH CEILING LAMP
+Prop MyProp = World.CreateProp("prop_chall_lamp_01n", Game.Player.Character.GetOffsetInWorldCoords(new Vector3(0, 3, 0)), true, false);
+```
+
+    </details>
+
 
 
 
