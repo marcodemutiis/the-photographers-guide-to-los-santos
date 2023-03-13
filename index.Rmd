@@ -8,7 +8,8 @@ classoption: openany
 
 # Preface {-}
 
-This space hosts the work in progress for the project The Photographer's Guide to Los Santos. Content on these pages is currently being added and edited, and none of it is to be considered final. All material is currently presented online for educational purposes only and to be used in class by the author. 
+This space hosts the work in progress for the project _The Photographer's Guide to Los Santos_. Content on these pages is currently being added and edited, and none of it is to be considered final. All material is currently presented online for educational purposes only and to be used solely in class by the author.
+ 
 
 ```{r fig.align='center', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html'), fig.link='https://www.howtowinat.photography/'}
 knitr::include_graphics('assets/cover.png', dpi = NA)
