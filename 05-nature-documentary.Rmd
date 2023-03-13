@@ -55,11 +55,6 @@ knitr::include_graphics('assets/maps/mountChiliad.png', dpi = NA)
 knitr::include_graphics('assets/scriptingGifs/console.gif', dpi = NA)
 ```
 
-+ It's also recommended to use a completed [game save file](https://www.gta5-mods.com/misc/100-save-game) to skip the story mode and compulsory introductory mission. Extract the content of the file and copy both files ```SGTAXXXXX``` and ```SGTAXXXXX.bak``` in ```Documents/GTA V/Profiles/YYYYYYYY/```. Once the files are there, you will be able to load the game state by running GTA V and navigating to GAME > Load Game and select the 100% game file.
-
-```{r fig.align='left', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html'), fig.link=''}
-knitr::include_graphics('assets/loadSaveGame.png', dpi = NA)
-```
 
 
 #### Creating a Mod File {-}

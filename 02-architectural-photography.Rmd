@@ -127,6 +127,18 @@ knitr::include_graphics('assets/maps/intersectionOlympicElysian.png', dpi = NA)
 
 ## Tutorial {-}
 
+### Playing as a photographer {-}
+
+Playing as a photographer means we are going to skip the compulsory game introduction, the missions and the narrative plot of the game.
+We are going to install a file which allows us to travel to Los Santos with no restriction of any kind, so that we can focus on photographic activities.
+
+To do this we use a completed [game save file](https://www.gta5-mods.com/misc/100-save-game). Download the file and extract its content, then copy both files ```SGTAXXXXX``` and ```SGTAXXXXX.bak``` in ```Documents/GTA V/Profiles/YYYYYYYY/```. Once the files are there, you will be able to load the game state by running GTA V and navigating on the pause menu to ```GAME``` > ```Load Game``` and select the 100% game file.
+
+```{r fig.align='left', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html'), fig.link=''}
+knitr::include_graphics('assets/loadSaveGame.png', dpi = NA)
+```
+
+
 ### Photographing the Game Screen {-}
 
 #### Analogue Game Photography {-}
