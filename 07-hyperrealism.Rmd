@@ -191,21 +191,6 @@ Prop MyProp = World.CreateProp("prop_chall_lamp_01n", Game.Player.Character.GetO
     </details>
 
 
-### Setting Camera Views {-}
-
-GTA V has 4 default camera views, which can be switched by pressing the ```V``` key on PC.
-To set a specific camera view we can use the native function ```SET_FOLLOW_PED_CAM_VIEW_MOD```, followed by number 0, 1, 2 or 4 to establish the desired point of view:
-
-+ 0 - Third Person View - Close
-+ 1 - Third Person View - Mid
-+ 2 - Third Person View - Far
-+ 4 - First Person View 
-
-Switch to first person view:
-```cs
-Function.Call(Hash.SET_FOLLOW_PED_CAM_VIEW_MODE, 4); 
-```
-
 
 ### Setting the Time of the Day {-}
 
