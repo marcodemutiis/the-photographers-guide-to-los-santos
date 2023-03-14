@@ -21,13 +21,13 @@ _Paris’ Boulevard du Temple_ by Louis-Jacques-Mandé Daguerre, 1839.
 
 While the relationship between architecture and photography has been part of the medium from its birth for technical reasons, this form of image making has evolved to visually explore the connection with material spaces and forms, as well as the relation between human perception and architectural bodies. The photographic image is not simply a document of a structure, but "is, in fact, _part_ of its architecture".^[Lorenzo Rocha, _Photography and Modern Architecture_ ,"Concrete - Photography and Architecture", Scheidegger & Spiess, 2013] Curator Urs Stahel wrote that "pictures [...] offer a discourse that is unlike the physical experience of architecture. They transform volume into surface; distil matter into forms and signs. Photography shapes architecture, enlarging and reducing it, heightening and shortening it, accentuating it, yet largely leaving it to its own devices."^[Urs Stahel, Foreword to "Concrete - Photography and Architecture", Scheidegger & Spiess, 2013] 
 
-The first architectural photographer is considered to be Joseph-Philibert Girault de Prangey (1804 – 1892), who started to take daguerreotypes of iconic buildings like the Parthenon in Athens and Notre Dame in Paris from 1841. Architectural photography evolved in two distinct approaches, namely Elevation and Perspective. The Elevation Approach focuses on representing a structure as a two-dimensional image, obtaining a viewpoint that is parallel to the building and aimed at showing as many details as possible. The Perspective Approach aims at depicting the structure within the space, focusing on the third dimension and often taken at an angle or from a vantage point from a corner.
+The first architectural photographer is considered to be Joseph-Philibert Girault de Prangey (1804 – 1892), who started to take daguerreotypes of iconic buildings like the Parthenon in Athens and Notre-Dame in Paris from 1841. Architectural photography evolved in two distinct approaches, namely Elevation and Perspective. The Elevation Approach focuses on representing a structure as a two-dimensional image, obtaining a viewpoint that is parallel to the building and aimed at showing as many details as possible. The Perspective Approach aims at depicting the structure within the space, focusing on the third dimension and often taken at an angle or from a vantage point from a corner.
 
 
 ```{r fig.align='left', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html'), fig.link=''}
-knitr::include_graphics('assets/architecture_photography/prangey.jpeg', dpi = NA)
+knitr::include_graphics('assets/architecture_photography/FacadeandNorthColonnadeoftheParthenonontheAcropolisAthens_small.jpg', dpi = NA)
 ```
-_Cathédrale Notre-Dame de Paris_ by Joseph-Philibert Girault Prangey, 1841.
+_Facade and North Colonnade of the Parthenon on the Acropolis, Athens_ by Joseph-Philibert Girault Prangey, 1842.
 
 
 Modern architecture started to become an increasingly popular subject within photography as the urban landscapes began to be reshaped. Around 1900, French photographer Eugène Atget(1857 – 1927) started focusing on the disappearing architecture of "Old Paris". He captured the alleys and buildings of pre-revolutionary Paris, which were going to be demolished as part of a huge modernization project. 
