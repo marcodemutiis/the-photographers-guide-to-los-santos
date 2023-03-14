@@ -229,7 +229,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="hyperrealism.html"><a href="hyperrealism.html#readings-5"><i class="fa fa-check"></i>Readings</a></li>
 <li class="chapter" data-level="" data-path="hyperrealism.html"><a href="hyperrealism.html#tutorial-5"><i class="fa fa-check"></i>Tutorial</a><ul>
 <li class="chapter" data-level="" data-path="hyperrealism.html"><a href="hyperrealism.html#using-props-to-light-a-scene"><i class="fa fa-check"></i>Using Props to Light a Scene</a></li>
-<li class="chapter" data-level="" data-path="hyperrealism.html"><a href="hyperrealism.html#setting-camera-views"><i class="fa fa-check"></i>Setting Camera Views</a></li>
 <li class="chapter" data-level="" data-path="hyperrealism.html"><a href="hyperrealism.html#setting-the-time-of-the-day"><i class="fa fa-check"></i>Setting the Time of the Day</a></li>
 <li class="chapter" data-level="" data-path="hyperrealism.html"><a href="hyperrealism.html#controlling-the-weather"><i class="fa fa-check"></i>Controlling the Weather</a></li>
 <li class="chapter" data-level="" data-path="hyperrealism.html"><a href="hyperrealism.html#scripting-cinematic-fade-out-in"><i class="fa fa-check"></i>Scripting Cinematic Fade Out / In</a></li>
@@ -373,24 +372,11 @@ To create a new prop we use the <code>World.CreateProp</code> function. This nee
 <span id="cb87-2"><a href="hyperrealism.html#cb87-2"></a>Prop MyProp = World.<span class="fu">CreateProp</span>(<span class="st">&quot;prop_chall_lamp_01n&quot;</span>, Game.<span class="fu">Player</span>.<span class="fu">Character</span>.<span class="fu">GetOffsetInWorldCoords</span>(<span class="kw">new</span> <span class="fu">Vector3</span>(<span class="dv">0</span>, <span class="dv">3</span>, <span class="dv">0</span>)), <span class="kw">true</span>, <span class="kw">false</span>);</span></code></pre></div>
 </details>
 </div>
-<div id="setting-camera-views" class="section level3 unnumbered hasAnchor">
-<h3>Setting Camera Views<a href="hyperrealism.html#setting-camera-views" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>GTA V has 4 default camera views, which can be switched by pressing the <code>V</code> key on PC.
-To set a specific camera view we can use the native function <code>SET_FOLLOW_PED_CAM_VIEW_MOD</code>, followed by number 0, 1, 2 or 4 to establish the desired point of view:</p>
-<ul>
-<li>0 - Third Person View - Close</li>
-<li>1 - Third Person View - Mid</li>
-<li>2 - Third Person View - Far</li>
-<li>4 - First Person View</li>
-</ul>
-<p>Switch to first person view:</p>
-<div class="sourceCode" id="cb88"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb88-1"><a href="hyperrealism.html#cb88-1"></a>Function.<span class="fu">Call</span>(Hash.<span class="fu">SET_FOLLOW_PED_CAM_VIEW_MODE</span>, <span class="dv">4</span>); </span></code></pre></div>
-</div>
 <div id="setting-the-time-of-the-day" class="section level3 unnumbered hasAnchor">
 <h3>Setting the Time of the Day<a href="hyperrealism.html#setting-the-time-of-the-day" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>We can control the time and the light for our shots to the second in GTA V. We can specify the exact time of the day with the native function <code>SET_CLOCK_TIME</code>, followed by hour, minute and second. Note that the sun sets at 5:30 a.m. and goes down at 8 p.m.</p>
 <p>Set the imte of the day to 15:45:</p>
-<div class="sourceCode" id="cb89"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb89-1"><a href="hyperrealism.html#cb89-1"></a>Function.<span class="fu">Call</span>(Hash.<span class="fu">SET_CLOCK_TIME</span>, <span class="dv">15</span>, <span class="dv">45</span>, <span class="dv">00</span>);</span></code></pre></div>
+<div class="sourceCode" id="cb88"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb88-1"><a href="hyperrealism.html#cb88-1"></a>Function.<span class="fu">Call</span>(Hash.<span class="fu">SET_CLOCK_TIME</span>, <span class="dv">15</span>, <span class="dv">45</span>, <span class="dv">00</span>);</span></code></pre></div>
 <p><a href="" target="_blank"><img src="assets/scriptingGifs/setTime.gif" style="display: block; margin: auto auto auto 0;" /></a></p>
 </div>
 <div id="controlling-the-weather" class="section level3 unnumbered hasAnchor">
@@ -409,30 +395,30 @@ To set a specific camera view we can use the native function <code>SET_FOLLOW_PE
 “SNOWLIGHT”
 “BLIZZARD”</p>
 <p>Set the weather to blizzard:</p>
-<div class="sourceCode" id="cb90"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb90-1"><a href="hyperrealism.html#cb90-1"></a>Function.<span class="fu">Call</span>(Hash.<span class="fu">SET_WEATHER_TYPE_NOW_PERSIST</span>, <span class="st">&quot;BLIZZARD&quot;</span>);</span></code></pre></div>
+<div class="sourceCode" id="cb89"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb89-1"><a href="hyperrealism.html#cb89-1"></a>Function.<span class="fu">Call</span>(Hash.<span class="fu">SET_WEATHER_TYPE_NOW_PERSIST</span>, <span class="st">&quot;BLIZZARD&quot;</span>);</span></code></pre></div>
 <p><a href="" target="_blank"><img src="assets/scriptingGifs/setWeather.gif" style="display: block; margin: auto auto auto 0;" /></a></p>
 </div>
 <div id="scripting-cinematic-fade-out-in" class="section level3 unnumbered hasAnchor">
 <h3>Scripting Cinematic Fade Out / In<a href="hyperrealism.html#scripting-cinematic-fade-out-in" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Script Hook has native functions to create a fead to/from black. The function hash are <code>DO_SCREEN_FADE_OUT</code> and <code>DO_SCREEN_FADE_IN</code> and they are followed by the number of milliseconds to go from full black to showing the scene and viceversa.</p>
 <p>Let’s create a fade to black over 3 seconds when we press the letter key ‘O’:</p>
-<div class="sourceCode" id="cb91"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb91-1"><a href="hyperrealism.html#cb91-1"></a><span class="kw">if</span> (e.<span class="fu">KeyCode</span> == Keys.<span class="fu">O</span>)</span>
-<span id="cb91-2"><a href="hyperrealism.html#cb91-2"></a>{</span>
-<span id="cb91-3"><a href="hyperrealism.html#cb91-3"></a>    Function.<span class="fu">Call</span>(Hash.<span class="fu">DO_SCREEN_FADE_OUT</span>, <span class="dv">3000</span>);</span>
-<span id="cb91-4"><a href="hyperrealism.html#cb91-4"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb90"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb90-1"><a href="hyperrealism.html#cb90-1"></a><span class="kw">if</span> (e.<span class="fu">KeyCode</span> == Keys.<span class="fu">O</span>)</span>
+<span id="cb90-2"><a href="hyperrealism.html#cb90-2"></a>{</span>
+<span id="cb90-3"><a href="hyperrealism.html#cb90-3"></a>    Function.<span class="fu">Call</span>(Hash.<span class="fu">DO_SCREEN_FADE_OUT</span>, <span class="dv">3000</span>);</span>
+<span id="cb90-4"><a href="hyperrealism.html#cb90-4"></a>}</span></code></pre></div>
 <p>And a fade over 3 seconds when we press the letter key ‘I’:</p>
-<div class="sourceCode" id="cb92"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb92-1"><a href="hyperrealism.html#cb92-1"></a><span class="kw">if</span> (e.<span class="fu">KeyCode</span> == Keys.<span class="fu">I</span>)</span>
-<span id="cb92-2"><a href="hyperrealism.html#cb92-2"></a>{</span>
-<span id="cb92-3"><a href="hyperrealism.html#cb92-3"></a>    Function.<span class="fu">Call</span>(Hash.<span class="fu">DO_SCREEN_FADE_IN</span>, <span class="dv">3000</span>);</span>
-<span id="cb92-4"><a href="hyperrealism.html#cb92-4"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb91"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb91-1"><a href="hyperrealism.html#cb91-1"></a><span class="kw">if</span> (e.<span class="fu">KeyCode</span> == Keys.<span class="fu">I</span>)</span>
+<span id="cb91-2"><a href="hyperrealism.html#cb91-2"></a>{</span>
+<span id="cb91-3"><a href="hyperrealism.html#cb91-3"></a>    Function.<span class="fu">Call</span>(Hash.<span class="fu">DO_SCREEN_FADE_IN</span>, <span class="dv">3000</span>);</span>
+<span id="cb91-4"><a href="hyperrealism.html#cb91-4"></a>}</span></code></pre></div>
 <p>We could also create an automated check in our onTick loop, which keeps seeing if the screen has been faded to black. We can use the native function <code>IS_SCREEN_FADED_OUT</code> which is a boolean data type. This means it will return either true or false. If it returns true, it means the screen has been faded out.</p>
 <p>Let’s add an “if” statement in our onTick loop to chek if the screen has been faded to black, and if so we teleport somewhere else and we call a fade in over 3 second:</p>
-<div class="sourceCode" id="cb93"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb93-1"><a href="hyperrealism.html#cb93-1"></a><span class="kw">if</span> (Function.<span class="fu">Call</span>&lt;<span class="dt">bool</span>&gt;(Hash.<span class="fu">IS_SCREEN_FADED_OUT</span>))</span>
-<span id="cb93-2"><a href="hyperrealism.html#cb93-2"></a>{</span>
-<span id="cb93-3"><a href="hyperrealism.html#cb93-3"></a>    Function.<span class="fu">Call</span>(Hash.<span class="fu">SET_ENTITY_COORDS</span>, Game.<span class="fu">Player</span>.<span class="fu">Character</span>, <span class="fl">-1374.881f</span>, <span class="fl">-1398.835f</span>, <span class="fl">6.141f</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>);</span>
-<span id="cb93-4"><a href="hyperrealism.html#cb93-4"></a>    <span class="fu">Wait</span>(<span class="dv">500</span>);</span>
-<span id="cb93-5"><a href="hyperrealism.html#cb93-5"></a>    GTA.<span class="fu">Native</span>.<span class="fu">Function</span>.<span class="fu">Call</span>(Hash.<span class="fu">DO_SCREEN_FADE_IN</span>, <span class="dv">3000</span>);</span>
-<span id="cb93-6"><a href="hyperrealism.html#cb93-6"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb92"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb92-1"><a href="hyperrealism.html#cb92-1"></a><span class="kw">if</span> (Function.<span class="fu">Call</span>&lt;<span class="dt">bool</span>&gt;(Hash.<span class="fu">IS_SCREEN_FADED_OUT</span>))</span>
+<span id="cb92-2"><a href="hyperrealism.html#cb92-2"></a>{</span>
+<span id="cb92-3"><a href="hyperrealism.html#cb92-3"></a>    Function.<span class="fu">Call</span>(Hash.<span class="fu">SET_ENTITY_COORDS</span>, Game.<span class="fu">Player</span>.<span class="fu">Character</span>, <span class="fl">-1374.881f</span>, <span class="fl">-1398.835f</span>, <span class="fl">6.141f</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>);</span>
+<span id="cb92-4"><a href="hyperrealism.html#cb92-4"></a>    <span class="fu">Wait</span>(<span class="dv">500</span>);</span>
+<span id="cb92-5"><a href="hyperrealism.html#cb92-5"></a>    GTA.<span class="fu">Native</span>.<span class="fu">Function</span>.<span class="fu">Call</span>(Hash.<span class="fu">DO_SCREEN_FADE_IN</span>, <span class="dv">3000</span>);</span>
+<span id="cb92-6"><a href="hyperrealism.html#cb92-6"></a>}</span></code></pre></div>
 <p>Now if you try to hit the ‘O’ key, the screen will fade out, and then it will automatically fade in again.</p>
 <p><a href="" target="_blank"><img src="assets/scriptingGifs/fadeoutin.gif" style="display: block; margin: auto auto auto 0;" /></a></p>
 </div>
