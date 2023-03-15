@@ -1,7 +1,7 @@
 # Architectural Photography
 
 
-> “I saw it as the end of architecture... by pushing the concept to its limit and primarily by using the photograph as a point of departure. This is reflected in the idea that the great majority of images are no longer the expression of a subject, or the reality of an object, but almost exclusively the technical fulfilment of all its intrinsic possibilities. It’s the photographic medium that does all the work. People think they’re photographing a scene, but they’re only technical operators of the device’s infinite virtuality. The virtual is the device that wants nothing more than to function, that demands to function.”
+> “[...] a virtual urban life, like playing on the keyboard of the city as if it were a land of screen. I saw it as the end of architecture … by pushing the concept to its limit and primarily by using the photograph as a point of departure. This is reflected in the idea that the great majority of images are no longer the expression of a subject, or the reality of an object, but almost exclusively the technical fulfilment of all its intrinsic possibilities. It’s the photographic medium that does all the work. People think they’re photographing a scene, but they’re only technical operators of the device’s infinite virtuality. The virtual is the device that wants nothing more than to function, that demands to function.”
 > – Jean Baudrillard - _The Singular Objects of Architecture and Philosophy_, 2000
 
 
@@ -169,3 +169,7 @@ knitr::include_graphics('assets/gameBar.png', dpi = NA)
 Drive around Los Santos or go to the location on the map and take pictures of the architecture of the city through photographs or screenshotting. You are free to try to recreate the images of Gareth Damien Martin or explore different areas and approaches related to architectural photography, virtual urban spaces, digital structures and other topics related to the explored themes.
 
 
+```{r fig.align='center', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html'), fig.link='https://grandtheftdata.com/landmarks/#0,0,2,satellite'}
+knitr::include_graphics('assets/CA_workshop20230123.jpg', dpi = NA)
+```
+The Photographer's Guide To Los Santos Workshop At Camera Arts, Lucerne University Of Applied Sciences And Arts, January 2023

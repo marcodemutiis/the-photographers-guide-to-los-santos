@@ -1,6 +1,10 @@
 # Social Documentary
 
-//general intro on simulating society, the creation of NPCs, documentary and street photography traditions connected to politics of visibility and representation, and how they relate to the politics of simulation, how the player-photographer documents the creation of complex social spaces and reveals the process of simulating people and issues of class, gender, race in the game space...
+
+//general intro on simulating society, the creation of NPCs, documentary and street photography traditions connected to politics of visibility and representation, and how they relate to the politics of simulation, how the player-photographer documents the creation of complex social spaces and reveals the process of simulating people and issues of class, gender, race in the game space…
+
+
+
 
 ## _Down and Out in Los Santos_ by Alan Butler {-}
 
@@ -9,6 +13,8 @@ knitr::include_graphics('assets/downandoutinlossantos.jpeg', dpi = NA)
 ```
 
 artwork text
+
+//the photographer showing the developer's biases?
 
 [More about _Down and Out in Los Santos_](http://www.alanbutler.info/down-and-out-in-los-santos-2016)
 
