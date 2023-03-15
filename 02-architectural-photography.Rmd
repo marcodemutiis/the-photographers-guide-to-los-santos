@@ -32,7 +32,7 @@ _Facade and North Colonnade of the Parthenon on the Acropolis, Athens_ by Joseph
 
 
 Modern architecture started to become an increasingly popular subject within photography as the urban landscapes began to be reshaped. Around 1900, French photographer Eugène Atget started focusing on the disappearing architecture of "Old Paris". He captured the alleys and buildings of pre-revolutionary Paris, which were going to be demolished as part of a huge modernization project. 
-Many of Atget's photographs were taken at dawn, which - combined with the urban solitude and emptiness he portrayed, created a special sense of space and ambience. Many photographers were greatly influenced by his images, including American photographer Berenice Abbott (1898 – 1991) who bought most of Atget's negatives and prints before moving back to New York from Paris. 
+Many of Atget's photographs were taken at dawn, which - combined with the urban solitude and emptiness he portrayed, created a special sense of space and ambience. Many photographers were greatly influenced by his images, including American photographer Berenice Abbott who bought most of Atget's negatives and prints before moving back to New York from Paris. 
 
 ```{r fig.align='left', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html'), fig.link=''}
 knitr::include_graphics('assets/architecture_photography/CoinruedeSeine_small.jpg', dpi = NA)
