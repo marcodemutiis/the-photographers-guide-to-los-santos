@@ -5,6 +5,7 @@
 > – Jean Baudrillard - _The Singular Objects of Architecture and Philosophy_, 2000
 
 
+
 Architectural photography was born with the invention of heliographs, daguerreotypes and large format cameras in the first half of the 19th century. Due to the long exposure times, buildings were the ideal subjects for the early scientific experiments of Joseph Nicéphore Niépce, Louis-Jacques-Mandé Daguerre and William Talbot. 
 
 ```{r fig.align='left', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html'), fig.link=''}
