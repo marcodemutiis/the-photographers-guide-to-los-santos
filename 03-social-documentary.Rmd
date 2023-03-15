@@ -4,6 +4,19 @@
 //general intro on simulating society, the creation of NPCs, documentary and street photography traditions connected to politics of visibility and representation, and how they relate to the politics of simulation, how the player-photographer documents the creation of complex social spaces and reveals the process of simulating people and issues of class, gender, race in the game space…
 
 
+//photo reporter in virtual worlds Marco Cadioli / Marco Manray reporter in Second Life net art manifesto / Arenae "like a modern Capa" and Roc Herms in Postcards from Home with virtual world of Playstation Home
+
+_Fear and Loathing in GTA V_ by Morten Rockford Ravn
+
+```{r fig.align='center', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html')}
+knitr::include_graphics('assets/fearandloathingingtav.jpeg', dpi = NA)
+```
+
+[More about _Fear and Loathing in GTA V_](https://fearandloathingingtav.tumblr.com/)
+
+//Yumo Wu, Refusal
+
+//Wuji, chinese immigrant NPCs in RDR2
 
 
 
@@ -31,17 +44,6 @@ knitr::include_graphics('assets/maps/dignity_village.png', dpi = NA)
 ```
 Dignity Village is a tent city established by homeless people near Procopio Beach, east of [Paleto Bay](https://grandtheftdata.com/landmarks/#-171.667,6208.676,5,hybrid,name=paleto_bay,Belinda_May's_Beauty_Salon,_Paleto_Blvd,_Paleto_Bay).
 
-
-
-## _Fear and Loathing in GTA V_ by Morten Rockford Ravn {-}
-
-```{r fig.align='center', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html')}
-knitr::include_graphics('assets/fearandloathingingtav.jpeg', dpi = NA)
-```
-
-artwork text
-
-[More about _Fear and Loathing in GTA V_](https://fearandloathingingtav.tumblr.com/)
 
 
 ### Getting There {-}
