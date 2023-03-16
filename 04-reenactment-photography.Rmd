@@ -69,7 +69,18 @@ There are 3 ways to access Director Mode:
 
 Note: Director Mode is unavailable when player is in a vehicle, wanted, or active in a mission.
 
-Once activated, the game will open up the main Director Mode scene showing a casting trailer with a menu from which the player can choose from the following options: 
+Once activated, the game will open up the main Director Mode scene showing a casting trailer with a menu from which the player can choose from a number of options. Here the player can change the appearnce of their character by selecting a different model.
+
+```{r fig.align='center', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html')}
+knitr::include_graphics('assets/scriptingGifs/directormode_actors.gif', dpi = NA)
+```
+
+The player can also set the scene, manipulating the conditions of the game world as if it were a movie set: time of day, weather conditions, populations and vehicle density can all be controlled from the Director Mode menu.
+
+
+```{r fig.align='center', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html')}
+knitr::include_graphics('assets/scriptingGifs/directormode_settings.gif', dpi = NA)
+```
 
 
 | Menu Item    | Values |
@@ -92,7 +103,15 @@ Once activated, the game will open up the main Director Mode scene showing a cas
 | Low Gravity | On/Off        |
 | Clear Area | On/Off        |
 
-Once you have selected your actors and scene setup, go to ```Enter Director Mode``` to launch the actor into the map. Note: first person view is only available if the three protagonists characters are chosen.
+
+
+Once the player has selected their actor and scene setup, they can click on ```Enter Director Mode``` to launch the actress into the game worlld. Note: first person view is only available if the three protagonists characters are chosen.
+
+In Director Mode players can quick travel to a pre-defined location across the game world. Create a waypoint on the ```MAP``` from the main menu by selecting a destination on the map and press ```ENTER```. Leave the menu and back in Director Mode press the ```M``` key to bring up the Director Mode main menu, and under ```Location``` press the ```LEFT ARROW KEY``` to select ```Waypoint```, and press ```ENTER```. 
+
+```{r fig.align='center', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html')}
+knitr::include_graphics('assets/scriptingGifs/directormode_quicktravel.gif', dpi = NA)
+```
 
 
 ### Scene Creator {-}
@@ -107,17 +126,25 @@ When in ```Director Mode``` press the ```M``` key on PC to bring up the ```Inter
 There are two ways of to capture gameplay: ```Manual Recording``` and ```Action Replay```.
 
 MANUAL RECORDING
-Hold ```ALT + F1``` for ```Manual Recording```. Gameplay will be recorded in the background until you press ```LEFT ALT + F1``` to save the recording or ```LEFT ALT + F3``` to cancel the recording.
+Hold ```ALT + F1``` for ```Manual Recording```. Gameplay will be recorded in the background until ```LEFT ALT + F1``` is pressed to save the recording or ```LEFT ALT + F3``` to cancel the recording.
+
+```{r fig.align='center', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html')}
+knitr::include_graphics('assets/scriptingGifs/recording.gif', dpi = NA)
+```
 
 ACTION REPLAY
 This option records gameplay footage after the fact. Press ```F2``` to buffer recorded data in the background, but note it will not record anything until you press ```ALT + F1``` to save action replay.
 
-Recorded clips will be between 30 and 90s seconds in length, depending on how busy your action is. You will be notified if you are running out of space on your hard drive and you can define the amount of hard drive space you use for the Rockstar Editor by going to Pause Menu > Settings > Rockstar Editor.
+Recorded clips will be between 30 and 90s seconds in length, depending on how busy your action is. You will be notified if you are running out of space on your hard drive and you can define the amount of hard drive space you use for the Rockstar Editor by going to the game main menu in ```SETTINGS``` > ```ROCKSTAR EDITOR```.
 
 
 ### Rockstar Editor {-}
 
 On the game pause menu go to ```Rockstar Editor``` tab (last tab on the right) and choose ```Create New Project```. Then select ```Add Clip``` to select the footage you want to use. 
+
+```{r fig.align='center', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html')}
+knitr::include_graphics('assets/scriptingGifs/rockstareditor_launch.gif', dpi = NA)
+```
 
 Recordings will be placed in a timeline: you can scroll through each clip using ```LEFT CTRL + X``` or ```Mouse Click``` and ```Drag``` them. 
 Delete a clip using ```DEL```, duplicate a clip with ```LEFT CTRL + C```, or use the ```Mouse Wheel``` to scroll through the timeline.
@@ -134,15 +161,22 @@ This is the default third-person camera view filmed from behind the main charact
 2. ```Pre-set Camera angles```
 These are pres-set camera angles that lock the view at the front, behind, sides or above the main character. You can zoom in an out from these.
 
+```{r fig.align='center', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html')}
+knitr::include_graphics('assets/scriptingGifs/rockstareditor_presetCameraAngles.gif', dpi = NA)
+```
+
 3. ```Free Camera``` 
 The Free Camera can be placed within a defined area but freely around your main character.
 
+```{r fig.align='center', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html')}
+knitr::include_graphics('assets/scriptingGifs/rockstareditor_freeCamera.gif', dpi = NA)
+```
 
-Press ```F5``` to save your project.
+Press ```F5``` to save your project and camera position.
 
-Export a picture by pressing 
+Take a screenshot or export a Snapmatic picture by pressing the ```TAB``` key. This will save your picture in the game gallery and can only be exported out of the game by uploading the image to Rockstar Social Club.
 
-Export your video using the Export option on the Project Main Menu. Here you can set frame rate and bit rate. The video will appear in the Video Gallery inside the Rockstar Editor main menu. From there you can view it and upload it to either YouTube or the Rockstar Social club.
+Use the Game Bar to record a video or export your video using the ```Export``` option on the Project Main Menu. Here you can set frame rate and bit rate. The video will appear in the Video Gallery inside the Rockstar Editor main menu. From there you can view it and upload it to either YouTube or the Rockstar Social Club.
 
 
 ### Scene Director Mod {-}
