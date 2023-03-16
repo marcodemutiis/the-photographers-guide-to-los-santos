@@ -337,7 +337,10 @@ It was first introduced in the PC version of the game with the Rockstar Editor, 
 <li>Press the <code>UP Arrow Key</code> to take out the in-game smartphone and dial <code>1999578253</code> to activate <code>Director Mode</code>.</li>
 </ol>
 <p>Note: Director Mode is unavailable when player is in a vehicle, wanted, or active in a mission.</p>
-<p>Once activated, the game will open up the main Director Mode scene showing a casting trailer with a menu from which the player can choose from the following options:</p>
+<p>Once activated, the game will open up the main Director Mode scene showing a casting trailer with a menu from which the player can choose from a number of options. Here the player can change the appearnce of their character by selecting a different model.</p>
+<p><img src="assets/scriptingGifs/directormode_actors.gif" style="display: block; margin: auto;" /></p>
+<p>The player can also set the scene, manipulating the conditions of the game world as if it were a movie set: time of day, weather conditions, populations and vehicle density can all be controlled from the Director Mode menu.</p>
+<p><img src="assets/scriptingGifs/directormode_settings.gif" style="display: block; margin: auto;" /></p>
 <table>
 <colgroup>
 <col width="50%" />
@@ -420,7 +423,9 @@ It was first introduced in the PC version of the game with the Rockstar Editor, 
 </tr>
 </tbody>
 </table>
-<p>Once you have selected your actors and scene setup, go to <code>Enter Director Mode</code> to launch the actor into the map. Note: first person view is only available if the three protagonists characters are chosen.</p>
+<p>Once the player has selected their actor and scene setup, they can click on <code>Enter Director Mode</code> to launch the actress into the game worlld. Note: first person view is only available if the three protagonists characters are chosen.</p>
+<p>In Director Mode players can quick travel to a pre-defined location across the game world. Create a waypoint on the <code>MAP</code> from the main menu by selecting a destination on the map and press <code>ENTER</code>. Leave the menu and back in Director Mode press the <code>M</code> key to bring up the Director Mode main menu, and under <code>Location</code> press the <code>LEFT ARROW KEY</code> to select <code>Waypoint</code>, and press <code>ENTER</code>.</p>
+<p><img src="assets/scriptingGifs/directormode_quicktravel.gif" style="display: block; margin: auto;" /></p>
 </div>
 <div id="scene-creator" class="section level3 unnumbered hasAnchor">
 <h3>Scene Creator<a href="re-enactment-photography.html#scene-creator" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -431,14 +436,16 @@ It was first introduced in the PC version of the game with the Rockstar Editor, 
 <h3>Capturing Gameplay<a href="re-enactment-photography.html#capturing-gameplay" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>There are two ways of to capture gameplay: <code>Manual Recording</code> and <code>Action Replay</code>.</p>
 <p>MANUAL RECORDING
-Hold <code>ALT + F1</code> for <code>Manual Recording</code>. Gameplay will be recorded in the background until you press <code>LEFT ALT + F1</code> to save the recording or <code>LEFT ALT + F3</code> to cancel the recording.</p>
+Hold <code>ALT + F1</code> for <code>Manual Recording</code>. Gameplay will be recorded in the background until <code>LEFT ALT + F1</code> is pressed to save the recording or <code>LEFT ALT + F3</code> to cancel the recording.</p>
+<p><img src="assets/scriptingGifs/recording.gif" style="display: block; margin: auto;" /></p>
 <p>ACTION REPLAY
 This option records gameplay footage after the fact. Press <code>F2</code> to buffer recorded data in the background, but note it will not record anything until you press <code>ALT + F1</code> to save action replay.</p>
-<p>Recorded clips will be between 30 and 90s seconds in length, depending on how busy your action is. You will be notified if you are running out of space on your hard drive and you can define the amount of hard drive space you use for the Rockstar Editor by going to Pause Menu &gt; Settings &gt; Rockstar Editor.</p>
+<p>Recorded clips will be between 30 and 90s seconds in length, depending on how busy your action is. You will be notified if you are running out of space on your hard drive and you can define the amount of hard drive space you use for the Rockstar Editor by going to the game main menu in <code>SETTINGS</code> &gt; <code>ROCKSTAR EDITOR</code>.</p>
 </div>
 <div id="rockstar-editor" class="section level3 unnumbered hasAnchor">
 <h3>Rockstar Editor<a href="re-enactment-photography.html#rockstar-editor" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>On the game pause menu go to <code>Rockstar Editor</code> tab (last tab on the right) and choose <code>Create New Project</code>. Then select <code>Add Clip</code> to select the footage you want to use.</p>
+<p><img src="assets/scriptingGifs/rockstareditor_launch.gif" style="display: block; margin: auto;" /></p>
 <p>Recordings will be placed in a timeline: you can scroll through each clip using <code>LEFT CTRL + X</code> or <code>Mouse Click</code> and <code>Drag</code> them.
 Delete a clip using <code>DEL</code>, duplicate a clip with <code>LEFT CTRL + C</code>, or use the <code>Mouse Wheel</code> to scroll through the timeline.</p>
 <p><code>Double Click</code> on a clip or press <code>ENTER</code> to begin editing it.</p>
@@ -449,12 +456,16 @@ Delete a clip using <code>DEL</code>, duplicate a clip with <code>LEFT CTRL + C<
 This is the default third-person camera view filmed from behind the main character.</p></li>
 <li><p><code>Pre-set Camera angles</code>
 These are pres-set camera angles that lock the view at the front, behind, sides or above the main character. You can zoom in an out from these.</p></li>
-<li><p><code>Free Camera</code>
-The Free Camera can be placed within a defined area but freely around your main character.</p></li>
 </ol>
-<p>Press <code>F5</code> to save your project.</p>
-<p>Export a picture by pressing</p>
-<p>Export your video using the Export option on the Project Main Menu. Here you can set frame rate and bit rate. The video will appear in the Video Gallery inside the Rockstar Editor main menu. From there you can view it and upload it to either YouTube or the Rockstar Social club.</p>
+<p><img src="assets/scriptingGifs/rockstareditor_presetCameraAngles.gif" style="display: block; margin: auto;" /></p>
+<ol start="3" style="list-style-type: decimal">
+<li><code>Free Camera</code>
+The Free Camera can be placed within a defined area but freely around your main character.</li>
+</ol>
+<p><img src="assets/scriptingGifs/rockstareditor_freeCamera.gif" style="display: block; margin: auto;" /></p>
+<p>Press <code>F5</code> to save your project and camera position.</p>
+<p>Take a screenshot or export a Snapmatic picture by pressing the <code>TAB</code> key. This will save your picture in the game gallery and can only be exported out of the game by uploading the image to Rockstar Social Club.</p>
+<p>Use the Game Bar to record a video or export your video using the <code>Export</code> option on the Project Main Menu. Here you can set frame rate and bit rate. The video will appear in the Video Gallery inside the Rockstar Editor main menu. From there you can view it and upload it to either YouTube or the Rockstar Social Club.</p>
 </div>
 <div id="scene-director-mod" class="section level3 unnumbered hasAnchor">
 <h3>Scene Director Mod<a href="re-enactment-photography.html#scene-director-mod" class="anchor-section" aria-label="Anchor link to header"></a></h3>
