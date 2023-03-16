@@ -139,6 +139,8 @@ To do this we use a completed [game save file](https://www.gta5-mods.com/misc/10
 knitr::include_graphics('assets/loadSaveGame.png', dpi = NA)
 ```
 
+With the game save file loaded the player is free from the constraint of the main game missions and locked map areas, but the game will still at times resist the photographic project in different ways. The player can be attacked and killed by mountain lions, or beaten up and sent to the hospital by non playable characters. They can drown, fall to their death and get run over by cars.
+
 
 ### Photographing the Game Screen {-}
 
