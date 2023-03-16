@@ -1,6 +1,6 @@
 # Hyperrealism 
 
-//intro to the artistic current of photorealism and hyperrealism in painting and drawing, connected to the idea of photorealism and simulation in games (attempt to simulate life itself, not just photography), relationship between the game and the physical world, the way virtual spaces influence and shape society (training self driving cars in GTA V, CGI shaping architecture of buildings and object...), the blurrying of the lines between virtual and physical...
+//intro to the artistic current of photorealism and hyperrealism in painting and drawing, connected to the idea of photorealism and simulation in games, relation between game and cinema and the attempt to simulate life itself, not just photographic image. relationship between the game and the physical world, the way virtual spaces influence and shape society (training self driving cars in GTA V, CGI shaping architecture of buildings and object...), the blurrying of the lines between virtual and physical...
 
 
 ### _8k_ by Aram Bartholl {-}
@@ -43,7 +43,7 @@ To create a new prop we use the ```World.CreateProp``` function. This needs the 
 Let's create a ```Prop``` variable called MyProp and let's make an alarm siren appearing 3 meters in front of the player, with default rotation, dynamic and snapping to its original position:
 
 ```cs
-Prop MyProp = World.CreateProp("xm_prop_x17_sub_al_lamp_on", Game.Player.Character.GetOffsetInWorldCoords(new Vector3(0, 3, 0)), true, false);
+Prop MyProp = World.CreateProp("xm_prop_x17_sub_alarm_lamp", Game.Player.Character.GetOffsetInWorldCoords(new Vector3(0, 3, -3)), true, false);
 ```
 
 By default the siren is placed on top of a ceiling, so it will appear above the player.
