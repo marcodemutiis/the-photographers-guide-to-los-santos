@@ -82,6 +82,7 @@ The player can also set the scene, manipulating the conditions of the game world
 knitr::include_graphics('assets/scriptingGifs/directormode_settings.gif', dpi = NA)
 ```
 
+Here is the full list of options available in the Director Mode casting trailer menu:
 
 | Menu Item    | Values |
 | -----------  | ----------- |
