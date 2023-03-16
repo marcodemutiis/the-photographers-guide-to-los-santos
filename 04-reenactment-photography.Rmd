@@ -63,11 +63,11 @@ It was first introduced in the PC version of the game with the Rockstar Editor, 
 
 There are 3 ways to access Director Mode:
 
-1. Press the ```UP Arrow Key``` to take out the in-game smartphone and dial ```1999578253``` to activate ```Director Mode```. 
-2. On the game pause menu go to ```Rockstar Editor``` tab (last tab on the right) and select ```Director Mode``` 
-3. press ```M``` key on PC to bring up the ```Interaction Menu``` and select ```Director Mode```
+1. On the game pause menu go to ```Rockstar Editor``` tab (last tab on the right) and select ```Director Mode``` 
+2. press ```M``` key on PC to bring up the ```Interaction Menu``` and select ```Director Mode```
+3. Press the ```UP Arrow Key``` to take out the in-game smartphone and dial ```1999578253``` to activate ```Director Mode```. 
 
-Note: Director Mode is unavailable when player is in a vehicle, wanted, or active in a mission)
+Note: Director Mode is unavailable when player is in a vehicle, wanted, or active in a mission.
 
 Once activated, the game will open up the main Director Mode scene showing a casting trailer with a menu from which the player can choose from the following options: 
 
