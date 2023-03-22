@@ -189,3 +189,30 @@ Use the Game Bar to record a video or export your video using the ```Export``` o
 //active mode (record scene)
 
 ## Content Replication Assignment {-}
+
+## Selected Student Projects {-}
+
+### _Videodrome GAME ON_ by Claudia Loré {-}
+
+```{r fig.align='center', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html'), fig.link='https://grandtheftdata.com/landmarks/#0,0,2,satellite'}
+knitr::include_graphics('assets/re-enactment_photography/VideodromeGAMEONClaudiaLoré1.png', dpi = NA)
+```
+Claudia Loré, _Videodrome GAME ON_, IULM, March 2023.
+
+
+"Nella società della sovrastimolazione, c’è un confine tra schermo e realtà?
+La carne si oppone al disincarnato tecnologico.
+Il gioco diviene un sogno ad occhi aperti, a tratti più lucido del reale, da cui siamo attratti e intrappolati. Come la deformazione della carne in videodrome allo stesso modo la mappa di GTAV ci intrappola in un mondo dai confini limitati che ci permette (o ci fa credere) di poter fare e di poter essere qualsiasi cosa, o quasi.
+“IL VIDEOGAME È LA REALTÀ E LA REALTÀ È MENO DEL VIDEOGAME”
+In videodrome in maniera fastidiosa, urticante, l’evoluzione tecnologica viene presentata come un tumore e il suicidio come unica via d’uscita.
+PER FORTUNA IN GTAV DOPO IL WASTED C’È SEMPRE UN’ALTRA VITA"
+
+```{r fig.align='center', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html'), fig.link='https://grandtheftdata.com/landmarks/#0,0,2,satellite'}
+knitr::include_graphics('assets/re-enactment_photography/VideodromeGAMEONClaudiaLoré2.png', dpi = NA)
+```
+Claudia Loré, _Videodrome GAME ON_, IULM, March 2023.
+
+```{r fig.align='center', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html'), fig.link='https://grandtheftdata.com/landmarks/#0,0,2,satellite'}
+knitr::include_graphics('assets/re-enactment_photography/VideodromeGAMEONClaudiaLoré3.png', dpi = NA)
+```
+Claudia Loré, _Videodrome GAME ON_, IULM, March 2023.
