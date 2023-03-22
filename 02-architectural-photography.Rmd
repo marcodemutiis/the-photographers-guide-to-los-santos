@@ -180,7 +180,7 @@ The Photographer's Guide To Los Santos Workshop At Camera Arts, Lucerne Universi
 
 ## Selected Student Projects {-}
 
-### _Luftige Enge_ by Mascha Negri {–}
+### _Luftige Enge_ by Mascha Negri {-}
 
 ```{r fig.align='center', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html'), fig.link='https://grandtheftdata.com/landmarks/#0,0,2,satellite'}
 knitr::include_graphics('assets/architecture_photography/luftige_enge_mascha_negri3.png', dpi = NA)
