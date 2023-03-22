@@ -114,5 +114,30 @@ Investigate the population of NPCs in Los Santos and explore the way specific pe
 ```{r fig.align='center', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html')}
 knitr::include_graphics('assets/social_documentary/NPC_study.JPG', dpi = NA)
 ```
-The Photographer’s Guide To Los Santos Workshop At F+F School for Art and Media Design Zurich., March 2023.
+The Photographer’s Guide To Los Santos Workshop At F+F School for Art and Media Design Zurich, March 2023.
+
+
+## Selected Student Projects {-}
+
+### _bevhills01afy_ by Julian Rupp, Julian Walss, Julia Leppin, Barbara Truog {-}
+
+```{r fig.align='center', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html'), fig.link='https://grandtheftdata.com/landmarks/#0,0,2,satellite'}
+knitr::include_graphics('assets/social_documentary/bild-simona-lange_rupp-walss-truog_6.jpg', dpi = NA)
+```
+Julian Rupp, Julian Walss, Julia Leppin, Barbara Truog, _bevhills01afy_, Camera Arts, January 2023.
+
+
+"In our work titled „bevhills01afy“ we portray a GTA 5 NPC (non- playable-character). In a first step, we selected an NPC and lovingly renamed them from the developers description „bevhills01afy“ to Simona Lange. The installation resembles her room, personal objects and souvenirs. Its centerpiece is a tablet showing Simonas Instagram.
+We merged real objects, In-Game Photographs and artificially generated images. These different media types repeatedly reference each other, bending their individual truth. We point to the blurring of lines between digital and analogue, intelligent and non-intelligent, sentient and unaware, game and real.
+Furthermore, we want to highlight the biases and clichés in artificial worlds. Who sets the norms and rules of our worlds? What stereotypes do they contain? What influence do they have on us?"
+
+```{r fig.align='center', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html'), fig.link='https://grandtheftdata.com/landmarks/#0,0,2,satellite'}
+knitr::include_graphics('assets/social_documentary/ausstellungsdoku_rupp-walss-truog_2.jpg', dpi = NA)
+```
+Julian Rupp, Julian Walss, Julia Leppin, Barbara Truog, _bevhills01afy_, Camera Arts, January 2023.
+
+```{r fig.align='center', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html'), fig.link='https://grandtheftdata.com/landmarks/#0,0,2,satellite'}
+knitr::include_graphics('assets/social_documentary/ausstellungsdoku_rupp-walss-truog_1.jpg', dpi = NA)
+```
+Julian Rupp, Julian Walss, Julia Leppin, Barbara Truog, _bevhills01afy_, Camera Arts, January 2023.
 
