@@ -1,6 +1,6 @@
 # Surrealist Photography
 
-//general introduction about avant garde traditions of distancing from reality and exploring the possibilities of CGI decoupled from realism adn life-like simulation, the game as an engine that can be used to create oniric scenes, which in turn reveal the untapped possibilities hidden within the game code, the player as a modder which can generate worlds within the world...
+//general introduction about avant garde traditions of distancing from reality and exploring the possibilities of CGI decoupled from realism and life-like simulation, the game as an engine that can be used to create oniric scenes, which in turn reveal the untapped possibilities hidden within the game code, the player as a modder which can generate worlds within the world...
 
 ## Alexey Andrienko aka HAPP v2 {-}
 
@@ -1307,6 +1307,24 @@ knitr::include_graphics('assets/scriptingGifs/teleport.gif', dpi = NA)
 
 
 ## Content Replication Assignment {-}
-Teleport the player to a beach, spawn ten whales on the shore and generate an NPC wandering aroud them and take a screenshot in the style of HAPP V2.
+Use the code and the techniques learnt so far to create surrealist scenes. Control multiple NPCs to generate scenarios that escape the realism of the game and act photographically in the tradition of dadaism and surrealist art.
 
+
+## Selected Student Projects {-}
+
+### _Ascending Men_ by Elizabeth Desintaputri {-}
+
+```{r fig.align='center', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html'), fig.link='https://grandtheftdata.com/landmarks/#0,0,2,satellite'}
+knitr::include_graphics('assets/surrealist_photography/ascending_men1.png', dpi = NA)
+```
+Elizabeth Desintaputri, __Ascending Men_, Camera Arts, January 2023.
+
+
+"A surrealistic photo experiment in the world of Grand Theft Auto V. For this work I modified the game via modding and made use of the Rockstar Editor, a tool that allows players to edit, create and share in-game content via social media. What I did was to experiment with how far the Rockstar Editor was able to push the creation of images and videos with the available processing power of the computer. I tried to use as many different tools that the game offers and as few external tools as possible.
+Inspired by the 1953 painting Golconda by René Magritte, which depicts a scene of "raining men". The artwork shows white-collar workers ascending near the Maze Bank Tower, the tallest building in the game. The four images and a video show a dissimilar atmosphere in the well-known world of GTA V, where it is very difficult to tell if they were created in the game. Although the work is open to interpretation, many have associated it with Richard Drew's photograph The Falling Man."
+
+```{r fig.align='center', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html'), fig.link='https://grandtheftdata.com/landmarks/#0,0,2,satellite'}
+knitr::include_graphics('assets/surrealist_photography/ascending_men_Installation_6.jpg', dpi = NA)
+```
+Elizabeth Desintaputri, __Ascending Men_, Camera Arts, January 2023.
 
