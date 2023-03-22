@@ -109,9 +109,10 @@ knitr::include_graphics('assets/rockstarSocialClub.png', dpi = NA)
 
 ## Content Replication Assignment {-}
 
-Investigate the population of NPCs in Los Santos and explore the way specific people are simulated and represented. Wander atound Los Santos and Blaine County and take pictures of a specific community, reflecting on the politics of simulation and representation.
+Investigate the population of NPCs in Los Santos and explore the way specific people are simulated and represented. Wander around Los Santos and Blaine County and take pictures of a specific community, reflecting on the politics of simulation and representation.
 
 ```{r fig.align='center', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html')}
 knitr::include_graphics('assets/social_documentary/NPC_study.JPG', dpi = NA)
 ```
+The Photographer’s Guide To Los Santos Workshop At F+F School for Art and Media Design Zurich., March 2023.
 

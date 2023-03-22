@@ -128,9 +128,9 @@ knitr::include_graphics('assets/maps/intersectionOlympicElysian.png', dpi = NA)
 
 ## Tutorial {-}
 
-### Playing as a photographer {-}
+### Playing as a Photographer {-}
 
-Playing as a photographer means we are going to skip the compulsory game introduction, the missions and the narrative plot of the game.
+Playing as a photographer means ignoring, circumventing and sometimes resist what the game wants us to do and follow our photographic project instead. For starters, we are going to skip the compulsory game introduction, avoid the missions and neglect the narrative plot of the game.
 We are going to install a file which allows us to travel to Los Santos with no restriction of any kind, so that we can focus on photographic activities.
 
 To do this we use a completed [game save file](https://www.gta5-mods.com/misc/100-save-game). Download the file and extract its content, then copy both files ```SGTAXXXXX``` and ```SGTAXXXXX.bak``` in ```Documents/GTA V/Profiles/YYYYYYYY/```. Once the files are there, you will be able to load the game state by running GTA V and navigating on the pause menu to ```GAME``` > ```Load Game``` and select the 100% game file.
@@ -175,7 +175,7 @@ Drive around Los Santos or go to the location on the map and take pictures of th
 ```{r fig.align='center', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html'), fig.link='https://grandtheftdata.com/landmarks/#0,0,2,satellite'}
 knitr::include_graphics('assets/CA_workshop20230123.jpg', dpi = NA)
 ```
-The Photographer's Guide To Los Santos Workshop At Camera Arts, Lucerne University Of Applied Sciences And Arts, January 2023
+The Photographer's Guide To Los Santos Workshop At Camera Arts, Lucerne University Of Applied Sciences And Arts, January 2023.
 
 
 ## Selected Student Projects {-}
