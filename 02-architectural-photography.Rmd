@@ -91,7 +91,7 @@ A reinterpretation of Hilla and Bernd Becher's _Water Towers_ in Minecraft by Ka
 Architecture and photography have been interacting with each other for almost two centuries, affecting each other and taking different roles in many processes of building spaces and imag(in)ing structures. The architectural photograph was born as a representation of the past and from the distance. Throughout the XX century architects and photographers would shape the present by shaping spaces and creating images following the modernist ideology. In its computational and networked form, the image begins to copy physical structures and analogue architectural photography but soon proceeds to shape the creation of space itself. Through its computational simulation, photorealistic graphics and networked circulation, it imagines and projects onto the world. It precedes the built space in the physical world. This virtual architectural image is finally able to be navigated, documented, shaped and played once it becomes part of the game world. Players turned photographers and artists are entangled in this complex journey where images and structures constantly move closer and further apart, where new and old materials merge and structures reject or submit to the laws of physics. In-game photographers document the game architecture but also investigate it, actively explore it and even shape it.
 
 
-## _The Continuous City_, by Gareth Damian Martin {-}
+## _The Continuous City_ by Gareth Damian Martin {-}
 
 ```{r fig.align='left', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html'), fig.link='https://www.heterotopiaszine.com/'}
 knitr::include_graphics('assets/outskirts_fromTheContinuousCity.png', dpi = NA)
@@ -176,3 +176,24 @@ Drive around Los Santos or go to the location on the map and take pictures of th
 knitr::include_graphics('assets/CA_workshop20230123.jpg', dpi = NA)
 ```
 The Photographer's Guide To Los Santos Workshop At Camera Arts, Lucerne University Of Applied Sciences And Arts, January 2023
+
+
+## Selected Student Projects {-}
+
+_Luftige Enge_ by Mascha Negri
+
+```{r fig.align='center', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html'), fig.link='https://grandtheftdata.com/landmarks/#0,0,2,satellite'}
+knitr::include_graphics('assets/architecture_photography/luftige_enge_mascha_negri2.JPG', dpi = NA)
+```
+Mascha Negri, _Luftige Enge_, F+F, March 2023.
+
+
+In _Luftige Enge_ Mascha Negri focuses on the industrial areas of Los Santos. Wandering through the buildings in the game, the photographer looked for angles and perspectives that are reminiscent of the work of Germaine Krull as well as Bernd and Hilla Becher. Upon closer inspection, the images show the pixels of the screen, the polygons that make the 3D architecture and the textures of virtual pipes and chimneys. Negri worked with the smartphone camera to photograph the game screen, highlighting the properties of the simulation, while simulataneously following the trajectory of black and white architectural images from the analogue photography tradition. Negri employed digital editing through the smartphone photo app, using high-contrast black and white post-processing to underline the geomatric shapes of the building. The title _Luftige Enge_, literally "airy narrow", follows the contrast between the airy appearance of the smoke coming from the pipes and the massive size and dense positioning of the buildings. Finally, the contrast between analogue tradition and digital images, and between air and mass, can be extended to the relation the between post-industrial society and economy of the game industry and the vanishing heavy industry in the west simulated in the game buildings. 
+
+```{r fig.align='center', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html'), fig.link='https://grandtheftdata.com/landmarks/#0,0,2,satellite'}
+knitr::include_graphics('assets/architecture_photography/luftige_enge_mascha_negri.png', dpi = NA)
+```
+Mascha Negri, from _Luftige Enge_, F+F, March 2023.
+
+
+
