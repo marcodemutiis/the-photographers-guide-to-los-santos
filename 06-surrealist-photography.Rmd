@@ -1315,7 +1315,7 @@ Use the code and the techniques learnt so far to create surrealist scenes. Contr
 ### _Ascending Men_ by Elizabeth Desintaputri {-}
 
 ```{r fig.align='center', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html'), fig.link='https://grandtheftdata.com/landmarks/#0,0,2,satellite'}
-knitr::include_graphics('assets/surrealist_photography/ascending_men1.png', dpi = NA)
+knitr::include_graphics('assets/surrealist_photography/ascending_men2.png', dpi = NA)
 ```
 Elizabeth Desintaputri, __Ascending Men_, Camera Arts, January 2023.
 
