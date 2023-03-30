@@ -117,7 +117,7 @@ knitr::include_graphics('assets/social_documentary/NPC_study.JPG', dpi = NA)
 The Photographer’s Guide To Los Santos Workshop At F+F School for Art and Media Design Zurich, March 2023.
 
 
-## Selected Student Projects {-}
+## Selected Student Project {-}
 
 ### _bevhills01afy_ by Julian Rupp, Julian Walss, Julia Leppin, Barbara Truog {-}
 

@@ -202,14 +202,18 @@ With the game save file loaded the player is free from the constraint of the mai
 
 //To do: technical setup and moiré effect, artists using cameras rather than screenshotting, idea of separating the photographic act "of" the screen rather than the screen copy of the screenshot...
 //Photographs of a TV screen taken with a digital camera often exhibit moiré patterns. Since both the TV screen and the digital camera use a scanning technique to produce or to capture pictures with horizontal scan lines, the conflicting sets of lines cause the moiré patterns. To avoid the effect, the digital camera can be aimed at an angle of 30 degrees to the TV screen.
+//photographing the projection avoids reflections
+
 
 #### Screenshotting {-}
 
-On windows there are several ways to take a screenshot. To capture your entire screen and automatically save the screenshot, press the ```Windows logo key``` + ```PrtScn key``` (or  ```fn key``` + ```Windows logo key``` + ```PrtScn key```). The screenshot will be saved to ```Pictures > Screenshots folder```.
+On windows there are several ways to take a screenshot. 
 
-//Steam
+1. To capture your entire screen and automatically save the screenshot, press the ```Windows logo key``` + ```PrtScn key``` (or  ```fn key``` + ```Windows logo key``` + ```PrtScn key```). The screenshots will be saved to ```Pictures > Screenshots folder```.
 
-On windows 10 and 11 you can use the Game bar to take game screenshots and start/stop game screen recordings. Press the ```Windows logo key```  + ```G``` on your keyboard to open Game Bar.
+2. Steam allows to take screenshots while playing games through its platform by pressing ```F12``` (or ```fn key``` + ```F12```). The screenshots will be visible by selecting ```View > Screenshots``` from Steam's menu bar. It is also possible to modify the default screenshot button and folder location where the images are saved in ```Steam > Settings > In-Game```.
+
+3. On windows 10 and 11 you can use the Game bar to take game screenshots and start/stop game screen recordings. Press the ```Windows logo key```  + ```G``` on your keyboard to open Game Bar.
 
 + Press the camera icon to take a screenshot of the game screen.
 
@@ -232,7 +236,7 @@ knitr::include_graphics('assets/CA_workshop20230123.jpg', dpi = NA)
 The Photographer's Guide To Los Santos Workshop At Camera Arts, Lucerne University Of Applied Sciences And Arts, January 2023.
 
 
-## Selected Student Projects {-}
+## Selected Student Project {-}
 
 ### _Luftige Enge_ by Mascha Negri {-}
 
