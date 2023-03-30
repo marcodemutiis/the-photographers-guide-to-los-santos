@@ -168,7 +168,7 @@ Gareth Damian Martin: Not at all, in fact I think _Invisible Cities_ suggests th
 ```{r fig.align='left', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html'), fig.link='https://www.heterotopiaszine.com/'}
 knitr::include_graphics('assets/maps/intersectionOlympicElysian.png', dpi = NA)
 ```
-+ [The intersection of Interstate 4 and Interstate 5](https://grandtheftdata.com/landmarks/#951.507,-1144.265,4,atlas,name=trainyard_warehouse,Trainyard_Warehouse,_East_Los_Santos) manifests the architecture of traffic of the megalopolis.
+[The intersection of Interstate 4 and Interstate 5](https://grandtheftdata.com/landmarks/#951.507,-1144.265,4,atlas,name=trainyard_warehouse,Trainyard_Warehouse,_East_Los_Santos) manifests the architecture of traffic of the megalopolis.
 
 
 ## Readings {-}
