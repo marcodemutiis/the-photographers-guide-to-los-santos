@@ -107,7 +107,7 @@ artwork text
 
 
 <details>
-  <summary>Interview with Gareth Damien Martin</summary>
+  <summary>Interview with Gareth Damian Martin</summary>
 
 Matteo Bittanti: What is your background? Can you please summarize your trajectory as a game designer, writer, and artist?
 
