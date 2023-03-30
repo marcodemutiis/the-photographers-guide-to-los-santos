@@ -163,8 +163,6 @@ Gareth Damian Martin: Not at all, in fact I think _Invisible Cities_ suggests th
 
 
 
-[More about _The Continuous City_](https://socks-studio.com/2019/10/13/gareth-damian-martin-postcards-from-the-continuous-city-2018/)
-
 ### Getting there {-}
 
 ```{r fig.align='left', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html'), fig.link='https://www.heterotopiaszine.com/'}
