@@ -333,7 +333,7 @@ knitr::include_graphics('assets/scriptingGifs/turnTo.gif', dpi = NA)
 Some of the tasks are temporary and accept a time parameter (in milliseconds). Others are persistent, meaning they will keep being executed until the task is actively stopped. To stop a task you can use the ```ClearAllImmediately();``` command:
 
 ```cs
-Game.Player.Task.ClearAllImmediately();
+Game.Player.Character.Task.ClearAllImmediately();
 ```
 
 
