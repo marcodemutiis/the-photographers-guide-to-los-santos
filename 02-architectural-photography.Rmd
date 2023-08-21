@@ -172,9 +172,23 @@ knitr::include_graphics('assets/maps/intersectionOlympicElysian.png', dpi = NA)
 
 ## Readings {-}
 
-[Heterotopias](https://www.heterotopiaszine.com/)
+Gabriele Aroni, _The Semiotics of Architecture in Video Games_, Bloomsbury, London, 2022.
 
-[Mark D Teo, The Urban Architecture of Los Angeles and Grand Theft Auto, 2015.](https://www.academia.edu/18173221/The_Urban_Architecture_of_Los_Angeles_and_Grand_Theft_Auto)
+Drew Davidson, Heather Kelley, Julian Kücklich, Friedrich Von Borries, Steffen P. Walz, Matthias Böttger, _Space Time Play: Computer Games, Architecture And Urbanism - The Next Level_, Birkhäuser, 2007, Basel, Switzerland. 
+
+Konstantinos Dimopoulos, _Virtual Cities: An Atlas & Exploration of Video Game Cities_, Countryman Press, Woodstock, VT 2020.
+
+Andri Gerber, Ulrich Götz (Eds.), _Architectonics of Game Spaces. The Spatial Logic of the Virtual and Its Meaning for the Real_, Columbia University Press, New York, 2019.
+
+Duncan Harris, Alex Wiltshire, _Making Videogames: The Art of Creating Digital Worlds_, Thames & Hudson, London, 2022
+
+Gareth Damian Martin, _Heterotopias magazine_, 2017-ongoing, online publication (also available in printed format)
+
+Luke Caspar Pearson, Sandra Youkhana, _Videogame Atlas: Mapping Interactive Worlds_, Thames and Hudson, London, 2022
+
+Michael Nitsche, _Video Game Spaces. Image, Play, and Structure in 3D Worlds_, MIT Press, Cambridge, MA 2008.
+
+Mark D. Teo, _The Urban Architecture of Los Angeles and Grand Theft Auto_, thesis, 2015.
 
 
 ## Tutorial {-}
