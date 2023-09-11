@@ -43,13 +43,13 @@ knitr::include_graphics('assets/maps/mountChiliad.png', dpi = NA)
 
 + Download [Script Hook V](https://www.gta5-mods.com/tools/script-hook-v), go to the bin folder and copy ```dinput8.dll``` and ```ScriptHookV.dll``` files into your GTA V directory ```C:\Program Files (x86)\Steam\steamapps\common\Grand Theft Auto V```
 
-+ Download [Script Hook V dot net](https://github.com/crosire/scripthookvdotnet/releases), copy the ```ScriptHookVDotNet.asi``` file, ```ScriptHookVDotNet2.dll``` and ```ScriptHookVDotNet3.dll``` files into your GTA V directory ```C:\Program Files (x86)\Steam\steamapps\common\Grand Theft Auto V```
++ Download [Script Hook V dot net](https://github.com/crosire/scripthookvdotnet/releases), copy the ```ScriptHookVDotNet.asi``` file and ```ScriptHookVDotNet3.dll``` files into your GTA V directory ```C:\Program Files (x86)\Steam\steamapps\common\Grand Theft Auto V```
 
 + Create a new folder in GTA V directory and call it “scripts”.
 
 + Download and install [Visual Studio Community](https://visualstudio.microsoft.com/vs/community/) (free version of VS). Open Visual Studio and check the .NET desktop development package and install it
 
-+ Run GTA V and test if Script Hook V is working by pressing ```F4```. This should toggle the console view. Try to type Help() and press ``ÈNTER``` to get a list of available commands.
++ Run GTA V and test if Script Hook V is working by pressing ```F4```. This should toggle the console view. Try to type Help() and press ```ENTER``` to get a list of available commands.
 
 ```{r fig.align='left', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html'), fig.link=''}
 knitr::include_graphics('assets/scriptingGifs/console.gif', dpi = NA)
@@ -86,7 +86,7 @@ knitr::include_graphics('assets/scriptingGifs/ScriptAddRefs.png', dpi = NA)
 
 + Click on > Browse > browse to Downloads 
 
-+ Select ScriptHookedVDotNet > ```ScriptHookVDotNet2.dll``` and ```ScriptHookVDotNet3.dll``` and add them
++ Select ScriptHookedVDotNet > ```ScriptHookVDotNet3.dll``` and add it
 
 
 ```{r fig.align='left', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html'), fig.link=''}
