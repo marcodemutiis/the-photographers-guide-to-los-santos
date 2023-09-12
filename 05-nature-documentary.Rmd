@@ -369,37 +369,32 @@ int waitingTime = rnd.Next(1, 7);
 Game.Player.Character.Task.HandsUp(waitingTime * 1000);
 ```
 
-### Subtitles and Notifications {-}
+### Subtitles and Message Notifications {-}
 
 Generate Subtitles with a custom text string and duration (in milliseconds): 
 ```cs
-UI.ShowSubtitle("Hello World", 3000);
-```
-
-Generate a Notification with a custom text string:
-```cs
-UI.Notify("Hello World");
+GTA.UI.Screen.ShowSubtitle("Hello World", 3000);
 ```
 
 Generate Help Messages with a custom text string, duration (in milliseconds) and sound (on/off):
 ```cs
-UI.ShowHelpMessage("Hello", 1000, false);
+GTA.UI.Screen.ShowHelpMessage("Hello", 1000, false);
 ```
 
 Help Messages accept different color modifiers and input keys
 ```cs
-UI.ShowHelpMessage("~r~Red ~y~Yellow ~g~Green ~w~White ~b~Blue ~n~~w~Press ~INPUT_CONTEXT~");
+GTA.UI.Screen.ShowHelpMessage("~r~Red ~y~Yellow ~g~Green ~w~White ~b~Blue ~n~~w~Press ~INPUT_CONTEXT~");
 ```
 
 To check if the specific key has been pressed you can use ```Game.IsControlJustPressed(0, GTA.Control.Context)```.
 After creating a global booolean variable ```bool HelpMessageOff = false;```, add the following code in your ```onTick``` function:
 
 ```cs
-if (HelpMessageOff == false)     //Check loading state , & if text as been closed
+if (HelpMessageOff == false)     //check loading state , & if the text has been closed
 {
-	UI.ShowHelpMessage("~Press ~INPUT_CONTEXT~ to close this message");
+	GTA.UI.Screen.ShowHelpMessage("~Press ~INPUT_CONTEXT~ to close this message");
 };
-if (Game.IsControlJustPressed(0, GTA.Control.Context))//If user press E 
+if (Game.IsControlJustPressed(0, GTA.Control.Context))//If player presses E 
 { 
 	HelpMessageOff = true; 
 }; 
