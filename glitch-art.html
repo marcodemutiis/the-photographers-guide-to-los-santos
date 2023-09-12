@@ -208,7 +208,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="nature-documentary.html"><a href="nature-documentary.html#tasks"><i class="fa fa-check"></i>Tasks</a></li>
 <li class="chapter" data-level="" data-path="nature-documentary.html"><a href="nature-documentary.html#task-sequences"><i class="fa fa-check"></i>Task Sequences</a></li>
 <li class="chapter" data-level="" data-path="nature-documentary.html"><a href="nature-documentary.html#random"><i class="fa fa-check"></i>Random</a></li>
-<li class="chapter" data-level="" data-path="nature-documentary.html"><a href="nature-documentary.html#subtitles-and-notifications"><i class="fa fa-check"></i>Subtitles and Notifications</a></li>
+<li class="chapter" data-level="" data-path="nature-documentary.html"><a href="nature-documentary.html#subtitles-and-message-notifications"><i class="fa fa-check"></i>Subtitles and Message Notifications</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="nature-documentary.html"><a href="nature-documentary.html#content-replication-assignment-3"><i class="fa fa-check"></i>Content Replication Assignment</a><ul>
 <li class="chapter" data-level="" data-path="nature-documentary.html"><a href="nature-documentary.html#deercam-reenactment"><i class="fa fa-check"></i>Deercam reenactment</a></li>
@@ -319,116 +319,116 @@ Raphael Brunk, <em>Capture55326.4_19</em>, 2016</p>
 <div id="controlling-the-game-camera" class="section level3 unnumbered hasAnchor">
 <h3>Controlling the Game Camera<a href="glitch-art.html#controlling-the-game-camera" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>We can detach the camera from the player’s character and move freely around the game world. We instantiate a new <code>Camera</code> variable called <code>FreeCam</code>. We define it as the new world camera with the same position and rotation of the gameplay camera:</p>
-<div class="sourceCode" id="cb97"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb97-1"><a href="glitch-art.html#cb97-1"></a>FreeCam = World.<span class="fu">CreateCamera</span>(GameplayCamera.<span class="fu">Position</span>, GameplayCamera.<span class="fu">Rotation</span>, GameplayCamera.<span class="fu">FieldOfView</span>);</span></code></pre></div>
+<div class="sourceCode" id="cb96"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb96-1"><a href="glitch-art.html#cb96-1"></a>FreeCam = World.<span class="fu">CreateCamera</span>(GameplayCamera.<span class="fu">Position</span>, GameplayCamera.<span class="fu">Rotation</span>, GameplayCamera.<span class="fu">FieldOfView</span>);</span></code></pre></div>
 <p>We then define our new camera as the main camera with <code>World.RenderingCamera = FreeCam</code>. In order to control the camera we basically its vectors in 3D coordinates and multiply with a number over a certain direction to move towards a specific destination.
 A free camera – unlike the main character view – also allows us to move through the game architecture and terrain, revealing the construction of the game world. Press <code>O</code> to toggle the free camera On and off.</p>
 <details>
 <p><summary>Example code</summary></p>
-<div class="sourceCode" id="cb98"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb98-1"><a href="glitch-art.html#cb98-1"></a><span class="co">//this code was kindly provided by LeeC22 on https://gtaforums.com/topic/981454-free-cam-mode-in-c/#comment-1072077418</span></span>
-<span id="cb98-2"><a href="glitch-art.html#cb98-2"></a></span>
-<span id="cb98-3"><a href="glitch-art.html#cb98-3"></a><span class="kw">using</span> System;</span>
-<span id="cb98-4"><a href="glitch-art.html#cb98-4"></a><span class="kw">using</span> System.<span class="fu">Windows</span>.<span class="fu">Forms</span>;</span>
-<span id="cb98-5"><a href="glitch-art.html#cb98-5"></a><span class="kw">using</span> GTA;</span>
-<span id="cb98-6"><a href="glitch-art.html#cb98-6"></a><span class="kw">using</span> GTA.<span class="fu">Math</span>;</span>
-<span id="cb98-7"><a href="glitch-art.html#cb98-7"></a></span>
-<span id="cb98-8"><a href="glitch-art.html#cb98-8"></a><span class="kw">using</span> Control = GTA.<span class="fu">Control</span>;</span>
-<span id="cb98-9"><a href="glitch-art.html#cb98-9"></a></span>
-<span id="cb98-10"><a href="glitch-art.html#cb98-10"></a><span class="kw">namespace</span> BasicFreeCamTest</span>
-<span id="cb98-11"><a href="glitch-art.html#cb98-11"></a>{</span>
-<span id="cb98-12"><a href="glitch-art.html#cb98-12"></a>    <span class="kw">public</span> <span class="kw">class</span> cBasicFreeCamTest : Script</span>
-<span id="cb98-13"><a href="glitch-art.html#cb98-13"></a>    {</span>
-<span id="cb98-14"><a href="glitch-art.html#cb98-14"></a>        <span class="kw">private</span> Keys ActivationKey = Keys.<span class="fu">O</span>;</span>
-<span id="cb98-15"><a href="glitch-art.html#cb98-15"></a>        <span class="kw">private</span> <span class="dt">bool</span> FreeCamActive = <span class="kw">false</span>;</span>
-<span id="cb98-16"><a href="glitch-art.html#cb98-16"></a>        <span class="kw">private</span> Camera FreeCam;</span>
-<span id="cb98-17"><a href="glitch-art.html#cb98-17"></a></span>
-<span id="cb98-18"><a href="glitch-art.html#cb98-18"></a>        <span class="kw">public</span> <span class="fu">cBasicFreeCamTest</span>()</span>
-<span id="cb98-19"><a href="glitch-art.html#cb98-19"></a>        {</span>
-<span id="cb98-20"><a href="glitch-art.html#cb98-20"></a>            Tick += onTick;</span>
-<span id="cb98-21"><a href="glitch-art.html#cb98-21"></a>            KeyUp += onKeyUp;</span>
-<span id="cb98-22"><a href="glitch-art.html#cb98-22"></a>            Aborted += onAborted;</span>
-<span id="cb98-23"><a href="glitch-art.html#cb98-23"></a></span>
-<span id="cb98-24"><a href="glitch-art.html#cb98-24"></a>            Interval = <span class="dv">0</span>;</span>
-<span id="cb98-25"><a href="glitch-art.html#cb98-25"></a>        }</span>
-<span id="cb98-26"><a href="glitch-art.html#cb98-26"></a></span>
-<span id="cb98-27"><a href="glitch-art.html#cb98-27"></a>        <span class="kw">private</span> <span class="dt">void</span> <span class="fu">onTick</span>(<span class="dt">object</span> sender, EventArgs e)</span>
-<span id="cb98-28"><a href="glitch-art.html#cb98-28"></a>        {</span>
-<span id="cb98-29"><a href="glitch-art.html#cb98-29"></a>            <span class="co">// Exits from the loop if the game is loading</span></span>
-<span id="cb98-30"><a href="glitch-art.html#cb98-30"></a>            <span class="kw">if</span> (Game.<span class="fu">IsLoading</span>) <span class="kw">return</span>;</span>
-<span id="cb98-31"><a href="glitch-art.html#cb98-31"></a></span>
-<span id="cb98-32"><a href="glitch-art.html#cb98-32"></a>            <span class="kw">if</span> (FreeCamActive) <span class="fu">UpdateFreeCam</span>();</span>
-<span id="cb98-33"><a href="glitch-art.html#cb98-33"></a>        }</span>
-<span id="cb98-34"><a href="glitch-art.html#cb98-34"></a></span>
-<span id="cb98-35"><a href="glitch-art.html#cb98-35"></a>        <span class="kw">private</span> <span class="dt">void</span> <span class="fu">UpdateFreeCam</span>()</span>
-<span id="cb98-36"><a href="glitch-art.html#cb98-36"></a>        {</span>
-<span id="cb98-37"><a href="glitch-art.html#cb98-37"></a>            <span class="dt">float</span> deltaTime = Game.<span class="fu">LastFrameTime</span>;</span>
-<span id="cb98-38"><a href="glitch-art.html#cb98-38"></a>            <span class="dt">float</span> speed = 5f;</span>
-<span id="cb98-39"><a href="glitch-art.html#cb98-39"></a>            <span class="dt">float</span> camSpeed = speed * deltaTime;</span>
-<span id="cb98-40"><a href="glitch-art.html#cb98-40"></a>            <span class="dt">float</span> rotSpeed = 40f;</span>
-<span id="cb98-41"><a href="glitch-art.html#cb98-41"></a>            <span class="dt">float</span> camRotSpeed = rotSpeed * deltaTime;</span>
-<span id="cb98-42"><a href="glitch-art.html#cb98-42"></a></span>
-<span id="cb98-43"><a href="glitch-art.html#cb98-43"></a>            Game.<span class="fu">DisableAllControlsThisFrame</span>(<span class="dv">2</span>);</span>
-<span id="cb98-44"><a href="glitch-art.html#cb98-44"></a></span>
-<span id="cb98-45"><a href="glitch-art.html#cb98-45"></a>            Vector3 camForward = FreeCam.<span class="fu">Direction</span>.<span class="fu">Normalized</span>; <span class="co">//FreeCam.ForwardVector</span></span>
-<span id="cb98-46"><a href="glitch-art.html#cb98-46"></a>            Vector3 camRight = Vector3.<span class="fu">Cross</span>(Vector3.<span class="fu">WorldUp</span>, camForward); <span class="co">//FreeCam.RightVector</span></span>
-<span id="cb98-47"><a href="glitch-art.html#cb98-47"></a>            Vector3 camUp = Vector3.<span class="fu">Cross</span>(camRight, camForward); <span class="co">//FreeCam.UpVector?</span></span>
-<span id="cb98-48"><a href="glitch-art.html#cb98-48"></a></span>
-<span id="cb98-49"><a href="glitch-art.html#cb98-49"></a>                <span class="kw">if</span> (Game.<span class="fu">IsDisabledControlJustPressed</span>(<span class="dv">2</span>, Control.<span class="fu">FrontendCancel</span>))</span>
-<span id="cb98-50"><a href="glitch-art.html#cb98-50"></a>            {</span>
-<span id="cb98-51"><a href="glitch-art.html#cb98-51"></a>                World.<span class="fu">RenderingCamera</span> = <span class="kw">null</span>;</span>
-<span id="cb98-52"><a href="glitch-art.html#cb98-52"></a>                FreeCam.<span class="fu">Destroy</span>();</span>
-<span id="cb98-53"><a href="glitch-art.html#cb98-53"></a>                FreeCamActive = <span class="kw">false</span>;</span>
-<span id="cb98-54"><a href="glitch-art.html#cb98-54"></a>                <span class="kw">return</span>;</span>
-<span id="cb98-55"><a href="glitch-art.html#cb98-55"></a>            }</span>
-<span id="cb98-56"><a href="glitch-art.html#cb98-56"></a></span>
-<span id="cb98-57"><a href="glitch-art.html#cb98-57"></a>            <span class="dt">float</span> fbSpeedMult = Game.<span class="fu">GetDisabledControlNormal</span>(<span class="dv">2</span>, Control.<span class="fu">MoveUpDown</span>);</span>
-<span id="cb98-58"><a href="glitch-art.html#cb98-58"></a>            <span class="dt">float</span> lrSpeedMult = Game.<span class="fu">GetDisabledControlNormal</span>(<span class="dv">2</span>, Control.<span class="fu">MoveLeftRight</span>);</span>
-<span id="cb98-59"><a href="glitch-art.html#cb98-59"></a>            <span class="dt">float</span> yawSpeedMult = Game.<span class="fu">GetDisabledControlNormal</span>(<span class="dv">2</span>, Control.<span class="fu">LookLeftRight</span>);</span>
-<span id="cb98-60"><a href="glitch-art.html#cb98-60"></a>            <span class="dt">float</span> pitchSpeedMult = Game.<span class="fu">GetDisabledControlNormal</span>(<span class="dv">2</span>, Control.<span class="fu">LookUpDown</span>);</span>
-<span id="cb98-61"><a href="glitch-art.html#cb98-61"></a></span>
-<span id="cb98-62"><a href="glitch-art.html#cb98-62"></a>            <span class="dt">float</span> fbSpeed = camSpeed * fbSpeedMult;</span>
-<span id="cb98-63"><a href="glitch-art.html#cb98-63"></a>            <span class="dt">float</span> lrSpeed = camSpeed * lrSpeedMult;</span>
-<span id="cb98-64"><a href="glitch-art.html#cb98-64"></a>            <span class="dt">float</span> yawSpeed = camRotSpeed * yawSpeedMult;</span>
-<span id="cb98-65"><a href="glitch-art.html#cb98-65"></a>            <span class="dt">float</span> pitchSpeed = camRotSpeed * pitchSpeedMult;</span>
-<span id="cb98-66"><a href="glitch-art.html#cb98-66"></a></span>
-<span id="cb98-67"><a href="glitch-art.html#cb98-67"></a>            Vector3 camLR = camRight * -lrSpeed;</span>
-<span id="cb98-68"><a href="glitch-art.html#cb98-68"></a>            Vector3 camFB = camForward * -fbSpeed;</span>
-<span id="cb98-69"><a href="glitch-art.html#cb98-69"></a>            Vector3 camMove = camLR + camFB;</span>
-<span id="cb98-70"><a href="glitch-art.html#cb98-70"></a></span>
-<span id="cb98-71"><a href="glitch-art.html#cb98-71"></a>            Vector3 camRot = <span class="kw">new</span> <span class="fu">Vector3</span>(pitchSpeed, <span class="dv">0</span>, -yawSpeed);</span>
-<span id="cb98-72"><a href="glitch-art.html#cb98-72"></a></span>
-<span id="cb98-73"><a href="glitch-art.html#cb98-73"></a>            FreeCam.<span class="fu">Position</span> += camMove;</span>
-<span id="cb98-74"><a href="glitch-art.html#cb98-74"></a>            FreeCam.<span class="fu">Rotation</span> += camRot;</span>
-<span id="cb98-75"><a href="glitch-art.html#cb98-75"></a>        }</span>
-<span id="cb98-76"><a href="glitch-art.html#cb98-76"></a></span>
-<span id="cb98-77"><a href="glitch-art.html#cb98-77"></a>        <span class="kw">private</span> <span class="dt">void</span> <span class="fu">onKeyUp</span>(<span class="dt">object</span> sender, KeyEventArgs e)</span>
-<span id="cb98-78"><a href="glitch-art.html#cb98-78"></a>        {</span>
-<span id="cb98-79"><a href="glitch-art.html#cb98-79"></a>            <span class="kw">if</span> (e.<span class="fu">KeyCode</span> == ActivationKey)</span>
-<span id="cb98-80"><a href="glitch-art.html#cb98-80"></a>            {</span>
-<span id="cb98-81"><a href="glitch-art.html#cb98-81"></a>                <span class="co">//toggle the freecam on/off</span></span>
-<span id="cb98-82"><a href="glitch-art.html#cb98-82"></a>                FreeCamActive = !FreeCamActive;</span>
-<span id="cb98-83"><a href="glitch-art.html#cb98-83"></a></span>
-<span id="cb98-84"><a href="glitch-art.html#cb98-84"></a>                <span class="kw">if</span> (FreeCamActive) <span class="co">//ON</span></span>
-<span id="cb98-85"><a href="glitch-art.html#cb98-85"></a>                {</span>
-<span id="cb98-86"><a href="glitch-art.html#cb98-86"></a>                    FreeCam = World.<span class="fu">CreateCamera</span>(GameplayCamera.<span class="fu">Position</span>, GameplayCamera.<span class="fu">Rotation</span>, GameplayCamera.<span class="fu">FieldOfView</span>);</span>
-<span id="cb98-87"><a href="glitch-art.html#cb98-87"></a>                    World.<span class="fu">RenderingCamera</span> = FreeCam;</span>
-<span id="cb98-88"><a href="glitch-art.html#cb98-88"></a>                    UI.<span class="fu">ShowSubtitle</span>(<span class="st">&quot;FreeCam ON&quot;</span>, <span class="dv">1000</span>);</span>
-<span id="cb98-89"><a href="glitch-art.html#cb98-89"></a>                }</span>
-<span id="cb98-90"><a href="glitch-art.html#cb98-90"></a>                <span class="kw">else</span> <span class="co">//OFF</span></span>
-<span id="cb98-91"><a href="glitch-art.html#cb98-91"></a>                {</span>
-<span id="cb98-92"><a href="glitch-art.html#cb98-92"></a>                    World.<span class="fu">RenderingCamera</span> = <span class="kw">null</span>;</span>
-<span id="cb98-93"><a href="glitch-art.html#cb98-93"></a>                    FreeCam.<span class="fu">Destroy</span>();</span>
-<span id="cb98-94"><a href="glitch-art.html#cb98-94"></a>                    UI.<span class="fu">ShowSubtitle</span>(<span class="st">&quot;FreeCam OFF&quot;</span>, <span class="dv">1000</span>);</span>
-<span id="cb98-95"><a href="glitch-art.html#cb98-95"></a>                }</span>
-<span id="cb98-96"><a href="glitch-art.html#cb98-96"></a>            }</span>
-<span id="cb98-97"><a href="glitch-art.html#cb98-97"></a>        }</span>
-<span id="cb98-98"><a href="glitch-art.html#cb98-98"></a></span>
-<span id="cb98-99"><a href="glitch-art.html#cb98-99"></a>        <span class="kw">private</span> <span class="dt">void</span> <span class="fu">onAborted</span>(<span class="dt">object</span> sender, EventArgs e)</span>
-<span id="cb98-100"><a href="glitch-art.html#cb98-100"></a>        {</span>
-<span id="cb98-101"><a href="glitch-art.html#cb98-101"></a>            World.<span class="fu">RenderingCamera</span> = <span class="kw">null</span>;</span>
-<span id="cb98-102"><a href="glitch-art.html#cb98-102"></a>        }</span>
-<span id="cb98-103"><a href="glitch-art.html#cb98-103"></a>    }</span>
-<span id="cb98-104"><a href="glitch-art.html#cb98-104"></a>}</span>
-<span id="cb98-105"><a href="glitch-art.html#cb98-105"></a>    </span></code></pre></div>
+<div class="sourceCode" id="cb97"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb97-1"><a href="glitch-art.html#cb97-1"></a><span class="co">//this code was kindly provided by LeeC22 on https://gtaforums.com/topic/981454-free-cam-mode-in-c/#comment-1072077418</span></span>
+<span id="cb97-2"><a href="glitch-art.html#cb97-2"></a></span>
+<span id="cb97-3"><a href="glitch-art.html#cb97-3"></a><span class="kw">using</span> System;</span>
+<span id="cb97-4"><a href="glitch-art.html#cb97-4"></a><span class="kw">using</span> System.<span class="fu">Windows</span>.<span class="fu">Forms</span>;</span>
+<span id="cb97-5"><a href="glitch-art.html#cb97-5"></a><span class="kw">using</span> GTA;</span>
+<span id="cb97-6"><a href="glitch-art.html#cb97-6"></a><span class="kw">using</span> GTA.<span class="fu">Math</span>;</span>
+<span id="cb97-7"><a href="glitch-art.html#cb97-7"></a></span>
+<span id="cb97-8"><a href="glitch-art.html#cb97-8"></a><span class="kw">using</span> Control = GTA.<span class="fu">Control</span>;</span>
+<span id="cb97-9"><a href="glitch-art.html#cb97-9"></a></span>
+<span id="cb97-10"><a href="glitch-art.html#cb97-10"></a><span class="kw">namespace</span> BasicFreeCamTest</span>
+<span id="cb97-11"><a href="glitch-art.html#cb97-11"></a>{</span>
+<span id="cb97-12"><a href="glitch-art.html#cb97-12"></a>    <span class="kw">public</span> <span class="kw">class</span> cBasicFreeCamTest : Script</span>
+<span id="cb97-13"><a href="glitch-art.html#cb97-13"></a>    {</span>
+<span id="cb97-14"><a href="glitch-art.html#cb97-14"></a>        <span class="kw">private</span> Keys ActivationKey = Keys.<span class="fu">O</span>;</span>
+<span id="cb97-15"><a href="glitch-art.html#cb97-15"></a>        <span class="kw">private</span> <span class="dt">bool</span> FreeCamActive = <span class="kw">false</span>;</span>
+<span id="cb97-16"><a href="glitch-art.html#cb97-16"></a>        <span class="kw">private</span> Camera FreeCam;</span>
+<span id="cb97-17"><a href="glitch-art.html#cb97-17"></a></span>
+<span id="cb97-18"><a href="glitch-art.html#cb97-18"></a>        <span class="kw">public</span> <span class="fu">cBasicFreeCamTest</span>()</span>
+<span id="cb97-19"><a href="glitch-art.html#cb97-19"></a>        {</span>
+<span id="cb97-20"><a href="glitch-art.html#cb97-20"></a>            Tick += onTick;</span>
+<span id="cb97-21"><a href="glitch-art.html#cb97-21"></a>            KeyUp += onKeyUp;</span>
+<span id="cb97-22"><a href="glitch-art.html#cb97-22"></a>            Aborted += onAborted;</span>
+<span id="cb97-23"><a href="glitch-art.html#cb97-23"></a></span>
+<span id="cb97-24"><a href="glitch-art.html#cb97-24"></a>            Interval = <span class="dv">0</span>;</span>
+<span id="cb97-25"><a href="glitch-art.html#cb97-25"></a>        }</span>
+<span id="cb97-26"><a href="glitch-art.html#cb97-26"></a></span>
+<span id="cb97-27"><a href="glitch-art.html#cb97-27"></a>        <span class="kw">private</span> <span class="dt">void</span> <span class="fu">onTick</span>(<span class="dt">object</span> sender, EventArgs e)</span>
+<span id="cb97-28"><a href="glitch-art.html#cb97-28"></a>        {</span>
+<span id="cb97-29"><a href="glitch-art.html#cb97-29"></a>            <span class="co">// Exits from the loop if the game is loading</span></span>
+<span id="cb97-30"><a href="glitch-art.html#cb97-30"></a>            <span class="kw">if</span> (Game.<span class="fu">IsLoading</span>) <span class="kw">return</span>;</span>
+<span id="cb97-31"><a href="glitch-art.html#cb97-31"></a></span>
+<span id="cb97-32"><a href="glitch-art.html#cb97-32"></a>            <span class="kw">if</span> (FreeCamActive) <span class="fu">UpdateFreeCam</span>();</span>
+<span id="cb97-33"><a href="glitch-art.html#cb97-33"></a>        }</span>
+<span id="cb97-34"><a href="glitch-art.html#cb97-34"></a></span>
+<span id="cb97-35"><a href="glitch-art.html#cb97-35"></a>        <span class="kw">private</span> <span class="dt">void</span> <span class="fu">UpdateFreeCam</span>()</span>
+<span id="cb97-36"><a href="glitch-art.html#cb97-36"></a>        {</span>
+<span id="cb97-37"><a href="glitch-art.html#cb97-37"></a>            <span class="dt">float</span> deltaTime = Game.<span class="fu">LastFrameTime</span>;</span>
+<span id="cb97-38"><a href="glitch-art.html#cb97-38"></a>            <span class="dt">float</span> speed = 5f;</span>
+<span id="cb97-39"><a href="glitch-art.html#cb97-39"></a>            <span class="dt">float</span> camSpeed = speed * deltaTime;</span>
+<span id="cb97-40"><a href="glitch-art.html#cb97-40"></a>            <span class="dt">float</span> rotSpeed = 40f;</span>
+<span id="cb97-41"><a href="glitch-art.html#cb97-41"></a>            <span class="dt">float</span> camRotSpeed = rotSpeed * deltaTime;</span>
+<span id="cb97-42"><a href="glitch-art.html#cb97-42"></a></span>
+<span id="cb97-43"><a href="glitch-art.html#cb97-43"></a>            Game.<span class="fu">DisableAllControlsThisFrame</span>(<span class="dv">2</span>);</span>
+<span id="cb97-44"><a href="glitch-art.html#cb97-44"></a></span>
+<span id="cb97-45"><a href="glitch-art.html#cb97-45"></a>            Vector3 camForward = FreeCam.<span class="fu">Direction</span>.<span class="fu">Normalized</span>; <span class="co">//FreeCam.ForwardVector</span></span>
+<span id="cb97-46"><a href="glitch-art.html#cb97-46"></a>            Vector3 camRight = Vector3.<span class="fu">Cross</span>(Vector3.<span class="fu">WorldUp</span>, camForward); <span class="co">//FreeCam.RightVector</span></span>
+<span id="cb97-47"><a href="glitch-art.html#cb97-47"></a>            Vector3 camUp = Vector3.<span class="fu">Cross</span>(camRight, camForward); <span class="co">//FreeCam.UpVector?</span></span>
+<span id="cb97-48"><a href="glitch-art.html#cb97-48"></a></span>
+<span id="cb97-49"><a href="glitch-art.html#cb97-49"></a>                <span class="kw">if</span> (Game.<span class="fu">IsDisabledControlJustPressed</span>(<span class="dv">2</span>, Control.<span class="fu">FrontendCancel</span>))</span>
+<span id="cb97-50"><a href="glitch-art.html#cb97-50"></a>            {</span>
+<span id="cb97-51"><a href="glitch-art.html#cb97-51"></a>                World.<span class="fu">RenderingCamera</span> = <span class="kw">null</span>;</span>
+<span id="cb97-52"><a href="glitch-art.html#cb97-52"></a>                FreeCam.<span class="fu">Destroy</span>();</span>
+<span id="cb97-53"><a href="glitch-art.html#cb97-53"></a>                FreeCamActive = <span class="kw">false</span>;</span>
+<span id="cb97-54"><a href="glitch-art.html#cb97-54"></a>                <span class="kw">return</span>;</span>
+<span id="cb97-55"><a href="glitch-art.html#cb97-55"></a>            }</span>
+<span id="cb97-56"><a href="glitch-art.html#cb97-56"></a></span>
+<span id="cb97-57"><a href="glitch-art.html#cb97-57"></a>            <span class="dt">float</span> fbSpeedMult = Game.<span class="fu">GetDisabledControlNormal</span>(<span class="dv">2</span>, Control.<span class="fu">MoveUpDown</span>);</span>
+<span id="cb97-58"><a href="glitch-art.html#cb97-58"></a>            <span class="dt">float</span> lrSpeedMult = Game.<span class="fu">GetDisabledControlNormal</span>(<span class="dv">2</span>, Control.<span class="fu">MoveLeftRight</span>);</span>
+<span id="cb97-59"><a href="glitch-art.html#cb97-59"></a>            <span class="dt">float</span> yawSpeedMult = Game.<span class="fu">GetDisabledControlNormal</span>(<span class="dv">2</span>, Control.<span class="fu">LookLeftRight</span>);</span>
+<span id="cb97-60"><a href="glitch-art.html#cb97-60"></a>            <span class="dt">float</span> pitchSpeedMult = Game.<span class="fu">GetDisabledControlNormal</span>(<span class="dv">2</span>, Control.<span class="fu">LookUpDown</span>);</span>
+<span id="cb97-61"><a href="glitch-art.html#cb97-61"></a></span>
+<span id="cb97-62"><a href="glitch-art.html#cb97-62"></a>            <span class="dt">float</span> fbSpeed = camSpeed * fbSpeedMult;</span>
+<span id="cb97-63"><a href="glitch-art.html#cb97-63"></a>            <span class="dt">float</span> lrSpeed = camSpeed * lrSpeedMult;</span>
+<span id="cb97-64"><a href="glitch-art.html#cb97-64"></a>            <span class="dt">float</span> yawSpeed = camRotSpeed * yawSpeedMult;</span>
+<span id="cb97-65"><a href="glitch-art.html#cb97-65"></a>            <span class="dt">float</span> pitchSpeed = camRotSpeed * pitchSpeedMult;</span>
+<span id="cb97-66"><a href="glitch-art.html#cb97-66"></a></span>
+<span id="cb97-67"><a href="glitch-art.html#cb97-67"></a>            Vector3 camLR = camRight * -lrSpeed;</span>
+<span id="cb97-68"><a href="glitch-art.html#cb97-68"></a>            Vector3 camFB = camForward * -fbSpeed;</span>
+<span id="cb97-69"><a href="glitch-art.html#cb97-69"></a>            Vector3 camMove = camLR + camFB;</span>
+<span id="cb97-70"><a href="glitch-art.html#cb97-70"></a></span>
+<span id="cb97-71"><a href="glitch-art.html#cb97-71"></a>            Vector3 camRot = <span class="kw">new</span> <span class="fu">Vector3</span>(pitchSpeed, <span class="dv">0</span>, -yawSpeed);</span>
+<span id="cb97-72"><a href="glitch-art.html#cb97-72"></a></span>
+<span id="cb97-73"><a href="glitch-art.html#cb97-73"></a>            FreeCam.<span class="fu">Position</span> += camMove;</span>
+<span id="cb97-74"><a href="glitch-art.html#cb97-74"></a>            FreeCam.<span class="fu">Rotation</span> += camRot;</span>
+<span id="cb97-75"><a href="glitch-art.html#cb97-75"></a>        }</span>
+<span id="cb97-76"><a href="glitch-art.html#cb97-76"></a></span>
+<span id="cb97-77"><a href="glitch-art.html#cb97-77"></a>        <span class="kw">private</span> <span class="dt">void</span> <span class="fu">onKeyUp</span>(<span class="dt">object</span> sender, KeyEventArgs e)</span>
+<span id="cb97-78"><a href="glitch-art.html#cb97-78"></a>        {</span>
+<span id="cb97-79"><a href="glitch-art.html#cb97-79"></a>            <span class="kw">if</span> (e.<span class="fu">KeyCode</span> == ActivationKey)</span>
+<span id="cb97-80"><a href="glitch-art.html#cb97-80"></a>            {</span>
+<span id="cb97-81"><a href="glitch-art.html#cb97-81"></a>                <span class="co">//toggle the freecam on/off</span></span>
+<span id="cb97-82"><a href="glitch-art.html#cb97-82"></a>                FreeCamActive = !FreeCamActive;</span>
+<span id="cb97-83"><a href="glitch-art.html#cb97-83"></a></span>
+<span id="cb97-84"><a href="glitch-art.html#cb97-84"></a>                <span class="kw">if</span> (FreeCamActive) <span class="co">//ON</span></span>
+<span id="cb97-85"><a href="glitch-art.html#cb97-85"></a>                {</span>
+<span id="cb97-86"><a href="glitch-art.html#cb97-86"></a>                    FreeCam = World.<span class="fu">CreateCamera</span>(GameplayCamera.<span class="fu">Position</span>, GameplayCamera.<span class="fu">Rotation</span>, GameplayCamera.<span class="fu">FieldOfView</span>);</span>
+<span id="cb97-87"><a href="glitch-art.html#cb97-87"></a>                    World.<span class="fu">RenderingCamera</span> = FreeCam;</span>
+<span id="cb97-88"><a href="glitch-art.html#cb97-88"></a>                    UI.<span class="fu">ShowSubtitle</span>(<span class="st">&quot;FreeCam ON&quot;</span>, <span class="dv">1000</span>);</span>
+<span id="cb97-89"><a href="glitch-art.html#cb97-89"></a>                }</span>
+<span id="cb97-90"><a href="glitch-art.html#cb97-90"></a>                <span class="kw">else</span> <span class="co">//OFF</span></span>
+<span id="cb97-91"><a href="glitch-art.html#cb97-91"></a>                {</span>
+<span id="cb97-92"><a href="glitch-art.html#cb97-92"></a>                    World.<span class="fu">RenderingCamera</span> = <span class="kw">null</span>;</span>
+<span id="cb97-93"><a href="glitch-art.html#cb97-93"></a>                    FreeCam.<span class="fu">Destroy</span>();</span>
+<span id="cb97-94"><a href="glitch-art.html#cb97-94"></a>                    UI.<span class="fu">ShowSubtitle</span>(<span class="st">&quot;FreeCam OFF&quot;</span>, <span class="dv">1000</span>);</span>
+<span id="cb97-95"><a href="glitch-art.html#cb97-95"></a>                }</span>
+<span id="cb97-96"><a href="glitch-art.html#cb97-96"></a>            }</span>
+<span id="cb97-97"><a href="glitch-art.html#cb97-97"></a>        }</span>
+<span id="cb97-98"><a href="glitch-art.html#cb97-98"></a></span>
+<span id="cb97-99"><a href="glitch-art.html#cb97-99"></a>        <span class="kw">private</span> <span class="dt">void</span> <span class="fu">onAborted</span>(<span class="dt">object</span> sender, EventArgs e)</span>
+<span id="cb97-100"><a href="glitch-art.html#cb97-100"></a>        {</span>
+<span id="cb97-101"><a href="glitch-art.html#cb97-101"></a>            World.<span class="fu">RenderingCamera</span> = <span class="kw">null</span>;</span>
+<span id="cb97-102"><a href="glitch-art.html#cb97-102"></a>        }</span>
+<span id="cb97-103"><a href="glitch-art.html#cb97-103"></a>    }</span>
+<span id="cb97-104"><a href="glitch-art.html#cb97-104"></a>}</span>
+<span id="cb97-105"><a href="glitch-art.html#cb97-105"></a>    </span></code></pre></div>
 </details>
 <p><a href="" target="_blank"><img src="assets/scriptingGifs/freeCam.gif" style="display: block; margin: auto auto auto 0;" /></a></p>
 </div>
@@ -438,199 +438,199 @@ A free camera – unlike the main character view – also allows us to move thro
 In this example, turn on the free camera by pressing <code>O</code> and then start and stop the recording of the camera movement by pressing <code>I</code>. To toggle the replay camera press <code>K</code>.</p>
 <details>
 <p><summary>Example code</summary></p>
-<div class="sourceCode" id="cb99"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb99-1"><a href="glitch-art.html#cb99-1"></a><span class="co">//this code was extended by code for controlling the camera by LeeC22 on https://gtaforums.com/topic/981454-free-cam-mode-in-c/#comment-1072077418</span></span>
-<span id="cb99-2"><a href="glitch-art.html#cb99-2"></a><span class="kw">using</span> System;</span>
-<span id="cb99-3"><a href="glitch-art.html#cb99-3"></a><span class="kw">using</span> System.<span class="fu">Collections</span>.<span class="fu">Generic</span>;</span>
-<span id="cb99-4"><a href="glitch-art.html#cb99-4"></a><span class="kw">using</span> System.<span class="fu">Linq</span>;</span>
-<span id="cb99-5"><a href="glitch-art.html#cb99-5"></a><span class="kw">using</span> System.<span class="fu">Text</span>;</span>
-<span id="cb99-6"><a href="glitch-art.html#cb99-6"></a><span class="kw">using</span> System.<span class="fu">Threading</span>.<span class="fu">Tasks</span>;</span>
-<span id="cb99-7"><a href="glitch-art.html#cb99-7"></a>    </span>
-<span id="cb99-8"><a href="glitch-art.html#cb99-8"></a><span class="kw">using</span> System.<span class="fu">Windows</span>.<span class="fu">Forms</span>;</span>
-<span id="cb99-9"><a href="glitch-art.html#cb99-9"></a><span class="kw">using</span> System.<span class="fu">Drawing</span>;</span>
-<span id="cb99-10"><a href="glitch-art.html#cb99-10"></a><span class="kw">using</span> GTA;</span>
-<span id="cb99-11"><a href="glitch-art.html#cb99-11"></a><span class="kw">using</span> GTA.<span class="fu">Math</span>;</span>
-<span id="cb99-12"><a href="glitch-art.html#cb99-12"></a><span class="kw">using</span> GTA.<span class="fu">Native</span>;</span>
-<span id="cb99-13"><a href="glitch-art.html#cb99-13"></a></span>
-<span id="cb99-14"><a href="glitch-art.html#cb99-14"></a></span>
-<span id="cb99-15"><a href="glitch-art.html#cb99-15"></a><span class="kw">using</span> Control = GTA.<span class="fu">Control</span>;</span>
-<span id="cb99-16"><a href="glitch-art.html#cb99-16"></a></span>
-<span id="cb99-17"><a href="glitch-art.html#cb99-17"></a><span class="kw">namespace</span> BasicFreeCamTest</span>
-<span id="cb99-18"><a href="glitch-art.html#cb99-18"></a>{</span>
-<span id="cb99-19"><a href="glitch-art.html#cb99-19"></a>    <span class="kw">public</span> <span class="kw">class</span> cBasicFreeCamTest : Script</span>
-<span id="cb99-20"><a href="glitch-art.html#cb99-20"></a>    {</span>
-<span id="cb99-21"><a href="glitch-art.html#cb99-21"></a>        <span class="kw">private</span> Keys ActivationKey = Keys.<span class="fu">O</span>;</span>
-<span id="cb99-22"><a href="glitch-art.html#cb99-22"></a>        <span class="kw">private</span> Keys RecordKey = Keys.<span class="fu">I</span>;</span>
-<span id="cb99-23"><a href="glitch-art.html#cb99-23"></a>        <span class="kw">private</span> Keys ReplayKey = Keys.<span class="fu">K</span>;</span>
-<span id="cb99-24"><a href="glitch-art.html#cb99-24"></a>        <span class="kw">private</span> <span class="dt">bool</span> FreeCamActive = <span class="kw">false</span>;</span>
-<span id="cb99-25"><a href="glitch-art.html#cb99-25"></a>        <span class="kw">private</span> <span class="dt">bool</span> RecCamActive = <span class="kw">false</span>;</span>
-<span id="cb99-26"><a href="glitch-art.html#cb99-26"></a>        <span class="kw">private</span> <span class="dt">int</span> CamFramesIndex = <span class="dv">0</span>;</span>
-<span id="cb99-27"><a href="glitch-art.html#cb99-27"></a>        <span class="kw">private</span> <span class="dt">bool</span> ReplayCamActive = <span class="kw">false</span>;</span>
-<span id="cb99-28"><a href="glitch-art.html#cb99-28"></a>        <span class="kw">private</span> Camera FreeCam;</span>
-<span id="cb99-29"><a href="glitch-art.html#cb99-29"></a>        <span class="kw">private</span> Camera ReplayCam;</span>
-<span id="cb99-30"><a href="glitch-art.html#cb99-30"></a>        List&lt;Vector3&gt; RecCamPos = <span class="kw">new</span> List&lt;Vector3&gt;();</span>
-<span id="cb99-31"><a href="glitch-art.html#cb99-31"></a>        List&lt;Vector3&gt; RecCamRot = <span class="kw">new</span> List&lt;Vector3&gt;();</span>
-<span id="cb99-32"><a href="glitch-art.html#cb99-32"></a></span>
-<span id="cb99-33"><a href="glitch-art.html#cb99-33"></a>        <span class="kw">public</span> <span class="fu">cBasicFreeCamTest</span>()</span>
-<span id="cb99-34"><a href="glitch-art.html#cb99-34"></a>        {</span>
-<span id="cb99-35"><a href="glitch-art.html#cb99-35"></a>            Tick += onTick;</span>
-<span id="cb99-36"><a href="glitch-art.html#cb99-36"></a>            KeyUp += onKeyUp;</span>
-<span id="cb99-37"><a href="glitch-art.html#cb99-37"></a>            Aborted += onAborted;</span>
-<span id="cb99-38"><a href="glitch-art.html#cb99-38"></a></span>
-<span id="cb99-39"><a href="glitch-art.html#cb99-39"></a>            Interval = <span class="dv">0</span>;</span>
-<span id="cb99-40"><a href="glitch-art.html#cb99-40"></a>        }</span>
-<span id="cb99-41"><a href="glitch-art.html#cb99-41"></a></span>
-<span id="cb99-42"><a href="glitch-art.html#cb99-42"></a>        <span class="kw">private</span> <span class="dt">void</span> <span class="fu">onTick</span>(<span class="dt">object</span> sender, EventArgs e)</span>
-<span id="cb99-43"><a href="glitch-art.html#cb99-43"></a>        {</span>
-<span id="cb99-44"><a href="glitch-art.html#cb99-44"></a>            <span class="co">// Exits from the loop if the game is loading</span></span>
-<span id="cb99-45"><a href="glitch-art.html#cb99-45"></a>            <span class="kw">if</span> (Game.<span class="fu">IsLoading</span>) <span class="kw">return</span>;</span>
-<span id="cb99-46"><a href="glitch-art.html#cb99-46"></a></span>
-<span id="cb99-47"><a href="glitch-art.html#cb99-47"></a>            <span class="kw">if</span> (FreeCamActive) <span class="fu">UpdateFreeCam</span>();</span>
-<span id="cb99-48"><a href="glitch-art.html#cb99-48"></a></span>
-<span id="cb99-49"><a href="glitch-art.html#cb99-49"></a>            <span class="kw">if</span> (RecCamActive) <span class="fu">UpdateRecCam</span>();</span>
-<span id="cb99-50"><a href="glitch-art.html#cb99-50"></a></span>
-<span id="cb99-51"><a href="glitch-art.html#cb99-51"></a>            <span class="kw">if</span> (ReplayCamActive) <span class="fu">UpdateReplayCam</span>();</span>
-<span id="cb99-52"><a href="glitch-art.html#cb99-52"></a>        }</span>
-<span id="cb99-53"><a href="glitch-art.html#cb99-53"></a></span>
-<span id="cb99-54"><a href="glitch-art.html#cb99-54"></a>        <span class="kw">private</span> <span class="dt">void</span> <span class="fu">UpdateRecCam</span>()</span>
-<span id="cb99-55"><a href="glitch-art.html#cb99-55"></a>        {</span>
-<span id="cb99-56"><a href="glitch-art.html#cb99-56"></a>            RecCamPos.<span class="fu">Add</span>(FreeCam.<span class="fu">Position</span>);</span>
-<span id="cb99-57"><a href="glitch-art.html#cb99-57"></a>            RecCamRot.<span class="fu">Add</span>(FreeCam.<span class="fu">Rotation</span>);</span>
-<span id="cb99-58"><a href="glitch-art.html#cb99-58"></a>            UI.<span class="fu">ShowSubtitle</span>(<span class="st">&quot;Recording Camera ON&quot;</span>, <span class="dv">100</span>);</span>
-<span id="cb99-59"><a href="glitch-art.html#cb99-59"></a>        }</span>
-<span id="cb99-60"><a href="glitch-art.html#cb99-60"></a>        <span class="kw">private</span> <span class="dt">void</span> <span class="fu">UpdateReplayCam</span>()</span>
-<span id="cb99-61"><a href="glitch-art.html#cb99-61"></a>        {</span>
-<span id="cb99-62"><a href="glitch-art.html#cb99-62"></a></span>
-<span id="cb99-63"><a href="glitch-art.html#cb99-63"></a>            Game.<span class="fu">DisableAllControlsThisFrame</span>(<span class="dv">2</span>);</span>
-<span id="cb99-64"><a href="glitch-art.html#cb99-64"></a></span>
-<span id="cb99-65"><a href="glitch-art.html#cb99-65"></a>            ReplayCam.<span class="fu">Position</span> = RecCamPos[CamFramesIndex];</span>
-<span id="cb99-66"><a href="glitch-art.html#cb99-66"></a>            ReplayCam.<span class="fu">Rotation</span> = RecCamRot[CamFramesIndex];</span>
-<span id="cb99-67"><a href="glitch-art.html#cb99-67"></a></span>
-<span id="cb99-68"><a href="glitch-art.html#cb99-68"></a>            CamFramesIndex++;</span>
-<span id="cb99-69"><a href="glitch-art.html#cb99-69"></a>            <span class="kw">if</span> (CamFramesIndex &gt;= RecCamPos.<span class="fu">Count</span>)</span>
-<span id="cb99-70"><a href="glitch-art.html#cb99-70"></a>            {</span>
-<span id="cb99-71"><a href="glitch-art.html#cb99-71"></a>                CamFramesIndex = RecCamPos.<span class="fu">Count</span> - <span class="dv">1</span>;</span>
-<span id="cb99-72"><a href="glitch-art.html#cb99-72"></a>                ReplayCamActive = <span class="kw">false</span>;</span>
-<span id="cb99-73"><a href="glitch-art.html#cb99-73"></a>            }</span>
-<span id="cb99-74"><a href="glitch-art.html#cb99-74"></a>            <span class="kw">else</span></span>
-<span id="cb99-75"><a href="glitch-art.html#cb99-75"></a>            {</span>
-<span id="cb99-76"><a href="glitch-art.html#cb99-76"></a>                UI.<span class="fu">ShowSubtitle</span>(<span class="st">&quot;Playing Back Camera</span><span class="sc">\n</span><span class="st">Playing Back Frame #&quot;</span> + CamFramesIndex, <span class="dv">100</span>);</span>
-<span id="cb99-77"><a href="glitch-art.html#cb99-77"></a>            }</span>
-<span id="cb99-78"><a href="glitch-art.html#cb99-78"></a>        }</span>
-<span id="cb99-79"><a href="glitch-art.html#cb99-79"></a></span>
-<span id="cb99-80"><a href="glitch-art.html#cb99-80"></a>        <span class="kw">private</span> <span class="dt">void</span> <span class="fu">UpdateFreeCam</span>()</span>
-<span id="cb99-81"><a href="glitch-art.html#cb99-81"></a>        {</span>
-<span id="cb99-82"><a href="glitch-art.html#cb99-82"></a>            <span class="dt">float</span> deltaTime = Game.<span class="fu">LastFrameTime</span>;</span>
-<span id="cb99-83"><a href="glitch-art.html#cb99-83"></a>            <span class="dt">float</span> speed = 2f;</span>
-<span id="cb99-84"><a href="glitch-art.html#cb99-84"></a>            <span class="dt">float</span> camSpeed = speed * deltaTime;</span>
-<span id="cb99-85"><a href="glitch-art.html#cb99-85"></a>            <span class="dt">float</span> rotSpeed = 80f;</span>
-<span id="cb99-86"><a href="glitch-art.html#cb99-86"></a>            <span class="dt">float</span> camRotSpeed = rotSpeed * deltaTime;</span>
-<span id="cb99-87"><a href="glitch-art.html#cb99-87"></a></span>
-<span id="cb99-88"><a href="glitch-art.html#cb99-88"></a>            Game.<span class="fu">DisableAllControlsThisFrame</span>(<span class="dv">2</span>);</span>
-<span id="cb99-89"><a href="glitch-art.html#cb99-89"></a></span>
-<span id="cb99-90"><a href="glitch-art.html#cb99-90"></a>            Vector3 camForward = FreeCam.<span class="fu">Direction</span>.<span class="fu">Normalized</span>; </span>
-<span id="cb99-91"><a href="glitch-art.html#cb99-91"></a>            Vector3 camRight = Vector3.<span class="fu">Cross</span>(Vector3.<span class="fu">WorldUp</span>, camForward); </span>
-<span id="cb99-92"><a href="glitch-art.html#cb99-92"></a>            Vector3 camUp = Vector3.<span class="fu">Cross</span>(camRight, camForward);</span>
-<span id="cb99-93"><a href="glitch-art.html#cb99-93"></a></span>
-<span id="cb99-94"><a href="glitch-art.html#cb99-94"></a>            <span class="kw">if</span> (Game.<span class="fu">IsDisabledControlJustPressed</span>(<span class="dv">2</span>, Control.<span class="fu">FrontendCancel</span>))</span>
-<span id="cb99-95"><a href="glitch-art.html#cb99-95"></a>            {</span>
-<span id="cb99-96"><a href="glitch-art.html#cb99-96"></a>                World.<span class="fu">RenderingCamera</span> = <span class="kw">null</span>;</span>
-<span id="cb99-97"><a href="glitch-art.html#cb99-97"></a>                FreeCam.<span class="fu">Destroy</span>();</span>
-<span id="cb99-98"><a href="glitch-art.html#cb99-98"></a>                FreeCamActive = <span class="kw">false</span>;</span>
-<span id="cb99-99"><a href="glitch-art.html#cb99-99"></a>                <span class="kw">return</span>;</span>
-<span id="cb99-100"><a href="glitch-art.html#cb99-100"></a>            }</span>
-<span id="cb99-101"><a href="glitch-art.html#cb99-101"></a></span>
-<span id="cb99-102"><a href="glitch-art.html#cb99-102"></a>            <span class="dt">float</span> fbSpeedMult = Game.<span class="fu">GetDisabledControlNormal</span>(<span class="dv">2</span>, Control.<span class="fu">MoveUpDown</span>);</span>
-<span id="cb99-103"><a href="glitch-art.html#cb99-103"></a>            <span class="dt">float</span> lrSpeedMult = Game.<span class="fu">GetDisabledControlNormal</span>(<span class="dv">2</span>, Control.<span class="fu">MoveLeftRight</span>);</span>
-<span id="cb99-104"><a href="glitch-art.html#cb99-104"></a>            <span class="dt">float</span> yawSpeedMult = Game.<span class="fu">GetDisabledControlNormal</span>(<span class="dv">2</span>, Control.<span class="fu">LookLeftRight</span>);</span>
-<span id="cb99-105"><a href="glitch-art.html#cb99-105"></a>            <span class="dt">float</span> pitchSpeedMult = Game.<span class="fu">GetDisabledControlNormal</span>(<span class="dv">2</span>, Control.<span class="fu">LookUpDown</span>);</span>
-<span id="cb99-106"><a href="glitch-art.html#cb99-106"></a></span>
-<span id="cb99-107"><a href="glitch-art.html#cb99-107"></a>            <span class="dt">float</span> fbSpeed = camSpeed * fbSpeedMult;</span>
-<span id="cb99-108"><a href="glitch-art.html#cb99-108"></a>            <span class="dt">float</span> lrSpeed = camSpeed * lrSpeedMult;</span>
-<span id="cb99-109"><a href="glitch-art.html#cb99-109"></a>            <span class="dt">float</span> yawSpeed = camRotSpeed * yawSpeedMult;</span>
-<span id="cb99-110"><a href="glitch-art.html#cb99-110"></a>            <span class="dt">float</span> pitchSpeed = camRotSpeed * pitchSpeedMult;</span>
-<span id="cb99-111"><a href="glitch-art.html#cb99-111"></a></span>
-<span id="cb99-112"><a href="glitch-art.html#cb99-112"></a>            Vector3 camLR = camRight * -lrSpeed;</span>
-<span id="cb99-113"><a href="glitch-art.html#cb99-113"></a>            Vector3 camFB = camForward * -fbSpeed;</span>
-<span id="cb99-114"><a href="glitch-art.html#cb99-114"></a>            Vector3 camMove = camLR + camFB;</span>
-<span id="cb99-115"><a href="glitch-art.html#cb99-115"></a></span>
-<span id="cb99-116"><a href="glitch-art.html#cb99-116"></a>            Vector3 camRot = <span class="kw">new</span> <span class="fu">Vector3</span>(pitchSpeed, <span class="dv">0</span>, -yawSpeed);</span>
-<span id="cb99-117"><a href="glitch-art.html#cb99-117"></a></span>
-<span id="cb99-118"><a href="glitch-art.html#cb99-118"></a>            FreeCam.<span class="fu">Position</span> += camMove;</span>
-<span id="cb99-119"><a href="glitch-art.html#cb99-119"></a>            FreeCam.<span class="fu">Rotation</span> += camRot;</span>
-<span id="cb99-120"><a href="glitch-art.html#cb99-120"></a>        }</span>
-<span id="cb99-121"><a href="glitch-art.html#cb99-121"></a></span>
-<span id="cb99-122"><a href="glitch-art.html#cb99-122"></a>        <span class="kw">private</span> <span class="dt">void</span> <span class="fu">onKeyUp</span>(<span class="dt">object</span> sender, KeyEventArgs e)</span>
-<span id="cb99-123"><a href="glitch-art.html#cb99-123"></a>        {</span>
-<span id="cb99-124"><a href="glitch-art.html#cb99-124"></a>            <span class="kw">if</span> (e.<span class="fu">KeyCode</span> == ActivationKey)</span>
-<span id="cb99-125"><a href="glitch-art.html#cb99-125"></a>            {</span>
-<span id="cb99-126"><a href="glitch-art.html#cb99-126"></a>                <span class="co">//toggle the freecam on/off</span></span>
-<span id="cb99-127"><a href="glitch-art.html#cb99-127"></a>                FreeCamActive = !FreeCamActive;</span>
-<span id="cb99-128"><a href="glitch-art.html#cb99-128"></a></span>
-<span id="cb99-129"><a href="glitch-art.html#cb99-129"></a>                <span class="kw">if</span> (FreeCamActive) <span class="co">//ON</span></span>
-<span id="cb99-130"><a href="glitch-art.html#cb99-130"></a>                {</span>
-<span id="cb99-131"><a href="glitch-art.html#cb99-131"></a>                    FreeCam = World.<span class="fu">CreateCamera</span>(GameplayCamera.<span class="fu">Position</span>, GameplayCamera.<span class="fu">Rotation</span>, GameplayCamera.<span class="fu">FieldOfView</span>);</span>
-<span id="cb99-132"><a href="glitch-art.html#cb99-132"></a>                    World.<span class="fu">RenderingCamera</span> = FreeCam;</span>
-<span id="cb99-133"><a href="glitch-art.html#cb99-133"></a>                    UI.<span class="fu">ShowSubtitle</span>(<span class="st">&quot;Free Camera ON&quot;</span>, <span class="dv">1000</span>);</span>
-<span id="cb99-134"><a href="glitch-art.html#cb99-134"></a>                }</span>
-<span id="cb99-135"><a href="glitch-art.html#cb99-135"></a>                <span class="kw">else</span> <span class="co">//OFF</span></span>
-<span id="cb99-136"><a href="glitch-art.html#cb99-136"></a>                {</span>
-<span id="cb99-137"><a href="glitch-art.html#cb99-137"></a>                    World.<span class="fu">RenderingCamera</span> = <span class="kw">null</span>;</span>
-<span id="cb99-138"><a href="glitch-art.html#cb99-138"></a>                    FreeCam.<span class="fu">Destroy</span>();</span>
-<span id="cb99-139"><a href="glitch-art.html#cb99-139"></a>                    UI.<span class="fu">ShowSubtitle</span>(<span class="st">&quot;Free Camera OFF&quot;</span>, <span class="dv">1000</span>);</span>
-<span id="cb99-140"><a href="glitch-art.html#cb99-140"></a>                }</span>
-<span id="cb99-141"><a href="glitch-art.html#cb99-141"></a>            }</span>
-<span id="cb99-142"><a href="glitch-art.html#cb99-142"></a>            <span class="kw">if</span> (e.<span class="fu">KeyCode</span> == RecordKey)</span>
-<span id="cb99-143"><a href="glitch-art.html#cb99-143"></a>            {</span>
-<span id="cb99-144"><a href="glitch-art.html#cb99-144"></a>                RecCamActive = !RecCamActive;</span>
-<span id="cb99-145"><a href="glitch-art.html#cb99-145"></a>                <span class="kw">if</span>(RecCamActive)</span>
-<span id="cb99-146"><a href="glitch-art.html#cb99-146"></a>                {</span>
-<span id="cb99-147"><a href="glitch-art.html#cb99-147"></a>                    <span class="co">//Clear the array of positions and rotations</span></span>
-<span id="cb99-148"><a href="glitch-art.html#cb99-148"></a>                    RecCamPos.<span class="fu">Clear</span>();</span>
-<span id="cb99-149"><a href="glitch-art.html#cb99-149"></a>                    RecCamRot.<span class="fu">Clear</span>();</span>
-<span id="cb99-150"><a href="glitch-art.html#cb99-150"></a>                    <span class="co">//reset index</span></span>
-<span id="cb99-151"><a href="glitch-art.html#cb99-151"></a>                    CamFramesIndex= <span class="dv">0</span>;</span>
-<span id="cb99-152"><a href="glitch-art.html#cb99-152"></a>                    <span class="co">//disable replay cam</span></span>
-<span id="cb99-153"><a href="glitch-art.html#cb99-153"></a>                    ReplayCamActive= <span class="kw">false</span>;</span>
-<span id="cb99-154"><a href="glitch-art.html#cb99-154"></a>                    <span class="co">//activate free cam if it&#39;s off</span></span>
-<span id="cb99-155"><a href="glitch-art.html#cb99-155"></a>                    <span class="kw">if</span> (!FreeCamActive)</span>
-<span id="cb99-156"><a href="glitch-art.html#cb99-156"></a>                    {</span>
-<span id="cb99-157"><a href="glitch-art.html#cb99-157"></a>                        FreeCam = World.<span class="fu">CreateCamera</span>(GameplayCamera.<span class="fu">Position</span>, GameplayCamera.<span class="fu">Rotation</span>, GameplayCamera.<span class="fu">FieldOfView</span>);</span>
-<span id="cb99-158"><a href="glitch-art.html#cb99-158"></a>                        World.<span class="fu">RenderingCamera</span> = FreeCam;</span>
-<span id="cb99-159"><a href="glitch-art.html#cb99-159"></a>                        FreeCamActive = <span class="kw">true</span>;</span>
-<span id="cb99-160"><a href="glitch-art.html#cb99-160"></a>                        </span>
-<span id="cb99-161"><a href="glitch-art.html#cb99-161"></a>                    }</span>
-<span id="cb99-162"><a href="glitch-art.html#cb99-162"></a>                }</span>
-<span id="cb99-163"><a href="glitch-art.html#cb99-163"></a>                <span class="kw">else</span></span>
-<span id="cb99-164"><a href="glitch-art.html#cb99-164"></a>                {</span>
-<span id="cb99-165"><a href="glitch-art.html#cb99-165"></a>                    UI.<span class="fu">ShowSubtitle</span>(<span class="st">&quot;Recording Camera OFF</span><span class="sc">\n</span><span class="st">Recorded Frames = &quot;</span> + RecCamPos.<span class="fu">Count</span>, <span class="dv">2000</span>);</span>
-<span id="cb99-166"><a href="glitch-art.html#cb99-166"></a>                }</span>
-<span id="cb99-167"><a href="glitch-art.html#cb99-167"></a>            }</span>
-<span id="cb99-168"><a href="glitch-art.html#cb99-168"></a>            <span class="kw">if</span> (e.<span class="fu">KeyCode</span> == ReplayKey)</span>
-<span id="cb99-169"><a href="glitch-art.html#cb99-169"></a>            {</span>
-<span id="cb99-170"><a href="glitch-art.html#cb99-170"></a>                ReplayCamActive = !ReplayCamActive;</span>
-<span id="cb99-171"><a href="glitch-art.html#cb99-171"></a></span>
-<span id="cb99-172"><a href="glitch-art.html#cb99-172"></a>                <span class="kw">if</span>(ReplayCamActive)</span>
-<span id="cb99-173"><a href="glitch-art.html#cb99-173"></a>                {</span>
-<span id="cb99-174"><a href="glitch-art.html#cb99-174"></a>                    CamFramesIndex = <span class="dv">0</span>;</span>
-<span id="cb99-175"><a href="glitch-art.html#cb99-175"></a>                    ReplayCam = World.<span class="fu">CreateCamera</span>(RecCamPos[<span class="dv">0</span>], RecCamRot[<span class="dv">0</span>], GameplayCamera.<span class="fu">FieldOfView</span>);</span>
-<span id="cb99-176"><a href="glitch-art.html#cb99-176"></a>                    RecCamActive = <span class="kw">false</span>;</span>
-<span id="cb99-177"><a href="glitch-art.html#cb99-177"></a>                    FreeCamActive = <span class="kw">false</span>;</span>
-<span id="cb99-178"><a href="glitch-art.html#cb99-178"></a>                }</span>
-<span id="cb99-179"><a href="glitch-art.html#cb99-179"></a>                <span class="kw">else</span></span>
-<span id="cb99-180"><a href="glitch-art.html#cb99-180"></a>                {</span>
-<span id="cb99-181"><a href="glitch-art.html#cb99-181"></a>                    RecCamActive = <span class="kw">false</span>;</span>
-<span id="cb99-182"><a href="glitch-art.html#cb99-182"></a>                    CamFramesIndex = <span class="dv">0</span>;</span>
-<span id="cb99-183"><a href="glitch-art.html#cb99-183"></a>                }</span>
-<span id="cb99-184"><a href="glitch-art.html#cb99-184"></a>            }</span>
-<span id="cb99-185"><a href="glitch-art.html#cb99-185"></a>        }</span>
-<span id="cb99-186"><a href="glitch-art.html#cb99-186"></a>        <span class="kw">private</span> <span class="dt">void</span> <span class="fu">onAborted</span>(<span class="dt">object</span> sender, EventArgs e)</span>
-<span id="cb99-187"><a href="glitch-art.html#cb99-187"></a>        {</span>
-<span id="cb99-188"><a href="glitch-art.html#cb99-188"></a>            World.<span class="fu">RenderingCamera</span> = <span class="kw">null</span>;</span>
-<span id="cb99-189"><a href="glitch-art.html#cb99-189"></a>        }</span>
-<span id="cb99-190"><a href="glitch-art.html#cb99-190"></a>    }</span>
-<span id="cb99-191"><a href="glitch-art.html#cb99-191"></a>}</span>
-<span id="cb99-192"><a href="glitch-art.html#cb99-192"></a></span>
-<span id="cb99-193"><a href="glitch-art.html#cb99-193"></a></span></code></pre></div>
+<div class="sourceCode" id="cb98"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb98-1"><a href="glitch-art.html#cb98-1"></a><span class="co">//this code was extended by code for controlling the camera by LeeC22 on https://gtaforums.com/topic/981454-free-cam-mode-in-c/#comment-1072077418</span></span>
+<span id="cb98-2"><a href="glitch-art.html#cb98-2"></a><span class="kw">using</span> System;</span>
+<span id="cb98-3"><a href="glitch-art.html#cb98-3"></a><span class="kw">using</span> System.<span class="fu">Collections</span>.<span class="fu">Generic</span>;</span>
+<span id="cb98-4"><a href="glitch-art.html#cb98-4"></a><span class="kw">using</span> System.<span class="fu">Linq</span>;</span>
+<span id="cb98-5"><a href="glitch-art.html#cb98-5"></a><span class="kw">using</span> System.<span class="fu">Text</span>;</span>
+<span id="cb98-6"><a href="glitch-art.html#cb98-6"></a><span class="kw">using</span> System.<span class="fu">Threading</span>.<span class="fu">Tasks</span>;</span>
+<span id="cb98-7"><a href="glitch-art.html#cb98-7"></a>    </span>
+<span id="cb98-8"><a href="glitch-art.html#cb98-8"></a><span class="kw">using</span> System.<span class="fu">Windows</span>.<span class="fu">Forms</span>;</span>
+<span id="cb98-9"><a href="glitch-art.html#cb98-9"></a><span class="kw">using</span> System.<span class="fu">Drawing</span>;</span>
+<span id="cb98-10"><a href="glitch-art.html#cb98-10"></a><span class="kw">using</span> GTA;</span>
+<span id="cb98-11"><a href="glitch-art.html#cb98-11"></a><span class="kw">using</span> GTA.<span class="fu">Math</span>;</span>
+<span id="cb98-12"><a href="glitch-art.html#cb98-12"></a><span class="kw">using</span> GTA.<span class="fu">Native</span>;</span>
+<span id="cb98-13"><a href="glitch-art.html#cb98-13"></a></span>
+<span id="cb98-14"><a href="glitch-art.html#cb98-14"></a></span>
+<span id="cb98-15"><a href="glitch-art.html#cb98-15"></a><span class="kw">using</span> Control = GTA.<span class="fu">Control</span>;</span>
+<span id="cb98-16"><a href="glitch-art.html#cb98-16"></a></span>
+<span id="cb98-17"><a href="glitch-art.html#cb98-17"></a><span class="kw">namespace</span> BasicFreeCamTest</span>
+<span id="cb98-18"><a href="glitch-art.html#cb98-18"></a>{</span>
+<span id="cb98-19"><a href="glitch-art.html#cb98-19"></a>    <span class="kw">public</span> <span class="kw">class</span> cBasicFreeCamTest : Script</span>
+<span id="cb98-20"><a href="glitch-art.html#cb98-20"></a>    {</span>
+<span id="cb98-21"><a href="glitch-art.html#cb98-21"></a>        <span class="kw">private</span> Keys ActivationKey = Keys.<span class="fu">O</span>;</span>
+<span id="cb98-22"><a href="glitch-art.html#cb98-22"></a>        <span class="kw">private</span> Keys RecordKey = Keys.<span class="fu">I</span>;</span>
+<span id="cb98-23"><a href="glitch-art.html#cb98-23"></a>        <span class="kw">private</span> Keys ReplayKey = Keys.<span class="fu">K</span>;</span>
+<span id="cb98-24"><a href="glitch-art.html#cb98-24"></a>        <span class="kw">private</span> <span class="dt">bool</span> FreeCamActive = <span class="kw">false</span>;</span>
+<span id="cb98-25"><a href="glitch-art.html#cb98-25"></a>        <span class="kw">private</span> <span class="dt">bool</span> RecCamActive = <span class="kw">false</span>;</span>
+<span id="cb98-26"><a href="glitch-art.html#cb98-26"></a>        <span class="kw">private</span> <span class="dt">int</span> CamFramesIndex = <span class="dv">0</span>;</span>
+<span id="cb98-27"><a href="glitch-art.html#cb98-27"></a>        <span class="kw">private</span> <span class="dt">bool</span> ReplayCamActive = <span class="kw">false</span>;</span>
+<span id="cb98-28"><a href="glitch-art.html#cb98-28"></a>        <span class="kw">private</span> Camera FreeCam;</span>
+<span id="cb98-29"><a href="glitch-art.html#cb98-29"></a>        <span class="kw">private</span> Camera ReplayCam;</span>
+<span id="cb98-30"><a href="glitch-art.html#cb98-30"></a>        List&lt;Vector3&gt; RecCamPos = <span class="kw">new</span> List&lt;Vector3&gt;();</span>
+<span id="cb98-31"><a href="glitch-art.html#cb98-31"></a>        List&lt;Vector3&gt; RecCamRot = <span class="kw">new</span> List&lt;Vector3&gt;();</span>
+<span id="cb98-32"><a href="glitch-art.html#cb98-32"></a></span>
+<span id="cb98-33"><a href="glitch-art.html#cb98-33"></a>        <span class="kw">public</span> <span class="fu">cBasicFreeCamTest</span>()</span>
+<span id="cb98-34"><a href="glitch-art.html#cb98-34"></a>        {</span>
+<span id="cb98-35"><a href="glitch-art.html#cb98-35"></a>            Tick += onTick;</span>
+<span id="cb98-36"><a href="glitch-art.html#cb98-36"></a>            KeyUp += onKeyUp;</span>
+<span id="cb98-37"><a href="glitch-art.html#cb98-37"></a>            Aborted += onAborted;</span>
+<span id="cb98-38"><a href="glitch-art.html#cb98-38"></a></span>
+<span id="cb98-39"><a href="glitch-art.html#cb98-39"></a>            Interval = <span class="dv">0</span>;</span>
+<span id="cb98-40"><a href="glitch-art.html#cb98-40"></a>        }</span>
+<span id="cb98-41"><a href="glitch-art.html#cb98-41"></a></span>
+<span id="cb98-42"><a href="glitch-art.html#cb98-42"></a>        <span class="kw">private</span> <span class="dt">void</span> <span class="fu">onTick</span>(<span class="dt">object</span> sender, EventArgs e)</span>
+<span id="cb98-43"><a href="glitch-art.html#cb98-43"></a>        {</span>
+<span id="cb98-44"><a href="glitch-art.html#cb98-44"></a>            <span class="co">// Exits from the loop if the game is loading</span></span>
+<span id="cb98-45"><a href="glitch-art.html#cb98-45"></a>            <span class="kw">if</span> (Game.<span class="fu">IsLoading</span>) <span class="kw">return</span>;</span>
+<span id="cb98-46"><a href="glitch-art.html#cb98-46"></a></span>
+<span id="cb98-47"><a href="glitch-art.html#cb98-47"></a>            <span class="kw">if</span> (FreeCamActive) <span class="fu">UpdateFreeCam</span>();</span>
+<span id="cb98-48"><a href="glitch-art.html#cb98-48"></a></span>
+<span id="cb98-49"><a href="glitch-art.html#cb98-49"></a>            <span class="kw">if</span> (RecCamActive) <span class="fu">UpdateRecCam</span>();</span>
+<span id="cb98-50"><a href="glitch-art.html#cb98-50"></a></span>
+<span id="cb98-51"><a href="glitch-art.html#cb98-51"></a>            <span class="kw">if</span> (ReplayCamActive) <span class="fu">UpdateReplayCam</span>();</span>
+<span id="cb98-52"><a href="glitch-art.html#cb98-52"></a>        }</span>
+<span id="cb98-53"><a href="glitch-art.html#cb98-53"></a></span>
+<span id="cb98-54"><a href="glitch-art.html#cb98-54"></a>        <span class="kw">private</span> <span class="dt">void</span> <span class="fu">UpdateRecCam</span>()</span>
+<span id="cb98-55"><a href="glitch-art.html#cb98-55"></a>        {</span>
+<span id="cb98-56"><a href="glitch-art.html#cb98-56"></a>            RecCamPos.<span class="fu">Add</span>(FreeCam.<span class="fu">Position</span>);</span>
+<span id="cb98-57"><a href="glitch-art.html#cb98-57"></a>            RecCamRot.<span class="fu">Add</span>(FreeCam.<span class="fu">Rotation</span>);</span>
+<span id="cb98-58"><a href="glitch-art.html#cb98-58"></a>            UI.<span class="fu">ShowSubtitle</span>(<span class="st">&quot;Recording Camera ON&quot;</span>, <span class="dv">100</span>);</span>
+<span id="cb98-59"><a href="glitch-art.html#cb98-59"></a>        }</span>
+<span id="cb98-60"><a href="glitch-art.html#cb98-60"></a>        <span class="kw">private</span> <span class="dt">void</span> <span class="fu">UpdateReplayCam</span>()</span>
+<span id="cb98-61"><a href="glitch-art.html#cb98-61"></a>        {</span>
+<span id="cb98-62"><a href="glitch-art.html#cb98-62"></a></span>
+<span id="cb98-63"><a href="glitch-art.html#cb98-63"></a>            Game.<span class="fu">DisableAllControlsThisFrame</span>(<span class="dv">2</span>);</span>
+<span id="cb98-64"><a href="glitch-art.html#cb98-64"></a></span>
+<span id="cb98-65"><a href="glitch-art.html#cb98-65"></a>            ReplayCam.<span class="fu">Position</span> = RecCamPos[CamFramesIndex];</span>
+<span id="cb98-66"><a href="glitch-art.html#cb98-66"></a>            ReplayCam.<span class="fu">Rotation</span> = RecCamRot[CamFramesIndex];</span>
+<span id="cb98-67"><a href="glitch-art.html#cb98-67"></a></span>
+<span id="cb98-68"><a href="glitch-art.html#cb98-68"></a>            CamFramesIndex++;</span>
+<span id="cb98-69"><a href="glitch-art.html#cb98-69"></a>            <span class="kw">if</span> (CamFramesIndex &gt;= RecCamPos.<span class="fu">Count</span>)</span>
+<span id="cb98-70"><a href="glitch-art.html#cb98-70"></a>            {</span>
+<span id="cb98-71"><a href="glitch-art.html#cb98-71"></a>                CamFramesIndex = RecCamPos.<span class="fu">Count</span> - <span class="dv">1</span>;</span>
+<span id="cb98-72"><a href="glitch-art.html#cb98-72"></a>                ReplayCamActive = <span class="kw">false</span>;</span>
+<span id="cb98-73"><a href="glitch-art.html#cb98-73"></a>            }</span>
+<span id="cb98-74"><a href="glitch-art.html#cb98-74"></a>            <span class="kw">else</span></span>
+<span id="cb98-75"><a href="glitch-art.html#cb98-75"></a>            {</span>
+<span id="cb98-76"><a href="glitch-art.html#cb98-76"></a>                UI.<span class="fu">ShowSubtitle</span>(<span class="st">&quot;Playing Back Camera</span><span class="sc">\n</span><span class="st">Playing Back Frame #&quot;</span> + CamFramesIndex, <span class="dv">100</span>);</span>
+<span id="cb98-77"><a href="glitch-art.html#cb98-77"></a>            }</span>
+<span id="cb98-78"><a href="glitch-art.html#cb98-78"></a>        }</span>
+<span id="cb98-79"><a href="glitch-art.html#cb98-79"></a></span>
+<span id="cb98-80"><a href="glitch-art.html#cb98-80"></a>        <span class="kw">private</span> <span class="dt">void</span> <span class="fu">UpdateFreeCam</span>()</span>
+<span id="cb98-81"><a href="glitch-art.html#cb98-81"></a>        {</span>
+<span id="cb98-82"><a href="glitch-art.html#cb98-82"></a>            <span class="dt">float</span> deltaTime = Game.<span class="fu">LastFrameTime</span>;</span>
+<span id="cb98-83"><a href="glitch-art.html#cb98-83"></a>            <span class="dt">float</span> speed = 2f;</span>
+<span id="cb98-84"><a href="glitch-art.html#cb98-84"></a>            <span class="dt">float</span> camSpeed = speed * deltaTime;</span>
+<span id="cb98-85"><a href="glitch-art.html#cb98-85"></a>            <span class="dt">float</span> rotSpeed = 80f;</span>
+<span id="cb98-86"><a href="glitch-art.html#cb98-86"></a>            <span class="dt">float</span> camRotSpeed = rotSpeed * deltaTime;</span>
+<span id="cb98-87"><a href="glitch-art.html#cb98-87"></a></span>
+<span id="cb98-88"><a href="glitch-art.html#cb98-88"></a>            Game.<span class="fu">DisableAllControlsThisFrame</span>(<span class="dv">2</span>);</span>
+<span id="cb98-89"><a href="glitch-art.html#cb98-89"></a></span>
+<span id="cb98-90"><a href="glitch-art.html#cb98-90"></a>            Vector3 camForward = FreeCam.<span class="fu">Direction</span>.<span class="fu">Normalized</span>; </span>
+<span id="cb98-91"><a href="glitch-art.html#cb98-91"></a>            Vector3 camRight = Vector3.<span class="fu">Cross</span>(Vector3.<span class="fu">WorldUp</span>, camForward); </span>
+<span id="cb98-92"><a href="glitch-art.html#cb98-92"></a>            Vector3 camUp = Vector3.<span class="fu">Cross</span>(camRight, camForward);</span>
+<span id="cb98-93"><a href="glitch-art.html#cb98-93"></a></span>
+<span id="cb98-94"><a href="glitch-art.html#cb98-94"></a>            <span class="kw">if</span> (Game.<span class="fu">IsDisabledControlJustPressed</span>(<span class="dv">2</span>, Control.<span class="fu">FrontendCancel</span>))</span>
+<span id="cb98-95"><a href="glitch-art.html#cb98-95"></a>            {</span>
+<span id="cb98-96"><a href="glitch-art.html#cb98-96"></a>                World.<span class="fu">RenderingCamera</span> = <span class="kw">null</span>;</span>
+<span id="cb98-97"><a href="glitch-art.html#cb98-97"></a>                FreeCam.<span class="fu">Destroy</span>();</span>
+<span id="cb98-98"><a href="glitch-art.html#cb98-98"></a>                FreeCamActive = <span class="kw">false</span>;</span>
+<span id="cb98-99"><a href="glitch-art.html#cb98-99"></a>                <span class="kw">return</span>;</span>
+<span id="cb98-100"><a href="glitch-art.html#cb98-100"></a>            }</span>
+<span id="cb98-101"><a href="glitch-art.html#cb98-101"></a></span>
+<span id="cb98-102"><a href="glitch-art.html#cb98-102"></a>            <span class="dt">float</span> fbSpeedMult = Game.<span class="fu">GetDisabledControlNormal</span>(<span class="dv">2</span>, Control.<span class="fu">MoveUpDown</span>);</span>
+<span id="cb98-103"><a href="glitch-art.html#cb98-103"></a>            <span class="dt">float</span> lrSpeedMult = Game.<span class="fu">GetDisabledControlNormal</span>(<span class="dv">2</span>, Control.<span class="fu">MoveLeftRight</span>);</span>
+<span id="cb98-104"><a href="glitch-art.html#cb98-104"></a>            <span class="dt">float</span> yawSpeedMult = Game.<span class="fu">GetDisabledControlNormal</span>(<span class="dv">2</span>, Control.<span class="fu">LookLeftRight</span>);</span>
+<span id="cb98-105"><a href="glitch-art.html#cb98-105"></a>            <span class="dt">float</span> pitchSpeedMult = Game.<span class="fu">GetDisabledControlNormal</span>(<span class="dv">2</span>, Control.<span class="fu">LookUpDown</span>);</span>
+<span id="cb98-106"><a href="glitch-art.html#cb98-106"></a></span>
+<span id="cb98-107"><a href="glitch-art.html#cb98-107"></a>            <span class="dt">float</span> fbSpeed = camSpeed * fbSpeedMult;</span>
+<span id="cb98-108"><a href="glitch-art.html#cb98-108"></a>            <span class="dt">float</span> lrSpeed = camSpeed * lrSpeedMult;</span>
+<span id="cb98-109"><a href="glitch-art.html#cb98-109"></a>            <span class="dt">float</span> yawSpeed = camRotSpeed * yawSpeedMult;</span>
+<span id="cb98-110"><a href="glitch-art.html#cb98-110"></a>            <span class="dt">float</span> pitchSpeed = camRotSpeed * pitchSpeedMult;</span>
+<span id="cb98-111"><a href="glitch-art.html#cb98-111"></a></span>
+<span id="cb98-112"><a href="glitch-art.html#cb98-112"></a>            Vector3 camLR = camRight * -lrSpeed;</span>
+<span id="cb98-113"><a href="glitch-art.html#cb98-113"></a>            Vector3 camFB = camForward * -fbSpeed;</span>
+<span id="cb98-114"><a href="glitch-art.html#cb98-114"></a>            Vector3 camMove = camLR + camFB;</span>
+<span id="cb98-115"><a href="glitch-art.html#cb98-115"></a></span>
+<span id="cb98-116"><a href="glitch-art.html#cb98-116"></a>            Vector3 camRot = <span class="kw">new</span> <span class="fu">Vector3</span>(pitchSpeed, <span class="dv">0</span>, -yawSpeed);</span>
+<span id="cb98-117"><a href="glitch-art.html#cb98-117"></a></span>
+<span id="cb98-118"><a href="glitch-art.html#cb98-118"></a>            FreeCam.<span class="fu">Position</span> += camMove;</span>
+<span id="cb98-119"><a href="glitch-art.html#cb98-119"></a>            FreeCam.<span class="fu">Rotation</span> += camRot;</span>
+<span id="cb98-120"><a href="glitch-art.html#cb98-120"></a>        }</span>
+<span id="cb98-121"><a href="glitch-art.html#cb98-121"></a></span>
+<span id="cb98-122"><a href="glitch-art.html#cb98-122"></a>        <span class="kw">private</span> <span class="dt">void</span> <span class="fu">onKeyUp</span>(<span class="dt">object</span> sender, KeyEventArgs e)</span>
+<span id="cb98-123"><a href="glitch-art.html#cb98-123"></a>        {</span>
+<span id="cb98-124"><a href="glitch-art.html#cb98-124"></a>            <span class="kw">if</span> (e.<span class="fu">KeyCode</span> == ActivationKey)</span>
+<span id="cb98-125"><a href="glitch-art.html#cb98-125"></a>            {</span>
+<span id="cb98-126"><a href="glitch-art.html#cb98-126"></a>                <span class="co">//toggle the freecam on/off</span></span>
+<span id="cb98-127"><a href="glitch-art.html#cb98-127"></a>                FreeCamActive = !FreeCamActive;</span>
+<span id="cb98-128"><a href="glitch-art.html#cb98-128"></a></span>
+<span id="cb98-129"><a href="glitch-art.html#cb98-129"></a>                <span class="kw">if</span> (FreeCamActive) <span class="co">//ON</span></span>
+<span id="cb98-130"><a href="glitch-art.html#cb98-130"></a>                {</span>
+<span id="cb98-131"><a href="glitch-art.html#cb98-131"></a>                    FreeCam = World.<span class="fu">CreateCamera</span>(GameplayCamera.<span class="fu">Position</span>, GameplayCamera.<span class="fu">Rotation</span>, GameplayCamera.<span class="fu">FieldOfView</span>);</span>
+<span id="cb98-132"><a href="glitch-art.html#cb98-132"></a>                    World.<span class="fu">RenderingCamera</span> = FreeCam;</span>
+<span id="cb98-133"><a href="glitch-art.html#cb98-133"></a>                    UI.<span class="fu">ShowSubtitle</span>(<span class="st">&quot;Free Camera ON&quot;</span>, <span class="dv">1000</span>);</span>
+<span id="cb98-134"><a href="glitch-art.html#cb98-134"></a>                }</span>
+<span id="cb98-135"><a href="glitch-art.html#cb98-135"></a>                <span class="kw">else</span> <span class="co">//OFF</span></span>
+<span id="cb98-136"><a href="glitch-art.html#cb98-136"></a>                {</span>
+<span id="cb98-137"><a href="glitch-art.html#cb98-137"></a>                    World.<span class="fu">RenderingCamera</span> = <span class="kw">null</span>;</span>
+<span id="cb98-138"><a href="glitch-art.html#cb98-138"></a>                    FreeCam.<span class="fu">Destroy</span>();</span>
+<span id="cb98-139"><a href="glitch-art.html#cb98-139"></a>                    UI.<span class="fu">ShowSubtitle</span>(<span class="st">&quot;Free Camera OFF&quot;</span>, <span class="dv">1000</span>);</span>
+<span id="cb98-140"><a href="glitch-art.html#cb98-140"></a>                }</span>
+<span id="cb98-141"><a href="glitch-art.html#cb98-141"></a>            }</span>
+<span id="cb98-142"><a href="glitch-art.html#cb98-142"></a>            <span class="kw">if</span> (e.<span class="fu">KeyCode</span> == RecordKey)</span>
+<span id="cb98-143"><a href="glitch-art.html#cb98-143"></a>            {</span>
+<span id="cb98-144"><a href="glitch-art.html#cb98-144"></a>                RecCamActive = !RecCamActive;</span>
+<span id="cb98-145"><a href="glitch-art.html#cb98-145"></a>                <span class="kw">if</span>(RecCamActive)</span>
+<span id="cb98-146"><a href="glitch-art.html#cb98-146"></a>                {</span>
+<span id="cb98-147"><a href="glitch-art.html#cb98-147"></a>                    <span class="co">//Clear the array of positions and rotations</span></span>
+<span id="cb98-148"><a href="glitch-art.html#cb98-148"></a>                    RecCamPos.<span class="fu">Clear</span>();</span>
+<span id="cb98-149"><a href="glitch-art.html#cb98-149"></a>                    RecCamRot.<span class="fu">Clear</span>();</span>
+<span id="cb98-150"><a href="glitch-art.html#cb98-150"></a>                    <span class="co">//reset index</span></span>
+<span id="cb98-151"><a href="glitch-art.html#cb98-151"></a>                    CamFramesIndex= <span class="dv">0</span>;</span>
+<span id="cb98-152"><a href="glitch-art.html#cb98-152"></a>                    <span class="co">//disable replay cam</span></span>
+<span id="cb98-153"><a href="glitch-art.html#cb98-153"></a>                    ReplayCamActive= <span class="kw">false</span>;</span>
+<span id="cb98-154"><a href="glitch-art.html#cb98-154"></a>                    <span class="co">//activate free cam if it&#39;s off</span></span>
+<span id="cb98-155"><a href="glitch-art.html#cb98-155"></a>                    <span class="kw">if</span> (!FreeCamActive)</span>
+<span id="cb98-156"><a href="glitch-art.html#cb98-156"></a>                    {</span>
+<span id="cb98-157"><a href="glitch-art.html#cb98-157"></a>                        FreeCam = World.<span class="fu">CreateCamera</span>(GameplayCamera.<span class="fu">Position</span>, GameplayCamera.<span class="fu">Rotation</span>, GameplayCamera.<span class="fu">FieldOfView</span>);</span>
+<span id="cb98-158"><a href="glitch-art.html#cb98-158"></a>                        World.<span class="fu">RenderingCamera</span> = FreeCam;</span>
+<span id="cb98-159"><a href="glitch-art.html#cb98-159"></a>                        FreeCamActive = <span class="kw">true</span>;</span>
+<span id="cb98-160"><a href="glitch-art.html#cb98-160"></a>                        </span>
+<span id="cb98-161"><a href="glitch-art.html#cb98-161"></a>                    }</span>
+<span id="cb98-162"><a href="glitch-art.html#cb98-162"></a>                }</span>
+<span id="cb98-163"><a href="glitch-art.html#cb98-163"></a>                <span class="kw">else</span></span>
+<span id="cb98-164"><a href="glitch-art.html#cb98-164"></a>                {</span>
+<span id="cb98-165"><a href="glitch-art.html#cb98-165"></a>                    UI.<span class="fu">ShowSubtitle</span>(<span class="st">&quot;Recording Camera OFF</span><span class="sc">\n</span><span class="st">Recorded Frames = &quot;</span> + RecCamPos.<span class="fu">Count</span>, <span class="dv">2000</span>);</span>
+<span id="cb98-166"><a href="glitch-art.html#cb98-166"></a>                }</span>
+<span id="cb98-167"><a href="glitch-art.html#cb98-167"></a>            }</span>
+<span id="cb98-168"><a href="glitch-art.html#cb98-168"></a>            <span class="kw">if</span> (e.<span class="fu">KeyCode</span> == ReplayKey)</span>
+<span id="cb98-169"><a href="glitch-art.html#cb98-169"></a>            {</span>
+<span id="cb98-170"><a href="glitch-art.html#cb98-170"></a>                ReplayCamActive = !ReplayCamActive;</span>
+<span id="cb98-171"><a href="glitch-art.html#cb98-171"></a></span>
+<span id="cb98-172"><a href="glitch-art.html#cb98-172"></a>                <span class="kw">if</span>(ReplayCamActive)</span>
+<span id="cb98-173"><a href="glitch-art.html#cb98-173"></a>                {</span>
+<span id="cb98-174"><a href="glitch-art.html#cb98-174"></a>                    CamFramesIndex = <span class="dv">0</span>;</span>
+<span id="cb98-175"><a href="glitch-art.html#cb98-175"></a>                    ReplayCam = World.<span class="fu">CreateCamera</span>(RecCamPos[<span class="dv">0</span>], RecCamRot[<span class="dv">0</span>], GameplayCamera.<span class="fu">FieldOfView</span>);</span>
+<span id="cb98-176"><a href="glitch-art.html#cb98-176"></a>                    RecCamActive = <span class="kw">false</span>;</span>
+<span id="cb98-177"><a href="glitch-art.html#cb98-177"></a>                    FreeCamActive = <span class="kw">false</span>;</span>
+<span id="cb98-178"><a href="glitch-art.html#cb98-178"></a>                }</span>
+<span id="cb98-179"><a href="glitch-art.html#cb98-179"></a>                <span class="kw">else</span></span>
+<span id="cb98-180"><a href="glitch-art.html#cb98-180"></a>                {</span>
+<span id="cb98-181"><a href="glitch-art.html#cb98-181"></a>                    RecCamActive = <span class="kw">false</span>;</span>
+<span id="cb98-182"><a href="glitch-art.html#cb98-182"></a>                    CamFramesIndex = <span class="dv">0</span>;</span>
+<span id="cb98-183"><a href="glitch-art.html#cb98-183"></a>                }</span>
+<span id="cb98-184"><a href="glitch-art.html#cb98-184"></a>            }</span>
+<span id="cb98-185"><a href="glitch-art.html#cb98-185"></a>        }</span>
+<span id="cb98-186"><a href="glitch-art.html#cb98-186"></a>        <span class="kw">private</span> <span class="dt">void</span> <span class="fu">onAborted</span>(<span class="dt">object</span> sender, EventArgs e)</span>
+<span id="cb98-187"><a href="glitch-art.html#cb98-187"></a>        {</span>
+<span id="cb98-188"><a href="glitch-art.html#cb98-188"></a>            World.<span class="fu">RenderingCamera</span> = <span class="kw">null</span>;</span>
+<span id="cb98-189"><a href="glitch-art.html#cb98-189"></a>        }</span>
+<span id="cb98-190"><a href="glitch-art.html#cb98-190"></a>    }</span>
+<span id="cb98-191"><a href="glitch-art.html#cb98-191"></a>}</span>
+<span id="cb98-192"><a href="glitch-art.html#cb98-192"></a></span>
+<span id="cb98-193"><a href="glitch-art.html#cb98-193"></a></span></code></pre></div>
 </details>
 <p><a href="" target="_blank"><img src="assets/scriptingGifs/recCam.gif" style="display: block; margin: auto auto auto 0;" /></a></p>
 </div>
@@ -640,107 +640,107 @@ In this example, turn on the free camera by pressing <code>O</code> and then sta
 Attaching a camera to an NPC can provide interesting views and perspectives. Here we create a cat NPC by pressing <code>G</code> and attach a camera to it. We can switch the camera view by pressing <code>SHIFT + K</code> and let the cat follow the player by pressing <code>H</code>.</p>
 <details>
 <p><summary>Example code</summary></p>
-<div class="sourceCode" id="cb100"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb100-1"><a href="glitch-art.html#cb100-1"></a><span class="kw">using</span> System;</span>
-<span id="cb100-2"><a href="glitch-art.html#cb100-2"></a><span class="kw">using</span> System.<span class="fu">Collections</span>.<span class="fu">Generic</span>;</span>
-<span id="cb100-3"><a href="glitch-art.html#cb100-3"></a><span class="kw">using</span> System.<span class="fu">Linq</span>;</span>
-<span id="cb100-4"><a href="glitch-art.html#cb100-4"></a><span class="kw">using</span> System.<span class="fu">Text</span>;</span>
-<span id="cb100-5"><a href="glitch-art.html#cb100-5"></a><span class="kw">using</span> System.<span class="fu">Threading</span>.<span class="fu">Tasks</span>;</span>
-<span id="cb100-6"><a href="glitch-art.html#cb100-6"></a></span>
-<span id="cb100-7"><a href="glitch-art.html#cb100-7"></a><span class="kw">using</span> GTA;</span>
-<span id="cb100-8"><a href="glitch-art.html#cb100-8"></a><span class="kw">using</span> GTA.<span class="fu">Math</span>;</span>
-<span id="cb100-9"><a href="glitch-art.html#cb100-9"></a><span class="kw">using</span> System.<span class="fu">Windows</span>.<span class="fu">Forms</span>;</span>
-<span id="cb100-10"><a href="glitch-art.html#cb100-10"></a><span class="kw">using</span> System.<span class="fu">Drawing</span>;</span>
-<span id="cb100-11"><a href="glitch-art.html#cb100-11"></a><span class="kw">using</span> GTA.<span class="fu">Native</span>;</span>
-<span id="cb100-12"><a href="glitch-art.html#cb100-12"></a><span class="kw">using</span> System.<span class="fu">IO</span>;</span>
-<span id="cb100-13"><a href="glitch-art.html#cb100-13"></a></span>
-<span id="cb100-14"><a href="glitch-art.html#cb100-14"></a></span>
-<span id="cb100-15"><a href="glitch-art.html#cb100-15"></a><span class="kw">namespace</span> moddingTutorial</span>
-<span id="cb100-16"><a href="glitch-art.html#cb100-16"></a>{</span>
-<span id="cb100-17"><a href="glitch-art.html#cb100-17"></a>    <span class="kw">public</span> <span class="kw">class</span> moddingTutorial : Script</span>
-<span id="cb100-18"><a href="glitch-art.html#cb100-18"></a>    {</span>
-<span id="cb100-19"><a href="glitch-art.html#cb100-19"></a>        Vector3 myCamPos;</span>
-<span id="cb100-20"><a href="glitch-art.html#cb100-20"></a>        <span class="dt">int</span> CamSelect = <span class="dv">0</span>;</span>
-<span id="cb100-21"><a href="glitch-art.html#cb100-21"></a>        Ped newPed = <span class="kw">null</span>;</span>
-<span id="cb100-22"><a href="glitch-art.html#cb100-22"></a>        Camera myCam;</span>
-<span id="cb100-23"><a href="glitch-art.html#cb100-23"></a></span>
-<span id="cb100-24"><a href="glitch-art.html#cb100-24"></a>        <span class="kw">public</span> <span class="fu">moddingTutorial</span>()</span>
-<span id="cb100-25"><a href="glitch-art.html#cb100-25"></a>        {</span>
-<span id="cb100-26"><a href="glitch-art.html#cb100-26"></a>            <span class="kw">this</span>.<span class="fu">Tick</span> += onTick;</span>
-<span id="cb100-27"><a href="glitch-art.html#cb100-27"></a>            <span class="kw">this</span>.<span class="fu">KeyUp</span> += onKeyUp;</span>
-<span id="cb100-28"><a href="glitch-art.html#cb100-28"></a>            <span class="kw">this</span>.<span class="fu">KeyDown</span> += onKeyDown;</span>
-<span id="cb100-29"><a href="glitch-art.html#cb100-29"></a>        }</span>
-<span id="cb100-30"><a href="glitch-art.html#cb100-30"></a></span>
-<span id="cb100-31"><a href="glitch-art.html#cb100-31"></a>        <span class="kw">private</span> <span class="dt">void</span> <span class="fu">onTick</span>(<span class="dt">object</span> sender, EventArgs e) <span class="co">//this function gets executed continuously </span></span>
-<span id="cb100-32"><a href="glitch-art.html#cb100-32"></a>        {</span>
-<span id="cb100-33"><a href="glitch-art.html#cb100-33"></a>            <span class="co">//exits from the loop if the game is loading</span></span>
-<span id="cb100-34"><a href="glitch-art.html#cb100-34"></a>            <span class="kw">if</span> (Game.<span class="fu">IsLoading</span>) <span class="kw">return</span>;</span>
-<span id="cb100-35"><a href="glitch-art.html#cb100-35"></a>            </span>
-<span id="cb100-36"><a href="glitch-art.html#cb100-36"></a>            <span class="co">//update the cameras if the ped is spawn</span></span>
-<span id="cb100-37"><a href="glitch-art.html#cb100-37"></a>            <span class="kw">if</span> (newPed != <span class="kw">null</span>)</span>
-<span id="cb100-38"><a href="glitch-art.html#cb100-38"></a>            {           </span>
-<span id="cb100-39"><a href="glitch-art.html#cb100-39"></a>                <span class="co">//create the cameras if none have been created yet.</span></span>
-<span id="cb100-40"><a href="glitch-art.html#cb100-40"></a>                <span class="kw">if</span> (myCam == <span class="kw">null</span>)            </span>
-<span id="cb100-41"><a href="glitch-art.html#cb100-41"></a>                {</span>
-<span id="cb100-42"><a href="glitch-art.html#cb100-42"></a>                    UI.<span class="fu">ShowSubtitle</span>(<span class="st">&quot;Set new camera&quot;</span>);</span>
-<span id="cb100-43"><a href="glitch-art.html#cb100-43"></a>                    myCam = World.<span class="fu">CreateCamera</span>(Vector3.<span class="fu">Zero</span>, newPed.<span class="fu">Rotation</span>, 50f);</span>
-<span id="cb100-44"><a href="glitch-art.html#cb100-44"></a>                    <span class="co">// Set the camera position (relative pos)          </span></span>
-<span id="cb100-45"><a href="glitch-art.html#cb100-45"></a>                    myCamPos = <span class="kw">new</span> <span class="fu">Vector3</span>(<span class="dv">0</span>, <span class="dv">0</span>, 1f);</span>
-<span id="cb100-46"><a href="glitch-art.html#cb100-46"></a>                }</span>
-<span id="cb100-47"><a href="glitch-art.html#cb100-47"></a>                <span class="co">//attach the cameras</span></span>
-<span id="cb100-48"><a href="glitch-art.html#cb100-48"></a>                myCam.<span class="fu">AttachTo</span>(newPed, myCamPos);</span>
-<span id="cb100-49"><a href="glitch-art.html#cb100-49"></a>                <span class="co">//sync rotation</span></span>
-<span id="cb100-50"><a href="glitch-art.html#cb100-50"></a>                myCam.<span class="fu">Rotation</span> = newPed.<span class="fu">Rotation</span>;</span>
-<span id="cb100-51"><a href="glitch-art.html#cb100-51"></a>            }</span>
-<span id="cb100-52"><a href="glitch-art.html#cb100-52"></a>        }</span>
-<span id="cb100-53"><a href="glitch-art.html#cb100-53"></a>        </span>
-<span id="cb100-54"><a href="glitch-art.html#cb100-54"></a></span>
-<span id="cb100-55"><a href="glitch-art.html#cb100-55"></a>        <span class="kw">private</span> <span class="dt">void</span> <span class="fu">onKeyUp</span>(<span class="dt">object</span> sender, KeyEventArgs e)<span class="co">//everything inside here is executed only when we release a key</span></span>
-<span id="cb100-56"><a href="glitch-art.html#cb100-56"></a>        {</span>
-<span id="cb100-57"><a href="glitch-art.html#cb100-57"></a>            <span class="co">//press control+K to switch between gameplay default camera and the NPC camera</span></span>
-<span id="cb100-58"><a href="glitch-art.html#cb100-58"></a>            <span class="kw">if</span> (e.<span class="fu">KeyCode</span> == Keys.<span class="fu">K</span> &amp;&amp; e.<span class="fu">Modifiers</span> == Keys.<span class="fu">Shift</span> &amp;&amp; newPed != <span class="kw">null</span>)</span>
-<span id="cb100-59"><a href="glitch-art.html#cb100-59"></a>            {</span>
-<span id="cb100-60"><a href="glitch-art.html#cb100-60"></a>                CamSelect = (CamSelect + <span class="dv">1</span>) % <span class="dv">2</span>;</span>
-<span id="cb100-61"><a href="glitch-art.html#cb100-61"></a>                <span class="kw">switch</span> (CamSelect)</span>
-<span id="cb100-62"><a href="glitch-art.html#cb100-62"></a>                {</span>
-<span id="cb100-63"><a href="glitch-art.html#cb100-63"></a>                    <span class="kw">case</span> <span class="dv">0</span>: World.<span class="fu">RenderingCamera</span> = <span class="kw">null</span>; </span>
-<span id="cb100-64"><a href="glitch-art.html#cb100-64"></a>                        UI.<span class="fu">ShowSubtitle</span>(<span class="st">&quot;Showing Gameplay Cam View&quot;</span>); </span>
-<span id="cb100-65"><a href="glitch-art.html#cb100-65"></a>                        <span class="kw">break</span>;</span>
-<span id="cb100-66"><a href="glitch-art.html#cb100-66"></a>                    <span class="kw">case</span> <span class="dv">1</span>: World.<span class="fu">RenderingCamera</span> = myCam; </span>
-<span id="cb100-67"><a href="glitch-art.html#cb100-67"></a>                        UI.<span class="fu">ShowSubtitle</span>(<span class="st">&quot;Showing NPC Cam View&quot;</span>); </span>
-<span id="cb100-68"><a href="glitch-art.html#cb100-68"></a>                        <span class="kw">break</span>;</span>
-<span id="cb100-69"><a href="glitch-art.html#cb100-69"></a>                }</span>
-<span id="cb100-70"><a href="glitch-art.html#cb100-70"></a></span>
-<span id="cb100-71"><a href="glitch-art.html#cb100-71"></a>            }</span>
-<span id="cb100-72"><a href="glitch-art.html#cb100-72"></a>        }</span>
-<span id="cb100-73"><a href="glitch-art.html#cb100-73"></a></span>
-<span id="cb100-74"><a href="glitch-art.html#cb100-74"></a>        <span class="kw">private</span> <span class="dt">void</span> <span class="fu">onKeyDown</span>(<span class="dt">object</span> sender, KeyEventArgs e) <span class="co">//everything inside here is executed only when we press a key</span></span>
-<span id="cb100-75"><a href="glitch-art.html#cb100-75"></a>        {</span>
-<span id="cb100-76"><a href="glitch-art.html#cb100-76"></a>            <span class="kw">if</span>(e.<span class="fu">KeyCode</span> == Keys.<span class="fu">G</span>)</span>
-<span id="cb100-77"><a href="glitch-art.html#cb100-77"></a>            {</span>
-<span id="cb100-78"><a href="glitch-art.html#cb100-78"></a>                <span class="co">//spawn new Ped</span></span>
-<span id="cb100-79"><a href="glitch-art.html#cb100-79"></a>                newPed = World.<span class="fu">CreatePed</span>(PedHash.<span class="fu">Cat</span>, Game.<span class="fu">Player</span>.<span class="fu">Character</span>.<span class="fu">GetOffsetInWorldCoords</span>(<span class="kw">new</span> <span class="fu">Vector3</span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">0</span>)));</span>
-<span id="cb100-80"><a href="glitch-art.html#cb100-80"></a>            }</span>
-<span id="cb100-81"><a href="glitch-art.html#cb100-81"></a>        </span>
-<span id="cb100-82"><a href="glitch-art.html#cb100-82"></a>            <span class="kw">if</span> (e.<span class="fu">KeyCode</span> == Keys.<span class="fu">H</span>)</span>
-<span id="cb100-83"><a href="glitch-art.html#cb100-83"></a>            {</span>
-<span id="cb100-84"><a href="glitch-art.html#cb100-84"></a>                <span class="co">//follow player (persistent)</span></span>
-<span id="cb100-85"><a href="glitch-art.html#cb100-85"></a>                Function.<span class="fu">Call</span>(Hash.<span class="fu">TASK_FOLLOW_TO_OFFSET_OF_ENTITY</span>, newPed.<span class="fu">Handle</span>, Game.<span class="fu">Player</span>.<span class="fu">Character</span>.<span class="fu">Handle</span>, 0f, 1f, 0f, <span class="fl">2.0f</span>, <span class="dv">-1</span>, 5f, <span class="kw">true</span>);</span>
-<span id="cb100-86"><a href="glitch-art.html#cb100-86"></a>                <span class="co">//look at player</span></span>
-<span id="cb100-87"><a href="glitch-art.html#cb100-87"></a>                newPed.<span class="fu">Task</span>.<span class="fu">LookAt</span>(Game.<span class="fu">Player</span>.<span class="fu">Character</span>);</span>
-<span id="cb100-88"><a href="glitch-art.html#cb100-88"></a>            }</span>
-<span id="cb100-89"><a href="glitch-art.html#cb100-89"></a>            <span class="kw">if</span> (e.<span class="fu">KeyCode</span> == Keys.<span class="fu">J</span>)</span>
-<span id="cb100-90"><a href="glitch-art.html#cb100-90"></a>            {</span>
-<span id="cb100-91"><a href="glitch-art.html#cb100-91"></a>                <span class="co">//stop NPC</span></span>
-<span id="cb100-92"><a href="glitch-art.html#cb100-92"></a>                newPed.<span class="fu">Task</span>.<span class="fu">ClearAll</span>();</span>
-<span id="cb100-93"><a href="glitch-art.html#cb100-93"></a>            }</span>
-<span id="cb100-94"><a href="glitch-art.html#cb100-94"></a>            <span class="kw">if</span> (e.<span class="fu">KeyCode</span> == Keys.<span class="fu">L</span>)</span>
-<span id="cb100-95"><a href="glitch-art.html#cb100-95"></a>            {   </span>
-<span id="cb100-96"><a href="glitch-art.html#cb100-96"></a>                <span class="co">//delete ped</span></span>
-<span id="cb100-97"><a href="glitch-art.html#cb100-97"></a>                newPed.<span class="fu">Delete</span>();</span>
-<span id="cb100-98"><a href="glitch-art.html#cb100-98"></a>            }</span>
-<span id="cb100-99"><a href="glitch-art.html#cb100-99"></a>        }</span>
-<span id="cb100-100"><a href="glitch-art.html#cb100-100"></a>    }</span>
-<span id="cb100-101"><a href="glitch-art.html#cb100-101"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb99"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb99-1"><a href="glitch-art.html#cb99-1"></a><span class="kw">using</span> System;</span>
+<span id="cb99-2"><a href="glitch-art.html#cb99-2"></a><span class="kw">using</span> System.<span class="fu">Collections</span>.<span class="fu">Generic</span>;</span>
+<span id="cb99-3"><a href="glitch-art.html#cb99-3"></a><span class="kw">using</span> System.<span class="fu">Linq</span>;</span>
+<span id="cb99-4"><a href="glitch-art.html#cb99-4"></a><span class="kw">using</span> System.<span class="fu">Text</span>;</span>
+<span id="cb99-5"><a href="glitch-art.html#cb99-5"></a><span class="kw">using</span> System.<span class="fu">Threading</span>.<span class="fu">Tasks</span>;</span>
+<span id="cb99-6"><a href="glitch-art.html#cb99-6"></a></span>
+<span id="cb99-7"><a href="glitch-art.html#cb99-7"></a><span class="kw">using</span> GTA;</span>
+<span id="cb99-8"><a href="glitch-art.html#cb99-8"></a><span class="kw">using</span> GTA.<span class="fu">Math</span>;</span>
+<span id="cb99-9"><a href="glitch-art.html#cb99-9"></a><span class="kw">using</span> System.<span class="fu">Windows</span>.<span class="fu">Forms</span>;</span>
+<span id="cb99-10"><a href="glitch-art.html#cb99-10"></a><span class="kw">using</span> System.<span class="fu">Drawing</span>;</span>
+<span id="cb99-11"><a href="glitch-art.html#cb99-11"></a><span class="kw">using</span> GTA.<span class="fu">Native</span>;</span>
+<span id="cb99-12"><a href="glitch-art.html#cb99-12"></a><span class="kw">using</span> System.<span class="fu">IO</span>;</span>
+<span id="cb99-13"><a href="glitch-art.html#cb99-13"></a></span>
+<span id="cb99-14"><a href="glitch-art.html#cb99-14"></a></span>
+<span id="cb99-15"><a href="glitch-art.html#cb99-15"></a><span class="kw">namespace</span> moddingTutorial</span>
+<span id="cb99-16"><a href="glitch-art.html#cb99-16"></a>{</span>
+<span id="cb99-17"><a href="glitch-art.html#cb99-17"></a>    <span class="kw">public</span> <span class="kw">class</span> moddingTutorial : Script</span>
+<span id="cb99-18"><a href="glitch-art.html#cb99-18"></a>    {</span>
+<span id="cb99-19"><a href="glitch-art.html#cb99-19"></a>        Vector3 myCamPos;</span>
+<span id="cb99-20"><a href="glitch-art.html#cb99-20"></a>        <span class="dt">int</span> CamSelect = <span class="dv">0</span>;</span>
+<span id="cb99-21"><a href="glitch-art.html#cb99-21"></a>        Ped newPed = <span class="kw">null</span>;</span>
+<span id="cb99-22"><a href="glitch-art.html#cb99-22"></a>        Camera myCam;</span>
+<span id="cb99-23"><a href="glitch-art.html#cb99-23"></a></span>
+<span id="cb99-24"><a href="glitch-art.html#cb99-24"></a>        <span class="kw">public</span> <span class="fu">moddingTutorial</span>()</span>
+<span id="cb99-25"><a href="glitch-art.html#cb99-25"></a>        {</span>
+<span id="cb99-26"><a href="glitch-art.html#cb99-26"></a>            <span class="kw">this</span>.<span class="fu">Tick</span> += onTick;</span>
+<span id="cb99-27"><a href="glitch-art.html#cb99-27"></a>            <span class="kw">this</span>.<span class="fu">KeyUp</span> += onKeyUp;</span>
+<span id="cb99-28"><a href="glitch-art.html#cb99-28"></a>            <span class="kw">this</span>.<span class="fu">KeyDown</span> += onKeyDown;</span>
+<span id="cb99-29"><a href="glitch-art.html#cb99-29"></a>        }</span>
+<span id="cb99-30"><a href="glitch-art.html#cb99-30"></a></span>
+<span id="cb99-31"><a href="glitch-art.html#cb99-31"></a>        <span class="kw">private</span> <span class="dt">void</span> <span class="fu">onTick</span>(<span class="dt">object</span> sender, EventArgs e) <span class="co">//this function gets executed continuously </span></span>
+<span id="cb99-32"><a href="glitch-art.html#cb99-32"></a>        {</span>
+<span id="cb99-33"><a href="glitch-art.html#cb99-33"></a>            <span class="co">//exits from the loop if the game is loading</span></span>
+<span id="cb99-34"><a href="glitch-art.html#cb99-34"></a>            <span class="kw">if</span> (Game.<span class="fu">IsLoading</span>) <span class="kw">return</span>;</span>
+<span id="cb99-35"><a href="glitch-art.html#cb99-35"></a>            </span>
+<span id="cb99-36"><a href="glitch-art.html#cb99-36"></a>            <span class="co">//update the cameras if the ped is spawn</span></span>
+<span id="cb99-37"><a href="glitch-art.html#cb99-37"></a>            <span class="kw">if</span> (newPed != <span class="kw">null</span>)</span>
+<span id="cb99-38"><a href="glitch-art.html#cb99-38"></a>            {           </span>
+<span id="cb99-39"><a href="glitch-art.html#cb99-39"></a>                <span class="co">//create the cameras if none have been created yet.</span></span>
+<span id="cb99-40"><a href="glitch-art.html#cb99-40"></a>                <span class="kw">if</span> (myCam == <span class="kw">null</span>)            </span>
+<span id="cb99-41"><a href="glitch-art.html#cb99-41"></a>                {</span>
+<span id="cb99-42"><a href="glitch-art.html#cb99-42"></a>                    UI.<span class="fu">ShowSubtitle</span>(<span class="st">&quot;Set new camera&quot;</span>);</span>
+<span id="cb99-43"><a href="glitch-art.html#cb99-43"></a>                    myCam = World.<span class="fu">CreateCamera</span>(Vector3.<span class="fu">Zero</span>, newPed.<span class="fu">Rotation</span>, 50f);</span>
+<span id="cb99-44"><a href="glitch-art.html#cb99-44"></a>                    <span class="co">// Set the camera position (relative pos)          </span></span>
+<span id="cb99-45"><a href="glitch-art.html#cb99-45"></a>                    myCamPos = <span class="kw">new</span> <span class="fu">Vector3</span>(<span class="dv">0</span>, <span class="dv">0</span>, 1f);</span>
+<span id="cb99-46"><a href="glitch-art.html#cb99-46"></a>                }</span>
+<span id="cb99-47"><a href="glitch-art.html#cb99-47"></a>                <span class="co">//attach the cameras</span></span>
+<span id="cb99-48"><a href="glitch-art.html#cb99-48"></a>                myCam.<span class="fu">AttachTo</span>(newPed, myCamPos);</span>
+<span id="cb99-49"><a href="glitch-art.html#cb99-49"></a>                <span class="co">//sync rotation</span></span>
+<span id="cb99-50"><a href="glitch-art.html#cb99-50"></a>                myCam.<span class="fu">Rotation</span> = newPed.<span class="fu">Rotation</span>;</span>
+<span id="cb99-51"><a href="glitch-art.html#cb99-51"></a>            }</span>
+<span id="cb99-52"><a href="glitch-art.html#cb99-52"></a>        }</span>
+<span id="cb99-53"><a href="glitch-art.html#cb99-53"></a>        </span>
+<span id="cb99-54"><a href="glitch-art.html#cb99-54"></a></span>
+<span id="cb99-55"><a href="glitch-art.html#cb99-55"></a>        <span class="kw">private</span> <span class="dt">void</span> <span class="fu">onKeyUp</span>(<span class="dt">object</span> sender, KeyEventArgs e)<span class="co">//everything inside here is executed only when we release a key</span></span>
+<span id="cb99-56"><a href="glitch-art.html#cb99-56"></a>        {</span>
+<span id="cb99-57"><a href="glitch-art.html#cb99-57"></a>            <span class="co">//press control+K to switch between gameplay default camera and the NPC camera</span></span>
+<span id="cb99-58"><a href="glitch-art.html#cb99-58"></a>            <span class="kw">if</span> (e.<span class="fu">KeyCode</span> == Keys.<span class="fu">K</span> &amp;&amp; e.<span class="fu">Modifiers</span> == Keys.<span class="fu">Shift</span> &amp;&amp; newPed != <span class="kw">null</span>)</span>
+<span id="cb99-59"><a href="glitch-art.html#cb99-59"></a>            {</span>
+<span id="cb99-60"><a href="glitch-art.html#cb99-60"></a>                CamSelect = (CamSelect + <span class="dv">1</span>) % <span class="dv">2</span>;</span>
+<span id="cb99-61"><a href="glitch-art.html#cb99-61"></a>                <span class="kw">switch</span> (CamSelect)</span>
+<span id="cb99-62"><a href="glitch-art.html#cb99-62"></a>                {</span>
+<span id="cb99-63"><a href="glitch-art.html#cb99-63"></a>                    <span class="kw">case</span> <span class="dv">0</span>: World.<span class="fu">RenderingCamera</span> = <span class="kw">null</span>; </span>
+<span id="cb99-64"><a href="glitch-art.html#cb99-64"></a>                        UI.<span class="fu">ShowSubtitle</span>(<span class="st">&quot;Showing Gameplay Cam View&quot;</span>); </span>
+<span id="cb99-65"><a href="glitch-art.html#cb99-65"></a>                        <span class="kw">break</span>;</span>
+<span id="cb99-66"><a href="glitch-art.html#cb99-66"></a>                    <span class="kw">case</span> <span class="dv">1</span>: World.<span class="fu">RenderingCamera</span> = myCam; </span>
+<span id="cb99-67"><a href="glitch-art.html#cb99-67"></a>                        UI.<span class="fu">ShowSubtitle</span>(<span class="st">&quot;Showing NPC Cam View&quot;</span>); </span>
+<span id="cb99-68"><a href="glitch-art.html#cb99-68"></a>                        <span class="kw">break</span>;</span>
+<span id="cb99-69"><a href="glitch-art.html#cb99-69"></a>                }</span>
+<span id="cb99-70"><a href="glitch-art.html#cb99-70"></a></span>
+<span id="cb99-71"><a href="glitch-art.html#cb99-71"></a>            }</span>
+<span id="cb99-72"><a href="glitch-art.html#cb99-72"></a>        }</span>
+<span id="cb99-73"><a href="glitch-art.html#cb99-73"></a></span>
+<span id="cb99-74"><a href="glitch-art.html#cb99-74"></a>        <span class="kw">private</span> <span class="dt">void</span> <span class="fu">onKeyDown</span>(<span class="dt">object</span> sender, KeyEventArgs e) <span class="co">//everything inside here is executed only when we press a key</span></span>
+<span id="cb99-75"><a href="glitch-art.html#cb99-75"></a>        {</span>
+<span id="cb99-76"><a href="glitch-art.html#cb99-76"></a>            <span class="kw">if</span>(e.<span class="fu">KeyCode</span> == Keys.<span class="fu">G</span>)</span>
+<span id="cb99-77"><a href="glitch-art.html#cb99-77"></a>            {</span>
+<span id="cb99-78"><a href="glitch-art.html#cb99-78"></a>                <span class="co">//spawn new Ped</span></span>
+<span id="cb99-79"><a href="glitch-art.html#cb99-79"></a>                newPed = World.<span class="fu">CreatePed</span>(PedHash.<span class="fu">Cat</span>, Game.<span class="fu">Player</span>.<span class="fu">Character</span>.<span class="fu">GetOffsetInWorldCoords</span>(<span class="kw">new</span> <span class="fu">Vector3</span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">0</span>)));</span>
+<span id="cb99-80"><a href="glitch-art.html#cb99-80"></a>            }</span>
+<span id="cb99-81"><a href="glitch-art.html#cb99-81"></a>        </span>
+<span id="cb99-82"><a href="glitch-art.html#cb99-82"></a>            <span class="kw">if</span> (e.<span class="fu">KeyCode</span> == Keys.<span class="fu">H</span>)</span>
+<span id="cb99-83"><a href="glitch-art.html#cb99-83"></a>            {</span>
+<span id="cb99-84"><a href="glitch-art.html#cb99-84"></a>                <span class="co">//follow player (persistent)</span></span>
+<span id="cb99-85"><a href="glitch-art.html#cb99-85"></a>                Function.<span class="fu">Call</span>(Hash.<span class="fu">TASK_FOLLOW_TO_OFFSET_OF_ENTITY</span>, newPed.<span class="fu">Handle</span>, Game.<span class="fu">Player</span>.<span class="fu">Character</span>.<span class="fu">Handle</span>, 0f, 1f, 0f, <span class="fl">2.0f</span>, <span class="dv">-1</span>, 5f, <span class="kw">true</span>);</span>
+<span id="cb99-86"><a href="glitch-art.html#cb99-86"></a>                <span class="co">//look at player</span></span>
+<span id="cb99-87"><a href="glitch-art.html#cb99-87"></a>                newPed.<span class="fu">Task</span>.<span class="fu">LookAt</span>(Game.<span class="fu">Player</span>.<span class="fu">Character</span>);</span>
+<span id="cb99-88"><a href="glitch-art.html#cb99-88"></a>            }</span>
+<span id="cb99-89"><a href="glitch-art.html#cb99-89"></a>            <span class="kw">if</span> (e.<span class="fu">KeyCode</span> == Keys.<span class="fu">J</span>)</span>
+<span id="cb99-90"><a href="glitch-art.html#cb99-90"></a>            {</span>
+<span id="cb99-91"><a href="glitch-art.html#cb99-91"></a>                <span class="co">//stop NPC</span></span>
+<span id="cb99-92"><a href="glitch-art.html#cb99-92"></a>                newPed.<span class="fu">Task</span>.<span class="fu">ClearAll</span>();</span>
+<span id="cb99-93"><a href="glitch-art.html#cb99-93"></a>            }</span>
+<span id="cb99-94"><a href="glitch-art.html#cb99-94"></a>            <span class="kw">if</span> (e.<span class="fu">KeyCode</span> == Keys.<span class="fu">L</span>)</span>
+<span id="cb99-95"><a href="glitch-art.html#cb99-95"></a>            {   </span>
+<span id="cb99-96"><a href="glitch-art.html#cb99-96"></a>                <span class="co">//delete ped</span></span>
+<span id="cb99-97"><a href="glitch-art.html#cb99-97"></a>                newPed.<span class="fu">Delete</span>();</span>
+<span id="cb99-98"><a href="glitch-art.html#cb99-98"></a>            }</span>
+<span id="cb99-99"><a href="glitch-art.html#cb99-99"></a>        }</span>
+<span id="cb99-100"><a href="glitch-art.html#cb99-100"></a>    }</span>
+<span id="cb99-101"><a href="glitch-art.html#cb99-101"></a>}</span></code></pre></div>
 </details>
 <p><img src="assets/scriptingGifs/attachingCamToAnimal.gif" style="display: block; margin: auto auto auto 0;" /></p>
 </div>
@@ -749,97 +749,97 @@ Attaching a camera to an NPC can provide interesting views and perspectives. Her
 <p>The easiest way to create multiple cameras is position invisible Ped NPCs in specific locations, make them invisible with the native function <code>SET_ENTITY_VISIBLE</code> and attach a camera to them. We can switch between the different cameras with <code>SHIFT + K</code>. These can be used as different cameras to surveil and look at scenes in different locations within the game world.</p>
 <details>
 <p><summary>Example code</summary></p>
-<div class="sourceCode" id="cb101"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb101-1"><a href="glitch-art.html#cb101-1"></a><span class="kw">using</span> System;</span>
-<span id="cb101-2"><a href="glitch-art.html#cb101-2"></a><span class="kw">using</span> System.<span class="fu">Collections</span>.<span class="fu">Generic</span>;</span>
-<span id="cb101-3"><a href="glitch-art.html#cb101-3"></a><span class="kw">using</span> System.<span class="fu">Linq</span>;</span>
-<span id="cb101-4"><a href="glitch-art.html#cb101-4"></a><span class="kw">using</span> System.<span class="fu">Text</span>;</span>
-<span id="cb101-5"><a href="glitch-art.html#cb101-5"></a><span class="kw">using</span> System.<span class="fu">Threading</span>.<span class="fu">Tasks</span>;</span>
-<span id="cb101-6"><a href="glitch-art.html#cb101-6"></a><span class="kw">using</span> GTA;</span>
-<span id="cb101-7"><a href="glitch-art.html#cb101-7"></a><span class="kw">using</span> GTA.<span class="fu">Math</span>;</span>
-<span id="cb101-8"><a href="glitch-art.html#cb101-8"></a><span class="kw">using</span> System.<span class="fu">Windows</span>.<span class="fu">Forms</span>;</span>
-<span id="cb101-9"><a href="glitch-art.html#cb101-9"></a><span class="kw">using</span> System.<span class="fu">Drawing</span>;</span>
-<span id="cb101-10"><a href="glitch-art.html#cb101-10"></a><span class="kw">using</span> GTA.<span class="fu">Native</span>;</span>
-<span id="cb101-11"><a href="glitch-art.html#cb101-11"></a></span>
-<span id="cb101-12"><a href="glitch-art.html#cb101-12"></a><span class="kw">namespace</span> ModdingTutorial</span>
-<span id="cb101-13"><a href="glitch-art.html#cb101-13"></a>{</span>
-<span id="cb101-14"><a href="glitch-art.html#cb101-14"></a>    <span class="kw">public</span> <span class="kw">class</span> ModdingTutorial : Script    </span>
-<span id="cb101-15"><a href="glitch-art.html#cb101-15"></a>    {</span>
-<span id="cb101-16"><a href="glitch-art.html#cb101-16"></a>        Vector3 myCamPos;</span>
-<span id="cb101-17"><a href="glitch-art.html#cb101-17"></a>        <span class="dt">int</span> CamSelect = <span class="dv">0</span>;</span>
-<span id="cb101-18"><a href="glitch-art.html#cb101-18"></a>        <span class="dt">int</span> CamCount = <span class="dv">3</span>;</span>
-<span id="cb101-19"><a href="glitch-art.html#cb101-19"></a></span>
-<span id="cb101-20"><a href="glitch-art.html#cb101-20"></a>        List&lt;Ped&gt; myPeds = <span class="kw">new</span> List&lt;Ped&gt;();</span>
-<span id="cb101-21"><a href="glitch-art.html#cb101-21"></a>        Model myModel = PedHash.<span class="fu">Abigail</span>;</span>
-<span id="cb101-22"><a href="glitch-art.html#cb101-22"></a>        List&lt;Vector3&gt; myLocs = <span class="kw">new</span> List&lt;Vector3&gt;();</span>
-<span id="cb101-23"><a href="glitch-art.html#cb101-23"></a>        Camera newCam= <span class="kw">null</span>;</span>
-<span id="cb101-24"><a href="glitch-art.html#cb101-24"></a>        List&lt;Camera&gt; myCam = <span class="kw">new</span> List&lt;Camera&gt;();</span>
-<span id="cb101-25"><a href="glitch-art.html#cb101-25"></a></span>
-<span id="cb101-26"><a href="glitch-art.html#cb101-26"></a>        </span>
-<span id="cb101-27"><a href="glitch-art.html#cb101-27"></a>        <span class="kw">public</span> <span class="fu">ModdingTutorial</span>()</span>
-<span id="cb101-28"><a href="glitch-art.html#cb101-28"></a>        {</span>
-<span id="cb101-29"><a href="glitch-art.html#cb101-29"></a>            <span class="kw">this</span>.<span class="fu">Tick</span> += onTick;</span>
-<span id="cb101-30"><a href="glitch-art.html#cb101-30"></a>            <span class="kw">this</span>.<span class="fu">KeyUp</span> += onKeyUp;</span>
-<span id="cb101-31"><a href="glitch-art.html#cb101-31"></a>            <span class="kw">this</span>.<span class="fu">KeyDown</span> += onKeyDown;</span>
-<span id="cb101-32"><a href="glitch-art.html#cb101-32"></a></span>
-<span id="cb101-33"><a href="glitch-art.html#cb101-33"></a>            myLocs.<span class="fu">Add</span>(<span class="kw">new</span> <span class="fu">Vector3</span>(<span class="fl">450.178f</span>, <span class="fl">5566.614f</span>, <span class="fl">806.183f</span>)); <span class="co">//Mt.Chiliad</span></span>
-<span id="cb101-34"><a href="glitch-art.html#cb101-34"></a>            myLocs.<span class="fu">Add</span>(<span class="kw">new</span> <span class="fu">Vector3</span>(<span class="fl">24.775f</span>, <span class="fl">7644.102f</span>, <span class="fl">18.055f</span>)); <span class="co">//Most Northern Point</span></span>
-<span id="cb101-35"><a href="glitch-art.html#cb101-35"></a>            myLocs.<span class="fu">Add</span>(<span class="kw">new</span> <span class="fu">Vector3</span>(<span class="fl">150.126f</span>, <span class="fl">-754.591f</span>, <span class="fl">261.865f</span>)); <span class="co">//FIB Roof</span></span>
-<span id="cb101-36"><a href="glitch-art.html#cb101-36"></a></span>
-<span id="cb101-37"><a href="glitch-art.html#cb101-37"></a>            <span class="kw">for</span> (<span class="dt">int</span> i = <span class="dv">0</span>; i &lt; CamCount; i++)</span>
-<span id="cb101-38"><a href="glitch-art.html#cb101-38"></a>            {</span>
-<span id="cb101-39"><a href="glitch-art.html#cb101-39"></a>                <span class="co">//create Ped</span></span>
-<span id="cb101-40"><a href="glitch-art.html#cb101-40"></a>                <span class="dt">var</span> newPed = World.<span class="fu">CreatePed</span>(myModel, myLocs[i]);</span>
-<span id="cb101-41"><a href="glitch-art.html#cb101-41"></a>                Function.<span class="fu">Call</span>(Hash.<span class="fu">SET_ENTITY_VISIBLE</span>, newPed, <span class="kw">false</span>, <span class="dv">0</span>);</span>
-<span id="cb101-42"><a href="glitch-art.html#cb101-42"></a>                myPeds.<span class="fu">Add</span>(newPed);</span>
-<span id="cb101-43"><a href="glitch-art.html#cb101-43"></a></span>
-<span id="cb101-44"><a href="glitch-art.html#cb101-44"></a>                <span class="co">//create Cam</span></span>
-<span id="cb101-45"><a href="glitch-art.html#cb101-45"></a>                newCam = World.<span class="fu">CreateCamera</span>(Vector3.<span class="fu">Zero</span>, myPeds[i].<span class="fu">Rotation</span>, 50f);</span>
-<span id="cb101-46"><a href="glitch-art.html#cb101-46"></a>                myCam.<span class="fu">Add</span>(newCam);</span>
-<span id="cb101-47"><a href="glitch-art.html#cb101-47"></a>                myCamPos = <span class="kw">new</span> <span class="fu">Vector3</span>(<span class="dv">0</span>, <span class="dv">0</span>, 1f);</span>
-<span id="cb101-48"><a href="glitch-art.html#cb101-48"></a>            }</span>
-<span id="cb101-49"><a href="glitch-art.html#cb101-49"></a>            </span>
-<span id="cb101-50"><a href="glitch-art.html#cb101-50"></a>        }</span>
-<span id="cb101-51"><a href="glitch-art.html#cb101-51"></a></span>
-<span id="cb101-52"><a href="glitch-art.html#cb101-52"></a>        <span class="kw">private</span> <span class="dt">void</span> <span class="fu">onTick</span>(<span class="dt">object</span> sender, EventArgs e)</span>
-<span id="cb101-53"><a href="glitch-art.html#cb101-53"></a>        {</span>
-<span id="cb101-54"><a href="glitch-art.html#cb101-54"></a>            <span class="co">//update Cams</span></span>
-<span id="cb101-55"><a href="glitch-art.html#cb101-55"></a>            <span class="kw">for</span> (<span class="dt">int</span> i = <span class="dv">0</span>; i &lt; CamCount; i++)</span>
-<span id="cb101-56"><a href="glitch-art.html#cb101-56"></a>            {</span>
-<span id="cb101-57"><a href="glitch-art.html#cb101-57"></a>                myCam[i].<span class="fu">AttachTo</span>(myPeds[i], myCamPos);</span>
-<span id="cb101-58"><a href="glitch-art.html#cb101-58"></a>                myCam[i].<span class="fu">Rotation</span> = myPeds[i].<span class="fu">Rotation</span>;</span>
-<span id="cb101-59"><a href="glitch-art.html#cb101-59"></a>            }</span>
-<span id="cb101-60"><a href="glitch-art.html#cb101-60"></a>        }</span>
-<span id="cb101-61"><a href="glitch-art.html#cb101-61"></a></span>
-<span id="cb101-62"><a href="glitch-art.html#cb101-62"></a>        <span class="kw">private</span> <span class="dt">void</span> <span class="fu">onKeyUp</span>(<span class="dt">object</span> sender, KeyEventArgs e)</span>
-<span id="cb101-63"><a href="glitch-art.html#cb101-63"></a>        {</span>
-<span id="cb101-64"><a href="glitch-art.html#cb101-64"></a>            <span class="co">//switch between cameras when pressing SHIFT + K</span></span>
-<span id="cb101-65"><a href="glitch-art.html#cb101-65"></a>            <span class="kw">if</span>(e.<span class="fu">KeyCode</span> == Keys.<span class="fu">K</span> &amp;&amp; e.<span class="fu">Modifiers</span> == Keys.<span class="fu">Shift</span> &amp;&amp; myPeds[<span class="dv">2</span>] != <span class="kw">null</span>)</span>
-<span id="cb101-66"><a href="glitch-art.html#cb101-66"></a>            {</span>
-<span id="cb101-67"><a href="glitch-art.html#cb101-67"></a>                CamSelect = (CamSelect + <span class="dv">1</span>) % <span class="dv">4</span>;</span>
-<span id="cb101-68"><a href="glitch-art.html#cb101-68"></a>                <span class="kw">switch</span>(CamSelect)</span>
-<span id="cb101-69"><a href="glitch-art.html#cb101-69"></a>                {</span>
-<span id="cb101-70"><a href="glitch-art.html#cb101-70"></a>                    <span class="kw">case</span> <span class="dv">0</span>: World.<span class="fu">RenderingCamera</span> = <span class="kw">null</span>;</span>
-<span id="cb101-71"><a href="glitch-art.html#cb101-71"></a>                        UI.<span class="fu">ShowSubtitle</span>(<span class="st">&quot;Showing Gameplay Cam View&quot;</span>);</span>
-<span id="cb101-72"><a href="glitch-art.html#cb101-72"></a>                        <span class="kw">break</span>;</span>
-<span id="cb101-73"><a href="glitch-art.html#cb101-73"></a>                    <span class="kw">case</span> <span class="dv">1</span>: World.<span class="fu">RenderingCamera</span> = myCam[<span class="dv">0</span>];</span>
-<span id="cb101-74"><a href="glitch-art.html#cb101-74"></a>                        UI.<span class="fu">ShowSubtitle</span>(<span class="st">&quot;Showing Cam 1&quot;</span>);</span>
-<span id="cb101-75"><a href="glitch-art.html#cb101-75"></a>                        <span class="kw">break</span>;</span>
-<span id="cb101-76"><a href="glitch-art.html#cb101-76"></a>                    <span class="kw">case</span> <span class="dv">2</span>: World.<span class="fu">RenderingCamera</span> = myCam[<span class="dv">1</span>];</span>
-<span id="cb101-77"><a href="glitch-art.html#cb101-77"></a>                        UI.<span class="fu">ShowSubtitle</span>(<span class="st">&quot;Showing Cam 2&quot;</span>);</span>
-<span id="cb101-78"><a href="glitch-art.html#cb101-78"></a>                        <span class="kw">break</span>;</span>
-<span id="cb101-79"><a href="glitch-art.html#cb101-79"></a>                    <span class="kw">case</span> <span class="dv">3</span>: World.<span class="fu">RenderingCamera</span> = myCam[<span class="dv">2</span>];</span>
-<span id="cb101-80"><a href="glitch-art.html#cb101-80"></a>                        UI.<span class="fu">ShowSubtitle</span>(<span class="st">&quot;Showing Cam 3&quot;</span>);</span>
-<span id="cb101-81"><a href="glitch-art.html#cb101-81"></a>                        <span class="kw">break</span>;</span>
-<span id="cb101-82"><a href="glitch-art.html#cb101-82"></a>                }</span>
-<span id="cb101-83"><a href="glitch-art.html#cb101-83"></a>            }</span>
-<span id="cb101-84"><a href="glitch-art.html#cb101-84"></a>        }</span>
-<span id="cb101-85"><a href="glitch-art.html#cb101-85"></a></span>
-<span id="cb101-86"><a href="glitch-art.html#cb101-86"></a>        <span class="kw">private</span> <span class="dt">void</span> <span class="fu">onKeyDown</span>(<span class="dt">object</span> sender, KeyEventArgs e)</span>
-<span id="cb101-87"><a href="glitch-art.html#cb101-87"></a>        {</span>
-<span id="cb101-88"><a href="glitch-art.html#cb101-88"></a>        }</span>
-<span id="cb101-89"><a href="glitch-art.html#cb101-89"></a>    }</span>
-<span id="cb101-90"><a href="glitch-art.html#cb101-90"></a>}</span>
-<span id="cb101-91"><a href="glitch-art.html#cb101-91"></a>    </span></code></pre></div>
+<div class="sourceCode" id="cb100"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb100-1"><a href="glitch-art.html#cb100-1"></a><span class="kw">using</span> System;</span>
+<span id="cb100-2"><a href="glitch-art.html#cb100-2"></a><span class="kw">using</span> System.<span class="fu">Collections</span>.<span class="fu">Generic</span>;</span>
+<span id="cb100-3"><a href="glitch-art.html#cb100-3"></a><span class="kw">using</span> System.<span class="fu">Linq</span>;</span>
+<span id="cb100-4"><a href="glitch-art.html#cb100-4"></a><span class="kw">using</span> System.<span class="fu">Text</span>;</span>
+<span id="cb100-5"><a href="glitch-art.html#cb100-5"></a><span class="kw">using</span> System.<span class="fu">Threading</span>.<span class="fu">Tasks</span>;</span>
+<span id="cb100-6"><a href="glitch-art.html#cb100-6"></a><span class="kw">using</span> GTA;</span>
+<span id="cb100-7"><a href="glitch-art.html#cb100-7"></a><span class="kw">using</span> GTA.<span class="fu">Math</span>;</span>
+<span id="cb100-8"><a href="glitch-art.html#cb100-8"></a><span class="kw">using</span> System.<span class="fu">Windows</span>.<span class="fu">Forms</span>;</span>
+<span id="cb100-9"><a href="glitch-art.html#cb100-9"></a><span class="kw">using</span> System.<span class="fu">Drawing</span>;</span>
+<span id="cb100-10"><a href="glitch-art.html#cb100-10"></a><span class="kw">using</span> GTA.<span class="fu">Native</span>;</span>
+<span id="cb100-11"><a href="glitch-art.html#cb100-11"></a></span>
+<span id="cb100-12"><a href="glitch-art.html#cb100-12"></a><span class="kw">namespace</span> ModdingTutorial</span>
+<span id="cb100-13"><a href="glitch-art.html#cb100-13"></a>{</span>
+<span id="cb100-14"><a href="glitch-art.html#cb100-14"></a>    <span class="kw">public</span> <span class="kw">class</span> ModdingTutorial : Script    </span>
+<span id="cb100-15"><a href="glitch-art.html#cb100-15"></a>    {</span>
+<span id="cb100-16"><a href="glitch-art.html#cb100-16"></a>        Vector3 myCamPos;</span>
+<span id="cb100-17"><a href="glitch-art.html#cb100-17"></a>        <span class="dt">int</span> CamSelect = <span class="dv">0</span>;</span>
+<span id="cb100-18"><a href="glitch-art.html#cb100-18"></a>        <span class="dt">int</span> CamCount = <span class="dv">3</span>;</span>
+<span id="cb100-19"><a href="glitch-art.html#cb100-19"></a></span>
+<span id="cb100-20"><a href="glitch-art.html#cb100-20"></a>        List&lt;Ped&gt; myPeds = <span class="kw">new</span> List&lt;Ped&gt;();</span>
+<span id="cb100-21"><a href="glitch-art.html#cb100-21"></a>        Model myModel = PedHash.<span class="fu">Abigail</span>;</span>
+<span id="cb100-22"><a href="glitch-art.html#cb100-22"></a>        List&lt;Vector3&gt; myLocs = <span class="kw">new</span> List&lt;Vector3&gt;();</span>
+<span id="cb100-23"><a href="glitch-art.html#cb100-23"></a>        Camera newCam= <span class="kw">null</span>;</span>
+<span id="cb100-24"><a href="glitch-art.html#cb100-24"></a>        List&lt;Camera&gt; myCam = <span class="kw">new</span> List&lt;Camera&gt;();</span>
+<span id="cb100-25"><a href="glitch-art.html#cb100-25"></a></span>
+<span id="cb100-26"><a href="glitch-art.html#cb100-26"></a>        </span>
+<span id="cb100-27"><a href="glitch-art.html#cb100-27"></a>        <span class="kw">public</span> <span class="fu">ModdingTutorial</span>()</span>
+<span id="cb100-28"><a href="glitch-art.html#cb100-28"></a>        {</span>
+<span id="cb100-29"><a href="glitch-art.html#cb100-29"></a>            <span class="kw">this</span>.<span class="fu">Tick</span> += onTick;</span>
+<span id="cb100-30"><a href="glitch-art.html#cb100-30"></a>            <span class="kw">this</span>.<span class="fu">KeyUp</span> += onKeyUp;</span>
+<span id="cb100-31"><a href="glitch-art.html#cb100-31"></a>            <span class="kw">this</span>.<span class="fu">KeyDown</span> += onKeyDown;</span>
+<span id="cb100-32"><a href="glitch-art.html#cb100-32"></a></span>
+<span id="cb100-33"><a href="glitch-art.html#cb100-33"></a>            myLocs.<span class="fu">Add</span>(<span class="kw">new</span> <span class="fu">Vector3</span>(<span class="fl">450.178f</span>, <span class="fl">5566.614f</span>, <span class="fl">806.183f</span>)); <span class="co">//Mt.Chiliad</span></span>
+<span id="cb100-34"><a href="glitch-art.html#cb100-34"></a>            myLocs.<span class="fu">Add</span>(<span class="kw">new</span> <span class="fu">Vector3</span>(<span class="fl">24.775f</span>, <span class="fl">7644.102f</span>, <span class="fl">18.055f</span>)); <span class="co">//Most Northern Point</span></span>
+<span id="cb100-35"><a href="glitch-art.html#cb100-35"></a>            myLocs.<span class="fu">Add</span>(<span class="kw">new</span> <span class="fu">Vector3</span>(<span class="fl">150.126f</span>, <span class="fl">-754.591f</span>, <span class="fl">261.865f</span>)); <span class="co">//FIB Roof</span></span>
+<span id="cb100-36"><a href="glitch-art.html#cb100-36"></a></span>
+<span id="cb100-37"><a href="glitch-art.html#cb100-37"></a>            <span class="kw">for</span> (<span class="dt">int</span> i = <span class="dv">0</span>; i &lt; CamCount; i++)</span>
+<span id="cb100-38"><a href="glitch-art.html#cb100-38"></a>            {</span>
+<span id="cb100-39"><a href="glitch-art.html#cb100-39"></a>                <span class="co">//create Ped</span></span>
+<span id="cb100-40"><a href="glitch-art.html#cb100-40"></a>                <span class="dt">var</span> newPed = World.<span class="fu">CreatePed</span>(myModel, myLocs[i]);</span>
+<span id="cb100-41"><a href="glitch-art.html#cb100-41"></a>                Function.<span class="fu">Call</span>(Hash.<span class="fu">SET_ENTITY_VISIBLE</span>, newPed, <span class="kw">false</span>, <span class="dv">0</span>);</span>
+<span id="cb100-42"><a href="glitch-art.html#cb100-42"></a>                myPeds.<span class="fu">Add</span>(newPed);</span>
+<span id="cb100-43"><a href="glitch-art.html#cb100-43"></a></span>
+<span id="cb100-44"><a href="glitch-art.html#cb100-44"></a>                <span class="co">//create Cam</span></span>
+<span id="cb100-45"><a href="glitch-art.html#cb100-45"></a>                newCam = World.<span class="fu">CreateCamera</span>(Vector3.<span class="fu">Zero</span>, myPeds[i].<span class="fu">Rotation</span>, 50f);</span>
+<span id="cb100-46"><a href="glitch-art.html#cb100-46"></a>                myCam.<span class="fu">Add</span>(newCam);</span>
+<span id="cb100-47"><a href="glitch-art.html#cb100-47"></a>                myCamPos = <span class="kw">new</span> <span class="fu">Vector3</span>(<span class="dv">0</span>, <span class="dv">0</span>, 1f);</span>
+<span id="cb100-48"><a href="glitch-art.html#cb100-48"></a>            }</span>
+<span id="cb100-49"><a href="glitch-art.html#cb100-49"></a>            </span>
+<span id="cb100-50"><a href="glitch-art.html#cb100-50"></a>        }</span>
+<span id="cb100-51"><a href="glitch-art.html#cb100-51"></a></span>
+<span id="cb100-52"><a href="glitch-art.html#cb100-52"></a>        <span class="kw">private</span> <span class="dt">void</span> <span class="fu">onTick</span>(<span class="dt">object</span> sender, EventArgs e)</span>
+<span id="cb100-53"><a href="glitch-art.html#cb100-53"></a>        {</span>
+<span id="cb100-54"><a href="glitch-art.html#cb100-54"></a>            <span class="co">//update Cams</span></span>
+<span id="cb100-55"><a href="glitch-art.html#cb100-55"></a>            <span class="kw">for</span> (<span class="dt">int</span> i = <span class="dv">0</span>; i &lt; CamCount; i++)</span>
+<span id="cb100-56"><a href="glitch-art.html#cb100-56"></a>            {</span>
+<span id="cb100-57"><a href="glitch-art.html#cb100-57"></a>                myCam[i].<span class="fu">AttachTo</span>(myPeds[i], myCamPos);</span>
+<span id="cb100-58"><a href="glitch-art.html#cb100-58"></a>                myCam[i].<span class="fu">Rotation</span> = myPeds[i].<span class="fu">Rotation</span>;</span>
+<span id="cb100-59"><a href="glitch-art.html#cb100-59"></a>            }</span>
+<span id="cb100-60"><a href="glitch-art.html#cb100-60"></a>        }</span>
+<span id="cb100-61"><a href="glitch-art.html#cb100-61"></a></span>
+<span id="cb100-62"><a href="glitch-art.html#cb100-62"></a>        <span class="kw">private</span> <span class="dt">void</span> <span class="fu">onKeyUp</span>(<span class="dt">object</span> sender, KeyEventArgs e)</span>
+<span id="cb100-63"><a href="glitch-art.html#cb100-63"></a>        {</span>
+<span id="cb100-64"><a href="glitch-art.html#cb100-64"></a>            <span class="co">//switch between cameras when pressing SHIFT + K</span></span>
+<span id="cb100-65"><a href="glitch-art.html#cb100-65"></a>            <span class="kw">if</span>(e.<span class="fu">KeyCode</span> == Keys.<span class="fu">K</span> &amp;&amp; e.<span class="fu">Modifiers</span> == Keys.<span class="fu">Shift</span> &amp;&amp; myPeds[<span class="dv">2</span>] != <span class="kw">null</span>)</span>
+<span id="cb100-66"><a href="glitch-art.html#cb100-66"></a>            {</span>
+<span id="cb100-67"><a href="glitch-art.html#cb100-67"></a>                CamSelect = (CamSelect + <span class="dv">1</span>) % <span class="dv">4</span>;</span>
+<span id="cb100-68"><a href="glitch-art.html#cb100-68"></a>                <span class="kw">switch</span>(CamSelect)</span>
+<span id="cb100-69"><a href="glitch-art.html#cb100-69"></a>                {</span>
+<span id="cb100-70"><a href="glitch-art.html#cb100-70"></a>                    <span class="kw">case</span> <span class="dv">0</span>: World.<span class="fu">RenderingCamera</span> = <span class="kw">null</span>;</span>
+<span id="cb100-71"><a href="glitch-art.html#cb100-71"></a>                        UI.<span class="fu">ShowSubtitle</span>(<span class="st">&quot;Showing Gameplay Cam View&quot;</span>);</span>
+<span id="cb100-72"><a href="glitch-art.html#cb100-72"></a>                        <span class="kw">break</span>;</span>
+<span id="cb100-73"><a href="glitch-art.html#cb100-73"></a>                    <span class="kw">case</span> <span class="dv">1</span>: World.<span class="fu">RenderingCamera</span> = myCam[<span class="dv">0</span>];</span>
+<span id="cb100-74"><a href="glitch-art.html#cb100-74"></a>                        UI.<span class="fu">ShowSubtitle</span>(<span class="st">&quot;Showing Cam 1&quot;</span>);</span>
+<span id="cb100-75"><a href="glitch-art.html#cb100-75"></a>                        <span class="kw">break</span>;</span>
+<span id="cb100-76"><a href="glitch-art.html#cb100-76"></a>                    <span class="kw">case</span> <span class="dv">2</span>: World.<span class="fu">RenderingCamera</span> = myCam[<span class="dv">1</span>];</span>
+<span id="cb100-77"><a href="glitch-art.html#cb100-77"></a>                        UI.<span class="fu">ShowSubtitle</span>(<span class="st">&quot;Showing Cam 2&quot;</span>);</span>
+<span id="cb100-78"><a href="glitch-art.html#cb100-78"></a>                        <span class="kw">break</span>;</span>
+<span id="cb100-79"><a href="glitch-art.html#cb100-79"></a>                    <span class="kw">case</span> <span class="dv">3</span>: World.<span class="fu">RenderingCamera</span> = myCam[<span class="dv">2</span>];</span>
+<span id="cb100-80"><a href="glitch-art.html#cb100-80"></a>                        UI.<span class="fu">ShowSubtitle</span>(<span class="st">&quot;Showing Cam 3&quot;</span>);</span>
+<span id="cb100-81"><a href="glitch-art.html#cb100-81"></a>                        <span class="kw">break</span>;</span>
+<span id="cb100-82"><a href="glitch-art.html#cb100-82"></a>                }</span>
+<span id="cb100-83"><a href="glitch-art.html#cb100-83"></a>            }</span>
+<span id="cb100-84"><a href="glitch-art.html#cb100-84"></a>        }</span>
+<span id="cb100-85"><a href="glitch-art.html#cb100-85"></a></span>
+<span id="cb100-86"><a href="glitch-art.html#cb100-86"></a>        <span class="kw">private</span> <span class="dt">void</span> <span class="fu">onKeyDown</span>(<span class="dt">object</span> sender, KeyEventArgs e)</span>
+<span id="cb100-87"><a href="glitch-art.html#cb100-87"></a>        {</span>
+<span id="cb100-88"><a href="glitch-art.html#cb100-88"></a>        }</span>
+<span id="cb100-89"><a href="glitch-art.html#cb100-89"></a>    }</span>
+<span id="cb100-90"><a href="glitch-art.html#cb100-90"></a>}</span>
+<span id="cb100-91"><a href="glitch-art.html#cb100-91"></a>    </span></code></pre></div>
 </details>
 <p><img src="assets/scriptingGifs/multipleCameras.gif" style="display: block; margin: auto auto auto 0;" /></p>
 </div>
@@ -848,145 +848,145 @@ Attaching a camera to an NPC can provide interesting views and perspectives. Her
 <p>We can use the native function <code>START_PLAYER_SWITCH</code> to enable the satellite view animation from the game, and get transported to a different location where an NPC or player avatar is spawned. Press <code>G</code> to move across divverent NPCs at different location through the satellite camera transition.</p>
 <details>
 <p><summary>Example code</summary></p>
-<div class="sourceCode" id="cb102"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb102-1"><a href="glitch-art.html#cb102-1"></a>    </span>
-<span id="cb102-2"><a href="glitch-art.html#cb102-2"></a><span class="co">/*</span></span>
-<span id="cb102-3"><a href="glitch-art.html#cb102-3"></a><span class="co">    this was adapted from code shared by LeeC22 on gtaforums.com</span></span>
-<span id="cb102-4"><a href="glitch-art.html#cb102-4"></a><span class="co">    https://gtaforums.com/topic/951002-c-looking-for-player-switch-sample-solved-by-me/#comment-1071197769</span></span>
-<span id="cb102-5"><a href="glitch-art.html#cb102-5"></a><span class="co">*/</span></span>
-<span id="cb102-6"><a href="glitch-art.html#cb102-6"></a>    </span>
-<span id="cb102-7"><a href="glitch-art.html#cb102-7"></a><span class="kw">using</span> System;</span>
-<span id="cb102-8"><a href="glitch-art.html#cb102-8"></a><span class="kw">using</span> System.<span class="fu">Collections</span>.<span class="fu">Generic</span>;</span>
-<span id="cb102-9"><a href="glitch-art.html#cb102-9"></a><span class="kw">using</span> System.<span class="fu">Linq</span>;</span>
-<span id="cb102-10"><a href="glitch-art.html#cb102-10"></a><span class="kw">using</span> System.<span class="fu">Text</span>;</span>
-<span id="cb102-11"><a href="glitch-art.html#cb102-11"></a><span class="kw">using</span> System.<span class="fu">Threading</span>.<span class="fu">Tasks</span>;</span>
-<span id="cb102-12"><a href="glitch-art.html#cb102-12"></a></span>
-<span id="cb102-13"><a href="glitch-art.html#cb102-13"></a><span class="kw">using</span> GTA;</span>
-<span id="cb102-14"><a href="glitch-art.html#cb102-14"></a><span class="kw">using</span> GTA.<span class="fu">Math</span>;</span>
-<span id="cb102-15"><a href="glitch-art.html#cb102-15"></a><span class="kw">using</span> System.<span class="fu">Windows</span>.<span class="fu">Forms</span>;</span>
-<span id="cb102-16"><a href="glitch-art.html#cb102-16"></a><span class="kw">using</span> System.<span class="fu">Drawing</span>;</span>
-<span id="cb102-17"><a href="glitch-art.html#cb102-17"></a><span class="kw">using</span> GTA.<span class="fu">Native</span>;</span>
-<span id="cb102-18"><a href="glitch-art.html#cb102-18"></a><span class="kw">using</span> System.<span class="fu">IO</span>;</span>
-<span id="cb102-19"><a href="glitch-art.html#cb102-19"></a></span>
-<span id="cb102-20"><a href="glitch-art.html#cb102-20"></a></span>
-<span id="cb102-21"><a href="glitch-art.html#cb102-21"></a><span class="kw">namespace</span> moddingTutorial</span>
-<span id="cb102-22"><a href="glitch-art.html#cb102-22"></a>{</span>
-<span id="cb102-23"><a href="glitch-art.html#cb102-23"></a>    <span class="kw">public</span> <span class="kw">class</span> moddingTutorial : Script</span>
-<span id="cb102-24"><a href="glitch-art.html#cb102-24"></a>    {</span>
-<span id="cb102-25"><a href="glitch-art.html#cb102-25"></a>        Ped newPed = <span class="kw">null</span>;</span>
-<span id="cb102-26"><a href="glitch-art.html#cb102-26"></a>        Vector3 SwitchLocation2;</span>
-<span id="cb102-27"><a href="glitch-art.html#cb102-27"></a>        List&lt;Vector3&gt; switchLocations = <span class="kw">new</span> List&lt;Vector3&gt;();</span>
-<span id="cb102-28"><a href="glitch-art.html#cb102-28"></a>        <span class="dt">int</span> index = <span class="dv">0</span>;</span>
-<span id="cb102-29"><a href="glitch-art.html#cb102-29"></a>        List&lt;String&gt; models = <span class="kw">new</span> List&lt;String&gt;();</span>
-<span id="cb102-30"><a href="glitch-art.html#cb102-30"></a>        <span class="dt">int</span> modelIndex = <span class="dv">0</span>;</span>
-<span id="cb102-31"><a href="glitch-art.html#cb102-31"></a></span>
-<span id="cb102-32"><a href="glitch-art.html#cb102-32"></a>        <span class="kw">public</span> <span class="fu">moddingTutorial</span>()</span>
-<span id="cb102-33"><a href="glitch-art.html#cb102-33"></a>        {</span>
-<span id="cb102-34"><a href="glitch-art.html#cb102-34"></a>            <span class="kw">this</span>.<span class="fu">Tick</span> += onTick;</span>
-<span id="cb102-35"><a href="glitch-art.html#cb102-35"></a>            <span class="kw">this</span>.<span class="fu">KeyUp</span> += onKeyUp;</span>
-<span id="cb102-36"><a href="glitch-art.html#cb102-36"></a>            <span class="kw">this</span>.<span class="fu">KeyDown</span> += onKeyDown;</span>
-<span id="cb102-37"><a href="glitch-art.html#cb102-37"></a></span>
-<span id="cb102-38"><a href="glitch-art.html#cb102-38"></a>        <span class="co">//add locations to the switchLocations list</span></span>
-<span id="cb102-39"><a href="glitch-art.html#cb102-39"></a>            switchLocations.<span class="fu">Add</span>(<span class="kw">new</span> <span class="fu">Vector3</span>(<span class="fl">24.775f</span>, <span class="fl">7644.102f</span>, <span class="fl">18.055f</span>)); <span class="co">//Most Northerly Point</span></span>
-<span id="cb102-40"><a href="glitch-art.html#cb102-40"></a>            switchLocations.<span class="fu">Add</span>(<span class="kw">new</span> <span class="fu">Vector3</span>(-<span class="fl">595.342f</span>, <span class="fl">2086.008f</span>, <span class="fl">130.412f</span>)); <span class="co">//Mine</span></span>
-<span id="cb102-41"><a href="glitch-art.html#cb102-41"></a>            switchLocations.<span class="fu">Add</span>(<span class="kw">new</span> <span class="fu">Vector3</span>(<span class="fl">150.126f</span>, <span class="fl">-754.591f</span>, <span class="fl">261.865f</span>)); <span class="co">//FIB Roof </span></span>
-<span id="cb102-42"><a href="glitch-art.html#cb102-42"></a>    </span>
-<span id="cb102-43"><a href="glitch-art.html#cb102-43"></a>        <span class="co">//add models to the models list</span></span>
-<span id="cb102-44"><a href="glitch-art.html#cb102-44"></a>            models.<span class="fu">Add</span>(<span class="st">&quot;s_m_m_doctor_01&quot;</span>);</span>
-<span id="cb102-45"><a href="glitch-art.html#cb102-45"></a>            models.<span class="fu">Add</span>(<span class="st">&quot;s_m_m_migrant_01&quot;</span>);</span>
-<span id="cb102-46"><a href="glitch-art.html#cb102-46"></a>            models.<span class="fu">Add</span>(<span class="st">&quot;a_c_cormorant&quot;</span>);</span>
-<span id="cb102-47"><a href="glitch-art.html#cb102-47"></a>            models.<span class="fu">Add</span>(<span class="st">&quot;a_c_deer&quot;</span>);</span>
-<span id="cb102-48"><a href="glitch-art.html#cb102-48"></a>            models.<span class="fu">Add</span>(<span class="st">&quot;a_c_pug&quot;</span>);</span>
-<span id="cb102-49"><a href="glitch-art.html#cb102-49"></a>        }</span>
-<span id="cb102-50"><a href="glitch-art.html#cb102-50"></a></span>
-<span id="cb102-51"><a href="glitch-art.html#cb102-51"></a>        <span class="kw">private</span> <span class="dt">void</span> <span class="fu">onTick</span>(<span class="dt">object</span> sender, EventArgs e) <span class="co">//this function gets executed continuously </span></span>
-<span id="cb102-52"><a href="glitch-art.html#cb102-52"></a>        {</span>
-<span id="cb102-53"><a href="glitch-art.html#cb102-53"></a>            </span>
-<span id="cb102-54"><a href="glitch-art.html#cb102-54"></a>            <span class="co">//If the character switch is in process</span></span>
-<span id="cb102-55"><a href="glitch-art.html#cb102-55"></a>            <span class="kw">if</span> (Function.<span class="fu">Call</span>&lt;<span class="dt">bool</span>&gt;(Hash.<span class="fu">IS_PLAYER_SWITCH_IN_PROGRESS</span>))</span>
-<span id="cb102-56"><a href="glitch-art.html#cb102-56"></a>            {</span>
-<span id="cb102-57"><a href="glitch-art.html#cb102-57"></a>                <span class="co">//If Switch State is 8 – that&#39;s the point when it starts dropping to the player </span></span>
-<span id="cb102-58"><a href="glitch-art.html#cb102-58"></a>                <span class="kw">if</span> (Function.<span class="fu">Call</span>&lt;<span class="dt">int</span>&gt;(Hash.<span class="fu">GET_PLAYER_SWITCH_STATE</span>) == <span class="dv">8</span>)</span>
-<span id="cb102-59"><a href="glitch-art.html#cb102-59"></a>                {</span>
-<span id="cb102-60"><a href="glitch-art.html#cb102-60"></a>                    <span class="co">//Set the player to the switch location</span></span>
-<span id="cb102-61"><a href="glitch-art.html#cb102-61"></a>                    Game.<span class="fu">Player</span>.<span class="fu">Character</span>.<span class="fu">Position</span> = switchLocations[index];</span>
-<span id="cb102-62"><a href="glitch-art.html#cb102-62"></a></span>
-<span id="cb102-63"><a href="glitch-art.html#cb102-63"></a>                    <span class="co">//Generate the hash for the chosen model</span></span>
-<span id="cb102-64"><a href="glitch-art.html#cb102-64"></a>                    <span class="dt">int</span> poshHash = Game.<span class="fu">GenerateHash</span>(models[modelIndex]);</span>
-<span id="cb102-65"><a href="glitch-art.html#cb102-65"></a></span>
-<span id="cb102-66"><a href="glitch-art.html#cb102-66"></a>                    <span class="co">//Create the model</span></span>
-<span id="cb102-67"><a href="glitch-art.html#cb102-67"></a>                    Model poshModel = <span class="kw">new</span> <span class="fu">Model</span>(poshHash);</span>
-<span id="cb102-68"><a href="glitch-art.html#cb102-68"></a></span>
-<span id="cb102-69"><a href="glitch-art.html#cb102-69"></a>                    <span class="co">//Check if it is valid</span></span>
-<span id="cb102-70"><a href="glitch-art.html#cb102-70"></a>                    <span class="kw">if</span> (poshModel.<span class="fu">IsValid</span>)</span>
-<span id="cb102-71"><a href="glitch-art.html#cb102-71"></a>                    {</span>
-<span id="cb102-72"><a href="glitch-art.html#cb102-72"></a>                        <span class="co">//Wait for it to load, should be okay because it was used to create the target ped</span></span>
-<span id="cb102-73"><a href="glitch-art.html#cb102-73"></a>                        <span class="kw">while</span> (!poshModel.<span class="fu">IsLoaded</span>)</span>
-<span id="cb102-74"><a href="glitch-art.html#cb102-74"></a>                        {</span>
-<span id="cb102-75"><a href="glitch-art.html#cb102-75"></a>                            <span class="fu">Wait</span>(<span class="dv">100</span>);</span>
-<span id="cb102-76"><a href="glitch-art.html#cb102-76"></a>                        }</span>
-<span id="cb102-77"><a href="glitch-art.html#cb102-77"></a></span>
-<span id="cb102-78"><a href="glitch-art.html#cb102-78"></a>                        <span class="co">//Change the player model to the target ped model</span></span>
-<span id="cb102-79"><a href="glitch-art.html#cb102-79"></a>                        Function.<span class="fu">Call</span>(Hash.<span class="fu">SET_PLAYER_MODEL</span>, Game.<span class="fu">Player</span>, poshHash);</span>
-<span id="cb102-80"><a href="glitch-art.html#cb102-80"></a></span>
-<span id="cb102-81"><a href="glitch-art.html#cb102-81"></a>                        <span class="co">//Let the game clean up the created Model</span></span>
-<span id="cb102-82"><a href="glitch-art.html#cb102-82"></a>                        poshModel.<span class="fu">MarkAsNoLongerNeeded</span>();</span>
-<span id="cb102-83"><a href="glitch-art.html#cb102-83"></a>                    }</span>
-<span id="cb102-84"><a href="glitch-art.html#cb102-84"></a>                    <span class="kw">else</span></span>
-<span id="cb102-85"><a href="glitch-art.html#cb102-85"></a>                    {</span>
-<span id="cb102-86"><a href="glitch-art.html#cb102-86"></a>                        <span class="co">//Falls to here if the model valid check fails</span></span>
-<span id="cb102-87"><a href="glitch-art.html#cb102-87"></a>                        Function.<span class="fu">Call</span>(Hash.<span class="fu">SET_PLAYER_MODEL</span>, Game.<span class="fu">Player</span>, (<span class="dt">int</span>)PedHash.<span class="fu">Tourist01AFY</span>);</span>
-<span id="cb102-88"><a href="glitch-art.html#cb102-88"></a>                    }</span>
-<span id="cb102-89"><a href="glitch-art.html#cb102-89"></a></span>
-<span id="cb102-90"><a href="glitch-art.html#cb102-90"></a>                    <span class="co">//Delete the target ped as it&#39;s no longer needed</span></span>
-<span id="cb102-91"><a href="glitch-art.html#cb102-91"></a>                    newPed.<span class="fu">Delete</span>();</span>
-<span id="cb102-92"><a href="glitch-art.html#cb102-92"></a>                    </span>
-<span id="cb102-93"><a href="glitch-art.html#cb102-93"></a></span>
-<span id="cb102-94"><a href="glitch-art.html#cb102-94"></a>                    <span class="co">// Set the switch outro based on the gameplay camera position</span></span>
-<span id="cb102-95"><a href="glitch-art.html#cb102-95"></a>                    <span class="co">// Function.Call((Hash)0xC208B673CE446B61, camPos.X, camPos.Y, camPos.Z, camRot.X, camRot.Y, camRot.Z, camFOV, camFarClip, p8);</span></span>
-<span id="cb102-96"><a href="glitch-art.html#cb102-96"></a></span>
-<span id="cb102-97"><a href="glitch-art.html#cb102-97"></a>                    Function.<span class="fu">Call</span>((Hash)<span class="bn">0xC208B673CE446B61</span>, GameplayCamera.<span class="fu">Position</span>.<span class="fu">X</span>, GameplayCamera.<span class="fu">Position</span>.<span class="fu">Y</span>, GameplayCamera.<span class="fu">Position</span>.<span class="fu">Z</span>, GameplayCamera.<span class="fu">Rotation</span>.<span class="fu">X</span>, GameplayCamera.<span class="fu">Rotation</span>.<span class="fu">Y</span>, GameplayCamera.<span class="fu">Rotation</span>.<span class="fu">Z</span>, GameplayCamera.<span class="fu">FieldOfView</span>, <span class="dv">500</span>, <span class="dv">2</span>);</span>
-<span id="cb102-98"><a href="glitch-art.html#cb102-98"></a></span>
-<span id="cb102-99"><a href="glitch-art.html#cb102-99"></a>                    <span class="co">//Call this unknown native that seems to finish things off</span></span>
-<span id="cb102-100"><a href="glitch-art.html#cb102-100"></a>                    Function.<span class="fu">Call</span>(Hash._<span class="bn">0x74DE2E8739086740</span>);</span>
-<span id="cb102-101"><a href="glitch-art.html#cb102-101"></a></span>
-<span id="cb102-102"><a href="glitch-art.html#cb102-102"></a>            <span class="co">//Make the character wander around autonomously</span></span>
-<span id="cb102-103"><a href="glitch-art.html#cb102-103"></a>                    Game.<span class="fu">Player</span>.<span class="fu">Character</span>.<span class="fu">Task</span>.<span class="fu">WanderAround</span>();</span>
-<span id="cb102-104"><a href="glitch-art.html#cb102-104"></a>                }</span>
-<span id="cb102-105"><a href="glitch-art.html#cb102-105"></a>            }</span>
-<span id="cb102-106"><a href="glitch-art.html#cb102-106"></a></span>
-<span id="cb102-107"><a href="glitch-art.html#cb102-107"></a>        }</span>
-<span id="cb102-108"><a href="glitch-art.html#cb102-108"></a></span>
-<span id="cb102-109"><a href="glitch-art.html#cb102-109"></a></span>
-<span id="cb102-110"><a href="glitch-art.html#cb102-110"></a>        <span class="kw">private</span> <span class="dt">void</span> <span class="fu">onKeyUp</span>(<span class="dt">object</span> sender, KeyEventArgs e)</span>
-<span id="cb102-111"><a href="glitch-art.html#cb102-111"></a>        {</span>
-<span id="cb102-112"><a href="glitch-art.html#cb102-112"></a></span>
-<span id="cb102-113"><a href="glitch-art.html#cb102-113"></a>        }</span>
-<span id="cb102-114"><a href="glitch-art.html#cb102-114"></a></span>
-<span id="cb102-115"><a href="glitch-art.html#cb102-115"></a>        <span class="kw">private</span> <span class="dt">void</span> <span class="fu">onKeyDown</span>(<span class="dt">object</span> sender, KeyEventArgs e)</span>
-<span id="cb102-116"><a href="glitch-art.html#cb102-116"></a>        {</span>
-<span id="cb102-117"><a href="glitch-art.html#cb102-117"></a>            <span class="kw">if</span> (e.<span class="fu">KeyCode</span> == Keys.<span class="fu">G</span>)</span>
-<span id="cb102-118"><a href="glitch-art.html#cb102-118"></a>            {</span>
-<span id="cb102-119"><a href="glitch-art.html#cb102-119"></a>        <span class="co">//Stop previous tasks</span></span>
-<span id="cb102-120"><a href="glitch-art.html#cb102-120"></a>                Game.<span class="fu">Player</span>.<span class="fu">Character</span>.<span class="fu">Task</span>.<span class="fu">ClearAll</span>();</span>
-<span id="cb102-121"><a href="glitch-art.html#cb102-121"></a></span>
-<span id="cb102-122"><a href="glitch-art.html#cb102-122"></a>                <span class="co">//Move the index to the next location</span></span>
-<span id="cb102-123"><a href="glitch-art.html#cb102-123"></a>                index++;</span>
-<span id="cb102-124"><a href="glitch-art.html#cb102-124"></a>                <span class="kw">if</span> (index &gt;= switchLocations.<span class="fu">Count</span>) index = <span class="dv">0</span>;</span>
-<span id="cb102-125"><a href="glitch-art.html#cb102-125"></a>                </span>
-<span id="cb102-126"><a href="glitch-art.html#cb102-126"></a>        <span class="co">//Move the index to the new ped model</span></span>
-<span id="cb102-127"><a href="glitch-art.html#cb102-127"></a>                modelIndex++;</span>
-<span id="cb102-128"><a href="glitch-art.html#cb102-128"></a>                <span class="kw">if</span> (modelIndex &gt;= models.<span class="fu">Count</span>) modelIndex = <span class="dv">0</span>;</span>
-<span id="cb102-129"><a href="glitch-art.html#cb102-129"></a></span>
-<span id="cb102-130"><a href="glitch-art.html#cb102-130"></a>                <span class="co">//Create the ped to switch to</span></span>
-<span id="cb102-131"><a href="glitch-art.html#cb102-131"></a>                newPed = World.<span class="fu">CreatePed</span>(models[modelIndex], switchLocations[index]);</span>
-<span id="cb102-132"><a href="glitch-art.html#cb102-132"></a></span>
-<span id="cb102-133"><a href="glitch-art.html#cb102-133"></a>                <span class="co">//Native function to initiate the switch Function.Call(Hash.START_PLAYER_SWITCH, fromPed.Handle, toPed.Handle, flags, switchType);</span></span>
-<span id="cb102-134"><a href="glitch-art.html#cb102-134"></a>                Function.<span class="fu">Call</span>(Hash.<span class="fu">START_PLAYER_SWITCH</span>, Game.<span class="fu">Player</span>.<span class="fu">Character</span>.<span class="fu">Handle</span>, newPed.<span class="fu">Handle</span>, <span class="dv">8</span>, <span class="dv">0</span>);</span>
-<span id="cb102-135"><a href="glitch-art.html#cb102-135"></a></span>
-<span id="cb102-136"><a href="glitch-art.html#cb102-136"></a>            }</span>
-<span id="cb102-137"><a href="glitch-art.html#cb102-137"></a>        }</span>
-<span id="cb102-138"><a href="glitch-art.html#cb102-138"></a>    }</span>
-<span id="cb102-139"><a href="glitch-art.html#cb102-139"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb101"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb101-1"><a href="glitch-art.html#cb101-1"></a>    </span>
+<span id="cb101-2"><a href="glitch-art.html#cb101-2"></a><span class="co">/*</span></span>
+<span id="cb101-3"><a href="glitch-art.html#cb101-3"></a><span class="co">    this was adapted from code shared by LeeC22 on gtaforums.com</span></span>
+<span id="cb101-4"><a href="glitch-art.html#cb101-4"></a><span class="co">    https://gtaforums.com/topic/951002-c-looking-for-player-switch-sample-solved-by-me/#comment-1071197769</span></span>
+<span id="cb101-5"><a href="glitch-art.html#cb101-5"></a><span class="co">*/</span></span>
+<span id="cb101-6"><a href="glitch-art.html#cb101-6"></a>    </span>
+<span id="cb101-7"><a href="glitch-art.html#cb101-7"></a><span class="kw">using</span> System;</span>
+<span id="cb101-8"><a href="glitch-art.html#cb101-8"></a><span class="kw">using</span> System.<span class="fu">Collections</span>.<span class="fu">Generic</span>;</span>
+<span id="cb101-9"><a href="glitch-art.html#cb101-9"></a><span class="kw">using</span> System.<span class="fu">Linq</span>;</span>
+<span id="cb101-10"><a href="glitch-art.html#cb101-10"></a><span class="kw">using</span> System.<span class="fu">Text</span>;</span>
+<span id="cb101-11"><a href="glitch-art.html#cb101-11"></a><span class="kw">using</span> System.<span class="fu">Threading</span>.<span class="fu">Tasks</span>;</span>
+<span id="cb101-12"><a href="glitch-art.html#cb101-12"></a></span>
+<span id="cb101-13"><a href="glitch-art.html#cb101-13"></a><span class="kw">using</span> GTA;</span>
+<span id="cb101-14"><a href="glitch-art.html#cb101-14"></a><span class="kw">using</span> GTA.<span class="fu">Math</span>;</span>
+<span id="cb101-15"><a href="glitch-art.html#cb101-15"></a><span class="kw">using</span> System.<span class="fu">Windows</span>.<span class="fu">Forms</span>;</span>
+<span id="cb101-16"><a href="glitch-art.html#cb101-16"></a><span class="kw">using</span> System.<span class="fu">Drawing</span>;</span>
+<span id="cb101-17"><a href="glitch-art.html#cb101-17"></a><span class="kw">using</span> GTA.<span class="fu">Native</span>;</span>
+<span id="cb101-18"><a href="glitch-art.html#cb101-18"></a><span class="kw">using</span> System.<span class="fu">IO</span>;</span>
+<span id="cb101-19"><a href="glitch-art.html#cb101-19"></a></span>
+<span id="cb101-20"><a href="glitch-art.html#cb101-20"></a></span>
+<span id="cb101-21"><a href="glitch-art.html#cb101-21"></a><span class="kw">namespace</span> moddingTutorial</span>
+<span id="cb101-22"><a href="glitch-art.html#cb101-22"></a>{</span>
+<span id="cb101-23"><a href="glitch-art.html#cb101-23"></a>    <span class="kw">public</span> <span class="kw">class</span> moddingTutorial : Script</span>
+<span id="cb101-24"><a href="glitch-art.html#cb101-24"></a>    {</span>
+<span id="cb101-25"><a href="glitch-art.html#cb101-25"></a>        Ped newPed = <span class="kw">null</span>;</span>
+<span id="cb101-26"><a href="glitch-art.html#cb101-26"></a>        Vector3 SwitchLocation2;</span>
+<span id="cb101-27"><a href="glitch-art.html#cb101-27"></a>        List&lt;Vector3&gt; switchLocations = <span class="kw">new</span> List&lt;Vector3&gt;();</span>
+<span id="cb101-28"><a href="glitch-art.html#cb101-28"></a>        <span class="dt">int</span> index = <span class="dv">0</span>;</span>
+<span id="cb101-29"><a href="glitch-art.html#cb101-29"></a>        List&lt;String&gt; models = <span class="kw">new</span> List&lt;String&gt;();</span>
+<span id="cb101-30"><a href="glitch-art.html#cb101-30"></a>        <span class="dt">int</span> modelIndex = <span class="dv">0</span>;</span>
+<span id="cb101-31"><a href="glitch-art.html#cb101-31"></a></span>
+<span id="cb101-32"><a href="glitch-art.html#cb101-32"></a>        <span class="kw">public</span> <span class="fu">moddingTutorial</span>()</span>
+<span id="cb101-33"><a href="glitch-art.html#cb101-33"></a>        {</span>
+<span id="cb101-34"><a href="glitch-art.html#cb101-34"></a>            <span class="kw">this</span>.<span class="fu">Tick</span> += onTick;</span>
+<span id="cb101-35"><a href="glitch-art.html#cb101-35"></a>            <span class="kw">this</span>.<span class="fu">KeyUp</span> += onKeyUp;</span>
+<span id="cb101-36"><a href="glitch-art.html#cb101-36"></a>            <span class="kw">this</span>.<span class="fu">KeyDown</span> += onKeyDown;</span>
+<span id="cb101-37"><a href="glitch-art.html#cb101-37"></a></span>
+<span id="cb101-38"><a href="glitch-art.html#cb101-38"></a>        <span class="co">//add locations to the switchLocations list</span></span>
+<span id="cb101-39"><a href="glitch-art.html#cb101-39"></a>            switchLocations.<span class="fu">Add</span>(<span class="kw">new</span> <span class="fu">Vector3</span>(<span class="fl">24.775f</span>, <span class="fl">7644.102f</span>, <span class="fl">18.055f</span>)); <span class="co">//Most Northerly Point</span></span>
+<span id="cb101-40"><a href="glitch-art.html#cb101-40"></a>            switchLocations.<span class="fu">Add</span>(<span class="kw">new</span> <span class="fu">Vector3</span>(-<span class="fl">595.342f</span>, <span class="fl">2086.008f</span>, <span class="fl">130.412f</span>)); <span class="co">//Mine</span></span>
+<span id="cb101-41"><a href="glitch-art.html#cb101-41"></a>            switchLocations.<span class="fu">Add</span>(<span class="kw">new</span> <span class="fu">Vector3</span>(<span class="fl">150.126f</span>, <span class="fl">-754.591f</span>, <span class="fl">261.865f</span>)); <span class="co">//FIB Roof </span></span>
+<span id="cb101-42"><a href="glitch-art.html#cb101-42"></a>    </span>
+<span id="cb101-43"><a href="glitch-art.html#cb101-43"></a>        <span class="co">//add models to the models list</span></span>
+<span id="cb101-44"><a href="glitch-art.html#cb101-44"></a>            models.<span class="fu">Add</span>(<span class="st">&quot;s_m_m_doctor_01&quot;</span>);</span>
+<span id="cb101-45"><a href="glitch-art.html#cb101-45"></a>            models.<span class="fu">Add</span>(<span class="st">&quot;s_m_m_migrant_01&quot;</span>);</span>
+<span id="cb101-46"><a href="glitch-art.html#cb101-46"></a>            models.<span class="fu">Add</span>(<span class="st">&quot;a_c_cormorant&quot;</span>);</span>
+<span id="cb101-47"><a href="glitch-art.html#cb101-47"></a>            models.<span class="fu">Add</span>(<span class="st">&quot;a_c_deer&quot;</span>);</span>
+<span id="cb101-48"><a href="glitch-art.html#cb101-48"></a>            models.<span class="fu">Add</span>(<span class="st">&quot;a_c_pug&quot;</span>);</span>
+<span id="cb101-49"><a href="glitch-art.html#cb101-49"></a>        }</span>
+<span id="cb101-50"><a href="glitch-art.html#cb101-50"></a></span>
+<span id="cb101-51"><a href="glitch-art.html#cb101-51"></a>        <span class="kw">private</span> <span class="dt">void</span> <span class="fu">onTick</span>(<span class="dt">object</span> sender, EventArgs e) <span class="co">//this function gets executed continuously </span></span>
+<span id="cb101-52"><a href="glitch-art.html#cb101-52"></a>        {</span>
+<span id="cb101-53"><a href="glitch-art.html#cb101-53"></a>            </span>
+<span id="cb101-54"><a href="glitch-art.html#cb101-54"></a>            <span class="co">//If the character switch is in process</span></span>
+<span id="cb101-55"><a href="glitch-art.html#cb101-55"></a>            <span class="kw">if</span> (Function.<span class="fu">Call</span>&lt;<span class="dt">bool</span>&gt;(Hash.<span class="fu">IS_PLAYER_SWITCH_IN_PROGRESS</span>))</span>
+<span id="cb101-56"><a href="glitch-art.html#cb101-56"></a>            {</span>
+<span id="cb101-57"><a href="glitch-art.html#cb101-57"></a>                <span class="co">//If Switch State is 8 – that&#39;s the point when it starts dropping to the player </span></span>
+<span id="cb101-58"><a href="glitch-art.html#cb101-58"></a>                <span class="kw">if</span> (Function.<span class="fu">Call</span>&lt;<span class="dt">int</span>&gt;(Hash.<span class="fu">GET_PLAYER_SWITCH_STATE</span>) == <span class="dv">8</span>)</span>
+<span id="cb101-59"><a href="glitch-art.html#cb101-59"></a>                {</span>
+<span id="cb101-60"><a href="glitch-art.html#cb101-60"></a>                    <span class="co">//Set the player to the switch location</span></span>
+<span id="cb101-61"><a href="glitch-art.html#cb101-61"></a>                    Game.<span class="fu">Player</span>.<span class="fu">Character</span>.<span class="fu">Position</span> = switchLocations[index];</span>
+<span id="cb101-62"><a href="glitch-art.html#cb101-62"></a></span>
+<span id="cb101-63"><a href="glitch-art.html#cb101-63"></a>                    <span class="co">//Generate the hash for the chosen model</span></span>
+<span id="cb101-64"><a href="glitch-art.html#cb101-64"></a>                    <span class="dt">int</span> poshHash = Game.<span class="fu">GenerateHash</span>(models[modelIndex]);</span>
+<span id="cb101-65"><a href="glitch-art.html#cb101-65"></a></span>
+<span id="cb101-66"><a href="glitch-art.html#cb101-66"></a>                    <span class="co">//Create the model</span></span>
+<span id="cb101-67"><a href="glitch-art.html#cb101-67"></a>                    Model poshModel = <span class="kw">new</span> <span class="fu">Model</span>(poshHash);</span>
+<span id="cb101-68"><a href="glitch-art.html#cb101-68"></a></span>
+<span id="cb101-69"><a href="glitch-art.html#cb101-69"></a>                    <span class="co">//Check if it is valid</span></span>
+<span id="cb101-70"><a href="glitch-art.html#cb101-70"></a>                    <span class="kw">if</span> (poshModel.<span class="fu">IsValid</span>)</span>
+<span id="cb101-71"><a href="glitch-art.html#cb101-71"></a>                    {</span>
+<span id="cb101-72"><a href="glitch-art.html#cb101-72"></a>                        <span class="co">//Wait for it to load, should be okay because it was used to create the target ped</span></span>
+<span id="cb101-73"><a href="glitch-art.html#cb101-73"></a>                        <span class="kw">while</span> (!poshModel.<span class="fu">IsLoaded</span>)</span>
+<span id="cb101-74"><a href="glitch-art.html#cb101-74"></a>                        {</span>
+<span id="cb101-75"><a href="glitch-art.html#cb101-75"></a>                            <span class="fu">Wait</span>(<span class="dv">100</span>);</span>
+<span id="cb101-76"><a href="glitch-art.html#cb101-76"></a>                        }</span>
+<span id="cb101-77"><a href="glitch-art.html#cb101-77"></a></span>
+<span id="cb101-78"><a href="glitch-art.html#cb101-78"></a>                        <span class="co">//Change the player model to the target ped model</span></span>
+<span id="cb101-79"><a href="glitch-art.html#cb101-79"></a>                        Function.<span class="fu">Call</span>(Hash.<span class="fu">SET_PLAYER_MODEL</span>, Game.<span class="fu">Player</span>, poshHash);</span>
+<span id="cb101-80"><a href="glitch-art.html#cb101-80"></a></span>
+<span id="cb101-81"><a href="glitch-art.html#cb101-81"></a>                        <span class="co">//Let the game clean up the created Model</span></span>
+<span id="cb101-82"><a href="glitch-art.html#cb101-82"></a>                        poshModel.<span class="fu">MarkAsNoLongerNeeded</span>();</span>
+<span id="cb101-83"><a href="glitch-art.html#cb101-83"></a>                    }</span>
+<span id="cb101-84"><a href="glitch-art.html#cb101-84"></a>                    <span class="kw">else</span></span>
+<span id="cb101-85"><a href="glitch-art.html#cb101-85"></a>                    {</span>
+<span id="cb101-86"><a href="glitch-art.html#cb101-86"></a>                        <span class="co">//Falls to here if the model valid check fails</span></span>
+<span id="cb101-87"><a href="glitch-art.html#cb101-87"></a>                        Function.<span class="fu">Call</span>(Hash.<span class="fu">SET_PLAYER_MODEL</span>, Game.<span class="fu">Player</span>, (<span class="dt">int</span>)PedHash.<span class="fu">Tourist01AFY</span>);</span>
+<span id="cb101-88"><a href="glitch-art.html#cb101-88"></a>                    }</span>
+<span id="cb101-89"><a href="glitch-art.html#cb101-89"></a></span>
+<span id="cb101-90"><a href="glitch-art.html#cb101-90"></a>                    <span class="co">//Delete the target ped as it&#39;s no longer needed</span></span>
+<span id="cb101-91"><a href="glitch-art.html#cb101-91"></a>                    newPed.<span class="fu">Delete</span>();</span>
+<span id="cb101-92"><a href="glitch-art.html#cb101-92"></a>                    </span>
+<span id="cb101-93"><a href="glitch-art.html#cb101-93"></a></span>
+<span id="cb101-94"><a href="glitch-art.html#cb101-94"></a>                    <span class="co">// Set the switch outro based on the gameplay camera position</span></span>
+<span id="cb101-95"><a href="glitch-art.html#cb101-95"></a>                    <span class="co">// Function.Call((Hash)0xC208B673CE446B61, camPos.X, camPos.Y, camPos.Z, camRot.X, camRot.Y, camRot.Z, camFOV, camFarClip, p8);</span></span>
+<span id="cb101-96"><a href="glitch-art.html#cb101-96"></a></span>
+<span id="cb101-97"><a href="glitch-art.html#cb101-97"></a>                    Function.<span class="fu">Call</span>((Hash)<span class="bn">0xC208B673CE446B61</span>, GameplayCamera.<span class="fu">Position</span>.<span class="fu">X</span>, GameplayCamera.<span class="fu">Position</span>.<span class="fu">Y</span>, GameplayCamera.<span class="fu">Position</span>.<span class="fu">Z</span>, GameplayCamera.<span class="fu">Rotation</span>.<span class="fu">X</span>, GameplayCamera.<span class="fu">Rotation</span>.<span class="fu">Y</span>, GameplayCamera.<span class="fu">Rotation</span>.<span class="fu">Z</span>, GameplayCamera.<span class="fu">FieldOfView</span>, <span class="dv">500</span>, <span class="dv">2</span>);</span>
+<span id="cb101-98"><a href="glitch-art.html#cb101-98"></a></span>
+<span id="cb101-99"><a href="glitch-art.html#cb101-99"></a>                    <span class="co">//Call this unknown native that seems to finish things off</span></span>
+<span id="cb101-100"><a href="glitch-art.html#cb101-100"></a>                    Function.<span class="fu">Call</span>(Hash._<span class="bn">0x74DE2E8739086740</span>);</span>
+<span id="cb101-101"><a href="glitch-art.html#cb101-101"></a></span>
+<span id="cb101-102"><a href="glitch-art.html#cb101-102"></a>            <span class="co">//Make the character wander around autonomously</span></span>
+<span id="cb101-103"><a href="glitch-art.html#cb101-103"></a>                    Game.<span class="fu">Player</span>.<span class="fu">Character</span>.<span class="fu">Task</span>.<span class="fu">WanderAround</span>();</span>
+<span id="cb101-104"><a href="glitch-art.html#cb101-104"></a>                }</span>
+<span id="cb101-105"><a href="glitch-art.html#cb101-105"></a>            }</span>
+<span id="cb101-106"><a href="glitch-art.html#cb101-106"></a></span>
+<span id="cb101-107"><a href="glitch-art.html#cb101-107"></a>        }</span>
+<span id="cb101-108"><a href="glitch-art.html#cb101-108"></a></span>
+<span id="cb101-109"><a href="glitch-art.html#cb101-109"></a></span>
+<span id="cb101-110"><a href="glitch-art.html#cb101-110"></a>        <span class="kw">private</span> <span class="dt">void</span> <span class="fu">onKeyUp</span>(<span class="dt">object</span> sender, KeyEventArgs e)</span>
+<span id="cb101-111"><a href="glitch-art.html#cb101-111"></a>        {</span>
+<span id="cb101-112"><a href="glitch-art.html#cb101-112"></a></span>
+<span id="cb101-113"><a href="glitch-art.html#cb101-113"></a>        }</span>
+<span id="cb101-114"><a href="glitch-art.html#cb101-114"></a></span>
+<span id="cb101-115"><a href="glitch-art.html#cb101-115"></a>        <span class="kw">private</span> <span class="dt">void</span> <span class="fu">onKeyDown</span>(<span class="dt">object</span> sender, KeyEventArgs e)</span>
+<span id="cb101-116"><a href="glitch-art.html#cb101-116"></a>        {</span>
+<span id="cb101-117"><a href="glitch-art.html#cb101-117"></a>            <span class="kw">if</span> (e.<span class="fu">KeyCode</span> == Keys.<span class="fu">G</span>)</span>
+<span id="cb101-118"><a href="glitch-art.html#cb101-118"></a>            {</span>
+<span id="cb101-119"><a href="glitch-art.html#cb101-119"></a>        <span class="co">//Stop previous tasks</span></span>
+<span id="cb101-120"><a href="glitch-art.html#cb101-120"></a>                Game.<span class="fu">Player</span>.<span class="fu">Character</span>.<span class="fu">Task</span>.<span class="fu">ClearAll</span>();</span>
+<span id="cb101-121"><a href="glitch-art.html#cb101-121"></a></span>
+<span id="cb101-122"><a href="glitch-art.html#cb101-122"></a>                <span class="co">//Move the index to the next location</span></span>
+<span id="cb101-123"><a href="glitch-art.html#cb101-123"></a>                index++;</span>
+<span id="cb101-124"><a href="glitch-art.html#cb101-124"></a>                <span class="kw">if</span> (index &gt;= switchLocations.<span class="fu">Count</span>) index = <span class="dv">0</span>;</span>
+<span id="cb101-125"><a href="glitch-art.html#cb101-125"></a>                </span>
+<span id="cb101-126"><a href="glitch-art.html#cb101-126"></a>        <span class="co">//Move the index to the new ped model</span></span>
+<span id="cb101-127"><a href="glitch-art.html#cb101-127"></a>                modelIndex++;</span>
+<span id="cb101-128"><a href="glitch-art.html#cb101-128"></a>                <span class="kw">if</span> (modelIndex &gt;= models.<span class="fu">Count</span>) modelIndex = <span class="dv">0</span>;</span>
+<span id="cb101-129"><a href="glitch-art.html#cb101-129"></a></span>
+<span id="cb101-130"><a href="glitch-art.html#cb101-130"></a>                <span class="co">//Create the ped to switch to</span></span>
+<span id="cb101-131"><a href="glitch-art.html#cb101-131"></a>                newPed = World.<span class="fu">CreatePed</span>(models[modelIndex], switchLocations[index]);</span>
+<span id="cb101-132"><a href="glitch-art.html#cb101-132"></a></span>
+<span id="cb101-133"><a href="glitch-art.html#cb101-133"></a>                <span class="co">//Native function to initiate the switch Function.Call(Hash.START_PLAYER_SWITCH, fromPed.Handle, toPed.Handle, flags, switchType);</span></span>
+<span id="cb101-134"><a href="glitch-art.html#cb101-134"></a>                Function.<span class="fu">Call</span>(Hash.<span class="fu">START_PLAYER_SWITCH</span>, Game.<span class="fu">Player</span>.<span class="fu">Character</span>.<span class="fu">Handle</span>, newPed.<span class="fu">Handle</span>, <span class="dv">8</span>, <span class="dv">0</span>);</span>
+<span id="cb101-135"><a href="glitch-art.html#cb101-135"></a></span>
+<span id="cb101-136"><a href="glitch-art.html#cb101-136"></a>            }</span>
+<span id="cb101-137"><a href="glitch-art.html#cb101-137"></a>        }</span>
+<span id="cb101-138"><a href="glitch-art.html#cb101-138"></a>    }</span>
+<span id="cb101-139"><a href="glitch-art.html#cb101-139"></a>}</span></code></pre></div>
 </details>
 <p><img src="assets/scriptingGifs/satelliteViewSwitch.gif" style="display: block; margin: auto auto auto 0;" /></p>
 </div>
