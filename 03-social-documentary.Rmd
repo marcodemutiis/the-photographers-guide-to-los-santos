@@ -32,6 +32,8 @@ artwork text
 
 [More about _Down and Out in Los Santos_](http://www.alanbutler.info/down-and-out-in-los-santos-2016)
 
+[Interview with Alan Butler](https://www.gamescenes.org/2017/05/interview-alan-butler-.html)
+
 ### Getting There {-}
 
 ```{r fig.align='left', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html')}
